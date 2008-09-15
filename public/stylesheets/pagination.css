@@ -1,0 +1,10 @@
+.pagination{text-align:right;margin:10px 0;}
+.pagination a,.pagination span{border:1px solid #AAA;background:#FFF;padding:3px 6px;}
+.pagination span.disabled{color:#CCC;background:#FFF;border-color:#CCC;}
+.pagination span.current{background:#FFC;}
+.pagination a{text-decoration:none;}
+.pagination a:hover,.pagination a:focus{border-color:#AAA;background:#FFC;}
+.pagination .page_info{color:#aaa;padding-top:2px;}
+.pagination .prev_page,.pagination .next_page{}
+.pagination .prev_page{}
+.pagination .next_page{}

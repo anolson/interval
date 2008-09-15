@@ -1,0 +1,26 @@
+#graph_summary table{width:70%;background:#FFF;margin:0px auto;font-size:13px;text-align:left;}
+#graph_summary td{background:#CCC;width:20%;}
+#main_wrapper{float:left;width:70%;background-image:url(../images/divider.png);background-repeat:repeat-y;background-position:top right;}
+#main{float:left;width:100%;}
+#main h4{margin:5px;}
+#main p{margin:5px;}
+#main .details{float:left;width:100%;}
+#content{clear:both;margin:10px auto;padding-top:20px;padding-bottom:20px;text-align:left;background:#FFF;border-top:2px solid #BBB;border-bottom:2px solid #BBB;}
+.details ul{width:100%;padding:0;margin:0;}
+.details li{width:95%;margin:7px auto;list-style:none;background:#FFF;padding:5px;}
+#main .summary table, .list table{background:#FFF;margin:0px auto;width:100%;font-size:13px;text-align:left;}
+#main th{background:#DDD;font-weight:normal;text-align:left;font-size:14px;}
+#main .stats{margin:5px;text-align:right;}
+#main .notes{font-family:Monaco;margin:10px 5px;}
+#main .edit{float:left;margin:8px 0 0 8px;}
+#main .zoom{float:right;margin:5px 20px;}
+#main .plot{margin:10px auto;}
+#more{width:100%;float:left;}
+#more p{margin:15px;}
+.separator{margin:10px 0;border-bottom:2px solid #CCC;}
+.heading{background :#E5ECFF;border:1px solid #CCC;margin:10px auto;}
+.heading p{padding:0;margin:5px;float:left;}
+.heading span{margin:8px;float:right;}
+.highlight_box{background :#E5ECFF;border:2px solid #CCC;margin:0px auto;padding:5px;}
+.highlight_box a{margin:7px;}
+.highlight_box span{}

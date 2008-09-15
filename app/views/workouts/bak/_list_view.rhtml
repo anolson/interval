@@ -1,0 +1,27 @@
+<div id="list_view" class="list">
+    <% rounded_box nil, "complete", "full" do %>
+      <% container "full" do %>
+        <% unless (@workouts.size>0) %>
+          <% info_box do %>
+            <span class="larger">
+              You currently don't have any workouts.  
+              Get started by <%= link_to "adding", :controller => "workouts", :action => "new" %> a workout.
+            </span>
+            <% end %>
+        <% else %>
+          <table class="complete" border="0" cellspacing="0" cellpadding="5">
+              <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Power (W)</th>
+                <th colspan="2">Energy (kJ)</th>
+              </tr>
+              <%= render(:partial => 'row', :collection => @workouts)%> 
+            </table>
+            <br/>
+          <%= render :partial => 'common/pagination' %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </div>

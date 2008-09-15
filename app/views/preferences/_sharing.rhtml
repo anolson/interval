@@ -1,0 +1,9 @@
+      <fieldset>
+        <legend>Sharing</legend>
+        <%= check_box_tag 'preferences[enable_sharing]', 'true', @user.preferences["enable_sharing"].eql?('true') && true || false %>
+        Share my workouts.<br/><br/>
+        Others will be able to view your workouts at: <br/><br/>
+        <span class="larger">
+          <%= url_for :host => 'intervalapp.com', :controller => 'workouts', :user => @user.username %>
+        </span>
+      </fieldset>

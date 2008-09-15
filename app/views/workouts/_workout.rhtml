@@ -1,0 +1,48 @@
+          <li id="<%="workout_#{workout.id}"%>">
+            <% container "complete" do  %>
+              
+              <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
+                <%= link_to_workout(workout) %>
+              </div>
+              <% unless @sharing %> 
+                <div class="edit smaller">
+                  <%= render(:partial => 'workouts/edit_delete', :locals => {:id => workout.id} ) %>
+                </div>
+              <% end %>
+              <div class="clear"></div>
+              <div class="highlight_box">  
+                
+                <div class="left" style="width: 78%;">
+                  <div id="<%="workout_notes_#{workout.id}"%>" class="notes">
+                    <%= workout.notes.empty? && "Edit to add notes." || workout.notes %>
+                  </div>   
+                  <div style="margin: 5px">
+                    <span id="<%="workout_date_#{workout.id}"%>" class="small" style="color: #777">
+                      <%= nice_datetime(workout.performed_on) %>
+                    </span> 
+                    <span class="small">(added <%= time_ago_in_words(workout.created_at) %> ago).</span>
+                  </div>
+                </div>
+                  
+                <div class="smaller right" style="border-left: 2px solid #BBB; padding-left: 10px; float: right; width:20%">
+                  <table border="0" cellspacing="1" cellpadding="2" width="100%">
+                    <tr class="small" >
+                      <td style="color: #777">duration</td> 
+                      <td id="<%= "workout_duration_#{workout.id}" %>" ><%= nice_duration(workout.marker.duration) %></td>
+                    </tr>
+                    <tr class="small">
+                      <td style="color: #777">power</td> 
+                      <td><%= workout.marker.avg_power %> watts</td>
+                    </tr>
+                    <tr class="small">
+                      <td style="color: #777">energy</td> 
+                      <td><%= workout.marker.energy %> kJ</td>
+                    </tr>
+                  </table>
+                 </div>
+              <div class="clear"></div>
+              </div>
+
+            <% end %>
+
+          </li>

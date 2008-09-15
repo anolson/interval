@@ -1,0 +1,24 @@
+<tr class = "<%= cycle('even', 'odd', :name => 'class') -%>" >
+  <td>
+    <%= interval.comment.empty? && "#{(interval_counter + 1).to_s}." || interval.comment  %>
+  </td>
+  <td>
+    <%= nice_duration(interval.duration) %>
+  </td>
+  <td>
+    <%= interval.avg_power %>/<%= interval.max_power %>
+  </td>
+  <td>
+    <%= interval.energy %>
+  </td>
+  <td>
+    <%= format_speed_mph(interval.avg_speed) %>/<%= format_speed_mph(interval.max_speed) %>
+  </td>
+  <td>
+    <%= interval.avg_cadence %>/<%= interval.max_cadence %>
+  </td>
+  <td>
+    <%= interval.avg_heartrate %>/<%= interval.max_heartrate %>
+  </td>
+
+</tr>

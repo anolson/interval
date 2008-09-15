@@ -1,0 +1,21 @@
+    <% rounded_box nil, "complete", "wide" do %>
+      <div class="top">
+        Sort by
+      </div>
+      <% form_tag({}, {:id => 'sort_form'}) do %>
+        
+        <%= radio_button_tag 'sort_order', 'name', 
+          @sort_order.eql?('name') && true || false, 
+          {:disabled => (@workouts.empty? && 'disabled')} %> Name <br/>
+        
+        <%= radio_button_tag 'sort_order', 'performed_on', 
+          @sort_order.eql?('performed_on') && true || false, 
+          {:disabled => (@workouts.empty? && 'disabled')}  %> Date
+          
+        <%= hidden_field_tag 'page', @workouts.current_page %>
+        <%= hidden_field_tag 'view_type', @view_type %>
+      <% end %>
+      <%= observe_form('sort_form', :url => {:action => 'list'} ) %>
+    <% end %>
+
+  

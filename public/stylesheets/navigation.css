@@ -1,0 +1,9 @@
+#navigation{font-family:Verdana,Sans-Serif;float:right;margin:20px 40px 0 0;}
+#navigation li{float:left;display:block;list-style-type:none;margin:10px;}
+#navigation .current{border-bottom:2px solid #999;}
+#secondary{width:98%;margin:5px auto;background-color:#CDFFCC;font-size:13px;color:#333;}
+#secondary span{float:left;margin:8px;}
+#secondary ul{float:right;padding:5px 15px 5px 5px;margin:0;}
+#secondary li{float:left;list-style-type:none;margin:5px;}
+#more{width:100%;float:left;}
+#more p{margin:15px;}

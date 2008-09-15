@@ -1,0 +1,21 @@
+      <table border="0" cellspacing="0" cellpadding="3">
+        <tr><th colspan='2'>Totals</th></tr>
+        <% if @workout.has_training_files? %>
+        <tr>
+          <td align="right">Total Time :</td>
+          <td><%= nice_duration(Time.at(@workout.training_files.first.data_values.last.relative_time).utc) %></td>
+        </tr>
+        <% end %>
+        <tr class="odd">
+          <td align="right">Ride Time :</td>
+          <td id=<%="workout_duration_#{@workout.id.to_s}"%> ><%= nice_duration(@workout.marker.duration) %></td>
+        </tr>
+        <tr>
+          <td align="right">Distance :</td>
+          <td><%= format_distance_in_miles(@workout.marker.distance) %> miles </td>
+        </tr>
+        <tr class="odd">
+          <td align="right">Energy :</td>
+          <td><%= @workout.marker.energy %> kJ</td>
+        </tr>
+      </table>

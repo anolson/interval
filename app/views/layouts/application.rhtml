@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Interval</title>
+    <%= stylesheet_link_tag 'style' %>
+     <%= javascript_include_tag 'prototype' %>
+  </head>
+  <body>
+    <span id="title">
+     <%= link_to image_tag("interval.png"),  '/'  %>
+    </span>
+    <%= render(:partial => 'common/navigation') %>
+    
+    <div id="content">
+      <div class="container full">
+        <% if @primary_heading %>
+          <div id="sub">
+            <%= @primary_heading %>
+            <div class="clear"></div>
+          </div>
+        <% end %>
+        <div id="main">
+          <%= @content_for_layout  %>
+        </div>
+      </div>
+      <div class="clear"></div> 
+    </div>
+  </body>
+</html>

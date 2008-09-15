@@ -1,0 +1,10 @@
+      <fieldset>
+        <legend>Interface</legend>
+        <h4>Sort workouts by</h4>
+        <%= radio_button_tag 'preferences[sort_order]',
+                 'name', 
+                  @user.preferences["sort_order"].eql?('name') && true || false %> Name <br/>
+        <%= radio_button_tag 'preferences[sort_order]', 
+                 'performed_on', 
+                  @user.preferences["sort_order"].eql?('performed_on') && true || false %>  Date <br/>
+      </fieldset>

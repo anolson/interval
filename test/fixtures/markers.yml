@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+marker_for_recovery:
+  id: 1
+  duration_seconds: <%= 1.hour %>
+  workout_id: 1
+marker_for_one_week_ago_raceride:
+  id: 2
+  duration_seconds: <%= 2.hour %>
+  workout_id: 2

@@ -1,0 +1,12 @@
+<div class="comment full">
+  <div class="edit">
+    <%= link_to "Edit", :controller => "comments", :action => "edit", :class => "smaller" %>
+    <%= link_to "Del", :controller => "comments", :action => "delete", :class => "smaller" %>
+  </div>
+  <p>
+    <em><%= link_to comment.user_id, :controller => "users", :action => "index" %> said:</em>
+  </p>
+  <p>
+    <%= comment.body %>
+  </p>
+</div>

@@ -1,0 +1,37 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+recovery:
+  id: 1
+  name: "RR"
+  performed_on: <%= Time.now %>
+  notes: "RR on the bike path."
+  user_id: 1
+  permalink: "rr"
+  
+pr:
+  name: "Paris Roubaix"
+  performed_on: <%= Time.now %>
+  notes: "RR on the bike path."
+  user_id: 2
+  permalink: "paris_roubaix"
+  
+one_week_ago_endurance:
+  name: "Endurance Miles"
+  performed_on: "5/5/08 1:00"
+  notes: "Big Miles."
+  user_id: 2
+  permalink: "endurance_miles"
+
+one_week_ago_recovery:
+  name: "recovery ride"
+  performed_on: "5/7/08 4:00"
+  notes: "Easy Ride."
+  user_id: 2
+  permalink: "recovery_ride"
+  
+one_week_ago_raceride:
+  id: 2
+  name: "race ride"
+  performed_on: "5/8/08 4:00"
+  notes: "Hard Ride."
+  user_id: 1
+  permalink: "race_ride"

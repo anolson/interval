@@ -1,0 +1,36 @@
+<% @primary_heading = link_to content_tag(:h1, (@sharing ? (@user.preferences['display_name'] + "'s ") : "") + "Workouts"), :action => "index" %>
+<% @secondary_heading = content_tag :span, 'Listing workouts', :class => "larger" %>
+
+<div id="main_wrapper">
+  <div id="main">   
+    <% if @workouts.size > 0 then %>
+      <%= render :partial => 'workouts/workouts' %>
+    <% else %>
+    <% info_box do %>
+      <span class="larger">
+        <% if @sharing %>
+          This user does not have any shared workouts.
+        <% else %>
+          You currently don't have any workouts.  
+          Get started by <%= link_to "adding", :controller => "workouts", :action => "new" %> a workout.
+        <% end %>
+      </span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<% sidebar_div_tag do %>
+  <% unless @sharing %>
+    <% rounded_box nil, "complete", "wide" do %>
+      <div class="container full larger">
+        <%= image_tag 'add.png', :style => 'float:left' %>
+        <div style='float:left; margin:2px'> 
+          <%= link_to "Add", :controller => "workouts", :action => "new" %> or
+          <%= link_to "upload", :controller => "workouts", :action => "upload" %> a workout.
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <%= render :partial => 'workouts/sort_by'%>
+  <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+<% end %>

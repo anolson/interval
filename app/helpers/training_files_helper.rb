@@ -1,0 +1,2 @@
+module TrainingFilesHelper
+end

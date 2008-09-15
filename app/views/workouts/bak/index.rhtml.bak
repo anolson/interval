@@ -1,0 +1,34 @@
+<% @main_heading="Workouts" %>
+<% @primary_heading = link_to content_tag(:h1, "Workouts"), :action => "index" %>
+<% @secondary_heading = content_tag :span, 'All Workouts', :class => "larger" %>
+<% @secondary_links = [
+  { :text => 'List View', :options => { :action => 'index' } }, 
+  { :text => 'Detailed View', :options => {:action => 'details' } } ] %>
+
+<div id="main_wrapper">
+  <div id="main">
+    <%= render :partial => 'list_view' %>
+    <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+  </div>
+</div>
+<% sidebar_div_tag do %>
+  <% rounded_box nil, "complete", "wide" do %>
+
+      <div class="container full larger">
+      <%= image_tag 'add.png', :style => 'float:left' %>
+      <div style='float:left; margin:2px'> 
+        <%= link_to "Add", :controller => "workouts", :action => "new" %> or
+        <%= link_to "upload", :controller => "items", :action => "index" %> a workout.
+      </div>
+
+  </div>
+      
+  <% end %>
+  <%= render :partial => 'sort_by'%>
+<% end %>
+
+
+
+
+
+

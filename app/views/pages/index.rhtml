@@ -1,0 +1,15 @@
+<div class="container half">
+  <span class="intro">
+    Interval is a new way to view, track, and share your workouts.  
+  </span>
+  <br/><br/>
+  <% info_box do %>
+    <span class="larger">
+      <%= link_to "Sign Up for Free", :controller => "user", :action => "signup" %> and discover what you can do.
+    </span>
+    <span class="smaller">
+      (Sign-up only takes 30 seconds) Already have an account?
+      <%= link_to "Sign In", :controller => "user", :action => "signin" %>
+    </span>
+  <% end %>
+</div>

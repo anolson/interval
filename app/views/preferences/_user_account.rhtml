@@ -1,0 +1,16 @@
+      <fieldset>
+        <legend>User Account</legend>
+        <label for="username">Username:</label><br/>
+        <%= text_field "user", "username", :disabled => true %><br/><br/>
+
+        <label for="password">Password:</label><br/>
+        <%= password_field_tag "password", "********", :size => 30, :disabled => true %>
+        <%= link_to("Change password", {:controller => "user", :action => "change_password"}, {:class => 'smaller'}) %><br/><br/>
+
+        <label for="email">Email:</label><br/>
+        <%= text_field "user", "email", :size => 30 %>
+        <%= link_to("Privacy policy", {:controller => "pages", :action => "privacy_policy"}, {:class => 'smaller'}) %><br/><br/>
+
+        <label for="display_name">Display Name:</label><br/>
+        <%= text_field_tag "preferences[display_name]", @user.preferences[:display_name], :size => 30 %><br/>
+      </fieldset>

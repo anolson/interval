@@ -1,0 +1,6 @@
+<tr <%= if period_counter.odd? then "class=even" end %>>
+  <td align="right"><%= period_in_words period[:type], period[:period] %></td> 
+  <td><%= nice_duration(period[:duration]) %></td>  
+  <td><%= format_distance_in_miles(period[:distance]) %> Miles</td>
+  <td><%= period[:energy] %> kJ</td>
+</tr>

@@ -1,0 +1,49 @@
+@import url("header.css");@import url("navigation.css");@import url("sidebar.css");@import url("round_box.css");@import url("content.css");@import url("main.css");@import url("comments.css");@import url("pagination.css");@import url("lightbox.css");
+body {
+	font-family:"Lucida Grande",Verdana,Sans-Serif; 
+	font-size:13px; 
+	color:#333; 
+	text-align:center;
+	margin:0;
+	padding:0;
+	background:#EEE;
+	background-image:url(../images/body.png);
+	background-repeat:repeat-x;
+	background-position:top right;
+}
+
+p{margin:5px 5px 5px 10px;}
+a{color:#1181C3;color:#39F;text-decoration:none;}
+a:hover{color:#333;}
+img{border:0px none;}
+input,textarea,select{
+	padding:2px;
+	border:1px 
+	solid #AAA;
+	font-family:
+	Verdana,Sans-Serif;
+	font-size:13px;
+}
+h2{margin:10px auto;font-family:Helvetica;width:95%;}
+.container{margin:0px auto;}
+.footer{float:left;padding:10px 0 10px 0;margin:50px 0 0 0;width:960px;text-align:left;background:#DDD;}
+.odd{background:#E8EDFF;}
+.inline{display:inline;}
+.large{font-size:14px;}
+.larger{font-size:16px;}
+.huge{font-size:20px;}
+.intro{font-size:35px;}
+.center{text-align:center;}
+.small{font-size:12px;}
+.smaller{font-size:11px;}
+.blue_border{border:1px solid #36F;}
+.complete{width:100%;}
+.full{width:95%;}
+.wide{width:90%;}
+.half{width:50%;}
+.clear{clear:both;}
+.left{float:left;}
+.right{float:right;}
+.fieldWithErrors{display:table;border:2px solid red;}
+fieldset{border:2px solid #BBB;margin-bottom:20px;}
+fieldset legend{font-size:18px;}

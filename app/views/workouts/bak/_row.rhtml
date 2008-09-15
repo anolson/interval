@@ -1,0 +1,20 @@
+<tr id = "<%="workout_#{row.id.to_s}" -%>" class = "<%= cycle('even', 'odd', :name => 'class') -%>">
+  <td id=<%="workout_name_#{row.id.to_s}"%> >  
+    <%= link_to_show_workout row %>
+  </td>
+  <td id=<%="workout_date_#{row.id.to_s}"%> >
+    <%= nice_date_short(row.performed_on) %>
+  </td>
+  <td id=<%="workout_duration_#{row.id.to_s}"%> >
+    <%= nice_duration(row.marker.duration) %>
+  </td>
+  <td >
+    <%= row.marker.avg_power.nil? && "--" || row.marker.avg_power %>
+  </td>
+  <td >
+    <%= row.marker.energy.nil? && "--" || row.marker.energy %>
+  </td>
+  <td class="smaller">
+    <%= render(:partial => 'edit_delete', :locals => {:id => row.id} ) %>
+  </td>
+</tr>

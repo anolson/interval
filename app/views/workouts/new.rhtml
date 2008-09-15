@@ -1,0 +1,53 @@
+<% @primary_heading = link_to content_tag(:h1, "Workouts"), :action => "index" %>
+<% @secondary_heading = content_tag :span, "Add a new workout.", :class => "larger" %>
+
+<% @secondary_links = [
+  { :text => 'Upload Workout', :options => {:action => 'upload' } }, 
+  { :text => 'Add Workout', :options => {:action => 'new' } } ] %>
+
+<div id="main">
+  <% rounded_box "Add workout", "half", "full" do %>  
+    <% container "full" do %>  
+      <% form_tag :action => 'create' do %>
+        <label for="name">Name:</label><br/>
+        <%= text_field :workout, :name %><br/><br/>
+
+        <label for="performed_on">Performed on:</label><br/>
+        <%= datetime_select "workout", "performed_on", :order => [:month, :day, :year], :twelve_hour => true %> <br/><br/>
+        
+         <label for="duration">Duration:</label><br/>
+        <%= select_time( 1, {:minute_step => 5, :time_separator => ': ', :prefix => 'marker'})%> <br/><br/>
+      
+        <label for="notes">Notes:</label><br/>
+        <%= text_area "workout", "notes", :rows => 2%><br/><br/>
+
+        <%= submit_tag "Create", :class => 'blue_border' %>
+      <% end %>
+      <%= set_focus_for('workout_name') %>
+    <% end %>
+  <% end %>
+  
+  <div style="float:left; margin-top: 10px;" class="half">
+    <p class=larger>Add a workout that you did without a powermeter.  Specify a name, the date, the duration, and optionally some notes about the workout.  Workouts added this way don't have all the features of an uploaded workout.</p>
+       <br/>
+       <p>After the you add the workout, you will be able to:</p>
+       <ul>
+        <li>View simple workout data.</li>
+        <li>Share you workout with others.</li>
+        <li>Track the progress of your training.</li>
+       </ul>
+       
+  </div>
+  
+  <p style="text-align: center; color: green"><%= flash[:error] %></p>
+  <%= error_messages_for 'workout' %>
+</div>
+
+<%= render :partial => 'common/back' %>
+
+
+
+
+
+
+

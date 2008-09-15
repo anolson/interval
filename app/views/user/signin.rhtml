@@ -1,0 +1,22 @@
+<% @heading_text ='Sign In'%>
+
+<div class="container half">
+  <% rounded_box @heading_text, "complete", "wide" do %>
+    <% container "full" do %>
+      
+      <% form_tag :action => 'signin' do %>
+        <label for="username">Username:</label><br/>
+        <%= text_field "user", "username" %><br/><br/>
+
+        <label for="password">Password:</label><br/>
+        <%= password_field "user", "password" %><br/><br/>
+
+        <%= submit_tag "Sign In", :class => 'blue_border' %>
+      <% end %>
+      <%= set_focus_for('user_username') %>
+      
+    <% end %>
+  <% end %>
+  <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+</div>
+

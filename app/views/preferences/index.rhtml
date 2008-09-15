@@ -1,0 +1,24 @@
+<% @primary_heading= link_to content_tag(:h1, "User Preferences"), :action => "index" %>
+
+<div id="main">
+  <% rounded_box nil, "complete", "half" do %>
+    <% container "full" do %>
+      <% form_tag do %>
+        <%= render :partial => 'user_account' %>
+
+        <%= render :partial => 'interface' %>
+
+        <%= render :partial => 'file_upload' %>
+
+        <%= render :partial => 'sharing' %>
+
+      <%= submit_tag "Save", :class => 'blue_border' %>
+      <%= set_focus_for('user_username') %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+
+
+

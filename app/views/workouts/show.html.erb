@@ -1,0 +1,86 @@
+<% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
+<% @editable = @sharing ? false : true %>
+<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date_#{@workout.id}" %>
+<% @secondary_links = [
+  { :text => 'Summary', :options => {:action => 'show' } }, 
+  { :text => 'Graph', :options => {:action => 'graph', :id => @workout.id } } ] %>
+  
+<div id="main_wrapper">
+  <div id="main">
+    <div class="list">
+      <% rounded_box nil, "complete", "full" do %> 
+        <div class="container full">
+        <fieldset>
+          <legend class=larger>Notes</legend>  
+          <div id="notes" class="notes">
+            <%= @workout.notes.empty? && "Edit to add notes." || @workout.notes %> 
+          </div>
+        </fieldset>
+        <% if @workout.has_training_files? then %>
+          <fieldset>
+            <legend class="larger">Files</legend>
+              <ul>
+                <%= render :partial => 'workouts/file', :collection => @workout.training_files %>
+              </ul>
+          </fieldset>
+          <% if (@workout.training_files.first.markers.count > 0) then %>
+
+            <fieldset>
+             <legend>Intervals</legend>
+              <table border="0" cellspacing="0" cellpadding="5">
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>Duration</th>
+                  <th>Power (watts)</th>
+                  <th>Energy (kJ)</th>
+                  <th>Speed (mph)</th>
+                  <th>Cadence</th>
+                  <th>Heartrate</th>
+                </tr>
+                <%= render :partial => 'workouts/interval', :collection => @workout.training_files.first.markers %>
+              </table>
+              </fieldset>
+           <% end %>
+        <% else %>
+          <fieldset>
+            <legend class="larger">Files</legend>
+              <% info_box do %>
+                <span>
+                  This workout does not have any files. 
+                  <%= link_to "Add", :action => "attach" %> a file to this workout.
+                </span>
+              <% end %>
+          </fieldset>
+        <% end %>
+
+          <div id="comments">
+            <fieldset>
+              <legend>Comments</legend>
+              <% if @workout.comments.count > 0 %>
+                <%= render :partial => 'comment', :collection => @workout.comments %>
+              <% end %>
+              <div class='notes'>Leave a comment.</div>
+            </fieldset>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+    <%= render :partial => 'common/back' %>
+
+  </div>
+</div>
+<% sidebar_div_tag do %>
+  <% rounded_box nil, "complete", "wide" do %>
+    <div class="top">Workout Details</div>
+    <% container "full" do %>
+      <%= render :partial => 'workouts/totals' %>
+      <br/>
+      <%= render :partial => 'workouts/averages' %>
+    <% end %>
+  <% end %>
+  <% if @workout.has_training_files? %>
+    <%= render :partial => 'workouts/device_properties'  if @workout.training_files.first.file_type.eql?("srm")%>
+  <% end %>
+<% end %>
+

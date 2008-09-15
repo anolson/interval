@@ -1,0 +1,28 @@
+<% @heading_text ='Sign Up'%>
+
+  <div class="container half">
+    <% rounded_box @heading_text, "complete", "wide" do %>
+      <% container "full" do %>
+      
+        <% form_tag :action => 'signup' do %>
+            <label for="username">Username:</label><br/>
+            <%= text_field "user", "username" %><br/><br/>
+
+            <label for="username">Email:</label><br/>
+             <%= text_field "user", "email" %>
+             <%= link_to("Privacy policy", {:controller => "pages", :action => "privacy_policy"}, {:class => 'smaller'}) %><br/><br/>
+
+            <label for="password">Password:</label><br/>
+            <%= password_field "user", "password" %><br/><br/>
+
+            <label for="password_confirmation">Password confirm:</label><br/>
+            <%= password_field "user", "password_confirmation" %><br/><br>
+
+            <%= submit_tag "Sign Up", :class => 'blue_border' %>
+        <% end %>
+        <%= set_focus_for('user_username') %>
+
+      <% end %>
+    <% end %>
+    <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+  </div>
