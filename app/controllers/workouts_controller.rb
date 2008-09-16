@@ -42,7 +42,7 @@ class WorkoutsController < ApplicationController
   
   def update
     @workout.update_attributes(params[:workout])
-    @workout.marker.dura = params[:marker]
+    @workout.marker.duration = params[:marker]
     @workout.marker.save!
   end
   
