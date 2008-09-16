@@ -20,7 +20,7 @@ class WorkoutsController < ApplicationController
   end
   
   def create
-    @workout = Workout.new(params[:workout])   
+    @workout = Workout.new({}, params[:workout])   
     @workout.marker = Marker.create(params[:marker])
     @workout.user = User.find(session[:user])
     
@@ -42,7 +42,7 @@ class WorkoutsController < ApplicationController
   
   def update
     @workout.update_attributes(params[:workout])
-    @workout.marker.dura = params[:marker]
+    @workout.marker.duration = params[:marker]
     @workout.marker.save!
   end
   

@@ -16,8 +16,8 @@
         <%= datetime_select "workout", "performed_on", :order => [:month, :day, :year], :twelve_hour => true %> <br/><br/>
         
          <label for="duration">Duration:</label><br/>
-        <%= select_time(Time.mktime(0, 1, 1, 1, 0), {:minute_step => 5, :time_separator => ': ', :prefix => 'marker'})%> <br/><br/>
-      
+        <%= select_time(1, {:minute_step => 5, :time_separator => ': ', :prefix => 'marker'})%> <br/><br/>
+              
         <label for="notes">Notes:</label><br/>
         <%= text_area "workout", "notes", :rows => 2%><br/><br/>
 
