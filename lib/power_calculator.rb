@@ -1,7 +1,7 @@
 class Array
-  def sum
-    inject{|sum, value| sum + value}
-  end
+  #def sum
+  #  inject{|sum, value| sum + value}
+  #end
   
   def maximum
     inject {|max, value| value>max ? value : max}
