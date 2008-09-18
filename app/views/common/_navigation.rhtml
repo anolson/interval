@@ -2,9 +2,9 @@
       <ul class="primary">
         
         <% unless session[:user] %>
-        <%= navigation_item_for_controller 'Home', {:controller => 'pages'}%>
+        <%= navigation_item 'Home', {:controller => 'pages'}%>
+        <%= navigation_item 'Pricing and Sign Up',  {:controller => 'user', :action => 'signup'}%>
         <%= navigation_item 'Sign In', {:controller => 'user', :action => 'signin'}%>
-        <%= navigation_item 'Sign Up',  {:controller => 'user', :action => 'signup'}%>
         <% else %>
         <%= navigation_item_for_controller 'Home', {:controller => 'pages'}%>
         <%= navigation_item_for_controller 'Workouts',  {:controller => 'workouts'}%>
