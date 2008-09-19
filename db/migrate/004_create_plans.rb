@@ -5,7 +5,7 @@ class CreatePlans < ActiveRecord::Migration
       t.column :name,           :string
       t.column :description,    :text
       t.column :workout_limit,  :integer 
-      t.column :price,          :double
+      t.column :price,          :float
       t.column :enabled,        :boolean
       t.timestamps
     end
