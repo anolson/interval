@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 3) do
+ActiveRecord::Schema.define(:version => 4) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(:version => 3) do
     t.integer "workout_id"
   end
 
+  create_table "plans", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "workout_limit"
+    t.float    "price"
+    t.boolean  "enabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "training_files", :force => true do |t|
     t.datetime "created_at"
     t.string   "filename"
@@ -68,6 +78,7 @@ ActiveRecord::Schema.define(:version => 3) do
     t.string   "username"
     t.text     "preferences"
     t.text     "email"
+    t.integer  "plan_id"
   end
 
   create_table "workouts", :force => true do |t|

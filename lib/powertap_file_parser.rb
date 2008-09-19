@@ -6,7 +6,7 @@ require 'training_file'
 require 'marker'
 require 'data_value'
 
-require 'CSV'
+require 'csv'
 
 class PowertapParser
   #HEADER_SIZE=86

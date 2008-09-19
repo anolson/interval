@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
     "sort_order" => "name" }
   
   has_many :workouts
+  belongs_to :plan
   serialize :preferences, Hash
+  
     
   attr_accessor :password, :old_password
   
