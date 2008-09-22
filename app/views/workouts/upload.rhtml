@@ -19,9 +19,9 @@
         <%= datetime_select "workout", "performed_on", :order => [:month, :day, :year], :twelve_hour => true %> <br/><br/>
         
         <label for="notes">Notes:</label><br/>
-        <%= text_area "workout", "notes", :rows => 2 %><br/><br/>
+        <%= text_area "workout", "notes", :rows => 3 %><br/><br/>
 
-        <%= submit_tag "Upload", :disable_with => "Uploading...", :class => 'blue_border' %>
+        <%= submit_tag "Upload", :disable_with => "Uploading..."%>
       <% end %>
     <% end %>
   <% end %>  

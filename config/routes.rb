@@ -29,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user',
     :action => 'signout'
   
-  map.connect '', :controller => 'pages' 
+  map.connect '', :controller => 'site' 
     
     
   # map.connect 'shared/:user',

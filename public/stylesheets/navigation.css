@@ -5,5 +5,7 @@
 #secondary span{float:left;margin:8px;}
 #secondary ul{float:right;padding:5px 15px 5px 5px;margin:0;}
 #secondary li{float:left;list-style-type:none;margin:5px;}
+#footer ul{float:left;padding:5px 5px 5px 15px;margin:0;}
+#footer li{float:left;list-style-type:none;margin:2px;}
 #more{width:100%;float:left;}
 #more p{margin:15px;}

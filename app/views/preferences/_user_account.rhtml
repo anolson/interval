@@ -9,7 +9,7 @@
 
         <label for="email">Email:</label><br/>
         <%= text_field "user", "email", :size => 30 %>
-        <%= link_to("Privacy policy", {:controller => "pages", :action => "privacy_policy"}, {:class => 'smaller'}) %><br/><br/>
+        <%= link_to("Privacy policy", {:controller => "site", :action => "privacy_policy"}, {:class => 'smaller'}) %><br/><br/>
 
         <label for="display_name">Display Name:</label><br/>
         <%= text_field_tag "preferences[display_name]", @user.preferences[:display_name], :size => 30 %><br/>
