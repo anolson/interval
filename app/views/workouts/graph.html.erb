@@ -11,25 +11,32 @@
       <a href="#" id='zoom_reset' class='smaller' onClick="return false;">Zoom Out</a>
     </div>
     <% container "full" do %>
-      <div class="smaller"><p>Click and drag to zoom in on more detail.</p></div>
-      <div id="plot" class="plot" style="height:400px;">Loading graph...</div>
       
-      <div id ="graph_summary">      
+      <div id="plot" class="plot" style="height:400px;">
+        
+        <div id="loader" style="padding-top: 150px; text-align:center">
+        <%= image_tag("loader.gif") %><br/>
+        Loading graph.</div>
+      </div>
+        <div id="graph_summary">      
         <table border="0" cellspacing="0" cellpadding="1">
             <tr>
               <td>Time : <span id="selected_time">00:00:00</span></td>
               <td>Power : <span id="selected_power">0</span> W</td>
-              <td>Speed : <span id="selected_speed">0</span> mph</td>
+              <!--<td>Speed : <span id="selected_speed">0</span> mph</td>
               <td>Cadence : <span id="selected_cadence">0</span> rpm</td>
-              <td>Heartrate : <span id="selected_heartrate">0</span> bpm</td>
+              <td>Heartrate : <span id="selected_heartrate">0</span> bpm</td> -->
             </tr>
           </table>
         
         </div>
+        <div class="smaller right">Note: Click and drag to see in on more detail.</div>
           
     <% end %>
   <% end %>
+  
   <%= render :partial => 'common/back' %>
+  
 </div>
 
 <script type="text/javascript">
@@ -134,9 +141,9 @@
 	$('plot').observe('mouseout', function(event){
     $('selected_time').innerHTML = '00:00:00' 
     $('selected_power').innerHTML = '0' 
-    $('selected_speed').innerHTML = '0' 
-    $('selected_cadence').innerHTML = '0' 
-    $('selected_heartrate').innerHTML = '0' 
+    //$('selected_speed').innerHTML = '0' 
+    //$('selected_cadence').innerHTML = '0' 
+    //$('selected_heartrate').innerHTML = '0' 
 
 	});
 	
