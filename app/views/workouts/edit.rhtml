@@ -13,15 +13,15 @@
       <label for="notes">Notes:</label><br/>
       <%= text_area :workout, :notes, :rows => 2%><br/><br/>
 
-      <%= submit_tag "Update", :class => 'blue_border' %>
+      <%= submit_tag "Update" %>
     <% end %>
     <%= set_focus_for('workout_name') %>
   <% end %>
 
 <% end %>
 
-<div class="edit">
-  <%= link_to "close", {:action => "#"}, {:class=>"lbAction", :rel =>"deactivate"} %>
+<div class="close">
+  <%= link_to "Close", {:action => "#"}, {:class=>"lbAction", :rel =>"deactivate"} %>
 </div>
 
 
