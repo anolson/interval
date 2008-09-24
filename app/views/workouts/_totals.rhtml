@@ -8,14 +8,14 @@
         <% end %>
         <tr class="odd">
           <td align="right">Ride Time :</td>
-          <td id=<%="workout_duration_#{@workout.id.to_s}"%> ><%= nice_duration(@workout.marker.duration) %></td>
+          <td id=<%="workout_duration_#{@workout.id.to_s}"%> ><%= nice_duration(@workout.markers.first.duration) %></td>
         </tr>
         <tr>
           <td align="right">Distance :</td>
-          <td><%= format_distance_in_miles(@workout.marker.distance) %> miles </td>
+          <td><%= format_distance_in_miles(@workout.markers.first.distance) %> miles </td>
         </tr>
         <tr class="odd">
           <td align="right">Energy :</td>
-          <td><%= @workout.marker.energy %> kJ</td>
+          <td><%= @workout.markers.first.energy %> kJ</td>
         </tr>
       </table>

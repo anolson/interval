@@ -6,13 +6,15 @@ class TrainingFile < ActiveRecord::Base
   
   serialize :powermeter_properties
   belongs_to :workout
-  has_many :markers,  :dependent => :destroy
+  #has_many :markers,  :dependent => :destroy
   has_many :data_values,  :dependent => :destroy
   
-  attr_accessor :workout_marker
+  attr_accessor :markers
   
   def initialize(params = {})
     super(params)
+    #self.markers = Array.new
+    #raise self.markers.type
     parse_file_data
     self
   end
@@ -49,9 +51,8 @@ class TrainingFile < ActiveRecord::Base
       end
       file_parser.parse_training_file(self.payload)
       self.powermeter_properties=file_parser.properties
-      self.workout_marker = file_parser.markers.first
-      self.markers.push(file_parser.markers[1..-1])
       self.data_values.push(file_parser.data_values)
+      @markers = file_parser.markers
     end
     
 end

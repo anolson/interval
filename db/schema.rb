@@ -44,10 +44,9 @@ ActiveRecord::Schema.define(:version => 4) do
     t.integer "energy",           :default => 0
     t.integer "max_cadence",      :default => 0
     t.integer "max_heartrate",    :default => 0
-    t.integer "max_power"
+    t.integer "max_power",        :default => 0
     t.float   "max_speed",        :default => 0.0
     t.integer "start"
-    t.integer "training_file_id"
     t.integer "workout_id"
   end
 

@@ -20,15 +20,15 @@ class WorkoutsController < ApplicationController
   end
   
   def create
-    @workout = Workout.new({}, params[:workout])   
-    @workout.marker = Marker.create(params[:marker])
+    @workout = Workout.new(params[:workout], {}, {})   
+    @workout.markers << Marker.create(params[:marker])
     @workout.user = User.find(session[:user])
     
     if @workout.save!
       redirect_to(:action => 'index')
     end
-  rescue
-    render(:action => 'new')
+  # rescue
+  #   render(:action => 'new')
   end
 
   def delete
@@ -42,8 +42,8 @@ class WorkoutsController < ApplicationController
   
   def update
     @workout.update_attributes(params[:workout])
-    @workout.marker.duration = params[:marker]
-    @workout.marker.save!
+    @workout.markers.first.duration = params[:marker]
+    @workout.save!
   end
   
   
@@ -65,7 +65,7 @@ class WorkoutsController < ApplicationController
   
   def upload_file
     user = User.find(session[:user])
-    @workout = Workout.new(user.preferences, params[:workout], params[:training_file])
+    @workout = Workout.new(params[:workout], params[:training_file], user.preferences)
     @workout.user = user
     
     if @workout.save!
@@ -74,7 +74,7 @@ class WorkoutsController < ApplicationController
       render(:action => 'upload')
     end
   rescue
-    render(:action => 'upload')
+   render(:action => 'upload')
   end
   
   

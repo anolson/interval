@@ -23,7 +23,7 @@ class InitialSchema < ActiveRecord::Migration
       table.column :user_id, :integer
     end
     
-    foreign_key(:workouts, :user_id, :users)
+    #foreign_key(:workouts, :user_id, :users)
     
     create_table :comments do |table|
       table.column :body,       :text
@@ -32,7 +32,7 @@ class InitialSchema < ActiveRecord::Migration
       table.column :workout_id,    :integer
     end
     
-    foreign_key(:comments, :workout_id, :workouts)
+    #foreign_key(:comments, :workout_id, :workouts)
     
     create_table :training_files do |table|
       table.column :created_at, :datetime 
@@ -42,7 +42,7 @@ class InitialSchema < ActiveRecord::Migration
       table.column :workout_id, :integer
     end
     
-    foreign_key(:training_files, :workout_id, :workouts)
+    #foreign_key(:training_files, :workout_id, :workouts)
     
     create_table :data_values do |table|
       table.column :training_file_id, :integer
@@ -55,7 +55,7 @@ class InitialSchema < ActiveRecord::Migration
       table.column :distance, :float
     end
     
-    foreign_key(:data_values, :training_file_id, :training_files)    
+    #foreign_key(:data_values, :training_file_id, :training_files)    
     add_index(:data_values, :training_file_id)
       
     create_table :markers do |table|
@@ -71,15 +71,13 @@ class InitialSchema < ActiveRecord::Migration
       table.column :energy, :integer , :default => 0
       table.column :max_cadence, :integer, :default => 0
       table.column :max_heartrate, :integer, :default => 0
-      table.column :max_power, :integer
+      table.column :max_power, :integer, :default => 0
       table.column :max_speed, :float, :default => 0
       table.column :start, :integer      
-      table.column :training_file_id, :integer
       table.column :workout_id, :integer
     end
     
-    foreign_key(:markers, :training_file_id, :training_files)
-    foreign_key(:markers, :workout_id, :workouts)
+    #foreign_key(:markers, :workout_id, :workouts)
   
   end
   

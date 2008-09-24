@@ -5,33 +5,34 @@ class Workout < ActiveRecord::Base
   belongs_to :user
   has_many :training_files, :dependent => :destroy 
   has_many :comments
-  has_one :marker,  :dependent => :destroy 
+  has_many :markers,  :dependent => :destroy 
   #has_and_belongs_to_many :tags
   
   validates_presence_of :name
   
-  def validate_on_create
-    errors.add("name", "must be unique for given day.")  if Workout.find_by_permalink(self.permalink, self.user.id, self.performed_on.year, self.performed_on.month, self.performed_on.day)
-  end
+  #def validate_on_create
+  #  errors.add("name", "must be unique for given day.")  if Workout.find_by_permalink(self.permalink, self.user.id, self.performed_on.year, self.performed_on.month, self.performed_on.day)
+  # end
   
-  def initialize(prefs = {}, workout = {}, training_file = {})
+  def initialize(workout={}, file_options={}, user_options={})
     super(workout)
     self.permalink = workout[:name] || ""
-    unless training_file.blank? then
-      training_file = TrainingFile.create(training_file)
+    unless file_options.blank?
+      training_file = TrainingFile.create(file_options)
+      self.training_files << training_file
+      self.markers << training_file.markers
       
+    
       if training_file.is_srm_file_type?
         self.performed_on =  training_file.performed_on 
-        if prefs['parse_srm_comment']
+        if user_options["parse_srm_comment"]
           self.name = training_file.powermeter_properties.comment.gsub(/^[\w]*\s/, '') 
         end
-        if prefs["append_srm_comment_to_notes"]
+        if user_options["append_srm_comment_to_notes"]
           self.notes = self.notes + " (SRM comment - #{training_file.powermeter_properties.comment})" 
         end
       end
       
-      self.marker = training_file.workout_marker
-      self.training_files << training_file
     end
   end
     

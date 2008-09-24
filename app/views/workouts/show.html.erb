@@ -23,7 +23,7 @@
                 <%= render :partial => 'workouts/file', :collection => @workout.training_files %>
               </ul>
           </fieldset>
-          <% if (@workout.training_files.first.markers.count > 0) then %>
+          <% if (@workout.markers.count > 1) then %>
 
             <fieldset>
              <legend>Intervals</legend>
@@ -37,7 +37,7 @@
                   <th>Cadence</th>
                   <th>Heartrate</th>
                 </tr>
-                <%= render :partial => 'workouts/interval', :collection => @workout.training_files.first.markers %>
+                <%= render :partial => 'workouts/interval', :collection => @workout.markers[1..-1] %>
               </table>
               </fieldset>
            <% end %>
