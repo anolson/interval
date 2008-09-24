@@ -27,8 +27,8 @@ class WorkoutsController < ApplicationController
     if @workout.save!
       redirect_to(:action => 'index')
     end
-  # rescue
-  #   render(:action => 'new')
+  rescue
+    render(:action => 'new')
   end
 
   def delete
@@ -64,6 +64,10 @@ class WorkoutsController < ApplicationController
   end
   
   def upload_file
+    
+    #WorkoutsWorker.async_parse_workout(:params => params[:workout], :user_id => session[:user])
+
+    
     user = User.find(session[:user])
     @workout = Workout.new(params[:workout], params[:training_file], user.preferences)
     @workout.user = user
