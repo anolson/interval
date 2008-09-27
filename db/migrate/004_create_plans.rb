@@ -14,7 +14,7 @@ class CreatePlans < ActiveRecord::Migration
     Plan.create :name => "Athlete Plus", :description => "Unlimited Account.", :workout_limit => 0, :price => 6.99, :enabled => false
     
     add_column :users, :plan_id, :integer
-    #foreign_key(:users, :plan_id, :plans)
+    foreign_key(:users, :plan_id, :plans)
   end
 
   def self.down
