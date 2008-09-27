@@ -1,5 +1,5 @@
 require "migration_helpers" 
-class CreatePlans < ActiveRecord::Migration
+class CreatePlans < ActiveRecord::Migration extends MigrationHelpers
   def self.up
     create_table :plans do |t|
       t.column :name,           :string
