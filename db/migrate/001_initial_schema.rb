@@ -11,6 +11,7 @@ class InitialSchema < ActiveRecord::Migration
       table.column :password_hash,  :string
       table.column :password_salt,  :string
       table.column :username,       :string
+      table.column :terms_of_service, :boolean
     end
     
     create_table :workouts do |table|

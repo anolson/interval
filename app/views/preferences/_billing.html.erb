@@ -1,0 +1,33 @@
+        <fieldset>
+          <legend>Account Info</legend>
+          <div class="larger">Plan</div>
+          <div class="highlight_box full">
+          <%=radio_button("user", "plan", "free") %> Free
+           <ul style="height: 50px">
+            <li>10 workouts.</li>
+            <li>View and modify your workouts from anywhere.</li>
+            <li>Share workouts with others.</li>
+           </ul>
+          </div><br/><br/>
+          
+          <div class="highlight_box full">
+          <%=radio_button("user", "plan", "plus") %> Athlete Plus $7.99/month
+           <ul style="height: 50px">
+            <li>Unlimited workouts.</li>
+            <li>View and modify your workouts from anywhere.</li>
+            <li>Share workouts with others.</li>
+           </ul>
+          </div><br/><br/>
+
+
+          <label for="credit_card">Credit Card Type:</label><br/>
+          <%= select_tag( 'credit_card_type', options_for_select(['Visa', 'Mastercard', 'Amex'] , 'Visa') ) %><br/><br/>
+
+          <label for="credit_card">Credit Card Number:</label><br/>
+          <%= text_field_tag "credit_card", "", :size => 30 %><br/><br/>
+          
+          <label for="credit_card">Expiration:</label><br/>
+          <%= select_month Date.today, :add_month_numbers => true, :field_name => "credit_card_expiration_month"%>
+          <%= select_year Date.today, :field_name => "credit_card_expiration_year"%>
+         
+        </fieldset>

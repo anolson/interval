@@ -1,9 +1,7 @@
-
-<% rounded_box "Sharing not enabled", "complete", "half" do %>
-
-  <div class="container full">
-    <span class="large">This user is not currently sharing any workouts.</span><br/></br>
-    <span class="large"><%= link_to "&lsaquo; Home", :controller => "site", :action => "index" %></sapn>
-  </div>
-  
-<% end %>
+<div class="left container full">
+ <div class="highlight_box half">
+  <h2 class="center">Sharing not enabled.</h2>
+  <div class="large center">This user is not currently sharing any workouts.</div><br/></br>
+  <div class="large"><%= link_to "&lsaquo; Home", :controller => "site", :action => "index" %></div>
+ </div>
+</div>

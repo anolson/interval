@@ -3,16 +3,12 @@ class PreferencesController < ApplicationController
   before_filter :find_user
   
   def index
-    #if params[:preferences]['parse_srm_comment'].nil? 
-      #params[:preferences]['parse_srm_comment'] = false
-    #end
-    #
     save_preferences
   end
   
   
-  def interface
-    save_preferences
+  def plan
+    @plans = Plan.find(:all)
   end
   
   private 

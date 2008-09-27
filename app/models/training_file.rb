@@ -13,8 +13,6 @@ class TrainingFile < ActiveRecord::Base
   
   def initialize(params = {})
     super(params)
-    #self.markers = Array.new
-    #raise self.markers.type
     parse_file_data
     self
   end

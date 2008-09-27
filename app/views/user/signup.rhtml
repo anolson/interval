@@ -18,7 +18,7 @@
             <label for="password_confirmation">Password confirm:</label><br/>
             <%= password_field "user", "password_confirmation" %><br/><br>
 
-            <%= check_box_tag 'preferences[append_srm_comment_to_notes]', 'true' %>
+            <%= check_box 'user' ,'terms_of_service' %>
             I agree to the 
             <%= link_to "Terms of Service", :controller => "site", :action => "terms" %> and 
             <%= link_to "Privacy Policy", :controller => "site", :action => "privacy_policy" %>.<br/><br/>

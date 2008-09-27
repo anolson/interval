@@ -4,21 +4,11 @@
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
       <% form_tag do %>
-        <%= render :partial => 'user_account' %>
-
-        <%= render :partial => 'interface' %>
-
-        <%= render :partial => 'file_upload' %>
-
-        <%= render :partial => 'sharing' %>
+        <%= render :partial => 'billing' %>
 
       <%= submit_tag "Update" %>
-      <%= set_focus_for('user_username') %>
+      <%= set_focus_for('credit_card') %>
       <% end %>
     <% end %>
   <% end %>
 </div>
-
-
-
-

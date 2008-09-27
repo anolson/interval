@@ -5,8 +5,10 @@ class WorkoutsController < ApplicationController
   
   #before_filter :check_sharing
   
+  before_filter :find_user
   before_filter :find_workouts, :only => [:index, :list]
   before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :delete]
+  before_filter :check_within_plan_limits, :only => [:new, :create, :upload, :upload_file]
  
   def index
   end
@@ -15,7 +17,7 @@ class WorkoutsController < ApplicationController
     render(:partial => 'list', :layout => false)
   end
   
-  def new
+  def new       
     @workout = Workout.new
   end
   
@@ -111,8 +113,11 @@ class WorkoutsController < ApplicationController
     #   @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order)
     # end
     
-    def find_workouts
+    def find_user
       @user = User.find(session[:user])
+    end
+    
+    def find_workouts
       @sort_order = params[:sort_order] || @user.preferences["sort_order"]
       order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
       @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order)
@@ -120,11 +125,19 @@ class WorkoutsController < ApplicationController
     
     def check_that_workout_belongs_to_user
       @workout = Workout.find(params[:id]) 
-      unless @workout.belongs_to_user?(session[:user])
+      unless @workout.belongs_to_user?(@user.id)
         redirect_to :action => 'index'
       end
     end
     
+    def check_within_plan_limits
+      user = User.find(session[:user])
+      
+      if(@user.workouts.size >= @user.plan.workout_limit)
+        render :action => 'limit_reached', :layout => 'application'
+        #@limit_reached = true
+      end
+    end
 
 
 end

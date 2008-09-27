@@ -3,7 +3,7 @@
         
         <% unless session[:user] %>
         <%= navigation_item 'Home', {:controller => 'site'}%>
-        <%= navigation_item 'Pricing and Sign Up',  {:controller => 'user', :action => 'signup'}%>
+        <%= navigation_item 'Sign Up',  {:controller => 'user', :action => 'signup'}%>
         <%= navigation_item 'Sign In', {:controller => 'user', :action => 'signin'}%>
         <% else %>
         <%= navigation_item 'Home', {:controller => 'site'}%>

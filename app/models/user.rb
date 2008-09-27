@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_presence_of :email
   validates_presence_of :password, :password_confirmation, :if => :password_required?
+  validates_acceptance_of :agreed_to_terms
   
   validates_uniqueness_of :username
   validates_uniqueness_of :email
@@ -24,10 +25,11 @@ class User < ActiveRecord::Base
     
   before_create :create_password
   
-  def initialize(params = {} )
-    super(params)
+  def initialize(options = {})
+    super(options)
     self.preferences = User::DEFAULT_PREFERENCES
     self.preferences["display_name"]=self.username
+    self.plan = Plan.find_by_name("Free")
   end
   
   def create_password

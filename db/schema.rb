@@ -70,11 +70,12 @@ ActiveRecord::Schema.define(:version => 4) do
 
   create_table "users", :force => true do |t|
     t.datetime "created_at"
-    t.boolean  "disabled",      :default => false
+    t.boolean  "disabled",         :default => false
     t.datetime "last_login"
     t.string   "password_hash"
     t.string   "password_salt"
     t.string   "username"
+    t.boolean  "terms_of_service"
     t.text     "preferences"
     t.text     "email"
     t.integer  "plan_id"
