@@ -13,10 +13,10 @@
               <div class="highlight_box">  
                 
                 <div class="left" style="width: 70%;">
-                  <div id="<%="workout_notes_#{workout.id}"%>" class="left notes">
+                  <div id="<%="workout_notes_#{workout.id}"%>" class="notes complete left">
                     <%= workout.notes.empty? && "Edit to add notes." || workout.notes %>
                   </div>   
-                  <div style="margin: 5px" class="left">
+                  <div style="margin: 5px" class="complete left">
                     <span id="<%="workout_date_#{workout.id}"%>" class="small" style="color: #777">
                       <%= nice_datetime(workout.performed_on) %>
                     </span> 
