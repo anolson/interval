@@ -13,4 +13,18 @@ class ApplicationController < ActionController::Base
       redirect_to(signin_url)
     end
   end
+  
+  def rescue_action_in_public(exception) 
+    if exception.is_a? ActiveRecord::RecordNotFound 
+      render :file => "#{RAILS_ROOT}/public/404.html", 
+             :status => '404 Not Found' 
+    else 
+      super 
+    end 
+  end
+  
+  #def local_request?
+  #  false
+  #end
+  
 end
