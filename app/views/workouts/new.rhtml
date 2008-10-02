@@ -2,8 +2,8 @@
 <% @secondary_heading = content_tag :span, "Add a new workout.", :class => "larger" %>
 
 <% @secondary_links = [
-  { :text => 'Upload Workout', :options => {:action => 'upload' } }, 
-  { :text => 'Add Workout', :options => {:action => 'new' } } ] %>
+  { :text => 'Upload Workout', :options => {:controller => 'training_files', :action => 'new' } }, 
+  { :text => 'Add Workout', :options => {:controller => 'workouts', :action => 'new' } } ] %>
 
 <div id="main">
   <% rounded_box "Add workout", "half", "full" do %>  

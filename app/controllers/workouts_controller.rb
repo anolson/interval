@@ -8,7 +8,7 @@ class WorkoutsController < ApplicationController
   before_filter :find_user
   before_filter :find_workouts, :only => [:index, :list]
   before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :delete]
-  before_filter :check_within_plan_limits, :only => [:new, :create, :upload, :upload_file]
+  before_filter :check_within_plan_limits, :only => [:new, :create]
  
   def index
   end
@@ -22,7 +22,7 @@ class WorkoutsController < ApplicationController
   end
   
   def create
-    @workout = Workout.new(params[:workout], {}, {})   
+    @workout = Workout.new(params[:workout])   
     @workout.markers << Marker.create(params[:marker])
     @workout.user = User.find(session[:user])
     
@@ -61,27 +61,7 @@ class WorkoutsController < ApplicationController
     end
   end
   
-  def upload 
-    @workout = Workout.new
-  end
-  
-  def upload_file
-    
-    #WorkoutsWorker.async_parse_workout(:params => params[:workout], :user_id => session[:user])
 
-    
-    user = User.find(session[:user])
-    @workout = Workout.new(params[:workout], params[:training_file], user.preferences)
-    @workout.user = user
-    
-    if @workout.save!
-      redirect_to(:action => 'index')
-    else
-      render(:action => 'upload')
-    end
-  rescue
-   render(:action => 'upload')
-  end
   
   
   def graph
@@ -113,9 +93,6 @@ class WorkoutsController < ApplicationController
     #   @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order)
     # end
     
-    def find_user
-      @user = User.find(session[:user])
-    end
     
     def find_workouts
       @sort_order = params[:sort_order] || @user.preferences["sort_order"]
@@ -129,15 +106,5 @@ class WorkoutsController < ApplicationController
         redirect_to :action => 'index'
       end
     end
-    
-    def check_within_plan_limits
-      user = User.find(session[:user])
-      
-      if(@user.workouts.size >= @user.plan.workout_limit)
-        render :action => 'limit_reached', :layout => 'application'
-        #@limit_reached = true
-      end
-    end
-
 
 end

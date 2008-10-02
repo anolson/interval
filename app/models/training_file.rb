@@ -13,8 +13,10 @@ class TrainingFile < ActiveRecord::Base
   
   def initialize(params = {})
     super(params)
-    parse_file_data
-    self
+    parse_file_header
+    
+    #todo move this into a worker
+    #parse_file_data
   end
   
   def payload=(file = {})
@@ -35,22 +37,34 @@ class TrainingFile < ActiveRecord::Base
     Time.mktime(date.year.to_i, date.month.to_i, date.day.to_i, 0, 0, 0, 0) + data_values.first.absolute_time.to_i
   end
   
+  def parse_file_data()
+    file_parser = get_file_parser()
+    file_parser.parse_training_file(self.payload)
+    self.data_values.push(file_parser.data_values)
+    @markers = file_parser.markers
+  end
+  
   private
     def sanitize_filename(filename)
       # get only the filename, not the whole path
       filename.split('\\').last.gsub(/[^\w\.\-]/,'_') 
     end 
     
-    def parse_file_data
-      if self.is_srm_file_type?()
-        file_parser=SrmParser.new
-      else
-        file_parser=PowertapParser.new
-      end
-      file_parser.parse_training_file(self.payload)
+
+    
+    def parse_file_header()
+      file_parser = get_file_parser()
+      file_parser.data = self.payload
+      file_parser.parse_header()
       self.powermeter_properties=file_parser.properties
-      self.data_values.push(file_parser.data_values)
-      @markers = file_parser.markers
     end
     
+    def get_file_parser()
+      if self.is_srm_file_type?()
+        SrmParser.new
+      else
+        PowertapParser.new
+      end
+    end
+      
 end

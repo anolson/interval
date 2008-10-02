@@ -9,10 +9,6 @@ require 'data_value'
 require 'csv'
 
 class PowertapParser
-  #HEADER_SIZE=86
-  #MARKER_SIZE=270
-  #BLOCK_SIZE=6
-  
   MINUTES = 0
   TORQUE = 1
   SPEED = 2
@@ -26,15 +22,10 @@ class PowertapParser
   attr_reader :data, :properties, :markers, :data_values
   
   def parse_training_file(data)
-    
     self.data = data
-    #parse_header
-    #parse_markers
-    #parse_blocks
+    parse_header
     parse_data_values
-    #parse_data_value_times
     calculate_marker_values
-    
   end
   
   def parse_header(header)

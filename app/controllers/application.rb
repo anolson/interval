@@ -23,8 +23,16 @@ class ApplicationController < ActionController::Base
     end 
   end
   
-  #def local_request?
-  #  false
-  #end
+  def check_within_plan_limits
+    if(@user.workouts.size >= @user.plan.workout_limit)
+      render :action => 'limit_reached', :layout => 'application'
+      #@limit_reached = true
+    end
+  end
+  
+  def find_user
+    @user = User.find(session[:user])
+  end
+  
   
 end

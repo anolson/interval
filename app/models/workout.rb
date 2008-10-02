@@ -14,26 +14,9 @@ class Workout < ActiveRecord::Base
   #  errors.add("name", "must be unique for given day.")  if Workout.find_by_permalink(self.permalink, self.user.id, self.performed_on.year, self.performed_on.month, self.performed_on.day)
   # end
   
-  def initialize(workout={}, file_options={}, user_options={})
+  def initialize(workout={}, file_options={})
     super(workout)
     self.permalink = workout[:name] || ""
-    unless file_options.blank?
-      training_file = TrainingFile.create(file_options)
-      self.training_files << training_file
-      self.markers << training_file.markers
-      
-    
-      if training_file.is_srm_file_type?
-        self.performed_on =  training_file.performed_on 
-        if user_options["parse_srm_comment"]
-          self.name = training_file.powermeter_properties.comment.gsub(/^[\w]*\s/, '') 
-        end
-        if user_options["append_srm_comment_to_notes"]
-          self.notes = self.notes + " (SRM comment - #{training_file.powermeter_properties.comment})" 
-        end
-      end
-      
-    end
   end
     
   def self.per_page 
@@ -104,6 +87,12 @@ class Workout < ActiveRecord::Base
       
     end
     smoothed
+  end
+  
+  def auto_assign(options)
+    self.performed_on = options[:performed_on] if options[:performed_on]
+    self.name = options[:name] if options[:name]
+    self.notes = options[:notes] if options[:notes]
   end
   
 end

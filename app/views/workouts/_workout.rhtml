@@ -28,15 +28,17 @@
                   <table border="0" cellspacing="1" cellpadding="2" width="100%">
                     <tr class="small" >
                       <td style="color: #777">duration</td> 
-                      <td id="<%= "workout_duration_#{workout.id}" %>" ><%= nice_duration(workout.markers.first.duration) %></td>
+                      <td id="<%= "workout_duration_#{workout.id}" %>" >
+                        <%= workout.markers.first.nil? && '-' || nice_duration(workout.markers.first.duration)  %>
+                      </td>
                     </tr>
                     <tr class="small">
                       <td style="color: #777">power</td> 
-                      <td><%= workout.markers.first.avg_power %> watts</td>
+                      <td><%= workout.markers.first.nil? && '-' ||workout.markers.first.avg_power %> watts</td>
                     </tr>
                     <tr class="small">
                       <td style="color: #777">energy</td> 
-                      <td><%= workout.markers.first.energy %> kJ</td>
+                      <td><%= workout.markers.first.nil? && '-' || workout.markers.first.energy %> kJ</td>
                     </tr>
                   </table>
                  </div>
