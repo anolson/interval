@@ -1,0 +1,54 @@
+<% @primary_heading = link_to content_tag(:h1, "Workouts"), :action => "index" %>
+<% @secondary_heading = content_tag :span, "Upload a workout.", :class => "larger" %>
+
+<% @secondary_links = [
+  { :text => 'Upload Workout', :options => {:controller => 'training_files', :action => 'new' } }, 
+  { :text => 'Add Workout', :options => {:controller => 'workouts', :action => 'new' } } ] %>
+
+<div id="main">
+  <% rounded_box "Upload workout", "half", "full" do %>
+    <% container "full" do %>
+      <% form_tag ({:action => 'create'}, :multipart => true)  do %>
+        <label for="file">File:</label><br/>
+        <%= file_field("training_file", "payload") %><br/><br/>
+        
+        <label for="name">Name:</label><br/>
+        <%= text_field "workout", "name" %><br/><br/>
+        
+        <label for="performed_on">Performed on (not needed for srm):</label><br/>
+        <%= datetime_select "workout", "performed_on", :order => [:month, :day, :year], :twelve_hour => true %> <br/><br/>
+        
+        <label for="notes">Notes:</label><br/>
+        <%= text_area "workout", "notes", :rows => 3 %><br/><br/>
+
+        <%= submit_tag "Upload", :disable_with => "Uploading..."%>
+      <% end %>
+    <% end %>
+  <% end %>  
+  
+  <div style="float:left; margin-top: 10px" class="half">
+    <p class=larger>Add a workout by uploading a file.  Browse and select a supported file<i>(powertap .csv or .srm)</i>.  Then, enter a name and optionally some notes.</p>
+       <br/>
+       <p>After the you upload the workout, you will be able to:</p>
+       <ul>
+        <li>View workout data and graphs.</li>
+        <li>Share you workout with others.</li>
+        <li>Track the progress of your training.</li>
+       </ul>
+       <p style="text-align: center; color: green"><%= flash[:error] %></p>
+       <%= error_messages_for 'workout' %>
+  </div>
+  
+  
+  
+
+</div>
+
+<%= render :partial => 'common/back' %>
+
+
+
+
+
+
+
