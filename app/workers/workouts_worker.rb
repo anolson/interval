@@ -6,9 +6,11 @@ class WorkoutsWorker < Workling::Base
     #workout.status = "finished."
     #workout.save!
     
-    puts "***********************************"
-    puts "Calling workout workter."
+    
     workout = Workout.find(options[:workout_id])
+    
+    workout.process!
+    
     training_file = workout.training_files.first
     training_file.parse_file_data
     workout.markers << training_file.markers
@@ -20,5 +22,6 @@ class WorkoutsWorker < Workling::Base
     end
     
     workout.save
+    workout.uploaded!
   end
 end

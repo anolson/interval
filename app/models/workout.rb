@@ -10,6 +10,21 @@ class Workout < ActiveRecord::Base
   
   validates_presence_of :name
   
+  
+  acts_as_state_machine :initial => :opened
+
+  state :created
+  state :processing
+  state :uploaded
+   
+  event :process do
+    transitions :to => :processing, :from => :created
+  end
+  
+  event :finish do
+    transitions :to => :uploaded, :from => :processing
+  end
+  
   #def validate_on_create
   #  errors.add("name", "must be unique for given day.")  if Workout.find_by_permalink(self.permalink, self.user.id, self.performed_on.year, self.performed_on.month, self.performed_on.day)
   # end
