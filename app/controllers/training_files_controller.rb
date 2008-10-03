@@ -27,6 +27,7 @@ class TrainingFilesController < ApplicationController
     end
     
     if workout.save!
+      workout.process!
       WorkoutsWorker.async_parse_workout(:workout_id => workout.id)
       redirect_to(:controller => 'workouts', :action => 'index')
     else

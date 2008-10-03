@@ -1,13 +1,18 @@
           <li id="<%="workout_#{workout.id}"%>">
             <% container "complete" do  %>
-              
-              <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
-                <%= link_to_workout(workout) %>
-              </div>
-              <% unless @sharing %> 
-                <div class="edit smaller">
-                  <%= render(:partial => 'workouts/edit_delete', :locals => {:id => workout.id} ) %>
+              <% if workout.processing? %>
+                <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
+                  <%= "#{workout.name} is being processed." %>
                 </div>
+              <% else %>
+                <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
+                  <%= link_to_workout(workout) %>
+                </div>
+                <% unless @sharing %> 
+                  <div class="edit smaller">
+                    <%= render(:partial => 'workouts/edit_delete', :locals => {:id => workout.id} ) %>
+                  </div>
+                <% end %>
               <% end %>
               <div class="clear"></div>
               <div class="highlight_box">  

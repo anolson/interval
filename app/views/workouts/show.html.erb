@@ -41,16 +41,6 @@
               </table>
               </fieldset>
            <% end %>
-        <% else %>
-          <fieldset>
-            <legend class="larger">Files</legend>
-              <% info_box do %>
-                <span>
-                  This workout does not have any files. 
-                  <%= link_to "Add", :action => "attach" %> a file to this workout.
-                </span>
-              <% end %>
-          </fieldset>
         <% end %>
 
           <div id="comments">

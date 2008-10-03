@@ -11,7 +11,7 @@ class Workout < ActiveRecord::Base
   validates_presence_of :name
   
   
-  acts_as_state_machine :initial => :opened
+  acts_as_state_machine :initial => :created
 
   state :created
   state :processing

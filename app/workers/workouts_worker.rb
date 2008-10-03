@@ -9,7 +9,7 @@ class WorkoutsWorker < Workling::Base
     
     workout = Workout.find(options[:workout_id])
     
-    workout.process!
+    
     
     training_file = workout.training_files.first
     training_file.parse_file_data
@@ -22,6 +22,6 @@ class WorkoutsWorker < Workling::Base
     end
     
     workout.save
-    workout.uploaded!
+    workout.finish!
   end
 end
