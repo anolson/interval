@@ -1,34 +1,31 @@
 require 'digest/sha2'
 class User < ActiveRecord::Base
   DEFAULT_PREFERENCES = {
-    "display_name" => "", 
-    "parse_srm_comment" => false, 
-    "sort_order" => "name" }
+    :display_name => "", 
+    :parse_srm_comment => false, 
+    :sort_order => "name" }
   
   has_many :workouts
   belongs_to :plan
   serialize :preferences, Hash
   
-    
-  attr_accessor :password, :old_password
-  
   validates_presence_of :username
   validates_presence_of :email
   validates_presence_of :password, :password_confirmation, :if => :password_required?
   validates_acceptance_of :agreed_to_terms
-  
   validates_uniqueness_of :username
   validates_uniqueness_of :email
   validates_confirmation_of :password, :if => :password_required?
   
   attr_accessible :username, :email, :password, :password_confirmation, :preferences
+  attr_accessor :password, :old_password
     
   before_create :create_password
   
   def initialize(options = {})
     super(options)
     self.preferences = User::DEFAULT_PREFERENCES
-    self.preferences["display_name"]=self.username
+    self.preferences[:display_name]=self.username
     self.plan = Plan.find_by_name("Free")
   end
   

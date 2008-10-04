@@ -8,7 +8,7 @@
 <div id="main">
   <% rounded_box "Upload workout", "half", "full" do %>
     <% container "full" do %>
-      <% form_tag ({:action => 'create'}, :multipart => true)  do %>
+      <% form_tag({:action => 'create'}, :multipart => true)  do %>
         <label for="file">File:</label><br/>
         <%= file_field("training_file", "payload") %><br/><br/>
         
@@ -27,7 +27,10 @@
   <% end %>  
   
   <div style="float:left; margin-top: 10px" class="half">
-    <p class=larger>Add a workout by uploading a file.  Browse and select a supported file<i>(powertap .csv or .srm)</i>.  Then, enter a name and optionally some notes.</p>
+    <p class=larger>
+      Add a workout by uploading a file.  Browse and select a supported file<i>(powertap .csv or .srm)</i>.  
+      Then, enter a name and optionally some notes.
+    </p>
        <br/>
        <p>After the you upload the workout, you will be able to:</p>
        <ul>
@@ -38,10 +41,6 @@
        <p style="text-align: center; color: green"><%= flash[:error] %></p>
        <%= error_messages_for 'workout' %>
   </div>
-  
-  
-  
-
 </div>
 
 <%= render :partial => 'common/back' %>

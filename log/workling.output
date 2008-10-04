@@ -49,3 +49,10 @@ Calling workout workter.
 ** Starting Workling::Starling::Client for WorkoutsWorker queue
 /Users/andrew/Devel/rails/interval/app/models/training_file.rb:5: warning: already initialized constant SRM
 ** Exiting
+=> Loading Rails...
+** Rails loaded.
+** Starting Workling::Starling::Poller...
+** Use CTRL-C to stop.
+** Starting Workling::Starling::Client for WorkoutsWorker queue
+/Users/andrew/Devel/rails/interval/app/models/training_file.rb:5: warning: already initialized constant SRM
+** Exiting

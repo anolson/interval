@@ -1,8 +1,8 @@
       <fieldset>
         <legend>File Upload</legend>
-        <%= check_box_tag 'preferences[parse_srm_comment]', 'true', @user.preferences["parse_srm_comment"].eql?('true') && true || false %>
+        <%= check_box_tag 'preferences[parse_srm_comment]', 'true', @user.preferences[:parse_srm_comment].eql?('true') && true || false %>
         Use SRM comment for workout name <span class="smaller">(By default the SRM comment contains the temperature, this will be removed.  For example, "69&deg; Endurance Miles" will become just "Endurance Miles")</span>.<br/><br/>
         
-        <%= check_box_tag 'preferences[append_srm_comment_to_notes]', 'true', @user.preferences["append_srm_comment_to_notes"].eql?('true') && true || false %>
+        <%= check_box_tag 'preferences[append_srm_comment_to_notes]', 'true', @user.preferences[:append_srm_comment_to_notes].eql?('true') && true || false %>
         Append SRM comment to workout notes.
       </fieldset> 

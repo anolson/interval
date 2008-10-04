@@ -1,4 +1,4 @@
-<% @primary_heading = link_to content_tag(:h1, (@sharing ? (@user.preferences['display_name'] + "'s ") : "") + "Workouts"), :action => "index" %>
+<% @primary_heading = link_to content_tag(:h1, (@sharing ? (@user.preferences[:display_name] + "'s ") : "") + "Workouts"), :action => "index" %>
 <% @secondary_heading = content_tag :span, 'Listing workouts', :class => "larger" %>
 
 <div id="main_wrapper">

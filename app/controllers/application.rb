@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
   def check_within_plan_limits
     if(@user.workouts.size >= @user.plan.workout_limit)
       render :action => 'limit_reached', :layout => 'application'
-      #@limit_reached = true
     end
   end
   

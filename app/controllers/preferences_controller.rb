@@ -19,7 +19,8 @@ class PreferencesController < ApplicationController
     def save_preferences
       if request.post?
         @user.update_attributes(params[:user])
-        params[:preferences]['enable_sharing'] = false if params[:preferences]['enable_sharing'].nil? 
+        params[:preferences].symbolize_keys!
+        params[:preferences][:enable_sharing] = false if params[:preferences][:enable_sharing].nil? 
         @user.update_attribute_with_validation_skipping(:preferences, params[:preferences])
       end
     end

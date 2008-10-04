@@ -17,13 +17,13 @@ class UserController < ApplicationController
     if request.post?
       user = User.authenticate(params[:user][:username], params[:user ][:password])
       session[:user] = user.id
-      session[:display_name] = user.preferences['display_name']
+      session[:display_name] = user.preferences[:display_name]
       flash[:notice] = "login success"  
       if(session[:intended_params] )
         redirect_to session[:intended_params]
         session[:intended_params] = nil
       else
-        redirect_to :controller => "workouts", :action => user.preferences['workout_view']
+        redirect_to :controller => "workouts", :action => user.preferences[:workout_view]
       end
     end
   rescue

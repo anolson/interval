@@ -1,10 +1,5 @@
 class WorkoutsController < ApplicationController
   layout 'standard'
-  #skip_before_filter :check_authentication
-  #@sharing=false
-  
-  #before_filter :check_sharing
-  
   before_filter :find_user
   before_filter :find_workouts, :only => [:index, :list]
   before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :delete]
@@ -26,11 +21,11 @@ class WorkoutsController < ApplicationController
     @workout.markers << Marker.create(params[:marker])
     @workout.user = User.find(session[:user])
     
-    if @workout.save!
+    if @workout.save
       redirect_to(:action => 'index')
+    else
+      render(:action => 'new')
     end
-  rescue
-    render(:action => 'new')
   end
 
   def delete
@@ -47,8 +42,7 @@ class WorkoutsController < ApplicationController
     @workout.markers.first.duration = params[:marker]
     @workout.save!
   end
-  
-  
+    
   def show
     respond_to do |format|
       format.html
@@ -60,42 +54,13 @@ class WorkoutsController < ApplicationController
       }
     end
   end
-  
 
-  
-  
   def graph
   end
   
   private
-  
-    # def check_sharing
-    #   @sharing = params[:user].nil? ? false : true
-    #   if @sharing
-    #      @user = User.find_by_username(params[:user])
-    #      if @user.preferences['enable_sharing'].eql?(false)
-    #        render :action => 'sharing_not_enabled', :layout => 'application'
-    #      end
-    #   else
-    #     check_authentication
-    #     @user = User.find(session[:user])
-    #   end
-    # end
-  
-    # def find_workouts
-    #   if @sharing
-    #     @sort_order = params[:sort_order] || 'name'
-    #   else
-    #     @sort_order = params[:sort_order] || @user.preferences["sort_order"]
-    #   end
-    #   order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
-    #   #order = "#{@sort_order} DESC"
-    #   @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order)
-    # end
-    
-    
     def find_workouts
-      @sort_order = params[:sort_order] || @user.preferences["sort_order"]
+      @sort_order = params[:sort_order] || @user.preferences[:sort_order]
       order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
       @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order)
     end
@@ -106,5 +71,4 @@ class WorkoutsController < ApplicationController
         redirect_to :action => 'index'
       end
     end
-
 end
