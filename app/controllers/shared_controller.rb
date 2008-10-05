@@ -3,7 +3,7 @@ class SharedController < ApplicationController
   skip_before_filter :check_authentication
   
   before_filter :check_sharing
-  before_filter :find_workouts, :only => [:index, :list]
+  before_filter :find_workouts, :only => [:index, :list, :feed]
   before_filter :find_workout, :only => [:show, :graph]
   
   def initialize
@@ -11,7 +11,13 @@ class SharedController < ApplicationController
   end
   
   def index
-    render :template => 'workouts/index'
+    render :template => 'workouts/index' 
+  end
+  
+  def feed
+    respond_to do |format|
+      format.atom { render :layout => false }
+    end
   end
   
   def list
@@ -22,7 +28,7 @@ class SharedController < ApplicationController
     respond_to do |format|
       format.html {
         render :template => 'workouts/show'
-      }
+      } 
       format.json {        
         range_start = params[:begin].nil? && 0 || params[:begin].to_i
         range_end = params[:end].nil? && 0 || params[:end].to_i

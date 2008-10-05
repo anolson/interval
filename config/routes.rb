@@ -35,12 +35,18 @@ ActionController::Routing::Routes.draw do |map|
   # map.connect 'shared/:user',
   #    :controller => 'shared',
   #    :action => 'index'
+
+  map.connect 'shared/:user/:action.:format',
+    :controller => 'shared'
      
   map.connect 'shared/:user/:action/:id.:format',
     :controller => 'shared'
   
   map.connect 'shared/:user/:action/:id',
       :controller => 'shared'
+      
+  
+  map.resources :workouts
       
   #map.connect '/workouts',
   #  :controller => 'workouts',
