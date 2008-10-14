@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   before_filter :check_authentication
+  include SslRequirement
   
   # Pick a unique cookie name to distinguish our session data from others'
   #session :session_key => '_interval_session_id'
