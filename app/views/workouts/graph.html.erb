@@ -4,6 +4,10 @@
 <% @secondary_links = [
   { :text => 'Summary', :options => {:action => 'show', :id => @workout.id} }, 
   { :text => 'Graph', :options => {:action => 'graph', :id => @workout.id } } ] %>
+  
+<% if @sharing %>
+  <% @secondary_links.each {|l| l[:options].merge!({:user => @user.preferences[:display_name]})}  %>
+<% end %>
 
 <div id="main">
   <% rounded_box nil, "complete", "full" do %> 
