@@ -1,4 +1,6 @@
 log/*.log
+log/*.output
+log/*.pid
 tmp/**/*
 .DS_Store
 doc/api
