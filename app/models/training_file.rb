@@ -2,8 +2,6 @@ require 'srm_file_parser'
 require 'powertap_file_parser'
 
 class TrainingFile < ActiveRecord::Base
-  SRM = 'srm'
-  
   serialize :powermeter_properties
   belongs_to :workout
   #has_many :markers,  :dependent => :destroy
@@ -14,9 +12,6 @@ class TrainingFile < ActiveRecord::Base
   def initialize(params = {})
     super(params)
     parse_file_header
-    
-    #todo move this into a worker
-    #parse_file_data
   end
   
   def payload=(file = {})
@@ -29,7 +24,7 @@ class TrainingFile < ActiveRecord::Base
   end
   
   def is_srm_file_type?()
-    return self.file_type.eql?(SRM)
+    return self.file_type.eql?(SrmParser::SRM)
   end
   
   def performed_on
@@ -49,9 +44,7 @@ class TrainingFile < ActiveRecord::Base
       # get only the filename, not the whole path
       filename.split('\\').last.gsub(/[^\w\.\-]/,'_') 
     end 
-    
-
-    
+        
     def parse_file_header()
       file_parser = get_file_parser()
       file_parser.data = self.payload

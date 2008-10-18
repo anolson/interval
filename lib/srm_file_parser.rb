@@ -2,12 +2,8 @@ require 'srm_block.rb'
 require 'srm_properties.rb'
 require 'power_calculator.rb'
 
-require 'training_file'
-require 'marker'
-require 'data_value'
-
-
 class SrmParser
+  SRM = 'srm'
   HEADER_SIZE=86
   MARKER_SIZE=270
   BLOCK_SIZE=6
