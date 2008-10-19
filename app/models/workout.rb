@@ -84,22 +84,19 @@ class Workout < ActiveRecord::Base
     if(has_training_files?())
       data = self.training_files.first.data_values
       
-      data = data.slice(range) if(range.end>range.begin)
-      
-      puts range.to_s
-      
-      if data.size < 1000
-        size = 1
+      if(range.end>0)
+        power_series = data.slice(range).collect_with_index{|v, i| [i, v.power]}
+        time_series = data.slice(range).collect_with_index{|v, i| [i, Time.at(v.relative_time).utc.strftime("%k:%M:%S")]}
       else
-        size = (data.size / 1000)
+        power_series = data.collect_with_index{|v, i| [i, v.power]}
+        time_series = data.collect_with_index{|v, i| [i, Time.at(v.relative_time).utc.strftime("%k:%M:%S")]}
       end
-      #size = 1 
-      data.each_slice(size) { |slice| 
-        #smoothed[:power] << a.collect{ |v| v.power}.average 
-        smoothed[:power] << slice.first.power
-        smoothed[:time] << slice.first.relative_time 
-      }
       
+      size = (power_series.size < 1000) && 1 || (power_series.size / 1000)
+      size = 1
+      puts size
+      power_series.each_slice(size) { |s| smoothed[:power] << s[0] }
+      time_series.each_slice(size) { |s| smoothed[:time] << s[0] }
     end
     smoothed
   end

@@ -1,12 +1,12 @@
 <% series = {
   :data_series => [
-    {:data => @smoothed_values[:power].collect_with_index do |value, index| [index, value] end, :label => 'Power'} || [],  
-    #{:data => @workout_values.collect_with_index do |value, index| [index, format_speed_mph(value.speed)] end, :label => 'Speed'} || [],
-    #{:data => @workout_values.collect_with_index do |value, index| [index, value.cadence] end, :label => 'Cadence'} || [],
+    {:data => @smoothed_values[:power], :label => 'Power'} || []  
+    #{:data => @smoothed_values[:power].collect_with_index do |value, index| [index, value] end, :label => 'Power'} || [],  
     #{:data => @workout_values.collect_with_index do |value, index| [index, value.heartrate] end, :label => 'Heartrate'} || []
   ],
   :time_series => [
-    {:data =>  @smoothed_values[:time].collect_with_index do |value, index| [index, nice_duration(Time.at(value).utc)] end } || []
+    {:data =>  @smoothed_values[:time] }|| []
+  #  {:data =>  @smoothed_values[:time].collect_with_index do |value, index| [index, nice_duration(Time.at(value).utc)] end } || []
   #  {:data =>  @workout_values.collect_with_index do |value, index| [index, nice_duration(Time.at(value.relative_time).utc)] end } || []
   ]
 }

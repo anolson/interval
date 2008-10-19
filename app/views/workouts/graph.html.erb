@@ -56,8 +56,10 @@
    var time_series;
    var data_series;
       
-   var prev_time_series;
-   var prev_data_series;
+   //var prev_time_series;
+   //var prev_data_series;
+   
+   
 
    
    var global_options = {
@@ -89,9 +91,25 @@
 
     }
 	
-  	function drawPlot (series, options) {
-  	 var opts = Object.extend(Object.clone(global_options), options || {});
-  	 return Flotr.draw($('plot'), series, opts);
+  	function drawPlot (series, start, end, options) {
+  	  var opts = Object.extend(Object.clone(global_options), options || {});
+  	  var size = 1; 
+  	  var smoothed_data = [Object()];
+  	  smoothed_data[POWER].label = series[POWER].label;
+  	  
+  	  if(series[POWER]['data'].length>1000) {
+  	    size = Math.round(series[POWER]['data'].length/1000);
+  	  }
+  	  
+  	  if(end>start) {
+  	    smoothed_data[POWER]['data'] = series[POWER]['data'].slice(start, end).
+  	      eachSlice(size, function(point) { return point.first(); } );  
+  	  }
+  	  else {
+    	  smoothed_data[POWER]['data'] = series[POWER]['data'].eachSlice(size, function(point) { return point.first(); } );  
+  	  }
+  	  
+  	  return Flotr.draw($('plot'), smoothed_data, opts);
   	}
   	
 
@@ -118,7 +136,8 @@
     var i=Math.round(pos.x);
     if(i<0) return;
     $('selected_time').innerHTML = time_series[0]['data'][i][1];
-    $('selected_power').innerHTML = data_series[POWER]['data'][i][1];
+    //$('selected_time').innerHTML = i;
+    $('selected_power').innerHTML = data_series[POWER]['data'][i][1] + "(" + i + ")";
 	});	
 	
 	$('plot').observe('mouseout', function(event){
@@ -128,17 +147,18 @@
 	
 	$('plot').observe('flotr:select', function(event){
   	var selection = event.memo[0];
-  	begin = Math.round(selection.x1)
-  	end = Math.round(selection.x2)
-  	
- 	  var url = "<%= url_for(:action => 'show', :id => @workout.id, :format => 'json') %>" + "?begin=" + begin + "&end=" + end
+  	begin = Math.round(selection.x1);
+  	end = Math.round(selection.x2);
+  	//zoomed_data[POWER]['data'] = data_series[POWER]['data'].slice(begin,end);
+    var f = drawPlot(data_series, begin, end);
+ 	  /*var url = "<%= url_for(:action => 'show', :id => @workout.id, :format => 'json') %>" + "?begin=" + begin + "&end=" + end
 	  new Ajax.Request(url, {
   		method:'get',
   		onSuccess: function(transport){
   			var json = transport.responseText.evalJSON();
   		  
-  			prev_time_series=time_series
-  			prev_data_series=data_series
+  			//prev_time_series=time_series
+  			//prev_data_series=data_series
   			time_series = json.time_series
   			data_series = json.data_series
   			
@@ -147,14 +167,15 @@
           drawPlot(data_series, {});
         }
   		}
-  	});
+  		
+  	});*/
   	
   	Element.show('zoom_reset');
 	});
 	
 	$('zoom_reset').observe('click', function() { 
-	  time_series = prev_time_series
-	  data_series = prev_data_series
+	  //time_series = prev_time_series
+	  //data_series = prev_data_series
 	  drawPlot(data_series, {}); Element.hide('zoom_reset'); 
 	});
 </script>
