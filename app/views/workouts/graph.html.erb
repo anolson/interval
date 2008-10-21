@@ -16,166 +16,42 @@
     <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
   </div>
     <% container "full" do %>
-
-      
       <div id="plot" class="plot" style="height:400px;">
-        
         <div id="loader" style="padding-top: 150px; text-align:center">
         <%= image_tag("loader.gif") %><br/>
         Loading graph.</div>
       </div>
-        <div id="graph_summary">      
+      <div id="graph_summary">      
         <table border="0" cellspacing="0" cellpadding="1">
-            <tr>
-              <td>Time : <span id="selected_time">00:00:00</span></td>
-              <td>Power : <span id="selected_power">0</span> W</td>
-              <!--<td>Speed : <span id="selected_speed">0</span> mph</td>
-              <td>Cadence : <span id="selected_cadence">0</span> rpm</td>
-              <td>Heartrate : <span id="selected_heartrate">0</span> bpm</td> -->
-            </tr>
-          </table>
-        
-        </div>
-        <div class="smaller right">Note: Click and drag to see in on more detail.</div>
-          
+          <tr>
+            <td>Time : <span id="selected_time">00:00:00</span></td>
+            <td>Power : <span id="selected_power">0</span> W</td>
+          </tr>
+        </table>
+      </div>
+      <div class="smaller right">Note: Click and drag to see in on more detail.</div>    
     <% end %>
   <% end %>
-  
   <%= render :partial => 'common/back' %>
-  
 </div>
+<%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
 
 <script type="text/javascript">
-	/**
-	 * Wait till dom's finished loading.
-	 */
-   const POWER = 0;
-   const SPEED = 1;
-   const CADENCE = 2;
-   const HEARTRATE = 3;
-   var time_series;
-   var data_series;
-      
-   //var prev_time_series;
-   //var prev_data_series;
-   
-   
+  document.observe('dom:loaded', function(){
+    Element.hide('zoom_reset');
+    var url = "<%= url_for(:action => 'show', :id => @workout.id, :format => 'json') %>"
+    new Ajax.Request(url, {
+   		method:'get',
+   		onSuccess: function(transport){
+   			var json = transport.responseText.evalJSON();
+   			data_series = json.data_series
+   			time_series = json.time_series
 
-   
-   var global_options = {
-     grid: { 
-       backgroundColor:'#FFFFFF' }, 
-     xaxis: {
-       tickFormatter: xAxisFormatter
-     },
-     selection: {
-       mode: 'x'
-     },
-    mouse: { 
-       lineColor: '#444444', 
-       sensibility: 2, 
-       track: false
-     },
-     legend: {
-       backgroundOpacity: 0.85,
-       show: true,
-       location: 'ne'
-     }, 
-     shadowSize: 0
-    } 
-	 
-    function xAxisFormatter(label) {
-      var i=Math.round(label)-1;
-      if(i<0) return;
-      return time_series[0]['data'][i][1];
-
-    }
-	
-  	function drawPlot (series, start, end, options) {
-  	  var opts = Object.extend(Object.clone(global_options), options || {});
-  	  var size = 1; 
-  	  var smoothed_data = [Object()];
-  	  smoothed_data[POWER].label = series[POWER].label;
-  	  
-  	  if(series[POWER]['data'].length>1000) {
-  	    size = Math.round(series[POWER]['data'].length/1000);
-  	  }
-  	  
-  	  if(end>start) {
-  	    smoothed_data[POWER]['data'] = series[POWER]['data'].slice(start, end).
-  	      eachSlice(size, function(point) { return point.first(); } );  
-  	  }
-  	  else {
-    	  smoothed_data[POWER]['data'] = series[POWER]['data'].eachSlice(size, function(point) { return point.first(); } );  
-  	  }
-  	  
-  	  return Flotr.draw($('plot'), smoothed_data, opts);
-  	}
-  	
-
-	document.observe('dom:loaded', function(){
-	  Element.hide('zoom_reset');
-	  var url = "<%= url_for(:action => 'show', :id => @workout.id, :format => 'json') %>"
-	  new Ajax.Request(url, {
-  		method:'get',
-  		onSuccess: function(transport){
-  			var json = transport.responseText.evalJSON();
-  			data_series = json.data_series
-  			time_series = json.time_series
-  			
-  			if(data_series){
-  				$('plot').setStyle({'display':'block'});
-          var f = drawPlot(data_series);
-        }
-  		}
-  	});
+   			if(data_series){
+   				$('plot').setStyle({'display':'block'});
+           var f = drawPlot(data_series);
+         }
+   		}
+   	});
   });
-  
-  $('plot').observe('flotr:mousemove', function(event){
-    var pos = event.memo[1];
-    var i=Math.round(pos.x);
-    if(i<0) return;
-    $('selected_time').innerHTML = time_series[0]['data'][i][1];
-    //$('selected_time').innerHTML = i;
-    $('selected_power').innerHTML = data_series[POWER]['data'][i][1] + "(" + i + ")";
-	});	
-	
-	$('plot').observe('mouseout', function(event){
-    $('selected_time').innerHTML = '00:00:00' 
-    $('selected_power').innerHTML = '0' 
-	});
-	
-	$('plot').observe('flotr:select', function(event){
-  	var selection = event.memo[0];
-  	begin = Math.round(selection.x1);
-  	end = Math.round(selection.x2);
-  	//zoomed_data[POWER]['data'] = data_series[POWER]['data'].slice(begin,end);
-    var f = drawPlot(data_series, begin, end);
- 	  /*var url = "<%= url_for(:action => 'show', :id => @workout.id, :format => 'json') %>" + "?begin=" + begin + "&end=" + end
-	  new Ajax.Request(url, {
-  		method:'get',
-  		onSuccess: function(transport){
-  			var json = transport.responseText.evalJSON();
-  		  
-  			//prev_time_series=time_series
-  			//prev_data_series=data_series
-  			time_series = json.time_series
-  			data_series = json.data_series
-  			
-  			if(data_series){
-  				$('plot').setStyle({'display':'block'});
-          drawPlot(data_series, {});
-        }
-  		}
-  		
-  	});*/
-  	
-  	Element.show('zoom_reset');
-	});
-	
-	$('zoom_reset').observe('click', function() { 
-	  //time_series = prev_time_series
-	  //data_series = prev_data_series
-	  drawPlot(data_series, {}); Element.hide('zoom_reset'); 
-	});
 </script>
