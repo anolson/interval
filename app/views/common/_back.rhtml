@@ -1,5 +1,11 @@
 <div id="more" class="larger">
   <p>
-    <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", :back) %>
+    <% if @sharing %>
+      <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", :controller => 'shared') %>
+    <% else %>
+      <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", :controller => 'workouts') %>
+    <% end %>
+    
+    
   </p>
 </div>
