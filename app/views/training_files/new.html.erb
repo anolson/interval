@@ -1,4 +1,4 @@
-<% @primary_heading = link_to content_tag(:h1, "Workouts"), :action => "index" %>
+<% @primary_heading = link_to content_tag(:h1, "Workouts"), :controller => 'workouts', :action => "index" %>
 <% @secondary_heading = content_tag :span, "Upload a workout.", :class => "larger" %>
 
 <% @secondary_links = [
