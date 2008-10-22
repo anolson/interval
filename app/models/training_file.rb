@@ -5,7 +5,7 @@ class TrainingFile < ActiveRecord::Base
   serialize :powermeter_properties
   belongs_to :workout
   #has_many :markers,  :dependent => :destroy
-  has_many :data_values,  :dependent => :destroy
+  has_many :data_values, :order => 'id', :dependent => :destroy
   
   attr_accessor :markers
   
