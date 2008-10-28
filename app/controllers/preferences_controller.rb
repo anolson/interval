@@ -1,11 +1,7 @@
 class PreferencesController < ApplicationController
-
-  before_filter :find_user
-  
   def index
     save_preferences
   end
-  
   
   def plan
     @plans = Plan.find(:all)

@@ -1,6 +1,5 @@
 class WorkoutsController < ApplicationController
   layout 'standard'
-  before_filter :find_user
   before_filter :find_workouts, :only => [:index, :list]
   before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :delete]
   before_filter :check_within_plan_limits, :only => [:new, :create]
@@ -28,7 +27,7 @@ class WorkoutsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     Workout.destroy(params[:id])
     redirect_to(:action => 'index')
   end

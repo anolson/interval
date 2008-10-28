@@ -1,6 +1,5 @@
 class TrainingFilesController < ApplicationController
   layout 'standard'
-  before_filter :find_user
   before_filter :check_within_plan_limits, :only => [:new, :create]
   
   def download

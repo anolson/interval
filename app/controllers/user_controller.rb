@@ -1,7 +1,6 @@
 class UserController < ApplicationController
   skip_before_filter :check_authentication, :except => :change_password
-  
-   ssl_required :signin, :signup, :change_password
+  ssl_required :signin, :signup, :change_password
   
   def change_password
     if request.post?

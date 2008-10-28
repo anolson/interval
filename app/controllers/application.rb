@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   before_filter :check_authentication
+  before_filter :find_user
   include SslRequirement
   
   # Pick a unique cookie name to distinguish our session data from others'
@@ -12,6 +13,12 @@ class ApplicationController < ActionController::Base
     unless session[:user]
       session[:intended_params] = params
       redirect_to(signin_url)
+    end
+  end
+  
+  def find_user
+    if session[:user]
+      @user = User.find(session[:user])
     end
   end
   
@@ -29,10 +36,5 @@ class ApplicationController < ActionController::Base
       render :action => 'limit_reached', :layout => 'application'
     end
   end
-  
-  def find_user
-    @user = User.find(session[:user])
-  end
-  
   
 end

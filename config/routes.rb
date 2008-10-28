@@ -46,7 +46,7 @@ ActionController::Routing::Routes.draw do |map|
       :controller => 'shared'
       
   
-  map.resources :workouts
+  #map.resources :workouts
       
   #map.connect '/workouts',
   #  :controller => 'workouts',

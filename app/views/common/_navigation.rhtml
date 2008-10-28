@@ -1,17 +1,25 @@
+<% if session[:user] && @user %>
+<div id="toolbar" style="text-align:right; padding:5px 15px; margin:0; position:absolute; top:5px; right:35px" class="smaller">
+  Signed in as <%= @user.preferences[:display_name] %>
+  (<%= link_to('Signout', :controller => 'user', :action => 'signout') %>)
+</div>
+<% end %>
+
 <div id="navigation">
-      <ul class="primary">
-        
-        <% unless session[:user] %>
-        <%= navigation_item 'Home', {:controller => 'site'}%>
-        <%= navigation_item 'Sign Up',  {:controller => 'user', :action => 'signup'}%>
-        <%= navigation_item 'Sign In', {:controller => 'user', :action => 'signin'}%>
-        <% else %>
-        <%= navigation_item 'Home', {:controller => 'site'}%>
-        <%= navigation_item_for_controller 'Workouts',  {:controller => 'workouts'}%>
-        <%= navigation_item_for_controller 'Training Summary', {:controller => 'summary'}%>
-        <%= navigation_item_for_controller 'Preferences',  {:controller => 'preferences'}%>
-        <%= navigation_item 'Upload',  {:controller => 'training_files', :action => 'new'}%>
-        <%= navigation_item 'Sign Out',  {:controller => 'user', :action => 'signout'}%>
-        <% end %>
-      </ul>
+  <% unless session[:user] %>
+    <ul>
+      <%= navigation_item 'Home', {:controller => 'site'}%>
+      <%= navigation_item 'Sign Up',  {:controller => 'user', :action => 'signup'}%>
+      <%= navigation_item 'Sign In', {:controller => 'user', :action => 'signin'}%>
+    </ul>
+  <% else %>
+
+    <ul>
+      <%= navigation_item 'Home', {:controller => 'site'}%>
+      <%= navigation_item_for_controller 'Workouts',  {:controller => 'workouts'}%>
+      <%= navigation_item_for_controller 'Training Summary', {:controller => 'summary'}%>
+      <%= navigation_item_for_controller 'Preferences',  {:controller => 'preferences'}%>
+      <%= navigation_item 'Upload',  {:controller => 'training_files', :action => 'new'}%>      
+    </ul>        
+  <% end %>
     </div>
