@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 4) do
+ActiveRecord::Schema.define(:version => 5) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 4) do
     t.string   "permalink"
     t.boolean  "uploaded",     :default => false
     t.integer  "user_id"
+    t.string   "state",        :default => "created"
   end
 
 end
