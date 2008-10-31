@@ -1,4 +1,2 @@
-gem 'memcache-client'
-require 'memcache'
-
+Workling.try_load_a_memcache_client
 Workling::Discovery.discover!

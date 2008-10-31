@@ -2,9 +2,9 @@ require 'pp'
 
 puts '=> Loading Rails...'
 
-require File.dirname(__FILE__) + '/../../../../config/environment'
-require File.dirname(__FILE__) + '/../lib/workling/starling/poller'
-require File.dirname(__FILE__) + '/../lib/workling/starling/routing/class_and_method_routing'
+require File.dirname(__FILE__) + '/../config/environment'
+require File.dirname(__FILE__) + '/../vendor/plugins/workling/lib/workling/starling/poller'
+require File.dirname(__FILE__) + '/../vendor/plugins/workling/lib/workling/starling/routing/class_and_method_routing'
 
 puts '** Rails loaded.'
 
@@ -13,7 +13,9 @@ trap(:INT) { exit }
 begin
   client = Workling::Starling::Client.new
   client.reset
-
+  
+  client.stats # do this so that connection is shown as established below. 
+  
   puts "Queue state:"
   pp client.inspect
   pp "Active?: #{client.active?}"

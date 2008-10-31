@@ -1,12 +1,19 @@
 require 'workling/starling'
 
+#
+#  Polls Starling and dispatches jobs onto the correct workers.
+#  
+#  TODO: needs some urgent refactoring love. 
+# 
 module Workling
   module Starling
-    
     class Poller
       
-      cattr_accessor :sleep_time # Seconds to sleep before looping
-      cattr_accessor :reset_time # Seconds to wait while resetting connection
+      # Seconds to sleep before looping
+      cattr_accessor :sleep_time
+      
+      # Seconds to wait while resetting connection
+      cattr_accessor :reset_time 
 
       def initialize(routing)
         Poller.sleep_time = Workling::Starling.config[:sleep_time] || 2
@@ -14,11 +21,11 @@ module Workling
           
         @routing = routing
         @workers = ThreadGroup.new
+        @mutex = Mutex.new
       end      
       
-      def logger
-        Workling::Base.logger
-      end
+      # returns the Workling::Base.logger
+      def logger; Workling::Base.logger; end
     
       def listen
                 
@@ -34,22 +41,28 @@ module Workling
         # Wait for all workers to complete
         @workers.list.each { |t| t.join }
 
+        logger.debug("Reaped listener threads. ")
+        
         # Clean up all the connections.
         ActiveRecord::Base.verify_active_connections!
+        logger.debug("Cleaned up connection: out!")
       end
       
-      # gracefully stop processing
+      # Check if all Worker threads have been started. 
+      def started?
+        Workling::Discovery.discovered.size == @workers.list.size
+      end
+      
+      # Gracefully stop processing
       def stop
+        sleep 1 until started? # give it a chance to start up before shutting down. 
+        logger.info("Giving Listener Threads a chance to shut down. This may take a while... ")
         @workers.list.each { |w| w[:shutdown] = true }
+        logger.info("Listener threads were shut down.  ")
       end
-      
-      ##
-      ## Thread procs
-      ##
-      
+
       # Listen for one worker class
       def clazz_listen(clazz)
-        
         logger.debug("Listener thread #{clazz.name} started")
            
         # Read thread configuration if available
@@ -64,17 +77,29 @@ module Workling
                 
         # Setup connection to starling (one per thread)
         connection = Workling::Starling::Client.new
-        puts "** Starting Workling::Starling::Client for #{clazz.name} queue"
+        logger.info("** Starting Workling::Starling::Client for #{clazz.name} queue")
         
         # Start dispatching those messages
         while (!Thread.current[:shutdown]) do
           begin
             
-            # Keep MySQL connection alive
-            unless ActiveRecord::Base.connection.active?
-              unless ActiveRecord::Base.connection.reconnect!
-                logger.fatal("FAILED - Database not available")
-                break
+            # Thanks for this Brent! 
+            #
+            #     ...Just a heads up, due to how rails’ MySQL adapter handles this  
+            #     call ‘ActiveRecord::Base.connection.active?’, you’ll need 
+            #     to wrap the code that checks for a connection in in a mutex.
+            #
+            #     ....I noticed this while working with a multi-core machine that 
+            #     was spawning multiple workling threads. Some of my workling 
+            #     threads would hit serious issues at this block of code without 
+            #     the mutex.            
+            #
+            @mutex.synchronize do 
+              unless ActiveRecord::Base.connection.active?  # Keep MySQL connection alive
+                unless ActiveRecord::Base.connection.reconnect!
+                  logger.fatal("Failed - Database not available!")
+                  break
+                end
               end
             end
 
@@ -107,13 +132,11 @@ module Workling
               handler = @routing[queue]
               method_name = @routing.method_name(queue)
               logger.debug("Calling #{handler.class.to_s}\##{method_name}(#{result.inspect})")
-              handler.send(method_name, result)
+              handler.dispatch_to_worker_method(method_name, result)
             end
           rescue MemCache::MemCacheError => e
             logger.error("FAILED to connect with queue #{ queue }: #{ e } }")
             raise e
-          rescue Object => e
-            logger.error("FAILED to process queue #{ queue }. #{ @routing[queue] } could not handle invocation of #{ @routing.method_name(queue) } with #{ result.inspect }: #{ e }.\n#{ e.backtrace.join("\n") }")
           end
         end
         

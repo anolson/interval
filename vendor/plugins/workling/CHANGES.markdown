@@ -1,3 +1,20 @@
+Version 0.3.1, 15.10.08
+- fixed to autodiscovery code bugs. 
+- introduced Workling::VERSION
+- fixed test suite for the case that no memcache client is installed at all
+- fixed AR reconnecting code for Multicore systems (Thanks Brent)
+
+Version 0.3, 25.09.08
+- added backgroundjob runner
+- added automatic detection of starling, spawn and backgroundjob to set default runner
+- made logging of exceptions more consistent across runners. 
+- added friendlier error message if starling was started on the wrong port. 
+- play nice without fiveruns-memcache-client. 
+- added better documentation in README and RDOC
+
+Version 0.2.5, 02.09.08
+- added automatic setting of spawn runner if the spawn plugin is installed. 
+
 Version 0.2.4, 08.06.08
 - accept both async_ and asynch_ as prefixes for workling method invocation. thank you francois beausoleil!
 - added memcached configuration options to starling.yml. see example yml for details. thank you larry diehl!

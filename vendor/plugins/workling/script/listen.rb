@@ -13,7 +13,7 @@ ActionController::Base.logger = Workling::Base.logger
 
 poller = Workling::Starling::Poller.new(Workling::Starling::Routing::ClassAndMethodRouting.new)
 
-trap(:INT) { exit }
+trap(:INT) { poller.stop; exit }
 
 begin
   poller.listen
