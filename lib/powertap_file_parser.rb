@@ -28,7 +28,9 @@ class PowertapParser
     calculate_marker_values
   end
   
-  def parse_header(header)
+  def parse_header()
+    @data_values = Array.new
+    header = CSV.parse(@data).shift
     @properties = PowertapProperties.new
     @properties.speed_units = header[SPEED].to_s.downcase
     @properties.power_units = header[POWER].to_s.downcase
@@ -38,11 +40,9 @@ class PowertapParser
   def parse_data_values()
     @data_values = Array.new
     records = CSV.parse(@data) 
-    parse_header(records.shift)
-    
+ 
     # the first marker is for the entire workout.
     parse_workout_marker(records)
-    
     
     records.each_with_index { |record, index|
       data_value = DataValue.new
