@@ -7,11 +7,11 @@ options = {
   :app_name   => "workling",
   :ARGV       => ARGV,
   :dir_mode   => :normal,
-  :dir        => File.join(File.dirname(__FILE__), '..', 'log'),
+  :dir        => 'log',
   :log_output => true,
   :multiple   => false,
   :backtrace  => true,
-  :monitor    => false
+  :monitor    => true
 }
 
 Daemons.run(workling, options)

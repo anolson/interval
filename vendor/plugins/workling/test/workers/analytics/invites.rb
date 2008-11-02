@@ -4,7 +4,7 @@ module Analytics
   class Invites < ::Workling::Base
     
     def sent(*args)
-      p "nice"
+      logger.info("nice")
     end
   end
 end

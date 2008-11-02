@@ -1,3 +1,6 @@
+#
+#  Discovery is responsible for loading workers in app/workers. 
+#
 module Workling
   class Discovery
     cattr_accessor :discovered

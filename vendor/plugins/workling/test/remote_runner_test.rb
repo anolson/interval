@@ -10,14 +10,14 @@ context "the remote runner" do
     clazz, method, options = :util, :echo, { :message => "somebody_came@along.com" }
     old_dispatcher = Workling::Remote.dispatcher
     dispatcher = mock
-    dispatcher.expects(:run_with_error_handling).with(clazz, method, options)
+    dispatcher.expects(:run).with(clazz, method, options)
     Workling::Remote.dispatcher = dispatcher
     Workling::Remote.run(clazz, method, options)
     Workling::Remote.dispatcher = old_dispatcher # set back to whence we came
   end
   
-  specify "should, when being tested, use the test remote runner by when no runner was explicitly set. " do
-    Workling::Remote.dispatcher.class.should.equal Workling::Remote::Runners::NotRemoteRunner
+  specify "should, when being tested, use the default remote runner by when no runner was explicitly set. " do
+    Workling::Remote.dispatcher.class.should.equal Workling.default_runner.class
   end
   
   specify "should raise a Workling::WorklingNotFoundError if it is invoked with a worker key that canont be constantized" do
@@ -27,9 +27,14 @@ context "the remote runner" do
   end
   
   specify "should raise a Workling::WorklingNotFoundError if it is invoked with a valid worker key but the method is not defined on that worker" do
+    dispatcher = Workling::Remote.dispatcher
+    Workling::Remote.dispatcher = Workling::Remote::Runners::NotRemoteRunner.new
+    
     should.raise Workling::WorklingNotFoundError do
       Workling::Remote.run(:util, :sau_sack)
     end
+    
+    Workling::Remote.dispatcher = dispatcher
   end
   
   specify "should invoke work when called in this way: YourWorkling.asynch_your_method(options)" do

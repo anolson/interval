@@ -1,36 +1,37 @@
+#
+#  Base class for Workling Runners.
+#
+#  Runners must subclass this and implement the method 
+#
+#     Workling::Remote::Runners::Base#run(clazz, method, options = {})
+#
+#  which is responsible for pushing the requested job into the background. Depending
+#  on the Runner, this may require other code to dequeue the job. The actual
+#  invocation of the runner should be done like this: 
+#
+#      Workling.find(clazz, method).dispatch_to_worker_method(method, options)
+#
+#  This ensures for consistent logging and handling of propagated exceptions. You can
+#  also call the convenience method 
+#       
+#      Workling::Remote::Runners::Base#dispatch!(clazz, method, options)
+#
+#  which invokes this for you. 
+#
 module Workling
   module Remote
     module Runners
       class Base
-        def worker_instance(clazz, method = nil)
-          begin
-            inst = clazz.to_s.camelize.constantize.new 
-          rescue NameError
-            raise_not_found(clazz, method)
-          end
-          raise_not_found(clazz, method) if method && !inst.respond_to?(method)
-          inst
-        end
-                
+        
+        # default logger defined in Workling::Base.logger
         def logger
           Workling::Base.logger
         end
-        
-        private
-        def raise_not_found(clazz, method)
-          raise Workling::WorklingNotFoundError.new("could not find #{ clazz }:#{ method } workling. ") 
-        end
-        
-        # internal template method takes care of suppressing remote errors but raising Workling::WorklingNotFoundError
-        # where appropriate. swallow workling exceptions so that this behaves like remote code.
-        # otherwise StarlingRunner and SpawnRunner would behave too differently to NotRemoteRunner.
-        def run_with_error_handling(clazz, method, options = {})
-          begin 
-            self.run(clazz, method, options)
-          rescue Exception => e
-            raise e if e.kind_of? Workling::WorklingError
-            logger.error "WORKLING: runner could not invoke #{ clazz }:#{ method } with #{ options.inspect }. error was: #{ e.inspect }"
-          end
+
+        # find the worker instance and invoke it. Invoking the worker method like this ensures for 
+        # consistent logging and handling of propagated exceptions. 
+        def dispatch!(clazz, method, options)
+          Workling.find(clazz, method).dispatch_to_worker_method(method, options)
         end
       end
     end
