@@ -25,7 +25,20 @@ class PowerCalculator
     values.sum
   end
   
-  def intesityFactor
+  def PowerCalculator.intesity_factor(values)
+  end
+  
+  def PowerCalculator.normalized_power(values, record_interval)
+    thirty_second_record_count = 30 / record_interval
+    thirty_second_rolling_power = Array.new
+    if(values.length > thirty_second_record_count)
+      values.slice(thirty_second_record_count..-1).each_slice(thirty_second_record_count) { |s|
+        thirty_second_rolling_power << s.average ** 4
+      }
+      thirty_second_rolling_power.average ** 0.25
+    else
+      0
+    end
   end
   
   def trainingStressScore

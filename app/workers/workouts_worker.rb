@@ -5,12 +5,8 @@ class WorkoutsWorker < Workling::Base
     #workout.user = user
     #workout.status = "finished."
     #workout.save!
-    
-    
+    logger.info("Processing Workout")
     workout = Workout.find(options[:workout_id])
-    
-    
-    
     training_file = workout.training_files.first
     training_file.parse_file_data
     workout.markers << training_file.markers
@@ -23,5 +19,7 @@ class WorkoutsWorker < Workling::Base
     
     workout.save
     workout.finish!
+    
+    logger.info("Done Processing Workout")
   end
 end
