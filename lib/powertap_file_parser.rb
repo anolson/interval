@@ -31,16 +31,25 @@ class PowertapParser
   def parse_header()
     @data_values = Array.new
     header = CSV.parse(@data).shift
+    records = CSV.parse(@data)
+    
     @properties = PowertapProperties.new
     @properties.speed_units = header[SPEED].to_s.downcase
     @properties.power_units = header[POWER].to_s.downcase
     @properties.distance_units = header[DISTANCE].to_s.downcase
+    calculate_record_interval(records)
+  end
+  
+  def calculate_record_interval(records)
+    times = Array.new
+    records[1..30].each_slice(2) {|s| times << ((s[1][MINUTES].to_f - s[0][MINUTES].to_f)  * 60) }
+    @properties.record_interval = times.average.round
   end
 
   def parse_data_values()
     @data_values = Array.new
     records = CSV.parse(@data) 
- 
+    
     # the first marker is for the entire workout.
     parse_workout_marker(records)
     

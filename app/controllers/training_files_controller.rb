@@ -25,7 +25,9 @@ class TrainingFilesController < ApplicationController
       if @user.preferences[:auto_assign_workout_name]
         options[:name] = @workout.generate_workout_name @user.preferences[:auto_assign_workout_name_by]
       end
-      options[:notes] = @workout.notes + " (SRM comment - #{@training_file.powermeter_properties.comment})" if @user.preferences[:append_srm_comment_to_notes]
+      if @user.preferences[:append_srm_comment_to_notes]
+        options[:notes] = @workout.generate_workout_comments
+      end
       @workout.auto_assign options
     
       if @workout.save

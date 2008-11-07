@@ -114,6 +114,13 @@ class Workout < ActiveRecord::Base
     end
   end
   
+  def generate_workout_comments()
+    training_file = self.training_files.first
+    if training_file.is_srm_file_type? 
+      @workout.notes + " (SRM comment - #{training_file.powermeter_properties.comment})"
+    end
+  end
+  
   def auto_assign(options)
     self.performed_on = options[:performed_on] if options[:performed_on]
     self.name = options[:name] if options[:name]

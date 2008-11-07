@@ -8,7 +8,7 @@ class PowertapProperties
   METRIC_POWER_UNITS = "watts"
   METRIC_DISTANCE_UNITS = "km"
   
-  attr_accessor :speed_units, :power_units, :distance_units
+  attr_accessor :speed_units, :power_units, :distance_units, :record_interval
   
   def speed_is_english?()
     return self.speed_units.eql?(ENGLISH_SPEED_UNITS)
