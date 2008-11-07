@@ -10,4 +10,7 @@ class TrainingFileTest < Test::Unit::TestCase
     assert_equal 'A050108A.srm', training_file.filename
     assert_equal 1241, training_file.powermeter_properties.record_count
   end
+  
+  def test_invalid_file
+    
 end

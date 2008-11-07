@@ -3,7 +3,7 @@ require 'srm_properties.rb'
 require 'power_calculator.rb'
 
 class SrmParser
-  SRM = 'srm'
+  SRM = '.srm'
   HEADER_SIZE=86
   MARKER_SIZE=270
   BLOCK_SIZE=6

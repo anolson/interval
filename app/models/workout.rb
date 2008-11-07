@@ -101,6 +101,19 @@ class Workout < ActiveRecord::Base
     smoothed
   end
   
+  def generate_workout_name(generate_by)
+    training_file = self.training_files.first
+    if training_file.is_srm_file_type? 
+      if generate_by.eql?('filename')
+        training_file.file_basename
+      else
+        training_file.powermeter_properties.comment.gsub(/^[\w]*\s/, '')        
+      end
+    else
+      training_file.file_basename if generate_by.eql?('filename')
+    end
+  end
+  
   def auto_assign(options)
     self.performed_on = options[:performed_on] if options[:performed_on]
     self.name = options[:name] if options[:name]

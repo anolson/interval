@@ -12,28 +12,33 @@ class TrainingFilesController < ApplicationController
   end
   
   def create
-    training_file = TrainingFile.new(params[:training_file])
-    @workout = Workout.new(params[:workout])
-    @workout.training_files << training_file
-    #workout.markers << training_file.markers
-    @workout.user = @user
+    @training_file = TrainingFile.create(params[:training_file])
+    @training_file.save
+    puts @training_file.errors.to_xml
+    if(@training_file.errors.empty?)
+      @training_file.parse_file_header
+      @workout = Workout.new(params[:workout])
+      @workout.training_files << @training_file
+      @workout.user = @user
 
-    if training_file.is_srm_file_type?
       options = {}
-      options[:name] = training_file.powermeter_properties.comment.gsub(/^[\w]*\s/, '') if @user.preferences[:parse_srm_comment]
-      options[:notes] = @workout.notes + " (SRM comment - #{training_file.powermeter_properties.comment})" if @user.preferences[:append_srm_comment_to_notes]
+      if @user.preferences[:auto_assign_workout_name]
+        options[:name] = @workout.generate_workout_name @user.preferences[:auto_assign_workout_name_by]
+      end
+      options[:notes] = @workout.notes + " (SRM comment - #{@training_file.powermeter_properties.comment})" if @user.preferences[:append_srm_comment_to_notes]
       @workout.auto_assign options
-    end
     
-    if @workout.save
-      @workout.process!
-      WorkoutsWorker.async_parse_workout(:workout_id => @workout.id)
-      redirect_to(:controller => 'workouts', :action => 'index')
+      if @workout.save
+        @workout.process!
+        WorkoutsWorker.async_parse_workout(:workout_id => @workout.id)
+        redirect_to(:controller => 'workouts', :action => 'index')
+      else
+        render(:action => 'new')
+      end
     else
       render(:action => 'new')
     end
-  #rescue
-  # render(:action => 'new')
+    
   end
 
 end

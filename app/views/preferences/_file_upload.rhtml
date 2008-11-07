@@ -1,8 +1,35 @@
       <fieldset>
         <legend>File Upload</legend>
-        <%= check_box_tag 'preferences[parse_srm_comment]', 'true', @user.preferences[:parse_srm_comment].eql?('true') && true || false %>
-        Use SRM comment for workout name <span class="smaller">(By default the SRM comment contains the temperature, this will be removed.  For example, "69&deg; Endurance Miles" will become just "Endurance Miles")</span>.<br/><br/>
+        <%= check_box_tag 'preferences[auto_assign_workout_name]', 
+          'true', 
+          @user.preferences[:auto_assign_workout_name].eql?('true') && true || false %> 
+        Automatically assign workout name.<br/><br/>
         
-        <%= check_box_tag 'preferences[append_srm_comment_to_notes]', 'true', @user.preferences[:append_srm_comment_to_notes].eql?('true') && true || false %>
+        <div id="auto_assign_workout_name_by" class="container full">        
+          <%= radio_button_tag 'preferences[auto_assign_workout_name_by]', 
+            'filename', 
+            @user.preferences[:auto_assign_workout_name_by].eql?('filename') && true || false %> 
+          Use filename for workout name. <br/><br/>
+
+          <%= radio_button_tag 'preferences[auto_assign_workout_name_by]', 
+            'srm_comment', 
+            @user.preferences[:auto_assign_workout_name_by].eql?('srm_comment') && true || false %> 
+          Use SRM comment for workout name. <br/>
+          <span class="smaller">
+            (By default SRM comments contain temperature, this will be removed.  For example, "65&deg; Endurance Miles" will  
+            become just "Endurance Miles").
+          </span>
+          <br/><br/>
+        </div>
+
+        <%= check_box_tag 'preferences[append_srm_comment_to_notes]', 'true',   
+          @user.preferences[:append_srm_comment_to_notes].eql?('true') && true || false %>
         Append SRM comment to workout notes.
       </fieldset> 
+      
+      <%= observe_field 'preferences[auto_assign_workout_name]', 
+        :function => "$('auto_assign_workout_name_by').toggle()", 
+        :on => "change" %>
+      
+      <%= javascript_tag "Event.observe(window, 'load', 
+        function(){ if($('preferences[auto_assign_workout_name]').checked) {$('auto_assign_workout_name_by').show(); } else {$('auto_assign_workout_name_by').hide(); } } )" %>

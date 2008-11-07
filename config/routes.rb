@@ -29,6 +29,10 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user',
     :action => 'signout'
   
+  map.signout 'upload', 
+      :controller => 'training_files',
+      :action => 'new'
+  
   map.connect '', :controller => 'site' 
     
     
