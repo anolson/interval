@@ -28,7 +28,7 @@ class PowerCalculator
   def PowerCalculator.intesity_factor(values)
   end
   
-  def PowerCalculator.normalized_power(values, record_interval)
+  def PowerCalculator.smoothed_power(values, record_interval)
     thirty_second_record_count = 30 / record_interval
     thirty_second_rolling_power = Array.new
     if(values.length > thirty_second_record_count)
