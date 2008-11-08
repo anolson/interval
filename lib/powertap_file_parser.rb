@@ -55,8 +55,11 @@ class PowertapParser
       data_value.power = record[POWER].to_i
       data_value.distance = convert_distance(record[DISTANCE].to_f)
       data_value.cadence = record[CADENCE].to_i
-      data_value.heartrate = record[HEARTRATE].to_i
-      
+      if record[HEARTRATE].to_i < 0
+        data_value.heartrate = 0
+      else
+        data_value.heartrate = record[HEARTRATE].to_i
+      end
       #parse markers
       #raise(index.to_s)
       if(index > 0 && (record[MARKER].to_i > records[index-1][MARKER].to_i))
@@ -158,7 +161,7 @@ class PowertapParser
       
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
 
-      marker.normalized_power = PowerCalculator::normalized_power( 
+      marker.normalized_power = PowerCalculator::smoothed_power( 
           @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
         
     }
