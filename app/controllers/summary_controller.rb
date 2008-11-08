@@ -45,9 +45,9 @@ class SummaryController < ApplicationController
       workouts = Workout.find_by_date_range(range, session[:user])
       { :period => period,
         :type => type,
-        :duration => Time.at(PowerCalculator::total(workouts.collect {|workout| workout.markers.first.duration.to_i}) || 0).utc,
-        :distance => PowerCalculator::total(workouts.collect {|workout| workout.markers.first.distance}) || 0.0,
-        :energy => PowerCalculator::total(workouts.collect {|workout| workout.markers.first.energy}) || 0 }
+        :duration => Time.at(PowerCalculator::total(workouts.collect {|workout| workout.markers.first.duration.to_i unless workout.processing?}) || 0).utc,
+        :distance => PowerCalculator::total(workouts.collect {|workout| workout.markers.first.distance unless workout.processing?}) || 0.0,
+        :energy => PowerCalculator::total(workouts.collect {|workout| workout.markers.first.energy unless workout.processing?}) || 0 }
     end
   
 end
