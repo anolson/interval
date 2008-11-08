@@ -39,12 +39,6 @@ class PowertapParser
     @properties.distance_units = header[DISTANCE].to_s.downcase
     calculate_record_interval(records)
   end
-  
-  def calculate_record_interval(records)
-    times = Array.new
-    records[1..30].each_slice(2) {|s| times << ((s[1][MINUTES].to_f - s[0][MINUTES].to_f)  * 60) }
-    @properties.record_interval = times.average.round
-  end
 
   def parse_data_values()
     @data_values = Array.new
@@ -85,6 +79,12 @@ class PowertapParser
       @markers.last.duration_seconds = @data_values[@markers.last.end].relative_time - @data_values[@markers.last.start].relative_time
       
     end
+  end
+  
+  def calculate_record_interval(records)
+    times = Array.new
+    records[1..30].each_slice(2) {|s| times << ((s[1][MINUTES].to_f - s[0][MINUTES].to_f)  * 60) }
+    @properties.record_interval = times.average.round
   end
   
   def convert_speed(speed)
@@ -157,6 +157,9 @@ class PowertapParser
       end
       
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
+
+      marker.normalized_power = PowerCalculator::normalized_power( 
+          @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
         
     }
   end
