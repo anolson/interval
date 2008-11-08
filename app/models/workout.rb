@@ -117,7 +117,7 @@ class Workout < ActiveRecord::Base
   def generate_workout_comments()
     training_file = self.training_files.first
     if training_file.is_srm_file_type? 
-      @workout.notes + " (SRM comment - #{training_file.powermeter_properties.comment})"
+      self.notes + " (SRM comment - #{training_file.powermeter_properties.comment})"
     end
   end
   
