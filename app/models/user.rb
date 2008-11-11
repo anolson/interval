@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
     :auto_assign_workout_name_by => 'filename'}
   
   has_many :workouts
+  has_and_belongs_to_many :roles
   belongs_to :plan
   serialize :preferences, Hash
   
