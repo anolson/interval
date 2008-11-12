@@ -76,7 +76,7 @@
     <% end %>
   <% end %>
   <% if @workout.has_training_files? %>
-    <%= render :partial => 'workouts/device_properties'  if @workout.training_files.first.file_type.eql?("srm")%>
+    <%= render :partial => 'workouts/device_properties'  if @workout.training_files.first.is_srm_file_type?()%>
   <% end %>
 <% end %>
 

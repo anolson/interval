@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 5) do
+ActiveRecord::Schema.define(:version => 6) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 5) do
     t.float   "max_speed",        :default => 0.0
     t.integer "start"
     t.integer "workout_id"
+    t.integer "normalized_power", :default => 0
   end
 
   create_table "plans", :force => true do |t|

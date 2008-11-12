@@ -1,0 +1,23 @@
+<% @heading_text ='Admin Sign In'%>
+
+<div class="container half">
+  <% rounded_box @heading_text, "complete", "wide" do %>
+    <% container "full" do %>
+    
+      <% form_for(:user, @user, :url => {:action => 'create'}) do |f| %>
+        <%= f.error_messages %>
+        
+        <label for="username">Username:</label><br/>
+        <%= f.text_field :username %><br/><br/>
+        
+        <label for="password">Password:</label><br/>
+        <%= f.password_field :password %><br/><br/>
+        
+        <p>
+          <%= f.submit "Sign In" %>
+        </p>
+      <% end %>
+    <% end %>
+  <% end %>
+  <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+</div>

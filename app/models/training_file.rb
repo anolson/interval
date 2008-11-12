@@ -7,20 +7,30 @@ class TrainingFile < ActiveRecord::Base
   #has_many :markers,  :dependent => :destroy
   has_many :data_values, :order => 'id', :dependent => :destroy
   
+  #before_create :validate_file_type
+  
+  #validates_format_of :filename, :with => %r{\.(csv|srm)$}
+  
+
   attr_accessor :markers
   
-  def initialize(params = {})
-    super(params)
-    parse_file_header
-  end
-  
+  # def initialize(params = {})
+  #     super(params)
+  #     #parse_file_header
+  #     
+  #   end
+  #   
   def payload=(file = {})
     write_attribute(:payload, file.read)
-    self.filename=sanitize_filename(file.original_filename)
+    self.filename = file.original_filename
+  end
+
+  def file_basename 
+    File.basename(self.filename, self.file_type)
   end
   
   def file_type 
-    self.filename.split('.').last
+    File.extname(self.filename)
   end
   
   def is_srm_file_type?()
@@ -39,17 +49,26 @@ class TrainingFile < ActiveRecord::Base
     @markers = file_parser.markers
   end
   
+  def parse_file_header()
+    file_parser = get_file_parser()
+    file_parser.data = self.payload
+    file_parser.parse_header()
+    self.powermeter_properties=file_parser.properties
+  end
+  
   private
-    def sanitize_filename(filename)
+    #def sanitize_filename(filename)
       # get only the filename, not the whole path
-      filename.split('\\').last.gsub(/[^\w\.\-]/,'_') 
-    end 
+    #  filename.split('\\').last.gsub(/[^\w\.\-]/,'_') 
+    #end 
         
-    def parse_file_header()
-      file_parser = get_file_parser()
-      file_parser.data = self.payload
-      file_parser.parse_header()
-      self.powermeter_properties=file_parser.properties
+    #def validate_file_type
+    #  
+    #end
+
+    def validate_on_create 
+      regex = %r{\.(srm|csv)$}i
+      errors.add("filename", "is an unsupported format") unless self.filename.match(regex)
     end
     
     def get_file_parser()

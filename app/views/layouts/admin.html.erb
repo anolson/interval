@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Interval - Admin</title>
+    <%= stylesheet_link_tag 'style' %>
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag "lightbox" %>
+  </head>
+  <body>
+    <div id="title">
+      <%= link_to image_tag("interval.png"),  '/'  %>
+    </div>
+    <%= render(:partial => 'common/admin/navigation') %>
+    <div id="content">
+      <div class="container full">
+        <% if @primary_heading -%>
+          <div id="sub">
+            <%= @primary_heading %>
+            <div class="clear"></div>
+          </div>
+        <% end %>
+        <%= @secondary_heading && render(:partial => 'common/secondary') %>
+        <%= @content_for_layout  %>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <%= render :partial => 'common/footer' %>
+    <%= render :partial => 'common/analytics' %>
+  </body>
+</html>

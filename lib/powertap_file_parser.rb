@@ -31,16 +31,19 @@ class PowertapParser
   def parse_header()
     @data_values = Array.new
     header = CSV.parse(@data).shift
+    records = CSV.parse(@data)
+    
     @properties = PowertapProperties.new
     @properties.speed_units = header[SPEED].to_s.downcase
     @properties.power_units = header[POWER].to_s.downcase
     @properties.distance_units = header[DISTANCE].to_s.downcase
+    calculate_record_interval(records)
   end
 
   def parse_data_values()
     @data_values = Array.new
     records = CSV.parse(@data) 
- 
+    
     # the first marker is for the entire workout.
     parse_workout_marker(records)
     
@@ -52,8 +55,11 @@ class PowertapParser
       data_value.power = record[POWER].to_i
       data_value.distance = convert_distance(record[DISTANCE].to_f)
       data_value.cadence = record[CADENCE].to_i
-      data_value.heartrate = record[HEARTRATE].to_i
-      
+      if record[HEARTRATE].to_i < 0
+        data_value.heartrate = 0
+      else
+        data_value.heartrate = record[HEARTRATE].to_i
+      end
       #parse markers
       #raise(index.to_s)
       if(index > 0 && (record[MARKER].to_i > records[index-1][MARKER].to_i))
@@ -76,6 +82,12 @@ class PowertapParser
       @markers.last.duration_seconds = @data_values[@markers.last.end].relative_time - @data_values[@markers.last.start].relative_time
       
     end
+  end
+  
+  def calculate_record_interval(records)
+    times = Array.new
+    records[1..30].each_slice(2) {|s| times << ((s[1][MINUTES].to_f - s[0][MINUTES].to_f)  * 60) }
+    @properties.record_interval = times.average.round
   end
   
   def convert_speed(speed)
@@ -148,6 +160,9 @@ class PowertapParser
       end
       
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
+
+      marker.normalized_power = PowerCalculator::smoothed_power( 
+          @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
         
     }
   end

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   
   # Sample of regular route:
@@ -29,7 +31,11 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user',
     :action => 'signout'
   
-  map.connect '', :controller => 'site' 
+  map.signout 'upload', 
+      :controller => 'training_files',
+      :action => 'new'
+  
+  map.root :controller => 'site', :action => 'index'
     
     
   # map.connect 'shared/:user',
@@ -47,7 +53,9 @@ ActionController::Routing::Routes.draw do |map|
       
   
   #map.resources :workouts
-      
+   
+
+     
   #map.connect '/workouts',
   #  :controller => 'workouts',
   #  :action => 'index'   
@@ -87,9 +95,15 @@ ActionController::Routing::Routes.draw do |map|
       :controller => 'workouts',
       :action => 'show'
 
+ 
+
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
+  
+  map.connect '/admin/users', :controller => 'admin/users', :action => 'index'
+  map.connect '/admin/users/:action/:id', :controller => 'admin/users', :action => nil, :id => nil
+  
 
     
 end

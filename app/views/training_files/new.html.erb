@@ -31,15 +31,17 @@
       Add a workout by uploading a file.  Browse and select a supported file<i>(powertap .csv or .srm)</i>.  
       Then, enter a name and optionally some notes.
     </p>
-       <br/>
-       <p>After the you upload the workout, you will be able to:</p>
-       <ul>
-        <li>View workout data and graphs.</li>
-        <li>Share you workout with others.</li>
-        <li>Track the progress of your training.</li>
-       </ul>
-       <p style="text-align: center; color: green"><%= flash[:error] %></p>
-       <%= error_messages_for 'workout' %>
+    <br/>
+    <p>After the you upload the workout, you will be able to:</p>
+    <ul>
+      <li>View workout data and graphs.</li>
+      <li>Share you workout with others.</li>
+      <li>Track the progress of your training.</li>
+    </ul>
+    <br/>
+    <p style="text-align: center; color: green"><%= flash[:error] %></p>
+    <%= error_messages_for 'workout'%>
+    <%= error_messages_for 'training_file'%>
   </div>
 </div>
 

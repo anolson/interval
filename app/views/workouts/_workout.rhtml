@@ -1,9 +1,23 @@
           <li id="<%="workout_#{workout.id}"%>">
+            
             <% container "complete" do  %>
               <% if workout.processing? %>
-                <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
-                  <%= "#{workout.name} is being processed." %>
-                </div>
+                <span id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px;">
+                  <%= workout.name %>
+                </span>
+                <span class="larger">
+                  is being processed.
+                  <%= image_tag "spinner.gif" %>
+                  <%= javascript_tag "var poll_workout_#{workout.id}= true" %>
+                  <%= periodically_call_remote(
+                    :url => { :action => "poll", :id => workout.id }, 
+                    :frequency => '10', 
+                    :condition => "poll_workout_#{workout.id} == true")  %>
+                  
+                </span>
+
+
+                
               <% else %>
                 <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
                   <%= link_to_workout(workout) %>
@@ -34,16 +48,16 @@
                     <tr class="small" >
                       <td style="color: #777">duration</td> 
                       <td id="<%= "workout_duration_#{workout.id}" %>" >
-                        <%= workout.markers.first.nil? && '-' || nice_duration(workout.markers.first.duration)  %>
+                        <%= workout.processing? && '-' || nice_duration(workout.markers.first.duration)  %>
                       </td>
                     </tr>
                     <tr class="small">
                       <td style="color: #777">power</td> 
-                      <td><%= workout.markers.first.nil? && '-' ||workout.markers.first.avg_power %> watts</td>
+                      <td><%= workout.processing? && '-' ||workout.markers.first.avg_power %> watts</td>
                     </tr>
                     <tr class="small">
                       <td style="color: #777">energy</td> 
-                      <td><%= workout.markers.first.nil? && '-' || workout.markers.first.energy %> kJ</td>
+                      <td><%= workout.processing? && '-' || workout.markers.first.energy %> kJ</td>
                     </tr>
                   </table>
                  </div>

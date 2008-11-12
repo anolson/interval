@@ -1,7 +1,7 @@
 class WorkoutsController < ApplicationController
   layout 'standard'
   before_filter :find_workouts, :only => [:index, :list]
-  before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :delete]
+  before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :delete, :poll]
   before_filter :check_within_plan_limits, :only => [:new, :create]
  
   def index
@@ -56,6 +56,10 @@ class WorkoutsController < ApplicationController
 
   def graph
   end
+  
+  def poll
+  end
+  
   
   private
     def find_workouts

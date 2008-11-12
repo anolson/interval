@@ -5,5 +5,11 @@
         Others will be able to view your workouts at: <br/><br/>
         <span class="larger">
           <%= url_for :host => 'intervalapp.com', :controller => 'shared', :user => @user.username %>
-        </span>
+        </span><br/><br/>
+        <div class="larger">
+          <%= image_tag 'feed.png', :style => 'float:left' %>
+          <div style='float:left; margin:2px'> 
+            <%= link_to "Subscribe", :controller => "shared", :user => @user.username, :action => "feed" %>
+          </div>
+        </div>        
       </fieldset>

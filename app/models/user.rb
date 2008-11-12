@@ -3,9 +3,12 @@ class User < ActiveRecord::Base
   DEFAULT_PREFERENCES = {
     :display_name => "", 
     :parse_srm_comment => false, 
-    :sort_order => "name" }
+    :sort_order => "name", 
+    :auto_assign_workout_name => true, 
+    :auto_assign_workout_name_by => 'filename'}
   
   has_many :workouts
+  has_and_belongs_to_many :roles
   belongs_to :plan
   serialize :preferences, Hash
   
@@ -24,9 +27,13 @@ class User < ActiveRecord::Base
   
   def initialize(options = {})
     super(options)
+    set_default_preferences
+    self.plan = Plan.find_by_name("Free")
+  end
+  
+  def set_default_preferences
     self.preferences = User::DEFAULT_PREFERENCES
     self.preferences[:display_name]=self.username
-    self.plan = Plan.find_by_name("Free")
   end
   
   def create_password
