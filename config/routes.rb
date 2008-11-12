@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
       :controller => 'training_files',
       :action => 'new'
   
-  map.connect '', :controller => 'site' 
+  map.root :controller => 'site', :action => 'index'
     
     
   # map.connect 'shared/:user',

@@ -11,13 +11,13 @@ class CreateRoles < ActiveRecord::Migration
     Role.create :name => "admin", :description => "Role given to all admins"
     Role.create :name => "athlete", :description => "Role given to all athletes"
     
-    create_table :users_roles do |t|
+    create_table :roles_users do |t|
       t.column :user_id,    :integer
       t.column :role_id,    :integer
     end
     
-    foreign_key(:users_roles, :user_id, :user)
-    foreign_key(:users_roles, :role_id, :roles)
+    foreign_key(:roles_users, :user_id, :user)
+    foreign_key(:roles_users, :role_id, :roles)
     
     create_table :rights do |t|
       t.column :controller, :string
@@ -30,7 +30,7 @@ class CreateRoles < ActiveRecord::Migration
 
   def self.down
     drop_table :rights
-    drop_table :users_roles
+    drop_table :roles_users
     drop_table :roles
   end
 end

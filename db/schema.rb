@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 6) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -61,17 +61,6 @@ ActiveRecord::Schema.define(:version => 7) do
     t.datetime "updated_at"
   end
 
-  create_table "rights", :force => true do |t|
-    t.string  "controller"
-    t.string  "action"
-    t.integer "role_id"
-  end
-
-  create_table "roles", :force => true do |t|
-    t.string "name"
-    t.text   "description"
-  end
-
   create_table "training_files", :force => true do |t|
     t.datetime "created_at"
     t.string   "filename"
@@ -91,11 +80,6 @@ ActiveRecord::Schema.define(:version => 7) do
     t.text     "preferences"
     t.text     "email"
     t.integer  "plan_id"
-  end
-
-  create_table "users_roles", :force => true do |t|
-    t.integer "user_id"
-    t.integer "role_id"
   end
 
   create_table "workouts", :force => true do |t|
