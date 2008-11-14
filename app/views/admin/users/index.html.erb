@@ -1,37 +1,22 @@
 <% @primary_heading = link_to content_tag(:h1, "Users"), :action => "index" %>
 <% @secondary_heading = content_tag :span, "Listing all users (#{@users.length})", :class => "larger" %>
 
-
-
 <div id="main"> 
-<div class="list">   
-  <% rounded_box nil, "complete", "full" do %> 
-  <div class="container full"> 
-  <table border="0" cellspacing="0" cellpadding="5">
-      <th>Username</th>
-      <th>Email</th>
-       <th>Plan</th>
-        <th>Workouts</th>
-      <th colspan="2">Joined</th>
-    <% for user in @users %>
+  <div class="list">   
+    <% rounded_box nil, "complete", "full" do %> 
+    <div class="container full"> 
+    <table border="0" cellspacing="0" cellpadding="5">
       <tr>
-        <td><%= link_to user.username, :action => 'show' %></td>
-        <td><%= user.email %></td>
-        <td><%= user.plan.name %></td>
-        <td><%= user.workouts.count %></td>
-        <td><%= nice_date_short user.created_at %></td>
-        <td width="200px">
-          <%= link_to 'Edit', :action => 'edit' %>
-          <%= link_to(image_tag "delete.png", :action => 'delete' ,  :confirm => 'Are you sure?', :method => :delete) %>
-        </td>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Plan</th>
+        <th>Workouts</th>
+        <th colspan="2">Joined</th>
       </tr>
-    <% end %>
+      <%= render :partial => 'user', :collection => @users %>
     </table>
-     </div>
-    <% end %></div>
-   
-
-    <br />
-
+    </div>
+    <% end %>
+  </div>
 </div>
 

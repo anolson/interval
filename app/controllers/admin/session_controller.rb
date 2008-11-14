@@ -1,6 +1,6 @@
 class Admin::SessionController < Admin::AdminController
   layout 'admin'
-  skip_before_filter :check_admin_authentication
+  skip_before_filter :check_admin_authentication, :check_admin_authorization
   ssl_required :new, :create
   
   def new

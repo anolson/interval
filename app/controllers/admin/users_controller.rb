@@ -14,7 +14,7 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin_users/1
   # GET /admin_users/1.xml
   def show
-    @users = User.find(params[:id])
+    @user = User.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +25,7 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin_users/new
   # GET /admin_users/new.xml
   def new
-    @users = Admin::Users.new
+    @users = User.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,13 +35,14 @@ class Admin::UsersController < Admin::AdminController
 
   # GET /admin_users/1/edit
   def edit
-    @users = Users.find(params[:id])
+    @user = User.find(params[:id])
+    @plans = Plan.find(:all)
   end
 
   # POST /admin_users
   # POST /admin_users.xml
   def create
-    @users = Users.new(params[:users])
+    @users = User.new(params[:users])
 
     respond_to do |format|
       if @users.save
@@ -58,12 +59,13 @@ class Admin::UsersController < Admin::AdminController
   # PUT /admin_users/1
   # PUT /admin_users/1.xml
   def update
-    @users = Users.find(params[:id])
+    @user = User.find(params[:id])
+    params[:user][:plan] = Plan.find(params[:plan][:id])
 
     respond_to do |format|
-      if @users.update_attributes(params[:users])
+      if @user.update_attributes(params[:user])
         flash[:notice] = 'Admin::Users was successfully updated.'
-        format.html { redirect_to(@users) }
+        format.html { redirect_to(:action => "edit", :id => @user.id) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -75,7 +77,7 @@ class Admin::UsersController < Admin::AdminController
   # DELETE /admin_users/1
   # DELETE /admin_users/1.xml
   def destroy
-    @users = Users.find(params[:id])
+    @users = User.find(params[:id])
     @users.destroy
 
     respond_to do |format|

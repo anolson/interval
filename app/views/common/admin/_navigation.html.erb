@@ -1,10 +1,3 @@
-<% if session[:admin] && @user %>
-<div id="toolbar" style="text-align:right; padding:5px 15px; margin:0; position:absolute; top:5px; right:35px" class="smaller">
-  Signed in as <%= @user.preferences[:display_name] %>
-  (<%= link_to('Signout', :controller => 'user', :action => 'signout') %>)
-</div>
-<% end %>
-
 <div id="navigation">
   <% unless session[:admin] %>
     <ul>
@@ -13,9 +6,8 @@
   <% else %>
 
     <ul>
-      <%= navigation_item 'Home', root_url%>
       <%= navigation_item_for_controller 'Users',  {:controller => 'users'}%>
-      <%= navigation_item 'Signout',  {:controller => 'session', :action => 'destroy'}%>      
+      <%= navigation_item 'Log out',  {:controller => 'session', :action => 'destroy'}%>      
     </ul>        
   <% end %>
     </div>
