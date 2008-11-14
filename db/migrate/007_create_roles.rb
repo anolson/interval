@@ -16,7 +16,7 @@ class CreateRoles < ActiveRecord::Migration
       t.column :role_id,    :integer
     end
     
-    foreign_key(:roles_users, :user_id, :user)
+    foreign_key(:roles_users, :user_id, :users)
     foreign_key(:roles_users, :role_id, :roles)
     
     create_table :rights do |t|
