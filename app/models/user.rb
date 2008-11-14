@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_confirmation_of :password, :if => :password_required?
   
-  attr_accessible :username, :email, :password, :password_confirmation, :preferences
+  attr_accessible :username, :email, :password, :password_confirmation, :preferences, :plan
   attr_accessor :password, :old_password
     
   before_create :create_password

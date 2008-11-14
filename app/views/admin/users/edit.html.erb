@@ -1,12 +1,46 @@
-<h1>Editing users</h1>
+<% @primary_heading= link_to content_tag(:h1, "Users"), :action => "index" %>
 
-<% form_for(@users) do |f| %>
-  <%= f.error_messages %>
+<div id="main">
+  <% rounded_box nil, "complete", "half" do %>
+    <% container "full" do %>
+      <% form_for(:user, @user, :url => {:action => 'update', :id => @user.id}) do |f| %>
+        <%= f.error_messages %>
+        <fieldset>
+          <legend>User Account</legend>
+          <label for="username">Username:</label><br/>
+          <%= f.text_field :username%><br/><br/>
 
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+          <label for="password">Password:</label><br/>
+          <%= f.password_field :password %><br/><br/>
 
-<%= link_to 'Show', @users %> |
-<%= link_to 'Back', users_path %>
+          <label for="password">Confirmation:</label><br/>
+          <%= f.password_field :password_confirmation %><br/><br/>
+
+          <label for="email">Email:</label><br/>
+          <%= f.text_field :email%><br/><br/>
+        </fieldset>
+        
+        <fieldset>
+          <legend>Plan</legend>
+          <div class="highlight_box full">
+            <br />
+            <% for plan in @plans %>
+              <%=radio_button(:plan, :id, plan.id, :checked => (@user.plan.eql?(plan) && "checked"))%> 
+              <%= plan.name %> <br /> <br />
+            <% end %>
+          </div>
+        </fieldset>
+        <p>
+          <%= f.submit "Update" %>
+        </p>
+        <%= set_focus_for('user_username') %>
+      <% end %>      
+    <% end %>
+
+  <% end %>
+  <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back", :action => 'index') %>
+</div>
+
+
+
+
