@@ -9,6 +9,7 @@
   <% unless session[:user] %>
     <ul>
       <%= navigation_item 'Home', {:controller => 'site'}%>
+      <%= navigation_item 'Tour', tour_url%>
       <%= navigation_item 'Sign Up',  {:controller => 'user', :action => 'signup'}%>
       <%= navigation_item 'Sign In', {:controller => 'user', :action => 'signin'}%>
     </ul>

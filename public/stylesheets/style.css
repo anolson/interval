@@ -40,3 +40,5 @@ h2{margin:10px auto;font-family:Helvetica;width:95%;}
 .fieldWithErrors{display:table;border:2px solid red;}
 fieldset{border:2px solid #BBB;margin-bottom:20px;}
 fieldset legend{font-size:18px;}
+.screenshot{width:85%; margin:40px auto; border-bottom: 2px solid #CCC;}
+.screenshot div{text-align:center;}
