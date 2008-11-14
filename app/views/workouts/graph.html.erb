@@ -6,7 +6,7 @@
   { :text => 'Graph', :options => {:action => 'graph', :id => @workout.id } } ] %>
   
 <% if @sharing %>
-  <% @secondary_links.each {|l| l[:options].merge!({:user => @user.preferences[:display_name]})}  %>
+  <% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
 <% end %>
 
 <div id="main">
