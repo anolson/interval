@@ -34,7 +34,11 @@ ActionController::Routing::Routes.draw do |map|
   map.signout 'upload', 
       :controller => 'training_files',
       :action => 'new'
-  
+
+  map.tour 'tour', 
+      :controller => 'site', 
+      :action => 'tour'
+    
   map.root :controller => 'site', :action => 'index'
     
     

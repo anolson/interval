@@ -16,4 +16,6 @@ class SiteController < ApplicationController
   def support
   end
   
+  def tour
+  end
 end
