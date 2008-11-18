@@ -1,18 +1,12 @@
-require 'application_helper'
-
 class Workout < ActiveRecord::Base
-
   belongs_to :user
   has_many :training_files, :dependent => :destroy 
   has_many :comments
   has_many :markers,  :dependent => :destroy 
-  #has_and_belongs_to_many :tags
   
   validates_presence_of :name
   
-  
   acts_as_state_machine :initial => :created
-
   state :created
   state :processing
   state :uploaded
@@ -24,10 +18,6 @@ class Workout < ActiveRecord::Base
   event :finish do
     transitions :to => :uploaded, :from => :processing
   end
-  
-  #def validate_on_create
-  #  errors.add("name", "must be unique for given day.")  if Workout.find_by_permalink(self.permalink, self.user.id, self.performed_on.year, self.performed_on.month, self.performed_on.day)
-  # end
   
   def initialize(workout={}, file_options={})
     super(workout)
@@ -78,29 +68,12 @@ class Workout < ActiveRecord::Base
     self.user.id.eql?(user_id)
   end
   
-  
-  def smoothed_data(range)
-    smoothed = {:power => Array.new, :time=> Array.new}
+  def data_points
     if(has_training_files?())
-      data = self.training_files.first.data_values
-      
-      if(range.end>0)
-        power_series = data.slice(range).collect_with_index{|v, i| [i, v.power]}
-        time_series = data.slice(range).collect_with_index{|v, i| [i, Time.at(v.relative_time).utc.strftime("%k:%M:%S")]}
-      else
-        power_series = data.collect_with_index{|v, i| [i, v.power]}
-        time_series = data.collect_with_index{|v, i| [i, Time.at(v.relative_time).utc.strftime("%k:%M:%S")]}
-      end
-      
-      size = (power_series.size < 1000) && 1 || (power_series.size / 1000)
-      size = 1
-      puts size
-      power_series.each_slice(size) { |s| smoothed[:power] << s[0] }
-      time_series.each_slice(size) { |s| smoothed[:time] << s[0] }
+      data_points = self.training_files.first.data_values
     end
-    smoothed
   end
-  
+    
   def generate_workout_name(generate_by)
     training_file = self.training_files.first
     if training_file.is_srm_file_type? 

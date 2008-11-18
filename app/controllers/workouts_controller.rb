@@ -46,9 +46,7 @@ class WorkoutsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {        
-        range_start = params[:begin].nil? && 0 || params[:begin].to_i
-        range_end = params[:end].nil? && 0 || params[:end].to_i
-        @smoothed_values=@workout.smoothed_data((range_start..range_end))
+        @data_points = @workout.data_points
         render :layout => false
       }
     end

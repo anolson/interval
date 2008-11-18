@@ -38,9 +38,7 @@ class SharedController < ApplicationController
         render :template => 'workouts/show'
       } 
       format.json {        
-        range_start = params[:begin].nil? && 0 || params[:begin].to_i
-        range_end = params[:end].nil? && 0 || params[:end].to_i
-        @smoothed_values=@workout.smoothed_data((range_start..range_end))
+        @data_points = @workout.data_points
         render :template=> 'workouts/show.json.erb', :layout => false
       }
     end
