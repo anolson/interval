@@ -161,7 +161,7 @@ class PowertapParser
       
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
 
-      marker.normalized_power = PowerCalculator::smoothed_power( 
+      marker.normalized_power = PowerCalculator::normalized_power( 
           @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
         
     }

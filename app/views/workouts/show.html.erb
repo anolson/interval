@@ -78,5 +78,9 @@
   <% if @workout.has_training_files? %>
     <%= render :partial => 'workouts/device_properties'  if @workout.training_files.first.is_srm_file_type?()%>
   <% end %>
+  
+  <div class="container center smaller">
+    Normalized Power&trade;(NP) is a trademark of <%= link_to "Peaksware, LLC.", "http://www.peaksware.com", :target => "_blank" %>
+  </div>
 <% end %>
 

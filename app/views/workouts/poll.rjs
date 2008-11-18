@@ -4,4 +4,5 @@ unless @workout.processing?
   page.select("#workout_#{@workout.id}").each do |element|
     element.visual_effect(:highlight)
   end
+  page.redirect_to :action => 'index'
 end
