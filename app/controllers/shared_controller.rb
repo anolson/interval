@@ -14,6 +14,14 @@ class SharedController < ApplicationController
     render :template => 'workouts/index' 
   end
   
+  def download
+    file=TrainingFile.find(params[:id])
+    workout = Workout.find(file.workout)
+    if workout.belongs_to_user?(@user.id)
+      send_data(file.payload, :filename => file.filename, :type=>'application/octet-stream')
+    end
+  end
+  
   def feed
     respond_to do |format|
       format.atom { render :layout => false }

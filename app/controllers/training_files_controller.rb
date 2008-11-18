@@ -3,8 +3,11 @@ class TrainingFilesController < ApplicationController
   before_filter :check_within_plan_limits, :only => [:new, :create]
   
   def download
-    @file=TrainingFile.find(params[:id])
-    send_data(@file.payload, :filename => @file.filename, :type=>'application/octet-stream')
+    file=TrainingFile.find(params[:id])
+    workout = Workout.find(file.workout)
+    if workout.belongs_to_user?(@user.id)
+      send_data(file.payload, :filename => file.filename, :type=>'application/octet-stream')
+    end
   end
   
   def new 
@@ -14,7 +17,6 @@ class TrainingFilesController < ApplicationController
   def create
     @training_file = TrainingFile.create(params[:training_file])
     @training_file.save
-    puts @training_file.errors.to_xml
     if(@training_file.errors.empty?)
       @training_file.parse_file_header
       @workout = Workout.new(params[:workout])
