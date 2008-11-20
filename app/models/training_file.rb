@@ -1,6 +1,8 @@
 require 'srm_file_parser'
 require 'powertap_file_parser'
 
+require 'csv_file_parser'
+
 class TrainingFile < ActiveRecord::Base
   serialize :powermeter_properties
   belongs_to :workout
@@ -44,7 +46,7 @@ class TrainingFile < ActiveRecord::Base
   
   def parse_file_data()
     file_parser = get_file_parser()
-    file_parser.parse_training_file(self.payload)
+    file_parser.parse_training_file
     self.data_values.push(file_parser.data_values)
     @markers = file_parser.markers
   end
@@ -75,7 +77,8 @@ class TrainingFile < ActiveRecord::Base
       if self.is_srm_file_type?()
         SrmParser.new
       else
-        PowertapParser.new
+        #PowertapParser.new
+        CsvFileParser.new(self.payload).get_parser
       end
     end
       

@@ -1,14 +1,4 @@
-require 'srm_block.rb'
-require 'srm_properties.rb'
-require 'power_calculator.rb'
-
-require 'training_file'
-require 'marker'
-require 'data_value'
-
-require 'csv'
-
-class PowertapParser
+class PowertapFileParser < CsvFileParser
   MINUTES = 0
   TORQUE = 1
   SPEED = 2
@@ -17,16 +7,7 @@ class PowertapParser
   CADENCE = 5
   HEARTRATE = 6
   MARKER = 7
-  
-  attr_writer :data
-  attr_reader :data, :properties, :markers, :data_values
-  
-  def parse_training_file(data)
-    self.data = data
-    parse_header
-    parse_data_values
-    calculate_marker_values
-  end
+
   
   def parse_header()
     @data_values = Array.new
