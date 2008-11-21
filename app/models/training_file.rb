@@ -75,7 +75,7 @@ class TrainingFile < ActiveRecord::Base
     
     def get_file_parser()
       if self.is_srm_file_type?()
-        SrmParser.new
+        SrmParser.new(self.payload)
       else
         #PowertapParser.new
         CsvFileParser.new(self.payload).get_parser

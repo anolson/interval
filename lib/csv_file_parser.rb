@@ -27,6 +27,7 @@ class CsvFileParser
   
   def parse_training_file
     parse_header
+    parse_markers
     parse_data_values
     calculate_marker_values
   end

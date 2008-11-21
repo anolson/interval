@@ -10,10 +10,8 @@ class PowertapFileParser < CsvFileParser
 
   
   def parse_header()
-    @data_values = Array.new
     header = CSV.parse(@data).shift
-    records = CSV.parse(@data)
-    
+    records = CSV.parse(@data) 
     @properties = PowertapProperties.new
     @properties.speed_units = header[SPEED].to_s.downcase
     @properties.power_units = header[POWER].to_s.downcase
@@ -24,9 +22,7 @@ class PowertapFileParser < CsvFileParser
   def parse_data_values()
     @data_values = Array.new
     records = CSV.parse(@data) 
-    
-    # the first marker is for the entire workout.
-    parse_workout_marker(records)
+    records.shift
     
     records.each_with_index { |record, index|
       data_value = DataValue.new
@@ -36,32 +32,45 @@ class PowertapFileParser < CsvFileParser
       data_value.power = record[POWER].to_i
       data_value.distance = convert_distance(record[DISTANCE].to_f)
       data_value.cadence = record[CADENCE].to_i
+      
       if record[HEARTRATE].to_i < 0
         data_value.heartrate = 0
       else
         data_value.heartrate = record[HEARTRATE].to_i
       end
-      #parse markers
-      #raise(index.to_s)
-      if(index > 0 && (record[MARKER].to_i > records[index-1][MARKER].to_i))
-        marker = Marker.new
-        marker.start = index
-        marker.comment = ""
-        set_marker_end(index - 1)
-        @markers << marker
-      end
       @data_values << data_value
+    }
+
+    
+    
+  end
+  
+  def parse_markers
+    @markers = Array.new
+    records = CSV.parse(@data) 
+    records.shift
+    @markers << parse_workout_marker(records)
+    
+    records.each_with_index { |record, index|
+        if(record[MARKER].to_i > records[index-1][MARKER].to_i) 
+          marker = Marker.new(:start => index, :comment => "" )
+          set_previous_marker_end(index - 1)
+          @markers << marker
+        end
     }
     
     #set the end of the last marker
-    set_marker_end(@data_values.size - 1)
+    set_previous_marker_end(records.size - 1)
+    @markers.each{ |m| p "Marker at: #{m.start} -> #{m.end}"}
   end
   
-  def set_marker_end(value)
-    if(@markers.size > 0)
+  def parse_workout_marker(records)
+    Marker.new(:start => 0, :end => records.size - 1)
+  end
+  
+  def set_previous_marker_end(value)
+    if(@markers.size > 1)
       @markers.last.end = value
-      @markers.last.duration_seconds = @data_values[@markers.last.end].relative_time - @data_values[@markers.last.start].relative_time
-      
     end
   end
   
@@ -94,14 +103,6 @@ class PowertapFileParser < CsvFileParser
     distance
   end
     
-  def parse_workout_marker(records)
-    @markers = Array.new
-    marker = Marker.new
-    marker.start = 0
-    marker.end = records.size-1
-    @markers << marker
-  end
-  
   def calculate_marker_values
     @markers.each { |marker|
       

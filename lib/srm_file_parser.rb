@@ -11,8 +11,12 @@ class SrmParser
   attr_writer :data
   attr_reader :blocks, :data, :properties, :markers, :data_values
   
-  def parse_training_file(data)
-    self.data = data
+  def initialize(data)
+    self.data = data  
+  end
+  
+  def parse_training_file()
+
     parse_header
     parse_markers
     parse_blocks
