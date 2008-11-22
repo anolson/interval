@@ -1,5 +1,3 @@
-require 'srm_block.rb'
-require 'srm_properties.rb'
 require 'power_calculator.rb'
 
 require 'training_file'
@@ -15,12 +13,13 @@ class CsvFileParser
   
   def initialize(data)
     self.data = data
-    
   end
   
   def get_parser
     header = CSV.parse(@data).shift
-    unless header[0].to_s.downcase.eql?("ibike")
+    if header[0].to_s.downcase.eql?("ibike")
+      return IbikeFileParser.new(data)
+    else
       return PowertapFileParser.new(data)
     end
   end

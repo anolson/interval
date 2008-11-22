@@ -39,10 +39,7 @@ class PowertapFileParser < CsvFileParser
         data_value.heartrate = record[HEARTRATE].to_i
       end
       @data_values << data_value
-    }
-
-    
-    
+    }  
   end
   
   def parse_markers
@@ -61,7 +58,6 @@ class PowertapFileParser < CsvFileParser
     
     #set the end of the last marker
     set_previous_marker_end(records.size - 1)
-    @markers.each{ |m| p "Marker at: #{m.start} -> #{m.end}"}
   end
   
   def parse_workout_marker(records)
