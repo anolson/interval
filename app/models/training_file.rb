@@ -1,7 +1,8 @@
 require 'srm_file_parser'
-require 'powertap_file_parser'
+#require 'powertap_file_parser'
 
 require 'csv_file_parser'
+require 'ibike_file_parser'
 
 class TrainingFile < ActiveRecord::Base
   serialize :powermeter_properties
@@ -38,16 +39,29 @@ class TrainingFile < ActiveRecord::Base
   def is_srm_file_type?()
     return self.file_type.eql?(SrmParser::SRM)
   end
-  
-  def performed_on
-    date = powermeter_properties.date
-    Time.mktime(date.year.to_i, date.month.to_i, date.day.to_i, 0, 0, 0, 0) + data_values.first.absolute_time.to_i
+ 
+  def is_ibike_file_type?()
+     return self.file_type.eql?(IbikeFileParser::IBIKE)
   end
+  
+  def is_srm_type?()
+    return self.powermeter_properties.type.eql?(SrmProperties::TYPE)
+  end
+  
+  def is_ibike_type?()
+    return self.powermeter_properties.type.eql?(IbikeProperties::TYPE)
+  end
+  
+  # def performed_on
+  #     date = powermeter_properties.date
+  #     Time.mktime(date.year.to_i, date.month.to_i, date.day.to_i, 0, 0, 0, 0) + data_values.first.absolute_time.to_i
+  #   end
   
   def parse_file_data()
     file_parser = get_file_parser()
     file_parser.parse_training_file
     self.data_values.push(file_parser.data_values)
+    self.powermeter_properties=file_parser.properties
     @markers = file_parser.markers
   end
   

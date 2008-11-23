@@ -115,6 +115,10 @@ class SrmParser
         @data_values[count].absolute_time =  @blocks[block_count].time/100 + (@properties.record_interval*relative_count)
         @data_values[count].relative_time = @blocks[block_count].time/100 - @blocks[0].time/100 + (@properties.record_interval*(relative_count + 1))
         
+        if count.eql?(0)
+          @properties.date_time = data_values.first.absolute_time.to_i
+        end
+        
         count=count+1
         relative_count=relative_count+1
       end

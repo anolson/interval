@@ -1,12 +1,15 @@
 require "yaml"
 
 class SrmProperties
-  
-  attr_accessor :ident, :srm_date, :wheel_size, :record_interval_numerator,
+  TYPE = "srm"
+  attr_accessor :type, :ident, :srm_date, :start_date_time, :wheel_size, :record_interval_numerator,
     :record_interval_denominator, :block_count, :marker_count, :comment, 
     :zero_offset, :record_count, :slope
     
-  
+  def initialize()
+    self.type=TYPE
+  end
+    
   def record_interval 
     return self.record_interval_numerator/self.record_interval_denominator
   end
@@ -18,6 +21,12 @@ class SrmProperties
   def slope
     @slope/305.58
   end
+
+  def date_time=(time)
+    self.start_date_time = Time.mktime(self.date.year.to_i, self.date.month.to_i, self.date.day.to_i) + time
+  end
   
-      
+  def date_time
+    self.start_date_time
+  end
 end

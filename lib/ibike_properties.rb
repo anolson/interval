@@ -20,12 +20,17 @@
 
 
 class IbikeProperties
+  TYPE = "ibike"
   ENGLISH_UNITS = "english"
   METRIC_UNITS = "metric"
 
-  attr_accessor :version, :units, :date_time, :total_weight, :energy, :record_interval, :starting_elevation, :total_climbing, 
+  attr_accessor :type, :version, :units, :date_time, :total_weight, :energy, :record_interval, :starting_elevation, :total_climbing, 
   :wheel_size, :temperature, :starting_pressure, :wind_scaling, :riding_tilt, :calibration_weight, :cm, :cda, :crr
 
+  def initialize()
+    self.type=TYPE
+  end
+  
   def units_are_english?
     self.units.eql?(ENGLISH_UNITS)
   end

@@ -11,10 +11,8 @@ class WorkoutsWorker < Workling::Base
     training_file.parse_file_data
     workout.markers << training_file.markers
     
-    if training_file.is_srm_file_type?
-      options = {}
-      options[:performed_on] = training_file.performed_on
-      workout.auto_assign options
+    if training_file.is_srm_type? || training_file.is_ibike_type?
+      workout.auto_assign(:performed_on => training_file.powermeter_properties.date_time)
     end
     
     workout.save

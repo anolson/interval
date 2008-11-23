@@ -1,4 +1,5 @@
 class IbikeFileParser < CsvFileParser
+  IBIKE = '.csv'
   SPEED = 0
   WINDSPEED = 1
   POWER = 2
