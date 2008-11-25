@@ -4,7 +4,7 @@ context "the starling return store" do
   setup do
     # the memoryreturnstore behaves exactly like memcache. 
     MemCache.expects(:new).at_least(0).returns Workling::Return::Store::MemoryReturnStore.new
-    Workling::Starling::Client.expects(:connection).at_least(0).returns Workling::Return::Store::MemoryReturnStore.new
+    Workling::Clients::MemcacheQueueClient.expects(:connection).at_least(0).returns Workling::Return::Store::MemoryReturnStore.new
   end
   
   specify "should be able to store a value with a key, and then retrieve that same value with the same key." do

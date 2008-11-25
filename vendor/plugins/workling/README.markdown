@@ -75,7 +75,7 @@ You'll see that this executes pretty much instantly. Run 'top' in another termin
 
 You cannot run your workers on a remote machine or cluster them with spawn. You also have no persistence: if you've fired of a lot of work and everything dies, there's no way of picking up where you left off. 
 
-# Using the Starling runner instead of Spawn
+# Using the Starling runner
 
 If you want cross machine jobs with low latency and a low memory overhead, you might want to look into using the Starling Runner. 
 
@@ -97,14 +97,14 @@ Workling will now automatically detect and use Starling, unless you have also in
 
 ## Starting up the required processes
 
-Here's what you need to get up and started in development mode. Look in config/starling.yml to see what the default ports are for other environments. 
+Here's what you need to get up and started in development mode. Look in config/workling.yml to see what the default ports are for other environments. 
 
     sudo starling -d -p 22122
-    script/workling_starling_client start
+    script/workling_client start
 
-## Configuring starling.yml
+## Configuring workling.yml
 
-Workling copies a file called starling.yml into your applications config directory. You can delete this file if you're not planning to use Starling. The config file tells Workling on which port Starling is listening. 
+Workling copies a file called workling.yml into your applications config directory. The config file tells Workling on which port Starling is listening. 
 
 Notice that the default production port is 15151. This means you'll need to start Starling with -p 15151 on production. 
 
@@ -153,6 +153,54 @@ You might wonder what exactly starling does. Here's a little snippet you can pla
     11 starling = MemCache.new('localhost:22122')
     12 loop { puts starling.get('my_queue') }
     13
+    
+# Using RabbitMQ or any Queue Server that supports AMQP
+
+RabbitMQ is a reliable, high performance queue server written in erlang. If you're doing high volume messaging and need a high degree of reliability, you should definitely consider using RabbitMQ over Starling. 
+
+A lot of Ruby people have been talking about using RabbitMQ as their Queue of choice. Soundcloud.com are using it, as is new bamboo founder Johnathan Conway, who is using it at his video startup http://www.vzaar.com/. He says: 
+
+> RabbitMQ – Now this is the matrons knockers when it comes to kick ass, ultra fast and scalable messaging. It simply rocks, with performance off the hook. It’s written in Erlang and supports the AMPQ protocol. 
+
+If you're on OSX, you can get started with RabbitMQ by following the installation instructions [here](http://playtype.net/past/2008/10/9/installing_rabbitmq_on_osx/). To get an idea of how to directly connect to RabbitMQ using ruby, have a look at [this article](http://playtype.net/past/2008/10/10/kickass_queuing_over_ruby_using_amqp).
+
+Once you've installed RabbitMQ, install the ruby amqp library: 
+
+    gem sources -a http://gems.github.com/ (if necessary)
+    sudo gem install tmm1-amqp
+    
+then configure configure your application to use Amqp by adding this: 
+
+    Workling::Remote.invoker = Workling::Remote::Invokers::EventmachineSubscriber
+    Workling::Remote.dispatcher = Workling::Remote::Runners::ClientRunner.new
+    Workling::Remote.dispatcher.client = Workling::Clients::AmqpClient.new
+    
+Then start the workling Client: 
+
+    1 ./script/workling_client start
+
+You're good. 
+
+# Using RudeQueue
+
+RudeQueue is a Starling-like Queue that runs on top of your database and requires no extra processes. Use this if you don't need very fast job processing and want to avoid managing the extra process starling requires.
+
+Install the RudeQ plugin like this:
+
+    1 ./script/plugin install git://github.com/matthewrudy/rudeq.git
+    2 rake queue:setup
+    3 rake db:migrate
+    
+Configure Workling to use RudeQ. Add this to your environment:
+
+    Workling::Clients::MemcacheQueueClient.memcache_client_class = RudeQ::Client
+    Workling::Remote.dispatcher = Workling::Remote::Runners::ClientRunner.new
+    
+Now start the Workling Client: 
+
+    1 ./script/workling_client start
+    
+You're good.
 
 # Using BackgroundJob
 
@@ -199,6 +247,119 @@ you can now use the @uid to query the return store:
 of course, you can use this for progress indicators. just put the progress into the return store. 
 
 enjoy!
+
+## Adding new work brokers to Workling
+
+There are two new base classes you can extend to add new brokers. I'll describe how this is done usin amqp as an example. The code i show is already a part of workling.
+
+### Clients
+
+Clients help workling to connect to job brokers. To add an AmqpClient, we need to extend from `Workling::Client::Base` and implement a couple of methods. 
+
+    require 'workling/clients/base'
+    require 'mq'
+
+    #
+    #  An Ampq client
+    #
+    module Workling
+      module Clients
+        class AmqpClient < Workling::Clients::Base
+      
+          # starts the client. 
+          def connect
+            @amq = MQ.new
+          end
+      
+          # stops the client.
+          def close
+            @amq.close
+          end
+      
+          # request work
+          def request(queue, value)
+            @amq.queue(queue).publish(value)
+          end
+          
+          # retrieve work
+          def retrieve(queue)
+            @amq.queue(queue)
+          end
+          
+          # subscribe to a queue
+          def subscribe(queue)
+            @amq.queue(queue).subscribe do |value|
+              yield value
+            end
+          end
+          
+        end
+      end
+    end
+
+Were's using the eventmachine amqp client for this, you can find it [up on github](http://github.com/tmm1/amqp/tree/master). `connect` and `close` do exactly what it says on the tin: connecting to rabbitmq and closing the connection. 
+
+`request` and `retrieve` are responsible for placing work on rabbitmq. The methods are passed the correct queue, and a value that contains the worker method arguments. If you need control over the queue names, look at the RDoc for Workling::Routing::Base. In our case, there's no special requirement here. 
+
+Finally, we implement a `subscribe` method. Use this if your broker supports callbacks, as is the case with amqp. This method expects to a block, which we pass into the amqp subscribe method here. The block will be called when a message is available on the queue, and the result is yielded into the block. 
+
+Having subscription callbacks is very nice, because this way, we don't need to keep calling `get` on the queue to see if something new is waiting. 
+
+So now we're done! That's all you need to add RabbitMQ to workling. Configure it in your application as descibed below. 
+
+### Invokers
+
+There's still potential to improve things though. Workling 0.4.0 introduces the idea of invokers. Invokers grab work off a job broker, using a client (see above). They subclass Workling::Remote::Invokers::Base. Read the RDoc for a description of the methods. 
+
+Workling comes with a couple of standard invokers, like the BasicPoller. This invoker simply keeps hitting the broker every n seconds, checking for new work and executing it immediately. The ThreadedInvoker does the same, but spawns a Thread for every Worker class the project defines. 
+
+So Amqp: it would be nice if we had an invoker that makes use of the subscription callbacks. Easily done, lets have a look: 
+
+    require 'eventmachine'
+    require 'workling/remote/invokers/base'
+
+    #
+    #  Subscribes the workers to the correct queues. 
+    # 
+    module Workling
+      module Remote
+        module Invokers
+          class EventmachineSubscriber < Workling::Remote::Invokers::Base
+      
+            def initialize(routing, client_class)
+              super
+            end
+      
+            #
+            #  Starts EM loop and sets up subscription callbacks for workers. 
+            #
+            def listen
+              EM.run do
+                connect do
+                  routes.each do |queue|
+                    @client.subscribe(queue) do |args|
+                      run(queue, args)
+                    end
+                  end
+                end
+              end
+            end
+              
+            def stop
+              EM.stop if EM.reactor_running?
+            end
+          end
+        end
+      end
+    end
+
+Invokers have to implement two methods, `listen` and `stop`. Listen starts the main listener loop, which is responsible for starting work when it becomes available. 
+
+In our case, we need to start an EM loop around `listen`. This is because the Ruby AMQP library needs to run inside of an eventmachine reactor loop. 
+
+Next, inside of `listen`, we need to iterate through all defined routes. There is a route for each worker method you defined in your application. The routes double as queue names. For this, you can use the helper method `routes`. Now we attach a callback to each queue. We can use the helper method `run`, which executes the worker method associated with the queue, passing along any supplied arguments. 
+
+That's it! We now have a more effective Invoker.
 
 # Contributors
 

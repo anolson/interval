@@ -4,15 +4,24 @@
 module Workling
   class WorklingError < StandardError; end
   class WorklingNotFoundError < WorklingError; end
-  class StarlingNotFoundError < WorklingError
+  class WorklingConnectionError < WorklingError; end
+  class QueueserverNotFoundError < WorklingError
     def initialize
-      super "config/starling.yml configured to connect to starling on #{ Workling::Starling.config[:listens_on] } for this environment. could not connect to starling on this host:port. pass starling the port with -p flag when starting it. If you don't want to use Starling at all, then explicitly set Workling::Remote.dispatcher (see README for an example)"
+      super "config/workling.yml configured to connect to queue server on #{ Workling.config[:listens_on] } for this environment. could not connect to queue server on this host:port. for starling users: pass starling the port with -p flag when starting it. If you don't want to use Starling, then explicitly set Workling::Remote.dispatcher (see README for an example)"
+    end
+  end
+
+  class ConfigurationError < WorklingError
+    def initialize
+      super File.exist?(File.join(RAILS_ROOT, 'config', 'starling.yml')) ? 
+        "config/starling.yml has been depracated. rename your config file to config/workling.yml then try again!" :
+        "config/workling.yml could not be loaded. check out README.markdown to see what this file should contain. "
     end
   end
   
   mattr_accessor :load_path
   @@load_path = File.expand_path(File.join(File.dirname(__FILE__), '../../../../app/workers')) 
-  VERSION = "0.3.1"
+  VERSION = "0.4.2"
   
   #
   # determine the runner to use if nothing is specifically set. workling will try to detect
@@ -93,6 +102,33 @@ module Workling
       rescue Gem::LoadError
         Workling::Base.logger.info "WORKLING: couldn't find a memcache client - you need one for the starling runner. "
       end
+    end
+  end
+  
+  # attempts to load amqp and writes out descriptive error message if not present
+  def self.try_load_an_amqp_client
+    begin
+      require 'mq'
+    rescue Exception => e
+      raise WorklingError.new(
+        "WORKLING: couldn't find the ruby amqp client - you need it for the amqp runner. " \
+        "Install from github: gem sources -a http://gems.github.com/ && sudo gem install tmm1-amqp "
+      )
+    end
+  end
+  
+  #
+  #  returns a config hash. reads RAILS_ROOT/config/workling.yml
+  #
+  def self.config
+    begin
+      config_path = File.join(RAILS_ROOT, 'config', 'workling.yml')
+      @@config ||=  YAML.load_file(config_path)[RAILS_ENV || 'development'].symbolize_keys
+      @@config[:memcache_options].symbolize_keys! if @@config[:memcache_options]
+      @@config 
+    rescue
+       # config files could not be read correctly
+      raise ConfigurationError.new
     end
   end
   

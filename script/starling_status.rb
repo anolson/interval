@@ -3,15 +3,17 @@ require 'pp'
 puts '=> Loading Rails...'
 
 require File.dirname(__FILE__) + '/../config/environment'
-require File.dirname(__FILE__) + '/../vendor/plugins/workling/lib/workling/starling/poller'
-require File.dirname(__FILE__) + '/../vendor/plugins/workling/lib/workling/starling/routing/class_and_method_routing'
+require File.dirname(__FILE__) + '/../vendor/plugins/workling/lib/workling/remote/invokers/basic_poller'
+require File.dirname(__FILE__) + '/../vendor/plugins/workling/lib/workling/routing/class_and_method_routing'
 
 puts '** Rails loaded.'
 
 trap(:INT) { exit }
 
+client = Workling::Clients::MemcacheQueueClient.new
+  
 begin
-  client = Workling::Starling::Client.new
+  client.connect
   client.reset
   
   client.stats # do this so that connection is shown as established below. 
@@ -31,4 +33,5 @@ begin
   pp Thread.list
 ensure
   puts '** Exiting'
+  client.close
 end

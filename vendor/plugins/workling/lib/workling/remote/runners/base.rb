@@ -23,6 +23,9 @@ module Workling
     module Runners
       class Base
         
+        # runner uses this to connect to a job broker
+        cattr_accessor :client
+        
         # default logger defined in Workling::Base.logger
         def logger
           Workling::Base.logger

@@ -13,7 +13,7 @@ module Workling
         
         def initialize
           BackgroundjobRunner.routing = 
-            Workling::Starling::Routing::ClassAndMethodRouting.new
+            Workling::Routing::ClassAndMethodRouting.new
         end
         
         #  passes the job to bj by serializing the options to xml and passing them to

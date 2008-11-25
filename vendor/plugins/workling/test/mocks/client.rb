@@ -1,6 +1,8 @@
+require 'workling/clients/base'
+
 module Workling
-  module Starling
-    class Client
+  module Clients
+    class MemcacheQueueClient < Workling::Clients::Base
       def raise_unless_connected!; end
     end
   end

@@ -1,17 +1,22 @@
 puts '=> Loading Rails...'
 
 require File.dirname(__FILE__) + '/../../../../config/environment'
-require File.dirname(__FILE__) + '/../lib/workling/starling/poller'
-require File.dirname(__FILE__) + '/../lib/workling/starling/routing/class_and_method_routing'
+require File.dirname(__FILE__) + '/../lib/workling/remote'
+require File.dirname(__FILE__) + '/../lib/workling/remote/invokers/basic_poller'
+require File.dirname(__FILE__) + '/../lib/workling/remote/invokers/threaded_poller'
+require File.dirname(__FILE__) + '/../lib/workling/remote/invokers/eventmachine_subscriber'
+require File.dirname(__FILE__) + '/../lib/workling/routing/class_and_method_routing'
+
+client = Workling::Remote.dispatcher.client
+invoker = Workling::Remote.invoker
+poller = invoker.new(Workling::Routing::ClassAndMethodRouting.new, client.class)
 
 puts '** Rails loaded.'
-puts '** Starting Workling::Starling::Poller...'
+puts "** Starting #{ invoker }..."
 puts '** Use CTRL-C to stop.'
 
 ActiveRecord::Base.logger = Workling::Base.logger
 ActionController::Base.logger = Workling::Base.logger
-
-poller = Workling::Starling::Poller.new(Workling::Starling::Routing::ClassAndMethodRouting.new)
 
 trap(:INT) { poller.stop; exit }
 
