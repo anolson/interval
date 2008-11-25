@@ -11,7 +11,7 @@ class WorkoutsWorker < Workling::Base
     training_file.parse_file_data
     workout.markers << training_file.markers
     
-    if training_file.is_srm_type? || training_file.is_ibike_type?
+    if training_file.powermeter_properties.class.eql?(IbikeProperties) || training_file.powermeter_properties.class.eql?(SrmProperties)
       workout.auto_assign(:performed_on => training_file.powermeter_properties.date_time)
     end
     

@@ -69,24 +69,6 @@ class IbikeFileParser < CsvFileParser
     Marker.new(:start => 0, :end => records.size - 1)
   end
   
-  def convert_speed(speed)
-    #convert to mm/s
-    if @properties.units_are_english?
-      speed * 447.04 
-    else
-      speed * 277.77
-    end
-  end
-  
-  def convert_distance(distance)
-    #convert distacen to mm
-    if @properties.units_are_english?
-      distance * 1609344 
-    else
-      distance * 1000000
-    end
-  end
-    
   def parse_workout_marker(records)
     @markers = Array.new
     marker = Marker.new
@@ -96,7 +78,7 @@ class IbikeFileParser < CsvFileParser
   end
   
   def calculate_marker_values
-    @markers.each { |marker|
+    @markers.each_with_index { |marker, i|
       
       marker.avg_power=PowerCalculator::average(
         @data_values[marker.start..marker.end].collect() {|value| value.power})
@@ -121,20 +103,17 @@ class IbikeFileParser < CsvFileParser
       
       marker.max_heartrate=PowerCalculator::maximum(
         @data_values[marker.start..marker.end].collect() {|value| value.heartrate})
-        
-      #marker.distance =  PowerCalculator::total(
-      #   @data_values[marker.start-1..marker.end-1].collect() {|value| value.distance})  
-      
-      if marker.start.eql?(0) 
+  
+      if i.eql?(0) 
         marker.distance = @data_values.last.distance
         marker.duration_seconds = @data_values.last.relative_time
       else
-        marker.distance = @data_values[marker.end].distance - @data_values[marker.start-1].distance
-        marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start-1].relative_time
+        marker.distance = @data_values[marker.end].distance - @data_values[marker.start].distance
+        marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start].relative_time
       end
-      
+            
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
-
+  
       marker.normalized_power = PowerCalculator::normalized_power( 
           @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
         

@@ -48,20 +48,21 @@ class PowertapFileParser < CsvFileParser
     records.shift
     @markers << parse_workout_marker(records)
     
+    @markers << Marker.new(:start => 0, :comment => "")
+    
     records.each_with_index { |record, index|
         if(record[MARKER].to_i > records[index-1][MARKER].to_i) 
-          marker = Marker.new(:start => index, :comment => "" )
+          marker = Marker.new(:start => index, :comment => "")
           set_previous_marker_end(index - 1)
           @markers << marker
         end
     }
-    
     #set the end of the last marker
-    set_previous_marker_end(records.size - 1)
+    set_previous_marker_end(records.size - 1)  
   end
   
   def parse_workout_marker(records)
-    Marker.new(:start => 0, :end => records.size - 1)
+    Marker.new(:start => 0, :end => records.size - 1, :comment => "")
   end
   
   def set_previous_marker_end(value)
@@ -75,32 +76,9 @@ class PowertapFileParser < CsvFileParser
     records[1..30].each_slice(2) {|s| times << ((s[1][MINUTES].to_f - s[0][MINUTES].to_f)  * 60) }
     @properties.record_interval = times.average.round
   end
-  
-  def convert_speed(speed)
-    #convert to mm/s
-    if @properties.speed_is_english?
-      #speed = speed 0.44704
-      speed=speed * 447.04 
-    else
-      #speed = speed 0.27777
-      speed=speed * 277.77
-    end
-    speed
-  end
-  
-  def convert_distance(distance)
-    if @properties.distance_is_english?
-      #distance = distance * 1609
-      distance = distance * 1609344 
-    else
-      #distance = distance * 1000
-      distance = distance * 1000000
-    end
-    distance
-  end
     
   def calculate_marker_values
-    @markers.each { |marker|
+    @markers.each_with_index { |marker, i|
       
       marker.avg_power=PowerCalculator::average(
         @data_values[marker.start..marker.end].collect() {|value| value.power})
@@ -125,20 +103,17 @@ class PowertapFileParser < CsvFileParser
       
       marker.max_heartrate=PowerCalculator::maximum(
         @data_values[marker.start..marker.end].collect() {|value| value.heartrate})
-        
-      #marker.distance =  PowerCalculator::total(
-      #   @data_values[marker.start-1..marker.end-1].collect() {|value| value.distance})  
       
-      if marker.start.eql?(0) 
+      if i.eql?(0) 
         marker.distance = @data_values.last.distance
         marker.duration_seconds = @data_values.last.relative_time
       else
-        marker.distance = @data_values[marker.end].distance - @data_values[marker.start-1].distance
-        marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start-1].relative_time
-      end
+        marker.distance = @data_values[marker.end].distance - @data_values[marker.start].distance
+        marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start].relative_time
+      end      
       
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
-
+  
       marker.normalized_power = PowerCalculator::normalized_power( 
           @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
         

@@ -7,6 +7,8 @@ require 'data_value'
 require 'csv'
 
 class CsvFileParser
+  include UnitsConverter
+  
   attr_writer :data
   attr_reader :data, :properties, :markers, :data_values
   

@@ -44,14 +44,6 @@ class TrainingFile < ActiveRecord::Base
      return self.file_type.eql?(IbikeFileParser::IBIKE)
   end
   
-  def is_srm_type?()
-    return self.powermeter_properties.type.eql?(SrmProperties::TYPE)
-  end
-  
-  def is_ibike_type?()
-    return self.powermeter_properties.type.eql?(IbikeProperties::TYPE)
-  end
-  
   # def performed_on
   #     date = powermeter_properties.date
   #     Time.mktime(date.year.to_i, date.month.to_i, date.day.to_i, 0, 0, 0, 0) + data_values.first.absolute_time.to_i

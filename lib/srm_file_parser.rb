@@ -52,15 +52,13 @@ class SrmParser
     count=0
     @markers = Array.new
     while count <= @properties.marker_count 
-      str = @data.slice(start + (count * MARKER_SIZE ), MARKER_SIZE)
+      str = @data.slice(start + (count * MARKER_SIZE), MARKER_SIZE)
       
       @markers[count]=Marker.new
       @markers[count].comment = str.slice(0, 255).strip
       @markers[count].active = str.slice(255)
       @markers[count].start = str.slice(256,2).unpack('S')[0] - 1
       @markers[count].end = str.slice(258,2).unpack('S')[0] - 1
-      #@markers[count].duration = Time.at((@markers[count].end - @markers[count].start + 1) * @properties.record_interval).utc
-      @markers[count].duration_seconds = (@markers[count].end - @markers[count].start + 1) * @properties.record_interval
       count=count + 1
     end
   end
@@ -93,12 +91,8 @@ class SrmParser
       @data_values[count].speed = ( ( ( (byte2 & 0xF0) << 3) | (byte1 & 0x7F) ) * 32 ) #stored in mm/s
       @data_values[count].cadence = record.slice(3)
       @data_values[count].heartrate = record.slice(4)
-      #@data_values[count].distance = @data_values[count].speed * @properties.record_interval
       total_distance = total_distance + (@data_values[count].speed * @properties.record_interval) 
       @data_values[count].distance = total_distance #in mm
-      
-      #print " ** " + record.slice(4).to_s
-      
       count=count + 1
     end
   end
@@ -114,20 +108,16 @@ class SrmParser
         #@data_values[count].relative_time = Time.at(@blocks[block_count].time/100 - @blocks[0].time/100).utc + (@properties.record_interval*relative_count)
         @data_values[count].absolute_time =  @blocks[block_count].time/100 + (@properties.record_interval*relative_count)
         @data_values[count].relative_time = @blocks[block_count].time/100 - @blocks[0].time/100 + (@properties.record_interval*(relative_count + 1))
-        
-        if count.eql?(0)
-          @properties.date_time = data_values.first.absolute_time.to_i
-        end
-        
         count=count+1
         relative_count=relative_count+1
       end
       block_count=block_count + 1
     end
+    @properties.date_time = data_values.first.absolute_time.to_i
   end
   
   def calculate_marker_values
-    @markers.each { |marker|
+    @markers.each_with_index { |marker, i|
       
       marker.avg_power=PowerCalculator::average(
         @data_values[marker.start..marker.end].collect() {|value| value.power})
@@ -153,15 +143,13 @@ class SrmParser
       marker.max_heartrate=PowerCalculator::maximum(
         @data_values[marker.start..marker.end].collect() {|value| value.heartrate})
         
-      #marker.distance =  PowerCalculator::total(
-      #   @data_values[marker.start..marker.end].collect() {|value| value.distance})
-      
-      if marker.start.eql?(0)
+      if i.eql?(0)
         marker.distance = @data_values.last.distance
       else
-        marker.distance = @data_values[marker.end].distance - @data_values[marker.start-1].distance
-      end  
+        marker.distance = @data_values[marker.end + 1].distance - @data_values[marker.start].distance
+      end
       
+      marker.duration_seconds = (marker.end - marker.start + 1) * @properties.record_interval
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
       
       marker.normalized_power = PowerCalculator::normalized_power( 

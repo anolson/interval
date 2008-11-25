@@ -10,6 +10,15 @@ class Array
   def average
     sum/length
   end
+  
+  def average_maximum(size)
+    mean_max = 0
+      each_index do |i|
+        mean = slice(i, size).average
+        mean > mean_max &&  mean_max = mean
+      end
+    mean_max
+  end
 end
 
 class PowerCalculator
@@ -23,6 +32,13 @@ class PowerCalculator
   
   def PowerCalculator.total(values)
     values.sum
+  end
+  
+  def PowerCalculator.critical_power(values, size)
+    values.average_maximum size
+  end
+
+  def PowerCalculator.training_stress_score(values)
   end
   
   def PowerCalculator.intesity_factor(values)
@@ -41,7 +57,9 @@ class PowerCalculator
     end
   end
   
-  def trainingStressScore
-  end
+  
+  
+
+
   
 end

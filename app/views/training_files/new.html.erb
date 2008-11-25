@@ -15,7 +15,7 @@
         <label for="name">Name:</label><br/>
         <%= text_field "workout", "name" %><br/><br/>
         
-        <label for="performed_on">Performed on (not needed for srm):</label><br/>
+        <label for="performed_on">Performed on: </label><span class="smaller">(only required for PowerTap files)</span><br/>
         <%= datetime_select "workout", "performed_on", :order => [:month, :day, :year], :twelve_hour => true %> <br/><br/>
         
         <label for="notes">Notes:</label><br/>

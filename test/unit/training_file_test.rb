@@ -4,7 +4,27 @@ class TrainingFileTest < Test::Unit::TestCase
   #fixtures :training_files
    
   def test_create
-    file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/A050108A.srm")
+    file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/A112008A.srm")
+    #training_file = TrainingFile.create({:payload => file})
+  
+    training_file = TrainingFile.create({:payload => file})
+    training_file.save
+    training_file.parse_file_header()
+    training_file.parse_file_data()
+  
+    assert_equal ".srm", training_file.file_type
+    assert training_file.powermeter_properties.is_srm_device?
+    assert_equal 'A112008A.srm', training_file.filename
+    assert_equal 1812, training_file.powermeter_properties.record_count
+    assert_equal 3624, training_file.markers.first.duration_seconds
+    assert_equal 280, training_file.markers[1].avg_power
+    assert_equal 275, training_file.markers[2].avg_power
+
+    
+  end
+  
+  def test_create_powertap
+    file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/11202008.csv")
     #training_file = TrainingFile.create({:payload => file})
     
     training_file = TrainingFile.create({:payload => file})
@@ -12,27 +32,14 @@ class TrainingFileTest < Test::Unit::TestCase
     training_file.parse_file_header()
     training_file.parse_file_data()
     
-    assert_equal ".srm", training_file.file_type
-    assert_equal 'A050108A.srm', training_file.filename
-    assert_equal 1241, training_file.powermeter_properties.record_count
-    #p training_file.powermeter_properties
-    #assert true
+    assert_equal ".csv", training_file.file_type
+    assert_equal 6, training_file.markers.size
+    assert_equal 137, training_file.markers.first.avg_power
+    assert_equal 6499, training_file.markers.first.duration_seconds
+    assert_equal 890, training_file.markers.first.energy
+  
   end
   # 
-  # def test_create_powertap
-  #   file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/11202008.csv")
-  #   #training_file = TrainingFile.create({:payload => file})
-  #   
-  #   training_file = TrainingFile.create({:payload => file})
-  #   training_file.save
-  #   training_file.parse_file_header()
-  #   training_file.parse_file_data()
-  #   
-  #   assert_equal ".csv", training_file.file_type
-  #   assert_equal 5, training_file.markers.size
-  #   assert_equal 137, training_file.markers.first.avg_power
-  # end
-  
   # def test_create_ibike
   #   file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/Owen.09142008.csv")
   #   #training_file = TrainingFile.create({:payload => file})
