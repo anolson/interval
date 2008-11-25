@@ -13,11 +13,7 @@
                     :url => { :action => "poll", :id => workout.id }, 
                     :frequency => '10', 
                     :condition => "poll_workout_#{workout.id} == true")  %>
-                  
                 </span>
-
-
-                
               <% else %>
                 <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
                   <%= link_to_workout(workout) %>

@@ -1,7 +1,7 @@
 class WorkoutsController < ApplicationController
   layout 'standard'
   before_filter :find_workouts, :only => [:index, :list]
-  before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :delete, :poll]
+  before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :destroy, :poll]
   before_filter :check_within_plan_limits, :only => [:new, :create]
  
   def index
@@ -28,7 +28,10 @@ class WorkoutsController < ApplicationController
   end
 
   def destroy
-    Workout.destroy(params[:id])
+    @workout.process_destroy!
+    #puts "-- #{@workout.state}"
+    WorkoutsWorker.async_destroy_workout(:workout_id => params[:id])
+    #Workout.destroy(params[:id])
     redirect_to(:action => 'index')
   end
   
@@ -63,7 +66,7 @@ class WorkoutsController < ApplicationController
     def find_workouts
       @sort_order = params[:sort_order] || @user.preferences[:sort_order]
       order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
-      @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order)
+      @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order, :conditions => "state != 'destroying'")
     end
     
     def check_that_workout_belongs_to_user

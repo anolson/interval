@@ -10,6 +10,7 @@ class Workout < ActiveRecord::Base
   state :created
   state :processing
   state :uploaded
+  state :destroying
    
   event :process do
     transitions :to => :processing, :from => :created
@@ -18,6 +19,11 @@ class Workout < ActiveRecord::Base
   event :finish do
     transitions :to => :uploaded, :from => :processing
   end
+  
+  event :process_destroy do
+    transitions :to => :destroying, :from => [:created, :uploaded]
+  end
+  
   
   def initialize(workout={}, file_options={})
     super(workout)

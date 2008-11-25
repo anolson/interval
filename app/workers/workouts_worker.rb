@@ -20,4 +20,8 @@ class WorkoutsWorker < Workling::Base
     
     logger.info("Done Processing Workout")
   end
+  
+  def destroy_workout(options)
+    Workout.destroy(options[:workout_id])
+  end
 end
