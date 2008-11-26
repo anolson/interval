@@ -23,8 +23,9 @@
   <% unless @sharing %>
     <% rounded_box nil, "complete", "wide" do %>
       <div class="container full large">
-        <%= image_tag 'add.png', :style => 'float:left' %>
-        <div style='float:left; margin:3px'> 
+        
+        <div style=''> 
+          <%= image_tag 'add.png', :style => 'float:left; margin: -3px 3px 0 0' %>
           <%= link_to "Add a workout", :controller => "workouts", :action => "new" %> or
           <%= link_to "Upload a workout", :controller => "training_files", :action => "new" %>
         </div>
