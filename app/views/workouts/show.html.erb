@@ -10,44 +10,42 @@
 <% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
 <% end %>
 
-  
 <div id="main_wrapper">
   <div id="main">
     <div class="list">
       <% rounded_box nil, "complete", "full" do %> 
         <div class="container full">
-        <fieldset>
-          <legend class=larger>Notes</legend>  
-          <div id="notes" class="notes">
-            <%= @workout.notes.empty? && "Edit to add notes." || @workout.notes %> 
-          </div>
-        </fieldset>
-        <% if @workout.has_training_files? then %>
           <fieldset>
-            <legend class="larger">Files</legend>
-              <ul>
-                <%= render :partial => 'workouts/file', :collection => @workout.training_files %>
-              </ul>
+            <legend class=larger>Notes</legend>  
+            <div id="notes" class="notes">
+              <%= @workout.notes.empty? && "Edit to add notes." || @workout.notes %> 
+            </div>
           </fieldset>
-          <% if (@workout.markers.count > 1) then %>
-
+          <% if @workout.has_training_files? then %>
             <fieldset>
-             <legend>Intervals</legend>
-              <table border="0" cellspacing="0" cellpadding="5">
-                <tr>
-                  <th>&nbsp;</th>
-                  <th>Duration</th>
-                  <th>Power (watts)</th>
-                  <th>Energy (kJ)</th>
-                  <th>Speed (mph)</th>
-                  <th>Cadence</th>
-                  <th>Heartrate</th>
-                </tr>
-                <%= render :partial => 'workouts/interval', :collection => @workout.markers[1..-1] %>
-              </table>
+              <legend class="larger">Files</legend>
+                <ul>
+                  <%= render :partial => 'workouts/file', :collection => @workout.training_files %>
+                </ul>
+            </fieldset>
+            <% if (@workout.markers.count > 1) then %>
+              <fieldset>
+               <legend>Intervals</legend>
+                <table border="0" cellspacing="0" cellpadding="5">
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>Duration</th>
+                    <th>Power (watts)</th>
+                    <th>Energy (kJ)</th>
+                    <th>Speed (mph)</th>
+                    <th>Cadence</th>
+                    <th>Heartrate</th>
+                  </tr>
+                  <%= render :partial => 'workouts/interval', :collection => @workout.markers[1..-1] %>
+                </table>
               </fieldset>
-           <% end %>
-        <% end %>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </div>
