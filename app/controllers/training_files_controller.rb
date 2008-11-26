@@ -11,6 +11,7 @@ class TrainingFilesController < ApplicationController
   end
   
   def new 
+    @last = @user.workouts.last
     @workout = Workout.new
   end
   

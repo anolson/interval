@@ -1,7 +1,7 @@
   <div class="box_wrapper <%= wrapper_size %>">
         <div class="box <%= box_size %>">
           <div class="box_top"><div></div></div>
-            <%= unless header.eql? nil then content_tag :h2, header end %>
+            <%= header && content_tag(:h2, header) %>
             <%= body %>
             <div class="clear"> </div> 
           <div class="box_bottom"><div></div></div>
