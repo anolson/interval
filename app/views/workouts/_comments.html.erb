@@ -1,0 +1,9 @@
+<div id="comments">
+  <fieldset>
+    <legend>Comments</legend>
+    <% if @workout.comments.count > 0 %>
+      <%= render :partial => 'comment', :collection => @workout.comments %>
+    <% end %>
+    <div class='notes'>Leave a comment.</div>
+  </fieldset>
+</div>
