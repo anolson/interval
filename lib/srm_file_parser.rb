@@ -3,6 +3,7 @@ require 'srm_properties.rb'
 require 'power_calculator.rb'
 
 class SrmParser
+  include MarkerCalculator
   SRM = '.srm'
   HEADER_SIZE=86
   MARKER_SIZE=270
@@ -118,31 +119,10 @@ class SrmParser
   
   def calculate_marker_values
     @markers.each_with_index { |marker, i|
+      calculate_marker_averages marker      
+      calculate_marker_maximums marker
+      calculate_marker_training_metrics marker
       
-      marker.avg_power=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.power})
-      
-      marker.avg_speed=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.speed})
-      
-      marker.avg_cadence=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.cadence})
-      
-      marker.avg_heartrate=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.heartrate})
-      
-      marker.max_power=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.power})
-      
-      marker.max_speed=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.speed})
-      
-      marker.max_cadence=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.cadence})
-      
-      marker.max_heartrate=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.heartrate})
-        
       if i.eql?(0)
         marker.distance = @data_values.last.distance
       else
@@ -152,8 +132,6 @@ class SrmParser
       marker.duration_seconds = (marker.end - marker.start + 1) * @properties.record_interval
       marker.energy = (marker.avg_power * marker.duration.to_i)/1000
       
-      marker.normalized_power = PowerCalculator::normalized_power( 
-         @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
     }
   end
   

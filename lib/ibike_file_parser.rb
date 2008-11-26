@@ -13,11 +13,8 @@ class IbikeFileParser < CsvFileParser
   LONGITUDE = 13
   TIMESTAMP = 14
    
-
-  
   def parse_header()
     @properties = IbikeProperties.new()
-    
     records = CSV.parse(@data)
     header = records.shift
     @properties.version=header[1]
@@ -40,11 +37,9 @@ class IbikeFileParser < CsvFileParser
     @properties.cm = header[13]
     @properties.cda = header[14]
     @properties.crr = header[15]
-    
   end
 
   def parse_data_values()
-    @data_values = Array.new
     records = CSV.parse(@data).slice(5..-1)
     records.each_with_index { |record, index|
       data_value  = DataValue.new
@@ -56,68 +51,11 @@ class IbikeFileParser < CsvFileParser
       data_value.heartrate = record[HEARTRATE].to_i
       @data_values << data_value 
     }
-
   end
   
   def parse_markers
-    @markers = Array.new
     records = CSV.parse(@data).slice(5..-1)
     @markers << parse_workout_marker(records)
-  end
-  
-  def parse_workout_marker(records)
-    Marker.new(:start => 0, :end => records.size - 1)
-  end
-  
-  def parse_workout_marker(records)
-    @markers = Array.new
-    marker = Marker.new
-    marker.start = 0
-    marker.end = records.size-1
-    @markers << marker
-  end
-  
-  def calculate_marker_values
-    @markers.each_with_index { |marker, i|
-      
-      marker.avg_power=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.power})
-      
-      marker.avg_speed=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.speed})
-      
-      marker.avg_cadence=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.cadence})
-      
-      marker.avg_heartrate=PowerCalculator::average(
-        @data_values[marker.start..marker.end].collect() {|value| value.heartrate})
-      
-      marker.max_power=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.power})
-      
-      marker.max_speed=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.speed})
-      
-      marker.max_cadence=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.cadence})
-      
-      marker.max_heartrate=PowerCalculator::maximum(
-        @data_values[marker.start..marker.end].collect() {|value| value.heartrate})
-  
-      if i.eql?(0) 
-        marker.distance = @data_values.last.distance
-        marker.duration_seconds = @data_values.last.relative_time
-      else
-        marker.distance = @data_values[marker.end].distance - @data_values[marker.start].distance
-        marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start].relative_time
-      end
-            
-      marker.energy = (marker.avg_power * marker.duration.to_i)/1000
-  
-      marker.normalized_power = PowerCalculator::normalized_power( 
-          @data_values[marker.start..marker.end].collect() {|value| value.power}, @properties.record_interval)
-        
-    }
   end
   
 end

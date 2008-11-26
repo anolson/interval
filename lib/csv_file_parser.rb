@@ -7,6 +7,7 @@ require 'data_value'
 require 'csv'
 
 class CsvFileParser
+  include MarkerCalculator
   include UnitsConverter
   
   attr_writer :data
@@ -15,6 +16,8 @@ class CsvFileParser
   
   def initialize(data)
     self.data = data
+    @markers = Array.new
+    @data_values = Array.new
   end
   
   def get_parser
@@ -33,13 +36,27 @@ class CsvFileParser
     calculate_marker_values
   end
 
-  def parse_header
-  end
-  
-  def parse_data_values
+  protected
+  def parse_workout_marker(records)
+    Marker.new(:start => 0, :end => records.size - 1, :comment => "")
   end
   
   def calculate_marker_values
+    @markers.each_with_index { |marker, i|
+      calculate_marker_averages marker      
+      calculate_marker_maximums marker
+      calculate_marker_training_metrics marker
+  
+      if i.eql?(0) 
+        marker.distance = @data_values.last.distance
+        marker.duration_seconds = @data_values.last.relative_time
+      else
+        marker.distance = @data_values[marker.end].distance - @data_values[marker.start].distance
+        marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start].relative_time
+      end
+            
+      marker.energy = (marker.avg_power * marker.duration.to_i)/1000        
+    }
   end
   
 end
