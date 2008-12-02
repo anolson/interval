@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   belongs_to :plan
   serialize :preferences, Hash
+  has_many :peak_powers, :through => :workouts
   
   validates_presence_of :username
   validates_presence_of :email
