@@ -7,10 +7,12 @@ class CreatePeakPowers < ActiveRecord::Migration
       t.column :start,      :integer, :default => 0
       t.column :value,      :float,   :default => 0
       t.column :workout_id, :integer, :default => 0
+      t.column :user_id,    :integer, :default => 0
     end
   end
   
   #foreign_key(:peak_powers, :workout_id, :workouts)
+  #foreign_key(:peak_powers, :user_id, :users)
 
   def self.down
     drop_table :peak_powers
