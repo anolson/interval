@@ -1,0 +1,5 @@
+  <tr class="<%= cycle('even', 'odd', :name => 'class') -%>">
+    <td align="right"> <%= duration_in_words peak_power[:duration] %> :</td>
+    <td> <%= peak_power[:value].round %> W </td>
+  </tr>
+

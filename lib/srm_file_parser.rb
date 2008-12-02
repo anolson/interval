@@ -4,16 +4,18 @@ require 'power_calculator.rb'
 
 class SrmParser
   include MarkerCalculator
+  include PeakPowerCalculator
   SRM = '.srm'
   HEADER_SIZE=86
   MARKER_SIZE=270
   BLOCK_SIZE=6
   
   attr_writer :data
-  attr_reader :blocks, :data, :properties, :markers, :data_values
+  attr_reader :blocks, :data, :properties, :markers, :data_values, :peak_powers
   
   def initialize(data)
     self.data = data  
+    @peak_powers = Array.new
   end
   
   def parse_training_file()
@@ -24,7 +26,7 @@ class SrmParser
     parse_data_values
     parse_data_value_times
     calculate_marker_values
-    
+    calculate_peak_power_values
   end
   
   def parse_header()

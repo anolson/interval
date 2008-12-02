@@ -12,10 +12,10 @@ class Array
   end
   
   def average_maximum(size)
-    mean_max = 0
+    mean_max = {:start => 0, :value=> 0}
       each_index do |i|
         mean = slice(i, size).average
-        mean > mean_max &&  mean_max = mean
+        mean > mean_max[:value] &&  mean_max = {:start => i, :value => mean}
       end
     mean_max
   end
@@ -34,7 +34,7 @@ class PowerCalculator
     values.sum
   end
   
-  def PowerCalculator.critical_power(values, size)
+  def PowerCalculator.peak_power(values, size)
     values.average_maximum size
   end
 

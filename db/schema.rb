@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -38,19 +38,24 @@ ActiveRecord::Schema.define(:version => 7) do
     t.integer "avg_power",        :default => 0
     t.float   "avg_speed",        :default => 0.0
     t.string  "comment"
-    t.time    "duration"
     t.integer "duration_seconds", :default => 0
     t.float   "distance",         :default => 0.0
     t.integer "end"
     t.integer "energy",           :default => 0
     t.integer "max_cadence",      :default => 0
     t.integer "max_heartrate",    :default => 0
-    t.integer "max_power"
+    t.integer "max_power",        :default => 0
     t.float   "max_speed",        :default => 0.0
     t.integer "start"
-    t.integer "training_file_id"
     t.integer "workout_id"
     t.integer "normalized_power", :default => 0
+  end
+
+  create_table "peak_powers", :force => true do |t|
+    t.integer "duration",   :default => 0
+    t.integer "start",      :default => 0
+    t.float   "value",      :default => 0.0
+    t.integer "workout_id", :default => 0
   end
 
   create_table "plans", :force => true do |t|
@@ -89,11 +94,12 @@ ActiveRecord::Schema.define(:version => 7) do
 
   create_table "users", :force => true do |t|
     t.datetime "created_at"
-    t.boolean  "disabled",      :default => false
+    t.boolean  "disabled",         :default => false
     t.datetime "last_login"
     t.string   "password_hash"
     t.string   "password_salt"
     t.string   "username"
+    t.boolean  "terms_of_service"
     t.text     "preferences"
     t.text     "email"
     t.integer  "plan_id"

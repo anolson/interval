@@ -3,6 +3,7 @@ class Workout < ActiveRecord::Base
   has_many :training_files, :dependent => :destroy 
   has_many :comments
   has_many :markers,  :dependent => :destroy 
+  has_many :peak_powers, :dependent => :destroy
   
   validates_presence_of :name
   

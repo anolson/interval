@@ -59,11 +59,22 @@
     <div class="top">Workout Details</div>
     <% container "full" do %>
       <%= render :partial => 'workouts/totals' %>
-      <br/>
+      <br />
       <%= render :partial => 'workouts/averages' %>
+      <br />
+      
+      <% unless @workout.peak_powers.empty? %>
+      <table border="0" cellspacing="0" cellpadding="3">
+        <tr><th colspan='2'>Peak Power</th></tr>
+        <%= render :partial => 'workouts/peak_power', :collection => @workout.peak_powers %>
+      </table>
+      <% end %>
+      
     <% end %>
   <% end %>
   <% if @workout.has_training_files? %>
+    
+  
     <%= render :partial => 'workouts/device_properties' %>
   <% end %>
   

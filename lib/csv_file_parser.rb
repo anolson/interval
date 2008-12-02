@@ -8,16 +8,18 @@ require 'csv'
 
 class CsvFileParser
   include MarkerCalculator
+  include PeakPowerCalculator
   include UnitsConverter
   
   attr_writer :data
-  attr_reader :data, :properties, :markers, :data_values
+  attr_reader :data, :properties, :markers, :data_values, :peak_powers
   
   
   def initialize(data)
     self.data = data
     @markers = Array.new
     @data_values = Array.new
+    @peak_powers = Array.new
   end
   
   def get_parser

@@ -15,7 +15,7 @@ class TrainingFile < ActiveRecord::Base
   #validates_format_of :filename, :with => %r{\.(csv|srm)$}
   
 
-  attr_accessor :markers
+  attr_accessor :markers, :peak_powers
   
   # def initialize(params = {})
   #     super(params)
@@ -55,6 +55,7 @@ class TrainingFile < ActiveRecord::Base
     self.data_values.push(file_parser.data_values)
     self.powermeter_properties=file_parser.properties
     @markers = file_parser.markers
+    @peak_powers = file_parser.peak_powers
   end
   
   def parse_file_header()
