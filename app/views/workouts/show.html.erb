@@ -49,12 +49,16 @@
             <% unless @workout.peak_powers.empty? %>
               <fieldset>
                <legend class="larger">Peak Power</legend>
-                <div class="container wide">  
+                  
                  <table border="0" cellspacing="0" cellpadding="5">
-                   <tr><th width="33%">Duration</th> <th width="33%">Peak Power</th> <th width="33%">Maximum Peak Power</th></tr>
+                   <tr>
+                     <th width="33%">Duration</th> 
+                     <th width="33%">This Workout</th>
+                     <th width="33%">All time best</th>
+                   </tr>
                    <%= render :partial => 'workouts/peak_power', :collection => @workout.peak_powers %>
                  </table>
-                 </div>
+                 <p class="small">* Indicates an all time best peak power.</p>
               </fieldset>
 
             <% end %>
