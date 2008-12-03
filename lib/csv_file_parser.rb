@@ -36,6 +36,7 @@ class CsvFileParser
     parse_markers
     parse_data_values
     calculate_marker_values
+    calculate_peak_power_values
   end
 
   protected
@@ -57,7 +58,7 @@ class CsvFileParser
         marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start].relative_time
       end
             
-      marker.energy = (marker.avg_power * marker.duration.to_i)/1000        
+      marker.energy = (marker.avg_power.round * marker.duration.to_i)/1000        
     }
   end
   

@@ -1,7 +1,7 @@
 module MarkerCalculator
   def calculate_marker_averages(marker)
     marker.avg_power=PowerCalculator::average(
-      self.data_values[marker.start..marker.end].collect() {|value| value.power})
+      self.data_values[marker.start..marker.end].collect() {|value| value.power}).round
     
     marker.avg_speed=PowerCalculator::average(
       self.data_values[marker.start..marker.end].collect() {|value| value.speed})

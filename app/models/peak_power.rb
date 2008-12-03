@@ -3,7 +3,7 @@ class PeakPower < ActiveRecord::Base
   belongs_to :workout
   belongs_to :user
   
-  def maximum_peak_power(duration)
-    self.calculate(:max, :value, :conditions => ['duration = ?', duration])
+  def PeakPower.maximum_peak_power(duration)
+    self.calculate(:max, :value, :conditions => ['duration = ?', duration]).round
   end
 end

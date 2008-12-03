@@ -132,7 +132,7 @@ class SrmParser
       end
       
       marker.duration_seconds = (marker.end - marker.start + 1) * @properties.record_interval
-      marker.energy = (marker.avg_power * marker.duration.to_i)/1000
+      marker.energy = (marker.avg_power.round * marker.duration.to_i)/1000
       
     }
   end

@@ -27,7 +27,7 @@ class PowertapFileParser < CsvFileParser
       data_value.relative_time  = record[MINUTES].to_f * 60
       #data_value.torque = row[TORQUE]
       data_value.speed = convert_speed(record[SPEED].to_f)
-      data_value.power = record[POWER].to_i
+      data_value.power = record[POWER].to_f
       data_value.distance = convert_distance(record[DISTANCE].to_f)
       data_value.cadence = record[CADENCE].to_i
       (record[HEARTRATE].to_i < 0) && data_value.heartrate = 0 || data_value.heartrate = record[HEARTRATE].to_i

@@ -45,7 +45,7 @@ class IbikeFileParser < CsvFileParser
       data_value  = DataValue.new
       data_value.relative_time  = index * @properties.record_interval
       data_value.speed = convert_speed(record[SPEED].to_f)
-      data_value.power = record[POWER].to_i
+      data_value.power = record[POWER].to_f
       data_value.distance = convert_distance(record[DISTANCE].to_f)
       data_value.cadence = record[CADENCE].to_i
       data_value.heartrate = record[HEARTRATE].to_i

@@ -45,6 +45,20 @@
                 </table>
               </fieldset>
             <% end %>
+            
+            <% unless @workout.peak_powers.empty? %>
+              <fieldset>
+               <legend class="larger">Peak Power</legend>
+                <div class="container wide">  
+                 <table border="0" cellspacing="0" cellpadding="5">
+                   <tr><th width="33%">Duration</th> <th width="33%">Peak Power</th> <th width="33%">Maximum Peak Power</th></tr>
+                   <%= render :partial => 'workouts/peak_power', :collection => @workout.peak_powers %>
+                 </table>
+                 </div>
+              </fieldset>
+
+            <% end %>
+            
           <% end %>
         </div>
       <% end %>
@@ -63,12 +77,7 @@
       <%= render :partial => 'workouts/averages' %>
       <br />
       
-      <% unless @workout.peak_powers.empty? %>
-      <table border="0" cellspacing="0" cellpadding="3">
-        <tr><th colspan='2'>Peak Power</th></tr>
-        <%= render :partial => 'workouts/peak_power', :collection => @workout.peak_powers %>
-      </table>
-      <% end %>
+
       
     <% end %>
   <% end %>
