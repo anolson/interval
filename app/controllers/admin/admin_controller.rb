@@ -3,6 +3,7 @@ class Admin::AdminController < ActionController::Base
   before_filter :check_admin_authentication,
                 :check_admin_authorization
   include SslRequirement
+  helper_method :admin_logged_in?
   
   def admin_logged_in?
     true if session[:admin]

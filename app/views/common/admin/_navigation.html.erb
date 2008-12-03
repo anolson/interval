@@ -1,5 +1,5 @@
 <div id="navigation">
-  <% unless session[:admin] %>
+  <% unless admin_logged_in? %>
     <ul>
       <%= navigation_item 'Home', root_url%>
     </ul>
