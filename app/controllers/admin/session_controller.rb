@@ -16,7 +16,7 @@ class Admin::SessionController < Admin::AdminController
         flash[:notice] = "admin login success"  
         redirect_to :controller => "admin/users"
       else
-        raise "You are not an authorized admin."
+        raise "You are not authorized."
       end
     end
   rescue

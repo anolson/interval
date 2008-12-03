@@ -3,9 +3,13 @@ class Admin::AdminController < ActionController::Base
   before_filter :check_admin_authentication,
                 :check_admin_authorization
   include SslRequirement
+  
+  def admin_logged_in?
+    true if session[:admin]
+  end
 
   def check_admin_authentication
-    unless session[:admin]
+    unless admin_logged_in?      
       redirect_to(:controller => 'admin/session', :action => 'new')
       return false
     end
