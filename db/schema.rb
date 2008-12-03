@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 9) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 8) do
     t.integer "training_file_id"
     t.integer "relative_time"
     t.integer "absolute_time"
-    t.integer "power"
+    t.float   "power"
     t.integer "cadence"
     t.integer "heartrate"
     t.float   "speed"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 8) do
     t.integer "start",      :default => 0
     t.float   "value",      :default => 0.0
     t.integer "workout_id", :default => 0
+    t.integer "user_id",    :default => 0
   end
 
   create_table "plans", :force => true do |t|

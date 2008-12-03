@@ -10,14 +10,18 @@ class Admin::SessionController < Admin::AdminController
   def create
     if request.post?
       user = User.authenticate(params[:user][:username], params[:user ][:password])
-      session[:admin] = user.id
-      session[:display_name] = user.preferences[:display_name]
-      flash[:notice] = "admin login success"  
-      redirect_to :controller => "admin/users"
-      session[:intended_params] = nil
+      if(user.roles.detect{ |r| r.name.eql?(Role::ADMIN) })
+        session[:admin] = user.id
+        session[:intended_params] = nil
+        flash[:notice] = "admin login success"  
+        redirect_to :controller => "admin/users"
+      else
+        raise "You are not an authorized admin."
+      end
     end
   rescue
     flash[:notice] = $!.to_s
+    render :action => 'new'
   end
   
   def destroy 
