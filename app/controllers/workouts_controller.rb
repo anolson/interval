@@ -68,11 +68,4 @@ class WorkoutsController < ApplicationController
       order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
       @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order, :conditions => "state != 'destroying'")
     end
-    
-    def check_that_workout_belongs_to_user
-      @workout = Workout.find(params[:id]) 
-      unless @workout.belongs_to_user?(@user.id)
-        redirect_to :action => 'index'
-      end
-    end
 end

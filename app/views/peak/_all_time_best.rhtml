@@ -1,0 +1,4 @@
+  <tr class="<%= cycle('even', 'odd', :name => 'class') -%>">
+    <td align="right"><%= duration_in_words all_time_best[:duration] %> :</td>
+    <td> <%= all_time_best[:value].round %> W </td>
+  </tr>

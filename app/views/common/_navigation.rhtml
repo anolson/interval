@@ -17,9 +17,9 @@
 
     <ul>
       <%= navigation_item 'Home', {:controller => 'site'}%>
-      <%= navigation_item_for_controller 'Workouts',  {:controller => 'workouts'}%>
-      <%= navigation_item_for_controller 'Training Summary', {:controller => 'summary'}%>
-      <%= navigation_item_for_controller 'Preferences',  {:controller => 'preferences'}%>
+      <%= navigation_item_for_controller 'Workouts',  {:controller => ['workouts', 'peak']}%>
+      <%= navigation_item_for_controller 'Training Summary', {:controller => ['summary']}%>
+      <%= navigation_item_for_controller 'Preferences',  {:controller => ['preferences']}%>
       <%= navigation_item 'Upload',  {:controller => 'training_files', :action => 'new'}%>      
     </ul>        
   <% end %>

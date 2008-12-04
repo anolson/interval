@@ -1,9 +1,11 @@
 <% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
 <% @editable = @sharing ? false : true %>
 <% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date_#{@workout.id}" %>
+
 <% @secondary_links = [
-  { :text => 'Summary', :options => {:action => 'show', :id => @workout.id} }, 
-  { :text => 'Graph', :options => {:action => 'graph', :id => @workout.id } } ] %>
+  { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
+  { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
+  { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
   
 <% if @sharing %>
   <% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>

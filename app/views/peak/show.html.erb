@@ -1,0 +1,68 @@
+<% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
+
+<% @secondary_heading = content_tag :span, "Peak Power for #{nice_datetime(@workout.performed_on)}", :class => "larger", :id => "workout_date_#{@workout.id}" %>
+
+<% @secondary_links = [
+  { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
+  { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
+  { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
+
+<% if @sharing %>
+<% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
+<% end %>
+
+<div id="main_wrapper">
+  <div id="main">
+    <div class="list">
+      <% rounded_box nil, "complete", "full" do %> 
+        <div class="container full">
+          <% if @workout.has_training_files? then %>
+            <% unless @workout.peak_powers.empty? %>
+              <fieldset>
+               <legend class="larger">Graph goes here.</legend>
+                  
+
+                 
+              </fieldset>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+    <%= render :partial => 'common/back' %>
+
+  </div>
+</div>
+<% sidebar_div_tag do %>
+  <% rounded_box nil, "complete", "wide" do %>
+  <div class="top">Peak Power</div>
+   <% container "full" do %>
+    
+    <table border="0" cellspacing="0" cellpadding="3">
+      <tr>
+        <th colspan=2>This Workout</th> 
+      </tr>
+      <%= render :partial => 'peak_power', :collection => @workout.peak_powers %>
+    </table>
+    <br />
+    <table border="0" cellspacing="0" cellpadding="3">
+      <tr>
+        <th colspan=2>All time best</th> 
+      </tr>
+      <%= render :partial => 'all_time_best', :collection => @all_time_best %>
+    </table>
+    <p class="small">* Indicates an all time best peak power.</p>
+    <%= @workout.peak_powers.collect{|p| p[:value].round} & @all_time_best.collect{|p| p[:value]} %>
+  <% end %>
+  <% end %>
+<% end %>
+
+<script>
+  document.observe('dom:loaded', function(){  
+    if($('main').getHeight() < $('sidebar').getHeight()) {
+      $('main_wrapper').setStyle({paddingBottom:$('sidebar').getHeight() - $('main').getHeight()});
+    }
+  })
+</script>
+

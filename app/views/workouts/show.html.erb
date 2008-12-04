@@ -3,8 +3,9 @@
 <% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date_#{@workout.id}" %>
 
 <% @secondary_links = [
-  { :text => 'Summary', :options => {:action => 'show', :id => @workout.id } }, 
-  { :text => 'Graph', :options => {:action => 'graph', :id => @workout.id } } ] %>
+  { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
+  { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
+  { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
 
 <% if @sharing %>
 <% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
@@ -45,24 +46,6 @@
                 </table>
               </fieldset>
             <% end %>
-            
-            <% unless @workout.peak_powers.empty? %>
-              <fieldset>
-               <legend class="larger">Peak Power</legend>
-                  
-                 <table border="0" cellspacing="0" cellpadding="5">
-                   <tr>
-                     <th width="33%">Duration</th> 
-                     <th width="33%">This Workout</th>
-                     <th width="33%">All time best</th>
-                   </tr>
-                   <%= render :partial => 'workouts/peak_power', :collection => @workout.peak_powers %>
-                 </table>
-                 <p class="small">* Indicates an all time best peak power.</p>
-              </fieldset>
-
-            <% end %>
-            
           <% end %>
         </div>
       <% end %>
