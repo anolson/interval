@@ -13,11 +13,11 @@ module ApplicationHelper
   end
   
   def link_to_unless_current_controller(name, options = {})
-    link_to_unless(current_controller?(options) , name, options)
+    link_to_unless(current_controller?(options) , name, options.reject{|k,v| k.eql?(:include)})
   end
 
-  def current_controller?(options ={})
-    options[:controller].detect{|c| c.eql?(controller.controller_name)}
+  def current_controller?(options={})
+    options[:include].detect{|c| c.eql?(controller.controller_name)}
   end
   
   

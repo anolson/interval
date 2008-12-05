@@ -6,7 +6,7 @@
   <% else %>
 
     <ul>
-      <%= navigation_item_for_controller 'Users',  {:controller => ['users']}%>
+      <%= navigation_item_for_controller 'Users',  {:controller => 'users', :include => ['users']}%>
       <%= navigation_item 'Log out',  {:controller => 'session', :action => 'destroy'}%>      
     </ul>        
   <% end %>
