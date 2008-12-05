@@ -16,15 +16,19 @@
     <div class="list">
       <% rounded_box nil, "complete", "full" do %> 
         <div class="container full">
-          <% if @workout.has_training_files? then %>
-            <% unless @workout.peak_powers.empty? %>
-              <fieldset>
-               <legend class="larger">Graph goes here.</legend>
-                  
+          <% unless @workout.peak_powers.empty? %>
+            <div id="plot" class="plot" style="height:400px;width:550px;">
+              <div id="loader" style="padding-top: 150px; text-align:center">
+              <%= image_tag("loader.gif") %><br/>
+              Loading peak power graph.</div>
+            </div>
+          <% else %>
+            No peak power data available for this workout.
+          <% end %>
 
-                 
-              </fieldset>
-            <% end %>
+          
+          <% if @workout.has_training_files? then %>
+
           <% end %>
         </div>
       <% end %>
@@ -45,6 +49,7 @@
       </tr>
       <%= render :partial => 'peak_power', :collection => @workout.peak_powers %>
     </table>
+    <p class="smaller">* Indicates a new all time best peak power.</p>
     <br />
     <table border="0" cellspacing="0" cellpadding="3">
       <tr>
@@ -52,11 +57,31 @@
       </tr>
       <%= render :partial => 'all_time_best', :collection => @all_time_best %>
     </table>
-    <p class="small">* Indicates an all time best peak power.</p>
-    <%= @workout.peak_powers.collect{|p| p[:value].round} & @all_time_best.collect{|p| p[:value]} %>
+    
   <% end %>
   <% end %>
 <% end %>
+
+<%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'peak') %>
+
+<script type="text/javascript">
+  document.observe('dom:loaded', function(){
+    var url = "<%= url_for(:action => 'show', :id => @workout.id, :format => 'json') %>"
+    new Ajax.Request(url, {
+   		method:'get',
+   		onSuccess: function(transport){
+   			var json = transport.responseText.evalJSON();
+   			data_series = json.data_series
+   			time_series = json.time_series
+
+   			if(data_series){
+   				$('plot').setStyle({'display':'block'});
+           var f = drawPlot(data_series);
+         }
+   		}
+   	});
+  });
+</script>
 
 <script>
   document.observe('dom:loaded', function(){  

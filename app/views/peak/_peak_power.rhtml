@@ -2,7 +2,7 @@
     <td align="right"><%= duration_in_words peak_power[:duration] %> :</td>
     <td>
       <%= peak_power[:value].round %> W 
-      <%= !@intersections.find {|v| v.eql?(peak_power[:value].round) }.nil? && "*" || nil %>
+      <%= peak_power[:value].round.eql?(@user.peak_powers.maximum_peak_power(peak_power[:duration])) && "*" || nil %>
     </td> 
   </tr>
 

@@ -6,10 +6,10 @@ class PeakController < ApplicationController
     respond_to do |format|
       format.html {
         @all_time_best = @user.all_time_best_peak_powers
-        @intersections = @workout.peak_powers.collect{|p| p[:value].round} & @all_time_best.collect{|p| p[:value]}
       }
       format.json {        
-        @data_points = @workout.data_points
+        @peak_power_data_points = @workout.peak_power_data_points
+        @all_time_best = @user.all_time_best_peak_powers
         render :layout => false
       }
     end

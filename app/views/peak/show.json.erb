@@ -1,0 +1,14 @@
+<% series = {
+  :data_series => [
+    {:data => 
+      @peak_power_data_points.collect_with_index do |v, i| [i, v[:value].round] end, :label => 'This workout'} || [],  
+    {:data => 
+      @all_time_best.collect_with_index do |v, i| [i, v[:value].round] end, :label => 'All time best'} || []
+  ],
+  :time_series => [
+    {:data => 
+      @peak_power_data_points.collect_with_index do |value, index| [index, value[:duration]] end} || [],  
+  ]
+}
+%>
+<%= series.to_json %>

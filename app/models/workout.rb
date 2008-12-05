@@ -71,6 +71,10 @@ class Workout < ActiveRecord::Base
     training_files.count > 0
   end
   
+  def has_peak_powers?
+    peak_powers.count > 0
+  end
+  
   def belongs_to_user?(user_id)
     self.user.id.eql?(user_id)
   end
@@ -78,6 +82,12 @@ class Workout < ActiveRecord::Base
   def data_points
     if(has_training_files?())
       data_points = self.training_files.first.data_values
+    end
+  end
+  
+  def peak_power_data_points
+    if(has_peak_powers?)
+      self.peak_powers
     end
   end
     
