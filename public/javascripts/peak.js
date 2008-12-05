@@ -10,7 +10,7 @@ var global_options = {
 	mouse: { 
    	lineColor: '#444444', 
    	sensibility: 10, 
-   	track: true,
+   	track: false,
 		trackFormatter: trackFormatter
 	},
 	legend: {
