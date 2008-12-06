@@ -8,7 +8,7 @@ class WorkoutsController < ApplicationController
   end
   
   def list
-    render(:partial => 'list', :layout => false)
+    render(:partial => 'common/list', :layout => false)
   end
   
   def new       

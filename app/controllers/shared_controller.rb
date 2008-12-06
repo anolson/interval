@@ -11,7 +11,7 @@ class SharedController < ApplicationController
   end
   
   def index
-    render :template => 'workouts/index' 
+    render :action => 'list'
   end
   
   def download
@@ -29,23 +29,20 @@ class SharedController < ApplicationController
   end
   
   def list
-    render(:partial => 'workouts/list', :layout => false)
+    render(:partial => 'common/list', :layout => false)
   end
   
   def show
     respond_to do |format|
-      format.html {
-        render :template => 'workouts/show'
-      } 
+      format.html 
       format.json {        
         @data_points = @workout.data_points
-        render :template=> 'workouts/show.json.erb', :layout => false
+        render :layout => false
       }
     end
   end
   
   def graph
-    render(:template => 'workouts/graph')
   end
   
   private

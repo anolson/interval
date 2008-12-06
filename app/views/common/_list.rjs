@@ -1,4 +1,4 @@
-page.replace "workouts", :partial => "workouts/workouts", :object => @workouts
+page.replace "workouts", :partial => "common/workouts", :object => @workouts
 page.replace 'page',  hidden_field_tag('page', @workouts.current_page)
 #page.alert(@workouts.current_page)
 #re-initialize lightbox

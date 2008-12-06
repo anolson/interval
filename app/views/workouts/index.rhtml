@@ -1,37 +1,30 @@
-<% @primary_heading = link_to content_tag(:h1, (@sharing ? (@user.preferences[:display_name] + "'s ") : "") + "Workouts"), :action => "index" %>
+<% @primary_heading = link_to content_tag(:h1, "Workouts"), :action => "index" %>
 <% @secondary_heading = content_tag :span, 'Listing workouts', :class => "larger" %>
 
 <div id="main_wrapper">
   <div id="main">   
     <% if @workouts.size > 0 then %>
-      <%= render :partial => 'workouts/workouts' %>
+      <%= render :partial => 'common/workouts' %>
     <% else %>
-    <% info_box do %>
-      <span class="larger">
-        <% if @sharing %>
-          This user does not have any shared workouts.
-        <% else %>
+      <% info_box do %>
+        <span class="larger">
           You currently don't have any workouts.  
           Get started by <%= link_to "adding", :controller => "workouts", :action => "new" %> a workout.
-        <% end %>
-      </span>
+        </span>
       <% end %>
     <% end %>
   </div>
 </div>
 <% sidebar_div_tag do %>
-  <% unless @sharing %>
-    <% rounded_box nil, "complete", "wide" do %>
-      <div class="container full large">
-        
-        <div style=''> 
-          <%= image_tag 'add.png', :style => 'float:left; margin: -3px 3px 0 0' %>
-          <%= link_to "Add a workout", :controller => "workouts", :action => "new" %> or
-          <%= link_to "Upload a workout", :controller => "training_files", :action => "new" %>
-        </div>
+  <% rounded_box nil, "complete", "wide" do %>
+    <div class="container full large">
+      <div> 
+        <%= image_tag 'add.png', :style => 'float:left; margin: -3px 3px 0 0' %>
+        <%= link_to "Add a workout", :controller => "workouts", :action => "new" %> or
+        <%= link_to "Upload a workout", :controller => "training_files", :action => "new" %>
       </div>
-    <% end %>
+    </div>
   <% end %>
-  <%= render :partial => 'workouts/sort_by'%>
+  <%= render :partial => 'common/sort_by'%>
   <p style="text-align: center; color: green"><%= flash[:notice] %></p>
 <% end %>

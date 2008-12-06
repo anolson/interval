@@ -1,0 +1,12 @@
+<% series = {
+  :data_series => [
+    {:data => 
+      @data_points.collect_with_index do |value, index| [index, value.power] end, :label => 'Power'} || [],  
+  ],
+  :time_series => [
+    {:data => 
+      @data_points.collect_with_index do |value, index| [index, nice_duration(Time.at(value.relative_time).utc)] end } || []
+  ]
+}
+%>
+<%= series.to_json %>

@@ -1,0 +1,20 @@
+<% @primary_heading = link_to content_tag(:h1, "#{@user.preferences[:display_name]}'s Shared Workouts"), :action => "index" %>
+<% @secondary_heading = content_tag :span, 'Listing workouts', :class => "larger" %>
+
+<div id="main_wrapper">
+  <div id="main">   
+    <% if @workouts.size > 0 then %>
+      <%= render :partial => 'common/workouts' %>
+    <% else %>
+    <% info_box do %>
+      <span class="larger">
+        This user does not have any shared workouts.
+      </span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<% sidebar_div_tag do %>
+  <%= render :partial => 'common/sort_by'%>
+  <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+<% end %>
