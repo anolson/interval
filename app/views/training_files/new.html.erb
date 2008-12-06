@@ -11,7 +11,7 @@
 
       <% form_tag({:action => 'create'}, :multipart => true)  do %>
         <label for="file">File:</label><br/>
-        <%= file_field("training_file", "payload") %>
+        <%= file_field("training_file", "payload") %> <br />
         <span class="smaller"><%= @last && "(Last workout on: #{nice_date_short @last.performed_on})" %></span>
         <br/><br/>
         
