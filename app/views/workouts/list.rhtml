@@ -17,13 +17,10 @@
 </div>
 <% sidebar_div_tag do %>
   <% rounded_box nil, "complete", "wide" do %>
-    <div class="container full large">
-      <div> 
-        <%= image_tag 'add.png', :style => 'float:left; margin: -3px 3px 0 0' %>
-        <%= link_to "Add a workout", :controller => "workouts", :action => "new" %> or
-        <%= link_to "Upload a workout", :controller => "training_files", :action => "new" %>
-      </div>
-    </div>
+    <ul class="larger" style="padding-left:30px; margin:5px">
+      <li><%= link_to "Upload a workout", :controller => "training_files", :action => "new" %></li>
+      <li><%= link_to "Add a workout", :controller => "workouts", :action => "new" %></li>
+    </ul>
   <% end %>
   <%= render :partial => 'common/sort_by'%>
   <p style="text-align: center; color: green"><%= flash[:notice] %></p>

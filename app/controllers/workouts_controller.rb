@@ -5,6 +5,7 @@ class WorkoutsController < ApplicationController
   before_filter :check_within_plan_limits, :only => [:new, :create]
  
   def index
+    render :action => "list" 
   end
   
   def list
