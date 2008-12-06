@@ -1,6 +1,6 @@
 unless @workout.processing?
   page << "poll_workout_#{@workout.id} = false;"
-  page.replace("workout_#{@workout.id}", :partial => "workout", :object => @workout)
+  page.replace("workout_#{@workout.id}", :partial => "common/workout", :object => @workout)
   page.select("#workout_#{@workout.id}").each do |element|
     element.visual_effect(:highlight)
   end
