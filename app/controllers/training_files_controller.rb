@@ -11,7 +11,7 @@ class TrainingFilesController < ApplicationController
   end
   
   def new 
-    @last = @user.workouts.last
+    @last = @user.workouts.find(:all, :order => 'performed_on').last
     @workout = Workout.new
   end
   
