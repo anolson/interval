@@ -1,6 +1,6 @@
 <% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
 
-<% @secondary_heading = content_tag :span, "Peak Power for #{nice_datetime(@workout.performed_on)}", :class => "larger", :id => "workout_date_#{@workout.id}" %>
+<% @secondary_heading = content_tag :span, "Peak Power for #{nice_date(@workout.performed_on)}", :class => "larger", :id => "workout_date_#{@workout.id}" %>
 
 <% @secondary_links = [
   { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
@@ -23,12 +23,13 @@
               Loading peak power graph.</div>
             </div>
           <% else %>
-            No peak power data available for this workout.
-          <% end %>
-
-          
-          <% if @workout.has_training_files? then %>
-
+            <div class="left container full">
+             <div class="highlight_box full">
+               <br />
+              <div class="large center">No peak power data available for this workout.</div>
+              <br />
+             </div>
+            </div>
           <% end %>
         </div>
       <% end %>
@@ -42,7 +43,7 @@
   <% rounded_box nil, "complete", "wide" do %>
   <div class="top">Peak Power</div>
    <% container "full" do %>
-    
+    <% unless @workout.peak_powers.empty? %>
     <table border="0" cellspacing="0" cellpadding="3">
       <tr>
         <th colspan=2>This Workout</th> 
@@ -51,6 +52,7 @@
     </table>
     <p class="smaller">* Indicates a new all time best peak power.</p>
     <br />
+    <% end %>
     <table border="0" cellspacing="0" cellpadding="3">
       <tr>
         <th colspan=2>All time best</th> 
