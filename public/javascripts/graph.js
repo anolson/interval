@@ -1,7 +1,7 @@
 const POWER = 0;
 const SPEED = 1;
 const CADENCE = 2;
-const HEARTRATE = 3;
+const HEARTRATE = 1;
 var time_series;
 var data_series;
     
@@ -40,17 +40,21 @@ function drawPlot (series, options) {
 }
 
 function slice_data(series, start, end) {
-  var sliced = [Object()];
+  var sliced = [Object(), Object()];
   sliced[POWER].label = series[POWER].label;
   sliced[POWER].data = series[POWER]['data'].slice(start, end)
+  sliced[HEARTRATE].label = series[HEARTRATE].label;
+  sliced[HEARTRATE].data = series[HEARTRATE]['data'].slice(start, end)
   return sliced;
 }
 
 function smooth_data(series) { 
   var size = (series[POWER]['data'].length>1000) ? Math.round(series[POWER]['data'].length/1000) : 1; 
-  var smoothed_data = [Object()];
+  var smoothed_data = [Object(), Object()];
   smoothed_data[POWER].label = series[POWER].label;
   smoothed_data[POWER]['data'] = series[POWER]['data'].eachSlice(size, function(point) { return point.first(); } );  
+  smoothed_data[HEARTRATE].label = series[HEARTRATE].label;
+  smoothed_data[HEARTRATE]['data'] = series[HEARTRATE]['data'].eachSlice(size, function(point) { return point.first(); } );  
  	return smoothed_data;	  
 }
 
