@@ -34,13 +34,15 @@
     <% end %>
   <% end %>
   <%= render :partial => 'common/back' %>
+  
 </div>
 <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
 
 <script type="text/javascript">
   document.observe('dom:loaded', function(){
     Element.hide('zoom_reset');
-    var url = "<%= "/workouts/show/#{@workout.id}.json?power=true&heartrate=true" %>";
+    var url = "<%= "/workouts/show/#{@workout.id}.json?#{@user.preferences[:graph].collect { |k,v| v && k.to_s + '=true' || nil}.join("&") }" %>";
+    //var url = "<%= "/workouts/show/#{@workout.id}.json?power=true&heartrate=true" %>";
     //var url = '<%= url_for(:action => 'show', :id => @workout.id, :format => 'json', :power => 'true', :heartrate => 'true') %>'
     new Ajax.Request(url, {
    		method:'get',

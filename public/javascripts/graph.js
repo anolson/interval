@@ -69,7 +69,7 @@ function slice_data(series, start, end) {
 }
 
 function smooth_data(series) { 
-  var size = (series[POWER]['data'].length>1000) ? Math.round(series[POWER]['data'].length/1000) : 1; 
+  var size = (series[POWER]['data'].length>500) ? Math.round(series[POWER]['data'].length/500) : 1; 
   //var smoothed_data = [Object(), Object()];
   var smoothed_data = new Array(series.size());
   

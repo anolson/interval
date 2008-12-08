@@ -12,6 +12,11 @@
         :data => @data_points.collect_with_index do |v, i| [i, v.heartrate] end, 
         :label => 'Heartrate'}
     end
+    if params[:cadence]
+      data_series << {
+        :data => @data_points.collect_with_index do |v, i| [i, v.cadence] end, 
+        :label => 'Cadence'}
+    end
   #}
   
 %>

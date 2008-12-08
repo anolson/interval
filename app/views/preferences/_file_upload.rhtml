@@ -27,9 +27,9 @@
         Append SRM comment to workout notes.
       </fieldset> 
       
-      <%= observe_field 'preferences[auto_assign_workout_name]', 
+      <%= observe_field 'preferences_auto_assign_workout_name', 
         :function => "$('auto_assign_workout_name_by').toggle()", 
         :on => "change" %>
       
       <%= javascript_tag "Event.observe(window, 'load', 
-        function(){ if($('preferences[auto_assign_workout_name]').checked) {$('auto_assign_workout_name_by').show(); } else {$('auto_assign_workout_name_by').hide(); } } )" %>
+        function(){ if($('preferences_auto_assign_workout_name').checked) {$('auto_assign_workout_name_by').show(); } else {$('auto_assign_workout_name_by').hide(); } } )" %>
