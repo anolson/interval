@@ -36,39 +36,74 @@ function xAxisFormatter(label) {
  
 function drawPlot (series, options) {
   var opts = Object.extend(Object.clone(global_options), options || {});
+  create_labels(series);
   return Flotr.draw($('plot'), smooth_data(series), opts);
 }
 
+function create_labels(series) {
+  label_template = new Template('<tr id="#{label}"><td align="right">#{name} :</td><td><span id="#{selected}">0</span></td></tr>');
+  series.each(function(s, i) {
+    if($('label_' + i) != null) $('label_' + i).remove();
+    $('graph_labels').firstDescendant().insert(label_template.evaluate({
+      name: s.label,
+      label: "label_" + i,
+      selected: "selected_" + i,
+    }));  
+  });
+  
+}
+
 function slice_data(series, start, end) {
-  var sliced = [Object(), Object()];
-  sliced[POWER].label = series[POWER].label;
-  sliced[POWER].data = series[POWER]['data'].slice(start, end)
-  sliced[HEARTRATE].label = series[HEARTRATE].label;
-  sliced[HEARTRATE].data = series[HEARTRATE]['data'].slice(start, end)
+  var sliced = new Array(series.size());
+  
+  series.each(function(s, i) {
+    sliced[i] = new Object();
+    sliced[i].label = s.label;
+    sliced[i].data = s.data.slice(start, end);
+  });
+  //sliced[POWER].label = series[POWER].label;
+  //sliced[POWER].data = series[POWER]['data'].slice(start, end)
+  //sliced[HEARTRATE].label = series[HEARTRATE].label;
+  //sliced[HEARTRATE].data = series[HEARTRATE]['data'].slice(start, end)
   return sliced;
 }
 
 function smooth_data(series) { 
   var size = (series[POWER]['data'].length>1000) ? Math.round(series[POWER]['data'].length/1000) : 1; 
-  var smoothed_data = [Object(), Object()];
-  smoothed_data[POWER].label = series[POWER].label;
-  smoothed_data[POWER]['data'] = series[POWER]['data'].eachSlice(size, function(point) { return point.first(); } );  
-  smoothed_data[HEARTRATE].label = series[HEARTRATE].label;
-  smoothed_data[HEARTRATE]['data'] = series[HEARTRATE]['data'].eachSlice(size, function(point) { return point.first(); } );  
+  //var smoothed_data = [Object(), Object()];
+  var smoothed_data = new Array(series.size());
+  
+  series.each(function(s, i) {
+    smoothed_data[i] = Object();
+    smoothed_data[i].label = s.label;
+    smoothed_data[i].data = s.data.eachSlice(size, function(point) { return point.first(); } );
+  });
+  
+  //smoothed_data[POWER].label = series[POWER].label;
+  //smoothed_data[POWER]['data'] = series[POWER]['data'].eachSlice(size, function(point) { return point.first(); } );  
+  //smoothed_data[HEARTRATE].label = series[HEARTRATE].label;
+  //smoothed_data[HEARTRATE]['data'] = series[HEARTRATE]['data'].eachSlice(size, function(point) { return point.first(); } );  
  	return smoothed_data;	  
 }
 
 $('plot').observe('flotr:mousemove', function(event){
-   var pos = event.memo[1];
-   var i=Math.round(pos.x);
-   if(i<0) return;
-   $('selected_time').innerHTML = time_series[0]['data'][i][1];
-   $('selected_power').innerHTML = data_series[POWER]['data'][i][1];
+  var pos = event.memo[1];
+  var x=Math.round(pos.x);
+  if(x<0) return;
+  $('selected_time').innerHTML = time_series[0]['data'][x][1];
+  
+  data_series.each(function(s, i) {
+    $('selected_' + i).innerHTML = s.data[x][1];
+  });
+  //$('selected_power').innerHTML = data_series[POWER]['data'][i][1];
+  
 });	
 
 $('plot').observe('mouseout', function(event){
   $('selected_time').innerHTML = '00:00:00' 
-	$('selected_power').innerHTML = '0' 
+  data_series.each(function(s, i) {
+    $('selected_' + i).innerHTML = '0';
+  });
 });
 
 $('plot').observe('flotr:select', function(event){

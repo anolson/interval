@@ -1,4 +1,4 @@
-#graph_summary table{width:30%;border:2px solid #DDD;margin:0px auto;font-size:13px;text-align:left;}
+#graph_summary table{border:2px solid #DDD;margin:0px auto;font-size:13px;text-align:left;}
 #graph_summary td{background:#FFF;width:20%;}
 #main_wrapper{float:left;width:70%;background-image:url(../images/divider.png);background-repeat:repeat-y;background-position:top right;}
 #main{float:left;width:100%;}
