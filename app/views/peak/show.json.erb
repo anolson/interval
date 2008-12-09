@@ -3,7 +3,7 @@
     {:data => 
       @peak_power_data_points.collect_with_index do |v, i| [i, v[:value].round] end, :label => 'This workout'} || [],  
     {:data => 
-      @all_time_best.collect_with_index do |v, i| [i, v[:value].round] end, :label => 'All time best'} || []
+      @all_time_best.collect_with_index do |v, i| [i, v[:value].round] end, :label => 'All time best', :color => '#CB4B4B'} || []
   ],
   :time_series => [
     {:data => 

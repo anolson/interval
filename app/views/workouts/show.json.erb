@@ -5,18 +5,28 @@
     if params[:power]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.power] end, 
-        :label => 'Power'}
+        :label => 'Power', 
+        :color => '#00A8F0'}
     end
     if params[:heartrate]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.heartrate] end, 
-        :label => 'Heartrate'}
+        :label => 'Heartrate', 
+        :color => '#CB4B4B'}
     end
     if params[:cadence]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.cadence] end, 
-        :label => 'Cadence'}
+        :label => 'Cadence', 
+        :color => '#F000A8'}
     end
+    if params[:speed]
+      data_series << {
+        :data => @data_points.collect_with_index do |v, i| [i, format_speed_mph(v.speed)] end, 
+        :label => 'Speed', 
+        :color => '#00F048'}
+    end
+
   #}
   
 %>

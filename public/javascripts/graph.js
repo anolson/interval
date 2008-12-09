@@ -24,7 +24,7 @@ var global_options = {
    	show: true,
    	location: 'ne'
  	}, 
- 	shadowSize: 0
+ 	shadowSize: 2
 } 
 
 function xAxisFormatter(label) {
@@ -59,6 +59,7 @@ function slice_data(series, start, end) {
   series.each(function(s, i) {
     sliced[i] = new Object();
     sliced[i].label = s.label;
+		sliced[i].color = s.color;	
     sliced[i].data = s.data.slice(start, end);
   });
   //sliced[POWER].label = series[POWER].label;
@@ -77,6 +78,7 @@ function smooth_data(series) {
 		series.each(function(s, i) {
 	    smoothed_data[i] = Object();
 	    smoothed_data[i].label = s.label;
+			smoothed_data[i].color = s.color;
 	    smoothed_data[i].data = s.data.eachSlice(size, function(point) { return point.first(); } );
 	  });
 	}
