@@ -1,5 +1,7 @@
 # app/helpers/remote_link_renderer.rb
 
+require 'will_paginate'
+
 class RemoteLinkRenderer < WillPaginate::LinkRenderer
   def page_link_or_span(page, span_class = 'current', text = nil)
     classnames=Array[*span_class]
