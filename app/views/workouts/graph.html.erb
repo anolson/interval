@@ -14,48 +14,64 @@
 <div id="main">
   <% rounded_box nil, "complete", "full" do %> 
 
-  <div class="zoom">   
-    <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
-  </div>
-    <% container "full" do %>
-      <div id="plot" class="plot" style="height:400px;">
-        <div id="loader" style="padding-top: 150px; text-align:center">
-        <%= image_tag("loader.gif") %><br/>
-        Loading graph.</div>
+    <% if @user.preferences[:graph]  %>
+
+      <div class="zoom">   
+        <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
       </div>
-      <div id="graph_summary">      
-        <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
-          <tr>
-            <td align="right">Time :</td><td><span id="selected_time">00:00:00</span></td>
-          </tr>
-        </table>
+      <% container "full" do %>
+        <div id="plot" class="plot" style="height:400px;">
+          <div id="loader" style="padding-top: 150px; text-align:center">
+          <%= image_tag("loader.gif") %><br/>
+          Loading graph.</div>
+        </div>
+        <div id="graph_summary">      
+          <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
+            <tr>
+              <td align="right">Time :</td><td><span id="selected_time">00:00:00</span></td>
+            </tr>
+          </table>
+        </div>
+        <div class="smaller right">Note: Click and drag to see more detail.</div>    
+      <% end %>
+  
+      <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
+
+      <script type="text/javascript">
+        document.observe('dom:loaded', function(){
+          Element.hide('zoom_reset');
+          <% 
+            graph_options = @user.preferences[:graph].collect { |k,v| 
+              v && k.to_s + '=true' || nil
+            }.join("&")
+          %>
+          var url = "<%= "/workouts/show/#{@workout.id}.json?#{graph_options}" %>";
+    
+          new Ajax.Request(url, {
+         		method:'get',
+         		onSuccess: function(transport){
+         			var json = transport.responseText.evalJSON();
+         			data_series = json.data_series
+         			time_series = json.time_series
+
+         			if(data_series){
+         				$('plot').setStyle({'display':'block'});
+                 var f = drawPlot(data_series);
+               }
+         		}
+         	});
+        });
+      </script>
+    <% else %>
+      <div class="center container half">
+       <div class="highlight_box full">
+        <br />
+        <span class="large">You have not selected anything to graph.</span>
+        <h2><%= link_to "Update your preferences.", :controller => "preferences", :action => "index" %></h2>
+        <br />
+       </div>
       </div>
-      <div class="smaller right">Note: Click and drag to see more detail.</div>    
     <% end %>
   <% end %>
   <%= render :partial => 'common/back' %>
-  
 </div>
-<%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
-
-<script type="text/javascript">
-  document.observe('dom:loaded', function(){
-    Element.hide('zoom_reset');
-    var url = "<%= "/workouts/show/#{@workout.id}.json?#{@user.preferences[:graph].collect { |k,v| v && k.to_s + '=true' || nil}.join("&") }" %>";
-    //var url = "<%= "/workouts/show/#{@workout.id}.json?power=true&heartrate=true" %>";
-    //var url = '<%= url_for(:action => 'show', :id => @workout.id, :format => 'json', :power => 'true', :heartrate => 'true') %>'
-    new Ajax.Request(url, {
-   		method:'get',
-   		onSuccess: function(transport){
-   			var json = transport.responseText.evalJSON();
-   			data_series = json.data_series
-   			time_series = json.time_series
-
-   			if(data_series){
-   				$('plot').setStyle({'display':'block'});
-           var f = drawPlot(data_series);
-         }
-   		}
-   	});
-  });
-</script>

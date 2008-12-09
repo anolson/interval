@@ -69,21 +69,18 @@ function slice_data(series, start, end) {
 }
 
 function smooth_data(series) { 
-  var size = (series[POWER]['data'].length>500) ? Math.round(series[POWER]['data'].length/500) : 1; 
+   
   //var smoothed_data = [Object(), Object()];
   var smoothed_data = new Array(series.size());
-  
-  series.each(function(s, i) {
-    smoothed_data[i] = Object();
-    smoothed_data[i].label = s.label;
-    smoothed_data[i].data = s.data.eachSlice(size, function(point) { return point.first(); } );
-  });
-  
-  //smoothed_data[POWER].label = series[POWER].label;
-  //smoothed_data[POWER]['data'] = series[POWER]['data'].eachSlice(size, function(point) { return point.first(); } );  
-  //smoothed_data[HEARTRATE].label = series[HEARTRATE].label;
-  //smoothed_data[HEARTRATE]['data'] = series[HEARTRATE]['data'].eachSlice(size, function(point) { return point.first(); } );  
- 	return smoothed_data;	  
+  if(series.size()>0) {
+		var size = (series[0]['data'].length>500) ? Math.round(series[0]['data'].length/500) : 1;
+		series.each(function(s, i) {
+	    smoothed_data[i] = Object();
+	    smoothed_data[i].label = s.label;
+	    smoothed_data[i].data = s.data.eachSlice(size, function(point) { return point.first(); } );
+	  });
+	}
+	 return smoothed_data;	  
 }
 
 $('plot').observe('flotr:mousemove', function(event){
