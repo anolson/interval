@@ -10,4 +10,4 @@ class RemoteLinkRenderer < WillPaginate::LinkRenderer
       @template.content_tag :span, text, :class => classnames.join(' ')
     end
   end
-end if defined?(WillPaginate)
+end
