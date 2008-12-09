@@ -10,7 +10,6 @@ class CreatePeakPowers < ActiveRecord::Migration
     end
   
     foreign_key(:peak_powers, :workout_id, :workouts)
-    foreign_key(:peak_powers, :user_id, :users)
   end
 
 
