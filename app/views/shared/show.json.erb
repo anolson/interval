@@ -1,8 +1,38 @@
+<% data_series = Array.new %>
+<%    
+   #raise params[:power].to_s
+   #@include.each { |incl|
+    if params[:power]
+      data_series << {
+        :data => @data_points.collect_with_index do |v, i| [i, v.power] end, 
+        :label => 'Power', 
+        :color => '#00A8F0'}
+    end
+    if params[:heartrate]
+      data_series << {
+        :data => @data_points.collect_with_index do |v, i| [i, v.heartrate] end, 
+        :label => 'Heartrate', 
+        :color => '#CB4B4B'}
+    end
+    if params[:cadence]
+      data_series << {
+        :data => @data_points.collect_with_index do |v, i| [i, v.cadence] end, 
+        :label => 'Cadence', 
+        :color => '#F000A8'}
+    end
+    if params[:speed]
+      data_series << {
+        :data => @data_points.collect_with_index do |v, i| [i, format_speed_mph(v.speed)] end, 
+        :label => 'Speed', 
+        :color => '#00F048'}
+    end
+
+  #}
+  
+%>
+
 <% series = {
-  :data_series => [
-    {:data => 
-      @data_points.collect_with_index do |value, index| [index, value.power] end, :label => 'Power'} || [],  
-  ],
+  :data_series => data_series,
   :time_series => [
     {:data => 
       @data_points.collect_with_index do |value, index| [index, nice_duration(Time.at(value.relative_time).utc)] end } || []
