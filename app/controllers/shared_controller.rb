@@ -23,6 +23,7 @@ class SharedController < ApplicationController
   end
   
   def feed
+    @workouts = Workout.find_all_by_user_id @user.id, :order => 'performed_on DESC'
     respond_to do |format|
       format.atom { render :layout => false }
     end
