@@ -1,11 +1,12 @@
-#graph_summary table{border:2px solid #DDD;margin:0px auto;font-size:13px;text-align:left;}
-#graph_summary td{background:#FFF;width:20%;}
+#graph_summary table{border:2px solid #DDD;margin:0px auto;font-size:13px;text-align:left; width:250px;}
+#graph_summary td{background:#FFF;width:50%}
 #main_wrapper{float:left;width:70%;background-image:url(../images/divider.png);background-repeat:repeat-y;background-position:top right;}
 #main{float:left;width:100%;}
 #main h4{margin:5px;}
 #main p{margin:5px;}
 #main .details{float:left;width:100%;}
-#main .summary table, .list table{background:#FFF;margin:0px auto;width:100%;font-size:13px;text-align:left;}
+#main .list{margin-top:10px;}
+#main .summary table, .list table{border:2px solid #BBB;background:#FFF;margin:10px auto;width:95%;font-size:13px;text-align:left;}
 #main th{background:#DDD;font-weight:normal;text-align:left;font-size:14px;}
 #main .stats{margin:5px;text-align:right;}
 #main .notes{font-family:Monaco;margin:10px 5px;}

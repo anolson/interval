@@ -13,8 +13,7 @@
 
 <div id="main_wrapper">
   <div id="main">
-    <div class="list">
-      <% rounded_box nil, "complete", "full" do %> 
+    <div id="workout" class="list">
         <div class="container full">
           <fieldset>
             <legend class=larger>Notes</legend>  
@@ -48,7 +47,7 @@
             <% end %>
           <% end %>
         </div>
-      <% end %>
+      
     </div>
     <p style="text-align: center; color: green"><%= flash[:notice] %></p>
     <%= render :partial => 'common/back' %>
