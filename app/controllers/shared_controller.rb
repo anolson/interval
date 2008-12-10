@@ -23,7 +23,8 @@ class SharedController < ApplicationController
   end
   
   def feed
-    @workouts = Workout.find_all_by_user_id @user.id, :order => 'performed_on DESC'
+    @updated = @user.workouts.last ? @user.workouts.last.created_at : Time.now.utc
+    @workouts = @user.workouts.find :all, :order => 'performed_on DESC'
     respond_to do |format|
       format.atom { render :layout => false }
     end

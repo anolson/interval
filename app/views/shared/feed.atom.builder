@@ -1,6 +1,6 @@
 atom_feed do |feed|
   feed.title("#{@user.preferences[:display_name]}'s Shared Workouts")
-  feed.updated(@workouts.last ? @workouts.last.created_at : Time.now.utc)
+  feed.updated(@updated)
 
   for workout in @workouts
     url = url_for(:action => 'show', :user=> @user.username, :id => workout.id, :only_path => false)
