@@ -13,27 +13,25 @@
 
 <div id="main_wrapper">
   <div id="main">
-    <div class="list">
-      <% rounded_box nil, "complete", "full" do %> 
-        <div class="container full">
-          <% unless @workout.peak_powers.empty? %>
-            <div id="plot" class="plot" style="height:400px;width:550px;">
-              <div id="loader" style="padding-top: 150px; text-align:center">
-              <%= image_tag("loader.gif") %><br/>
-              Loading peak power graph.</div>
-            </div>
-          <% else %>
-            <div class="left container full">
-             <div class="highlight_box full">
-               <br />
-              <div class="large center">No peak power data available for this workout.</div>
-              <br />
-             </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+    <% rounded_box nil, "complete", "full" do %> 
+      <div class="container full">
+        <% unless @workout.peak_powers.empty? %>
+          <div id="plot" class="plot" style="height:400px;width:550px;">
+            <div id="loader" style="padding-top: 150px; text-align:center">
+            <%= image_tag("loader.gif") %><br/>
+            Loading peak power graph.</div>
+          </div>
+        <% else %>
+          <div class="left container full">
+           <div class="highlight_box full">
+             <br />
+            <div class="large center">No peak power data available for this workout.</div>
+            <br />
+           </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
     <p style="text-align: center; color: green"><%= flash[:notice] %></p>
     <%= render :partial => 'common/back' %>
 
