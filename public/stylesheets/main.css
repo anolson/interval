@@ -1,7 +1,7 @@
 #graph_summary table{border:2px solid #DDD;margin:0px auto;font-size:13px;text-align:left; width:250px;}
 #graph_summary td{background:#FFF;width:50%}
 #main_wrapper{float:left;width:70%;background-image:url(../images/divider.png);background-repeat:repeat-y;background-position:top right;}
-#main{margin: 0px auto; width:100%;}
+#main{float: left; width:100%;}
 #main h4{margin:5px;}
 #main p{margin:5px;}
 #main .details{float:left;width:100%;}
