@@ -1,0 +1,41 @@
+<h1>Listing articles</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for articles in @articles %>
+  <tr>
+    <td><%= link_to 'Show', articles %></td>
+    <td><%= link_to 'Edit', edit_articles_path(articles) %></td>
+    <td><%= link_to 'Destroy', articles, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New articles', new_articles_path %>
+
+
+<% @primary_heading = link_to content_tag(:h1, "Articles"), :action => "index" %>
+<% @secondary_heading = content_tag :span, "Listing all articles (#{@users.length})", :class => "larger" %>
+
+<div id="main"> 
+  <div class="list">   
+    <% rounded_box nil, "complete", "full" do %> 
+    <div class="container full"> 
+    <table border="0" cellspacing="0" cellpadding="5">
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Body</th>
+        <th colspan="2">Created</th>
+      </tr>
+      <%= render :partial => 'articles', :collection => @articles %>
+    </table>
+    </div>
+    <% end %>
+  </div>
+</div>
+
