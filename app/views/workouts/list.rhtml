@@ -1,5 +1,5 @@
 <% @primary_heading = link_to content_tag(:h1, "Workouts"), :action => "index" %>
-<% @secondary_heading = content_tag :span, 'Listing workouts', :class => "larger" %>
+<% @secondary_heading = content_tag :span, "Listing workouts (#{@workout_count})", :class => "larger" %>
 
 <div id="main_wrapper">
   <div id="main">   
