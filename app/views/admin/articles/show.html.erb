@@ -1,7 +1,7 @@
 <% @primary_heading= link_to content_tag(:h1, "#{@article.title}"), admin_article_path(@article) %>
-<p>
+<div class="larger">
   <%= textilize @article.body %>
-</p>
+</div>
 <br/>
 <%= link_to 'Edit', edit_admin_article_path(@article) %> |
 <%= link_to 'Back', admin_articles_path %>

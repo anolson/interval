@@ -1,0 +1,9 @@
+<div class="container full">
+
+  <h1><%= @article.title %></h1>
+  
+  <div class="large">
+    <%= textilize @article.body %>
+  </div>
+  <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back", :action => 'index') %>
+</div>

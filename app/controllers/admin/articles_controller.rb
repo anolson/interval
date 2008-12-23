@@ -62,7 +62,7 @@ class Admin::ArticlesController < Admin::AdminController
     @article = Article.find(params[:id])
 
     respond_to do |format|
-      if @articles.update_attributes(params[:article])
+      if @article.update_attributes(params[:article])
         flash[:notice] = 'Admin::Articles was successfully updated.'
         format.html { redirect_to(admin_articles_path) }
         format.xml  { head :ok }

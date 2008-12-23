@@ -9,16 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 10) do
-
-  create_table "articles", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.string   "category"
-    t.integer  "number_of_views", :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 9) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -65,6 +56,7 @@ ActiveRecord::Schema.define(:version => 10) do
     t.integer "start",      :default => 0
     t.float   "value",      :default => 0.0
     t.integer "workout_id", :default => 0
+    t.integer "user_id",    :default => 0
   end
 
   create_table "plans", :force => true do |t|

@@ -4,7 +4,8 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title
       t.text :body         
       t.string :category
-      t.integer :number_of_views, :default => 0
+      t.string :permalink
+      t.integer :number_of_views, :default => 0, :null => false
       t.timestamps
     end
   end

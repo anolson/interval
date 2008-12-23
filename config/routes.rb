@@ -107,7 +107,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect '/admin', :controller => 'admin/session', :action => 'new'
   
-
+  map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   
 
   # Install the default route as the lowest priority.
