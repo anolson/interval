@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :articles
+  #map.resources :articles
 
-  map.resources :users
+  #map.resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   
@@ -101,7 +101,14 @@ ActionController::Routing::Routes.draw do |map|
       :controller => 'workouts',
       :action => 'show'
 
+  map.with_options({:path_prefix => "admin", :namespace => "admin/"}) do |admin|
+    admin.resources :articles
+  end 
+
   map.connect '/admin', :controller => 'admin/session', :action => 'new'
+  
+
+  
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
