@@ -9,6 +9,7 @@ class ArticlesTest < ActiveSupport::TestCase
       :category => "support")
     assert_equals "What forms of payment do you take?", article.title
     assert_equals "We accept Visa, MC and AMEX.", article.body
+    assert_equals "what_forms_of_payment_do_you_take", article.permalink
     assert_equals "support", article.category
     
   end

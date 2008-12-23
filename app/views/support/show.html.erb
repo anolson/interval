@@ -5,5 +5,7 @@
   <div class="large">
     <%= textilize @article.body %>
   </div>
-  <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back", :action => 'index') %>
+  <div class="larger">
+    <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back", articles_path) %>
+  </div>
 </div>

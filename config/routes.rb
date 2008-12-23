@@ -107,6 +107,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect '/admin', :controller => 'admin/session', :action => 'new'
   
+  map.support_permalink 'support/:permalink', :controller => "support", :action => "show"
+  
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   
 

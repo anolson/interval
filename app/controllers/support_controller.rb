@@ -15,8 +15,8 @@ class SupportController < ApplicationController
   # GET /admin/articles/1
   # GET /admin/articles/1.xml
   def show
-    @article = Article.find(params[:id])
-    @article.update_attribute("number_of_views", @article.number_of_views + 1)
+    @article = Article.find_by_permalink(params[:permalink])
+    @article.update_attribute(:number_of_views, @article.number_of_views + 1)
     @article.save
     respond_to do |format|
       format.html # show.html.erb
