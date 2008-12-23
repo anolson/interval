@@ -1,3 +1,7 @@
-
-<%= link_to 'Edit', edit_articles_path(@articles) %> |
-<%= link_to 'Back', articles_path %>
+<% @primary_heading= link_to content_tag(:h1, "#{@article.title}"), admin_article_path(@article) %>
+<p>
+  <%= textilize @article.body %>
+</p>
+<br/>
+<%= link_to 'Edit', edit_admin_article_path(@article) %> |
+<%= link_to 'Back', admin_articles_path %>

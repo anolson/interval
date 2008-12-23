@@ -1,7 +1,8 @@
 class Admin::ArticlesController < Admin::AdminController
-  # GET /admin_articles
-  # GET /admin_articles.xml
   layout 'admin'
+  
+  # GET /admin/articles
+  # GET /admin/articles.xml
   def index
     @articles = Article.find(:all)
 
@@ -11,35 +12,35 @@ class Admin::ArticlesController < Admin::AdminController
     end
   end
 
-  # GET /admin_articles/1
-  # GET /admin_articles/1.xml
+  # GET /admin/articles/1
+  # GET /admin/articles/1.xml
   def show
-    @articles = Article.find(params[:id])
+    @article = Article.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @articles }
+      format.xml  { render :xml => @article }
     end
   end
 
-  # GET /admin_articles/new
-  # GET /admin_articles/new.xml
+  # GET /admin/articles/new
+  # GET /admin/articles/new.xml
   def new
     @article = Article.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @articles }
+      format.xml  { render :xml => @article }
     end
   end
 
-  # GET /admin_articles/1/edit
+  # GET /admin/articles/1/edit
   def edit
-    @articles = Article.find(params[:id])
+    @article = Article.find(params[:id])
   end
 
-  # POST /admin_articles
-  # POST /admin_articles.xml
+  # POST /admin/articles
+  # POST /admin/articles.xml
   def create
     @article = Article.new(params[:article])
 
@@ -55,31 +56,31 @@ class Admin::ArticlesController < Admin::AdminController
     end
   end
 
-  # PUT /admin_articles/1
-  # PUT /admin_articles/1.xml
+  # PUT /admin/articles/1
+  # PUT /admin/articles/1.xml
   def update
-    @articles = Article.find(params[:id])
+    @article = Article.find(params[:id])
 
     respond_to do |format|
       if @articles.update_attributes(params[:article])
         flash[:notice] = 'Admin::Articles was successfully updated.'
-        format.html { redirect_to(@articles) }
+        format.html { redirect_to(admin_articles_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @articles.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /admin_articles/1
-  # DELETE /admin_articles/1.xml
+  # DELETE /admin/articles/1
+  # DELETE /admin/articles/1.xml
   def destroy
-    @articles = Article.find(params[:id])
-    @articles.destroy
+    @article = Article.find(params[:id])
+    @article.destroy
 
     respond_to do |format|
-      format.html { redirect_to(:controller => "admin/articles") }
+      format.html { redirect_to(admin_articles_path) }
       format.xml  { head :ok }
     end
   end

@@ -1,12 +1,30 @@
-<h1>Editing articles</h1>
+<% @primary_heading= link_to content_tag(:h1, "Articles"), :action => "index" %>
 
-<% form_for(@articles) do |f| %>
-  <%= f.error_messages %>
+<div id="main">
+  <% rounded_box nil, "complete", "half" do %>
+    <% container "full" do %>
+      <% form_for([:admin, @article]) do |f| %>
+        <%= f.error_messages %>
+        <fieldset>
+          <legend>Edit Article</legend>
+          <label for="title">Title:</label><br/>
+          <%= f.text_field :title%><br/><br/>
 
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+          <label for="body">Body:</label><br/>
+          <%= f.text_area :body %><br/><br/>
+          
+          <label for="category">Category:</label><br/>
+          <%= f.select :category, Article::CATEGORIES %><br/><br/>
+          
+        </fieldset>
+        
+        <p>
+          <%= f.submit "Update" %>
+        </p>
+      <% end %>      
+    <% end %>
 
-<%= link_to 'Show', @articles %> |
-<%= link_to 'Back', articles_path %>
+  <% end %>
+  <%= link_to 'Show', admin_article_path %> |
+  <%= link_to 'Back', admin_articles_path %>
+</div>

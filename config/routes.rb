@@ -101,7 +101,7 @@ ActionController::Routing::Routes.draw do |map|
       :controller => 'workouts',
       :action => 'show'
 
-  map.with_options({:path_prefix => "admin", :namespace => "admin/"}) do |admin|
+  map.namespace(:admin) do |admin|
     admin.resources :articles
   end 
 

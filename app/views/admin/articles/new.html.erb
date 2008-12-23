@@ -3,7 +3,7 @@
 <div id="main">
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
-      <% form_for(@article, :url => {:action => 'create'}) do |f| %>
+      <% form_for([:admin, @article]) do |f| %>
         <%= f.error_messages %>
         <fieldset>
           <legend>New Article</legend>
