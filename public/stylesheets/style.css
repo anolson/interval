@@ -42,3 +42,5 @@ fieldset{border:2px solid #CCC;margin-bottom:20px; background: #E5ECFF;}
 fieldset legend{font-size:18px;}
 .screenshot{width:85%; margin:40px auto; border-bottom: 2px solid #CCC;}
 .screenshot div{text-align:center;}
+.light{color: #777;}
+.lighter{color: #999;}
