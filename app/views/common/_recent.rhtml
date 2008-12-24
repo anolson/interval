@@ -1,0 +1,20 @@
+<% rounded_box nil, "complete", "wide" do %>
+  <div class="top">
+    Recent Workouts
+  </div>
+  
+  <ul>
+    <li>
+      <%= link_to "EM/Tempo", :controller => "workouts", :action => "index" %> 
+      <span class="smaller light">added 7 days ago.</span></li>
+    <li>
+      <%= link_to "Raceride", :controller => "workouts", :action => "index" %>
+      <span class="smaller light">added 10 days ago.</span>
+    </li>
+  </ul>
+  
+  <div class="container wide">
+    <span class="light">Processing 2 workouts.</span>
+  </div>
+<% end %>
+
