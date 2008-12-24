@@ -32,27 +32,27 @@
                     <%= workout.notes.empty? && "Edit to add notes." || workout.notes %>
                   </div>   
                   <div style="margin: 5px" class="complete left">
-                    <span id="<%="workout_date_#{workout.id}"%>" class="small light">
+                    <span id="<%="workout_date_#{workout.id}"%>" class="small lighter">
                       <%= nice_datetime(workout.performed_on) %>
                     </span> 
-                    <span class="smaller">added <%= time_ago_in_words(workout.created_at) %> ago.</span>
+                    <span class="small light"> - added <%= time_ago_in_words(workout.created_at) %> ago.</span>
                   </div>
                 </div>
                   
                 <div class="smaller right" style="border-left: 2px solid #BBB; padding-left: 10px; float: right; width:20%">
                   <table border="0" cellspacing="1" cellpadding="2" width="100%">
                     <tr class="small" >
-                      <td class="light">duration</td> 
+                      <td class="lighter">duration</td> 
                       <td id="<%= "workout_duration_#{workout.id}" %>" >
                         <%= workout.processing? && '-' || nice_duration(workout.markers.first.duration)  %>
                       </td>
                     </tr>
                     <tr class="small">
-                      <td class="light">power</td> 
+                      <td class="lighter">power</td> 
                       <td><%= workout.processing? && '-' ||workout.markers.first.avg_power %> watts</td>
                     </tr>
                     <tr class="small">
-                      <td class="light">energy</td> 
+                      <td class="lighter">energy</td> 
                       <td><%= workout.processing? && '-' || workout.markers.first.energy %> kJ</td>
                     </tr>
                   </table>
