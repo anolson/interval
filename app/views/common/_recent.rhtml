@@ -2,15 +2,8 @@
   <div class="top">
     Recent Workouts
   </div>
-  
   <ul>
-    <li>
-      <%= link_to "EM/Tempo", :controller => "workouts", :action => "index" %> 
-      <span class="smaller light"> - added 7 days ago.</span></li>
-    <li>
-      <%= link_to "Raceride", :controller => "workouts", :action => "index" %>
-      <span class="smaller light"> - added 10 days ago.</span>
-    </li>
+    <%= render :partial => "common/recent_workout", :collection => @recent_workouts  %>
   </ul>
   
   <div class="container wide">

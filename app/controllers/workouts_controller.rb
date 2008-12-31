@@ -69,5 +69,6 @@ class WorkoutsController < ApplicationController
       @sort_order = params[:sort_order] || @user.preferences[:sort_order]
       order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
       @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order, :conditions => "state != 'destroying'")
+      @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]
     end
 end
