@@ -5,7 +5,7 @@ class WorkoutsController < ApplicationController
   before_filter :check_within_plan_limits, :only => [:new, :create]
  
   def index
-    @workout_count = @user.workouts.count(:conditions => {:state => ["created", "uploaded"] })
+    @workout_count = @user.workouts.count(:conditions => "state != 'destroying'")
     @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
     @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]
     render :action => "list" 

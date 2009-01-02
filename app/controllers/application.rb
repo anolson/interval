@@ -32,8 +32,8 @@ class ApplicationController < ActionController::Base
   end
   
   def check_within_plan_limits
-    if(@user.plan.workout_limit > 0 && @user.workouts.size > @user.plan.workout_limit)
-      render :action => 'limit_reached', :layout => 'application'
+    if(@user.plan.workout_limit > 0 && @user.workouts.size >= @user.plan.workout_limit)
+      render :partial => 'common/limit_reached', :layout => 'application'
     end
   end
   
