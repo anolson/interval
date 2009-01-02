@@ -2,12 +2,9 @@
   <div class="top">
     Recent Workouts
   </div>
-  <ul>
+  <ul id="recent">
     <%= render :partial => "common/recent_workout", :collection => @recent_workouts  %>
   </ul>
-  
-  <div class="container wide">
-    <span class="light">Processing 2 workouts.</span>
-  </div>
+  <%= render :partial => "common/processing", :locals => { :processing => @processing }  %>
 <% end %>
 

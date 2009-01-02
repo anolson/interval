@@ -1,0 +1,5 @@
+<%= javascript_tag "var poll_workout_#{processing_workout.id}= true" %>
+<%= periodically_call_remote(
+  :url => { :action => "poll", :id => processing_workout.id }, 
+  :frequency => '10', 
+  :condition => "poll_workout_#{processing_workout.id} == true")  %>

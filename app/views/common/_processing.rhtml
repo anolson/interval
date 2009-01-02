@@ -1,0 +1,6 @@
+<% unless processing.empty? %>
+  <div class="container wide" id="processing">
+    <span class="light">Processing <%=content_tag :span, processing.size, :id => "processing_count" %> workouts.</span>
+    <%= render :partial => "common/processing_workout", :collection => processing %>
+  </div>
+<% end %>

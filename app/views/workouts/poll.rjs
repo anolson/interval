@@ -1,8 +1,15 @@
 unless @workout.processing?
   page << "poll_workout_#{@workout.id} = false;"
-  page.replace("workout_#{@workout.id}", :partial => "common/workout", :object => @workout)
-  page.select("#workout_#{@workout.id}").each do |element|
+  #page.replace("workout_#{@workout.id}", :partial => "common/workout", :object => @workout)
+  page.insert_html :top, "recent", :partial => "common/recent_workout", :object => @workout 
+  page.select("#recent_#{@workout.id}").each do |element|
     element.visual_effect(:highlight)
   end
-  page.redirect_to :action => 'index'
+  
+  page.replace("processing", :partial => "common/processing", :object => @processing)
+  
+  #page.select("#processing_count").each do |element|
+  #  element.inner_html = element.inner_html - 1
+  #end
+  #page.redirect_to :action => 'index'
 end

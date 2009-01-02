@@ -5,7 +5,9 @@ class WorkoutsController < ApplicationController
   before_filter :check_within_plan_limits, :only => [:new, :create]
  
   def index
-    @workout_count = @user.workouts.count
+    @workout_count = @user.workouts.count(:conditions => {:state => ["created", "uploaded"] })
+    @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
+    @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]
     render :action => "list" 
   end
   
@@ -61,6 +63,7 @@ class WorkoutsController < ApplicationController
   end
   
   def poll
+    @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
   end
   
   
@@ -68,7 +71,6 @@ class WorkoutsController < ApplicationController
     def find_workouts
       @sort_order = params[:sort_order] || @user.preferences[:sort_order]
       order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
-      @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order, :conditions => "state != 'destroying'")
-      @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]
+      @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order, :conditions => { :state => ["created", "uploaded"] })
     end
 end

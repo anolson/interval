@@ -1,4 +1,4 @@
-<li>
+<li id="<%= "recent_#{recent_workout.id}" %>">
   <%= link_to recent_workout.name, :controller => "workouts", :action => "show", :id => recent_workout.id  %>
   <span class="smaller light"> - added <%= time_ago_in_words(recent_workout.created_at) %> ago.</span>
 </li>

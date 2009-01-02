@@ -1,28 +1,13 @@
           <li id="<%="workout_#{workout.id}"%>">
             
             <% container "complete" do  %>
-              <% if workout.processing? %>
-                <span id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px;">
-                  <%= workout.name %>
-                </span>
-                <span class="larger">
-                  is being processed.
-                  <%= image_tag "spinner.gif" %>
-                  <%= javascript_tag "var poll_workout_#{workout.id}= true" %>
-                  <%= periodically_call_remote(
-                    :url => { :action => "poll", :id => workout.id }, 
-                    :frequency => '10', 
-                    :condition => "poll_workout_#{workout.id} == true")  %>
-                </span>
-              <% else %>
-                <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
-                  <%= link_to_workout(workout) %>
+              <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
+                <%= link_to_workout(workout) %>
+              </div>
+              <% unless @sharing %> 
+                <div class="edit smaller">
+                  <%= render(:partial => 'workouts/edit_delete', :locals => {:id => workout.id} ) %>
                 </div>
-                <% unless @sharing %> 
-                  <div class="edit smaller">
-                    <%= render(:partial => 'workouts/edit_delete', :locals => {:id => workout.id} ) %>
-                  </div>
-                <% end %>
               <% end %>
               <div class="clear"></div>
               <div class="highlight_box">  
