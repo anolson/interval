@@ -11,7 +11,7 @@ class TrainingFilesController < ApplicationController
   end
   
   def new 
-    @last = @user.workouts.find(:all, :order => 'performed_on').last
+    #@last = @user.workouts.find(:all, :order => 'performed_on').last
     @workout = Workout.new
   end
   
@@ -31,6 +31,7 @@ class TrainingFilesController < ApplicationController
       if @user.preferences[:append_srm_comment_to_notes]
         options[:notes] = @workout.generate_workout_comments
       end
+      
       @workout.auto_assign options
     
       if @workout.save

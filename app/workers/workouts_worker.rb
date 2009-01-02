@@ -12,7 +12,8 @@ class WorkoutsWorker < Workling::Base
     workout.markers << training_file.markers
     workout.peak_powers << training_file.peak_powers.collect {|p| PeakPower.new(p) }
     
-    if training_file.powermeter_properties.class.eql?(IbikeProperties) || training_file.powermeter_properties.class.eql?(SrmProperties)
+    if training_file.powermeter_properties.class.eql?(IbikeProperties) || 
+      training_file.powermeter_properties.class.eql?(SrmProperties)
       workout.auto_assign(:performed_on => training_file.powermeter_properties.date_time)
     end
     
