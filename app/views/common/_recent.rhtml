@@ -1,10 +1,12 @@
-<% rounded_box nil, "complete", "wide" do %>
-  <div class="top">
-    Recent Workouts
-  </div>
-  <ul id="recent">
-    <%= render :partial => "common/recent_workout", :collection => @recent_workouts  %>
-  </ul>
-  <%= render :partial => "common/processing", :locals => { :processing => @processing }  %>
+<% unless @recent_workouts.empty? && @processing.empty? %>
+  <% rounded_box nil, "complete", "wide" do %>
+    <div class="top">
+      Recent Workouts
+    </div>
+    <ul id="recent">
+      <%= render :partial => "common/recent_workout", :collection => @recent_workouts  %>
+    </ul>
+    <%= render :partial => "common/processing", :locals => { :processing => @processing }  %>
+  <% end %>
 <% end %>
 
