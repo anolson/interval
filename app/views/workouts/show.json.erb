@@ -8,6 +8,14 @@
         :label => 'Power', 
         :color => '#00A8F0'}
     end
+    
+    if params[:torque]
+      data_series << {
+        :data => @data_points.collect_with_index do |v, i| [i, v.torque] end, 
+        :label => 'Torque', 
+        :color => '#A8F000'}
+    end
+    
     if params[:heartrate]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.heartrate] end, 

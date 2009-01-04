@@ -6,6 +6,11 @@
           @user.preferences[:graph] && @user.preferences[:graph][:power] %> 
         Power<br/><br/>
         
+        <%= check_box_tag 'preferences[graph][torque]', 
+          'true', 
+          @user.preferences[:graph] && @user.preferences[:graph][:torque] %> 
+        Torque<br/><br/>
+        
         <%= check_box_tag 'preferences[graph][heartrate]', 
           'true', 
           @user.preferences[:graph] && @user.preferences[:graph][:heartrate] %> 

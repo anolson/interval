@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 11) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "category"
+    t.string   "permalink"
+    t.integer  "number_of_views", :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -27,6 +37,7 @@ ActiveRecord::Schema.define(:version => 9) do
     t.integer "heartrate"
     t.float   "speed"
     t.float   "distance"
+    t.float   "torque",           :default => 0.0
   end
 
   add_index "data_values", ["training_file_id"], :name => "index_data_values_on_training_file_id"
