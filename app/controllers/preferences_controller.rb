@@ -4,13 +4,13 @@ class PreferencesController < ApplicationController
   end
   
   def plan
-    @plans = Plan.find(:all)
+    @plans = Plan.find(:all)    
   end
   
   private 
-    def find_user
-       @user = User.find(session[:user])
-    end
+    #def find_user
+    #   @user = User.find(session[:user])
+    #end
   
     def save_preferences
       if request.post?
