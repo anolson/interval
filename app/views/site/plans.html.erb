@@ -1,16 +1,17 @@
 <% @primary_heading= link_to content_tag(:h1, "Pricing and Sign Up"), :action => "index" %>
 
-<div class="container complete">
+<div id="signup" class="container complete">
 
 <div class="left container half">
  <div class="highlight_box wide">
-  <h2>Athlete Plus $7.99/month</h2>
+  <h2>Athlete Pro $9.99/month</h2>
   <ul style="height: 50px">
    <li>Unlimited workouts.</li>
    <li>View and modify your workouts from anywhere.</li>
-   <li>Share workouts with others.</li>
+   <li>Share your workouts with others.</li>
   </ul>
-  <h2><%= link_to "Sign Up", :controller => 'user', :action => 'signup'%></h2>
+  <br/>
+  <h2><%= link_to "Sign-up for Pro", :controller => 'user', :action => 'signup', :plan => "pro" %></h2>
  </div>
 </div>
 
@@ -20,19 +21,21 @@
   <ul style="height: 50px">
    <li>10 workouts.</li>
    <li>View and modify your workouts from anywhere.</li>
+   <li>Share your workouts with others.</li>
   </ul>
-  <h2><%= link_to "Sign Up", :controller => 'user', :action => 'signup'%></h2>
+  <br/>
+  <h2><%= link_to "Sign-up for Free", :controller => 'user', :action => 'signup', :plan => 'free'%></h2>
  </div>
 </div>
 <div class="clear"></div>
 <div class="container half">
  <br/>
- <h3>What is the comitment?</h3>
+ <h2>What is the comitment?</h2>
  <p class="large">  
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
  </p>
  
- <h3>When will I be billed?</h3>
+ <h2>When will I be billed?</h2>
  <p class="large">  
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
  </p>

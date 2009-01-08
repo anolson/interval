@@ -46,3 +46,4 @@ fieldset legend{font-size:18px;}
 .screenshot div{text-align:center;}
 .light{color: #555;}
 .lighter{color: #888;}
+#signup li {list-style-image: url(../images/check.png); padding: 2px 0; font-size: 15px;}

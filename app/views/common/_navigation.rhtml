@@ -1,7 +1,7 @@
 <% if session[:user] && @user %>
 <div id="toolbar" style="text-align:right; padding:5px 15px; margin:0; position:absolute; top:5px; right:35px" class="smaller">
   Signed in as <%= @user.preferences[:display_name] %>
-  (<%= link_to('Signout', :controller => 'user', :action => 'signout') %>)
+  (<%= link_to('Sign-out', :controller => 'user', :action => 'signout') %>)
 </div>
 <% end %>
 
@@ -10,8 +10,8 @@
     <ul>
       <%= navigation_item 'Home', {:controller => 'site'}%>
       <%= navigation_item 'Tour', tour_url%>
-      <%= navigation_item 'Sign Up',  {:controller => 'user', :action => 'signup'}%>
-      <%= navigation_item 'Sign In', {:controller => 'user', :action => 'signin'}%>
+      <%= navigation_item 'Pricing & Sign-up',  {:controller => 'site', :action => 'plans'}%>
+      <%= navigation_item 'Sign-in', {:controller => 'user', :action => 'signin'}%>
     </ul>
   <% else %>
 

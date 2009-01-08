@@ -26,8 +26,8 @@ ActionController::Routing::Routes.draw do |map|
     :action => 'signin'
            
   map.signup 'signup', 
-    :controller => 'user',
-    :action => 'signup'
+    :controller => 'site',
+    :action => 'plans'
 
   map.signout 'signout', 
     :controller => 'user',
@@ -100,6 +100,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'workouts/show/:begin/:end/:id.:format', 
       :controller => 'workouts',
       :action => 'show'
+    
 
   map.namespace(:admin) do |admin|
     admin.resources :articles

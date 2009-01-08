@@ -18,10 +18,26 @@
             <label for="password_confirmation">Password confirm:</label><br/>
             <%= password_field "user", "password_confirmation" %><br/><br>
 
+  
+            <% unless @plan.name.eql?("Free") %>
+              <label for="credit_card">Credit Card Type:</label><br/>
+              <%= select_tag( 'credit_card[type]', options_for_select(['Visa', 'Mastercard', 'Amex'] , 'Visa') ) %><br/><br/>
+
+              <label for="credit_card">Credit Card Number:</label><br/>
+              <%= text_field "credit_card", "number", :size => 30 %><br/><br/>
+
+              <label for="credit_card">Credit Card Expiration:</label><br/>
+              <%= select_month Date.today, :add_month_numbers => true, :field_name => "credit_card_expiration_month"%>
+              <%= select_year Date.today, :field_name => "credit_card_expiration_year", :start_year => 2009%><br/><br>
+            
+          
+            <% end %>
+  
             <%= check_box 'user' ,'terms_of_service' %>
             I agree to the 
             <%= link_to "Terms of Service", :controller => "site", :action => "terms" %> and 
             <%= link_to "Privacy Policy", :controller => "site", :action => "privacy_policy" %>.<br/><br/>
+            
 
             <%= submit_tag "Sign Up"%>
         <% end %>

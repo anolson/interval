@@ -8,12 +8,12 @@ class PaypalTest < Test::Unit::TestCase
         :number     => '4836047318730937',
         :month      => 1,
         :year       => 2019,
-        :first_name => 'Damiano',
-        :last_name  => 'Cunego',
+        #:first_name => 'Damiano',
+        #:last_name  => 'Cunego',
         :verification_value=> '123'
     )
 
-    flash[:error] = credit_card.errors and return unless credit_card.valid?
+    #flash[:error] = credit_card.errors and return unless credit_card.valid?
 
     # billing_address = { 
     #         :name     => "John Smith",
@@ -28,18 +28,18 @@ class PaypalTest < Test::Unit::TestCase
     
     
     options = {  
-       # :name => # if not spec'd, the name on card will be used  
-       # :profile_id => 'I-SEVK234C8U1M', # triggers :modify on recurring  
-       :email => 'damiano@gmail.com',  
-       :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"), # change this  
-       :periodicity => :monthly,  
-       :comment => 'intervalapp.com - pro plan',  
-       #:billing_address => billing_address,  
-       :payments => 0  
-       :initial_payment => 0  
+      :name => "Randy Handy", # if not spec'd, the name on card will be used  
+      # :profile_id => 'I-SEVK234C8U1M', # triggers :modify on recurring  
+      :email => 'damiano@gmail.com',  
+      :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"), # change this  
+      :periodicity => :monthly,  
+      :comment => 'intervalapp.com - pro plan',  
+      #:billing_address => billing_address,  
+      :payments => 0,  
+      :initial_payment => 0  
     }
     
-    if credit_card.valid?
+    #if credit_card.valid?
       gateway = ActiveMerchant::Billing::PaypalGateway.new(  
         :login => 'store_1231210306_biz_api1.intervalapp.com',  
         :password => 'YCMXU3VBL737KJG8'
@@ -50,8 +50,12 @@ class PaypalTest < Test::Unit::TestCase
       
       #flash[:notice] = response.params['profile_id']
 
-    end
+    #end
     puts response.params['profile_id']
     assert response.success?
+  end
+  
+  def test_inquiry
+    
   end
 end
