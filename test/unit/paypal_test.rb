@@ -36,7 +36,7 @@ class PaypalTest < Test::Unit::TestCase
       :comment => 'intervalapp.com - pro plan',  
       #:billing_address => billing_address,  
       :payments => 0,
-      :initial_payment => 1000
+      :initial_payment => 0
     }
     
     #if credit_card.valid?
@@ -45,8 +45,8 @@ class PaypalTest < Test::Unit::TestCase
         :password => 'YCMXU3VBL737KJG8'
       )
 
-      # Recurring for $10 dollars (1000 cents) 
-      response = gateway.recurring(1000, credit_card, options)
+      # Recurring for $9.99 dollars (999 cents) 
+      response = gateway.recurring(999, credit_card, options)
       
       #flash[:notice] = response.params['profile_id']
 
