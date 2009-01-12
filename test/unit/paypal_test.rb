@@ -8,8 +8,8 @@ class PaypalTest < Test::Unit::TestCase
         :number     => '4836047318730937',
         :month      => 1,
         :year       => 2019,
-        #:first_name => 'Damiano',
-        #:last_name  => 'Cunego',
+        :first_name => 'Damiano',
+        :last_name  => 'Cunego',
         :verification_value=> '123'
     )
 
@@ -28,15 +28,15 @@ class PaypalTest < Test::Unit::TestCase
     
     
     options = {  
-      :name => "Randy Handy", # if not spec'd, the name on card will be used  
+      #:name => "Randy Handy", # if not spec'd, the name on card will be used  
       # :profile_id => 'I-SEVK234C8U1M', # triggers :modify on recurring  
       :email => 'damiano@gmail.com',  
       :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"), # change this  
-      :periodicity => :monthly,  
+      :periodicity => :daily,  
       :comment => 'intervalapp.com - pro plan',  
       #:billing_address => billing_address,  
-      :payments => 0,  
-      :initial_payment => 0  
+      :payments => 0,
+      :initial_payment => 1000
     }
     
     #if credit_card.valid?
