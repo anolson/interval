@@ -47,3 +47,14 @@ fieldset legend{font-size:18px;}
 .light{color: #555;}
 .lighter{color: #888;}
 #signup li {list-style-image: url(../images/check.png); padding: 2px 0; font-size: 15px;}
+
+#signup table {font-size:13px;}
+#plans td, #plans th { border: 0; padding: 10px; text-align: center; width:20%;}
+#plans th {background: #E5ECFF;}
+#plans th.plan, #plans td.plan, #plans td.feature  { border-top: 1px solid #BBB; border-left: 1px solid #BBB;  }
+#plans td.feature {text-align: left;}
+#plans th.end, #plans td.end { border-right: 1px solid #BBB;  }
+#plans td.last { border-bottom: 1px solid #BBB;  }
+#plans th.features { background: #FFF;}
+.check { background: url(../images/check.png) no-repeat center center;}
+

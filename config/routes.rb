@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user',
     :action => 'signin'
            
-  map.signup 'signup', 
+  map.signup 'plans', 
     :controller => 'site',
     :action => 'plans'
 
