@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 11) do
     t.integer "start",      :default => 0
     t.float   "value",      :default => 0.0
     t.integer "workout_id", :default => 0
+    t.integer "user_id",    :default => 0
   end
 
   create_table "plans", :force => true do |t|

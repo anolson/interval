@@ -34,13 +34,17 @@ class UserController < ApplicationController
     @plan = Plan.find_by_name(params[:plan])
     if(request.post?)
       @user = User.new(params[:user])
+      @user.subscription = Subscription.new(params[:subscription])
+      @user.subscription.plan = @plan
+            
+      
       if(@user.save!)
         flash[:notice] = "account created, please signin"        
         redirect_to :action => "signin"
       end
     end
-  rescue
-    flash[:notice] = $!.to_s
+  #rescue
+  #  flash[:notice] = $!.to_s
   end
   
   def signout

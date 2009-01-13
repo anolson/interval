@@ -9,7 +9,11 @@ class User < ActiveRecord::Base
   
   has_many :workouts
   has_and_belongs_to_many :roles
+  has_one :subscription
+  
+  #TODO remove this after migrating
   belongs_to :plan
+  
   serialize :preferences, Hash
   has_many :peak_powers, :through => :workouts
   
@@ -29,6 +33,8 @@ class User < ActiveRecord::Base
   def initialize(options = {})
     super(options)
     set_default_preferences
+    
+    #TODO remove this
     self.plan = Plan.find_by_name("Free")
   end
   

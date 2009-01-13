@@ -14,9 +14,9 @@
     </tr>
     <tr>
       <td class="feature">Price</td>
-      <td class="plan">$9.99/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
-      <td class="plan">$6.99/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
-      <td class="plan">$3.99/month <br /><span class="small lighter">Includes a 30-day   trial.</span></td>
+      <td class="plan">$10/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
+      <td class="plan">$7/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
+      <td class="plan">$4/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
       <td class="plan end">Free</td>
     </tr>
 
@@ -29,37 +29,23 @@
     </tr>
         
     <tr>
-      <td class="feature">Workout Graphs</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check ">&nbsp;</td>
-      <td class="plan check end">&nbsp;</td>
+      <td class="feature">File Storage</td>
+      <td class="plan ">5 GB</td>
+      <td class="plan ">2 GB</td>
+      <td class="plan ">500  MB</td>
+      <td class="plan  end">20 MB</td>
     </tr>
     
-    <tr>
-      <td class="feature">Training Summaries</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check ">&nbsp;</td>
-      <td class="plan check end">&nbsp;</td>
-    </tr>
-    
-    <tr>
-      <td class="feature">Peak Power Analysis</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check ">&nbsp;</td>
-      <td class="plan check end">&nbsp;</td>
-    </tr>
-    
-    <tr>
-      <td class="feature">Sharing</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check">&nbsp;</td>
-      <td class="plan check ">&nbsp;</td>
-      <td class="plan check end">&nbsp;</td>
-    </tr>
-    
+    <% %w{workout_graphs training_summaries peak_power_analysis sharing}.each do |feature|%>
+      <tr>
+        <td class="feature"><%=feature.titleize%></td>
+        <td class="plan check">&nbsp;</td>
+        <td class="plan check">&nbsp;</td>
+        <td class="plan check ">&nbsp;</td>
+        <td class="plan check end">&nbsp;</td>
+      </tr>
+    <% end %>
+
     <tr>
       <td class="feature last">&nbsp;</td>
       <td class="plan last"><%= link_to "Sign-up for Pro", :controller => 'user', :action => 'signup', :plan => "pro" %></td>
