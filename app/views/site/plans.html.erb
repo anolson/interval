@@ -10,14 +10,14 @@
       <th class="plan">Pro</th>
       <th class="plan">Plus</th>
       <th class="plan">Basic</th>
-      <th class="plan end">Free</th>
+      <th class="plan">Free</th>
     </tr>
     <tr>
       <td class="feature">Price</td>
       <td class="plan">$10/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
       <td class="plan">$7/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
       <td class="plan">$4/month <br /><span class="small lighter">Includes a 30-day trial.</span></td>
-      <td class="plan end">Free</td>
+      <td class="plan">Free</td>
     </tr>
 
     <tr>
@@ -30,10 +30,10 @@
         
     <tr>
       <td class="feature">File Storage</td>
-      <td class="plan ">5 GB</td>
-      <td class="plan ">2 GB</td>
-      <td class="plan ">500  MB</td>
-      <td class="plan  end">20 MB</td>
+      <td class="plan">5 GB</td>
+      <td class="plan">2 GB</td>
+      <td class="plan">500  MB</td>
+      <td class="plan">20 MB</td>
     </tr>
     
     <% %w{workout_graphs training_summaries peak_power_analysis sharing}.each do |feature|%>
@@ -42,16 +42,16 @@
         <td class="plan check">&nbsp;</td>
         <td class="plan check">&nbsp;</td>
         <td class="plan check ">&nbsp;</td>
-        <td class="plan check end">&nbsp;</td>
+        <td class="plan check">&nbsp;</td>
       </tr>
     <% end %>
 
     <tr>
-      <td class="feature last">&nbsp;</td>
-      <td class="plan last"><%= link_to "Sign-up for Pro", :controller => 'user', :action => 'signup', :plan => "pro" %></td>
-      <td class="plan last"><%= link_to "Sign-up for Plus", :controller => 'user', :action => 'signup', :plan => "plus" %></td>
-      <td class="plan last"<%= link_to "Sign-up for Basic", :controller => 'user', :action => 'signup', :plan => "basic" %></td>
-      <td class="plan last end"><%= link_to "Sign-up for Free", :controller => 'user', :action => 'signup', :plan => "free" %></td>
+      <td class="feature">&nbsp;</td>
+      <td class="plan"><%= link_to "Sign-up for Pro", :controller => 'user', :action => 'signup', :plan => "pro" %></td>
+      <td class="plan"><%= link_to "Sign-up for Plus", :controller => 'user', :action => 'signup', :plan => "plus" %></td>
+      <td class="plan"<%= link_to "Sign-up for Basic", :controller => 'user', :action => 'signup', :plan => "basic" %></td>
+      <td class="plan"><%= link_to "Sign-up for Free", :controller => 'user', :action => 'signup', :plan => "free" %></td>
     </tr>
     
      
