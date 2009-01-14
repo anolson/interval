@@ -28,8 +28,9 @@ class Subscription < ActiveRecord::Base
     }
     
     gateway = ActiveMerchant::Billing::PaypalGateway.new(  
-      :login => 'store_1231210306_biz_api1.intervalapp.com',  
-      :password => 'YCMXU3VBL737KJG8'
+      :login => 'andrew_1231969329_biz_api1.intervalapp.com',  
+      :password => '37CTDZY5C84KXC7C',
+      :signature => 'AsIiHxpUZ9xvwDdLSgFTxWLk5kdFANNPP.7P86.5OMmwl39B4N3XTn-o'
     )
     response = gateway.recurring(self.plan.price * 100, credit_card, options)
     
