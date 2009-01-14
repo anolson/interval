@@ -35,8 +35,8 @@
               <%= text_field "subscription[credit_card]", "number", :size => 30 %><br/><br/>
 
               <label for="credit_card_expiration">Credit Card Expiration:</label><br/>
-              <%= select_month Date.today, :add_month_numbers => true, :prefix => "subscription[credit_card]", :field_name => "expiration_month"%>
-              <%= select_year Date.today, :prefix => "subscription[credit_card]",  :field_name => "expiration_year", :start_year => 2009, :end_year => 2024%><br/><br>
+              <%= select_month Date.today, :add_month_numbers => true, :prefix => "subscription[credit_card]", :field_name => "month"%>
+              <%= select_year Date.today, :prefix => "subscription[credit_card]",  :field_name => "year", :start_year => 2009, :end_year => 2024%><br/><br>
               </fieldset>
             <% end %>
             <fieldset>

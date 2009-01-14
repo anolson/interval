@@ -11,9 +11,9 @@ class CreateSubscriptions < ActiveRecord::Migration
     #foreign_key(:subscription, :plan_id, :plan)
     #TODO remove after migrate in prod
     User.reset_column_information
-    User.find(:all).each { |user|
-      user.subscription = Subscription.new(:plan => user.plan)
-      user.save
+    User.find(:all).each { |u|
+      u.subscription = Subscription.new(:plan => u.plan)
+      u.save!
     }
     remove_column :users, :plan_id
 
@@ -24,11 +24,10 @@ class CreateSubscriptions < ActiveRecord::Migration
     User.reset_column_information
     
     #TODO remove after migrate in prod
-    User.find(:all).each { |user|
-      user.plan = user.subscription.plan
-      user.save
+    User.find(:all).each { |u|
+      u.plan = u.subscription.plan
+      u.save!
     }
-    remove_column :users, :subscription_id
     drop_table :subscriptions
   end
 end
