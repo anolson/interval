@@ -1,4 +1,6 @@
+require "migration_helpers"
 class CreateSubscriptions < ActiveRecord::Migration
+  extend MigrationHelpers
   def self.up
     create_table :subscriptions do |t|
       t.string :paypal_profile_id
@@ -7,8 +9,8 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.timestamps
     end
     
-    #foreign_key(:subscription, :user_id, :users)
-    #foreign_key(:subscription, :plan_id, :plan)
+    foreign_key(:subscription, :user_id, :users)
+    foreign_key(:subscription, :plan_id, :plan)
     #TODO remove after migrate in prod
     User.reset_column_information
     User.find(:all).each { |u|

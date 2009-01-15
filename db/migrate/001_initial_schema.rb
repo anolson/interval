@@ -3,6 +3,7 @@ require "migration_helpers"
 class InitialSchema < ActiveRecord::Migration
     extend MigrationHelpers
 
+  config = Rails::Configuration.new
   def self.up
     create_table :users do |table|
       table.column :created_at,     :datetime
@@ -24,7 +25,7 @@ class InitialSchema < ActiveRecord::Migration
       table.column :user_id, :integer
     end
     
-    foreign_key(:workouts, :user_id, :users)
+    foreign_key(:workouts, :user_id, :users) 
     
     create_table :comments do |table|
       table.column :body,       :text
@@ -56,7 +57,7 @@ class InitialSchema < ActiveRecord::Migration
       table.column :distance, :float
     end
     
-    foreign_key(:data_values, :training_file_id, :training_files)    
+    foreign_key(:data_values, :training_file_id, :training_files)
     add_index(:data_values, :training_file_id)
       
     create_table :markers do |table|

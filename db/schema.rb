@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 12) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -95,6 +95,14 @@ ActiveRecord::Schema.define(:version => 11) do
     t.integer "role_id"
   end
 
+  create_table "subscriptions", :force => true do |t|
+    t.string   "paypal_profile_id"
+    t.integer  "plan_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "training_files", :force => true do |t|
     t.datetime "created_at"
     t.string   "filename"
@@ -113,7 +121,6 @@ ActiveRecord::Schema.define(:version => 11) do
     t.boolean  "terms_of_service"
     t.text     "preferences"
     t.text     "email"
-    t.integer  "plan_id"
   end
 
   create_table "workouts", :force => true do |t|
