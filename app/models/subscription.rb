@@ -3,21 +3,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :user
   belongs_to :plan
   
-  # def initialize(params)
-  #     super(params)
-  #     @credit_card = params[:credit_card]
-  #   end
-  
-  #TODO put paypal subscription here
   def subscribe
-    credit_card = ActiveMerchant::Billing::CreditCard.new(
-        :type       => @credit_card[:type],
-        :number     => @credit_card[:number],
-        :month      => @credit_card[:month],
-        :year       => @credit_card[:year],
-        :first_name => @credit_card[:first_name],
-        :last_name  => @credit_card[:last_name]
-    )
     options = {  
       :email => "#{self.user.email}",  
       :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -28,11 +14,11 @@ class Subscription < ActiveRecord::Base
     }
     
     gateway = ActiveMerchant::Billing::PaypalGateway.new(  
-      :login => 'andrew_1231969329_biz_api1.intervalapp.com',  
-      :password => '37CTDZY5C84KXC7C',
-      :signature => 'AsIiHxpUZ9xvwDdLSgFTxWLk5kdFANNPP.7P86.5OMmwl39B4N3XTn-o'
+      :login => 'andrew_1232051849_biz_api1.intervalapp.com',  
+      :password => 'EATS3UJSPR8FFBTZ',
+      :signature => 'Anpkc8GMNUtWAXPxSeLzLZToGS4DA2kFXQOpd7BLK0k4oaetOvnHMkzI'
     )
-    response = gateway.recurring(self.plan.price * 100, credit_card, options)
+    response = gateway.recurring(self.plan.price, @credit_card, options)
     
     if(response.success?)
       self.paypal_profile_id = response.params['profile_id']
@@ -53,4 +39,23 @@ class Subscription < ActiveRecord::Base
   #TODO put paypal un-subscription here
   def cancel
   end
+  
+  def credit_card=(card)
+    @credit_card = ActiveMerchant::Billing::CreditCard.new(
+      :type       => card[:type],
+      :number     => card[:number],
+      :month      => card[:month],
+      :year       => card[:year],
+      :first_name => card[:first_name],
+      :last_name  => card[:last_name], 
+      :verification_value  => card[:verification_value])
+  end
+  
+  private
+    def validate_on_create 
+      unless @credit_card.valid?
+        @credit_card.errors.each{|attribute, message| errors.add(attribute, message.join(". "))}
+      end
+        
+    end
 end

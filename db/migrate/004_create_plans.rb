@@ -11,8 +11,10 @@ class CreatePlans < ActiveRecord::Migration
       t.timestamps
     end
     
-    Plan.create :name => "Free", :description => "The Free plan that is limited to 10 Workouts.", :workout_limit => 10, :price => 0, :enabled => true
-    Plan.create :name => "Athlete Plus", :description => "Unlimited Account.", :workout_limit => 0, :price => 6.99, :enabled => false
+    Plan.create :name => "Free", :description => "Free plan that is limited to 10 Workouts.", :workout_limit => 10, :price => 0, :enabled => true
+    Plan.create :name => "Basic", :description => "Basic plan, 2 workouts/week.", :workout_limit => 0, :price => 400, :enabled => true
+    Plan.create :name => "Plus", :description => "Plus plan, 5 workouts/week.", :workout_limit => 0, :price => 700, :enabled => true
+    Plan.create :name => "Pro", :description => "Unlimited Account.", :workout_limit => 0, :price => 1000, :enabled => true
     
     add_column :users, :plan_id, :integer
     foreign_key(:users, :plan_id, :plans)

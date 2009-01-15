@@ -31,22 +31,24 @@ class UserController < ApplicationController
   end
   
   def signup
-    @plan = Plan.find_by_name(params[:plan])
+    @plan = Plan.find_by_name(params[:plan].capitalize)
     if(request.post?)
       @user = User.new(params[:user])
-      @user.subscription = Subscription.new(params[:subscription])
-      @user.subscription.plan = @plan
-         
-      
-      if(@user.save!)
-        if(@user.subscription.subscribe)
+      @subscription = Subscription.new(:credit_card => params[:credit_card])
+      @credit_card = @subscription.credit_card
+      if(@subscription.save!)
+        @user.subscription = @subscription
+        @user.subscription.plan = @plan
+           
+        if(@user.save!)
+          @user.subscription.subscribe
           flash[:notice] = "account created, please signin"        
           redirect_to :action => "signin"
         end
       end
     end
-  #rescue
-  #  flash[:notice] = $!.to_s
+  rescue
+    flash[:notice] = $!.to_s
   end
   
   def signout
