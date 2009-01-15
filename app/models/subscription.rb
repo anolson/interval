@@ -35,7 +35,8 @@ class Subscription < ActiveRecord::Base
     response = gateway.recurring(self.plan.price * 100, credit_card, options)
     
     if(response.success?)
-      write_attribute(:paypal_profile_id, response.params['profile_id'])
+      self.paypal_profile_id = response.params['profile_id']
+      self.save
     else
       raise StandardError, response.message
     end

@@ -45,8 +45,8 @@ class UserController < ApplicationController
         end
       end
     end
-  #rescue
-  #  flash[:notice] = $!.to_s
+  rescue
+    flash[:notice] = $!.to_s
   end
   
   def signout

@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     set_default_preferences
     
     #TODO remove this
-    self.plan = Plan.find_by_name("Free")
+    #self.plan = Plan.find_by_name("Free")
   end
   
   def set_default_preferences
