@@ -20,12 +20,8 @@ class UserControllerTest < Test::Unit::TestCase
     post :signup, :user => {:username => 'zabriskie', :email => 'dznuts@gmail.com', :password => 'test', :password_confirmation => 'test', :terms_of_service => 1}, :plan => 'free'
     assert_response :redirect
     assert_redirected_to( :action => 'signin' )
-    
-
-
   end
-  
-=begin
+
   def test_signin
     signin 'andrew', 'test'
   end
@@ -55,5 +51,5 @@ class UserControllerTest < Test::Unit::TestCase
     post :signout
     assert_response :redirect
   end
-=end
+
 end
