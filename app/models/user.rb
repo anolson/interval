@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_presence_of :email
   validates_presence_of :password, :password_confirmation, :if => :password_required?
-  validates_acceptance_of :agreed_to_terms
+  validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true
   validates_uniqueness_of :username
   validates_uniqueness_of :email
   validates_confirmation_of :password, :if => :password_required?

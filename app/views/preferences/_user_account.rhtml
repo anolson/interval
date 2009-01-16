@@ -13,4 +13,6 @@
 
         <label for="display_name">Display Name:</label><br/>
         <%= text_field_tag "preferences[display_name]", @user.preferences[:display_name], :size => 30 %><br/>
+        
+        <%= link_to "Delete my account.", {:controller => 'user', :action => 'delete'}, {:class => ' right'}  %>
       </fieldset>

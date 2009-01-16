@@ -16,6 +16,7 @@ a{color:#0080FF;text-decoration:none;}
 a:hover{color:#66B3FF;}
 img{border:0px none;}
 input[type=radio]{margin:1px 5px; float: left;}
+input[type=checkbox]{margin:0px 5px; float: left;}
 input,textarea,select{padding:2px;font-size:12px;}
 h2{margin:10px auto;font-family:Helvetica;width:95%;}
 .container{margin:0px auto;}

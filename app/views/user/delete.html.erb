@@ -1,0 +1,26 @@
+<% @heading_text ='Delete Account'%>
+
+  
+  <div class="container half">
+    <% rounded_box @heading_text, "complete", "wide" do %>
+      <% container "full" do %>
+        
+        <% form_tag :action => 'delete' do %>
+          
+          <fieldset>
+            <h4>Change your plan at anytime.</h3>
+            <p>  
+              You can <%= link_to "change", :controller => 'preferences', :action => 'plan' -%> your plan at anytime. There are no extra fees.  
+              The new charge will take effect on your next billing cycle.
+            </p>
+            <br />
+            <%= check_box_tag 'confirm_delete' -%><span> I want to delete my account.</span><br /><br />
+            <%= submit_tag "Delete my account", :disabled => true, :id => 'submit_delete' %>
+          </fieldset>
+        <% end %>
+        
+      <% end %>
+    <% end %>
+    <%=observe_field :confirm_delete, :on => 'click', :function => "$('submit_delete').enable()" %>
+    <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+  </div>

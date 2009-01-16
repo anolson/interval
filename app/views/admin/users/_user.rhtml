@@ -1,7 +1,7 @@
      <tr class = "<%= cycle('even', 'odd', :name => 'class') -%>" >
         <td><%= user.username %></td>
         <td><%= user.email %></td>
-        <td><%= user.plan.name %></td>
+        <td><%= user.subscription.plan.name %></td>
         <td><%= user.workouts.count %></td>
         <td><%= nice_date_short user.created_at %></td>
         <td width="200px">

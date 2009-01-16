@@ -25,7 +25,7 @@
           <div class="highlight_box full">
             <br />
             <% for plan in @plans %>
-              <%=radio_button(:plan, :id, plan.id, :checked => (@user.plan.eql?(plan) && "checked"))%> 
+              <%=radio_button(:plan, :id, plan.id, :checked => (@user.subscription.plan.eql?(plan) && "checked"))%> 
               <%= plan.name %> <br /> <br />
             <% end %>
           </div>

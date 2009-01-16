@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  skip_before_filter :check_authentication, :except => :change_password
+  skip_before_filter :check_authentication, :except => [:change_password, :delete]
   ssl_required :signin, :signup, :change_password
   
   def change_password
@@ -34,13 +34,11 @@ class UserController < ApplicationController
     @plan = Plan.find_by_name(params[:plan].capitalize)
     if(request.post?)
       @user = User.new(params[:user])
-      @subscription = Subscription.new(:credit_card => params[:credit_card])
+
+      @subscription = Subscription.new(:plan => @plan, :credit_card => params[:credit_card])
       @credit_card = @subscription.credit_card
-      
       if(@subscription.valid? && @user.valid?) 
         @user.subscription = @subscription
-        @user.subscription.plan = @plan
-           
         if(@user.save!)
           @user.subscription.subscribe
           flash[:notice] = "account created, please signin"        
@@ -51,6 +49,19 @@ class UserController < ApplicationController
   rescue
     flash[:notice] = $!.to_s
   end
+
+  def delete
+    if(request.post?)
+      if(params[:confirm_delete])
+        User.destroy(@user)
+        signout
+      end
+    end
+  rescue
+    flash[:notice] = $!.to_s
+  end
+  
+
   
   def signout
     reset_session
