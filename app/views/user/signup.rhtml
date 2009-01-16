@@ -39,27 +39,38 @@
 
               <label for="credit_card_expiration">Credit Card Expiration:</label><br/>
               <%= select_month Date.today, :add_month_numbers => true, :prefix => "credit_card", :field_name => "month"%>
-              <%= select_year Date.today, :prefix => "credit_card",  :field_name => "year", :start_year => 2009, :end_year => 2024%><br/><br>
+              <%= select_year Date.today, 
+                :prefix => "credit_card",  
+                :field_name => "year", 
+                :start_year => 2009, 
+                :end_year => 2024 -%>
+              <br/><br>
               </fieldset>
             <% end %>
             <fieldset>
             
-              <h4>You are signing up for the <%= "#{@plan.name.capitalize}"%> <%= "$#{ (@plan.price/100).round }/month" if @plan.price > 0 %> plan.</h4>
+              <h4>
+                You are signing up for the <%= "#{@plan.name.capitalize}" -%> 
+                <%= "$#{ (@plan.price/100).round }/month" if @plan.price > 0 %> plan.
+              </h4>
               <% unless @plan.name.eql?("Free")%>
                 <p>
-                Your 30-day free trail will end on <%= @plan.trial_period_end  %>.  
-                If you decide to stop using Interval simply cancel your account before <%= @plan.trial_period_end %> and you won't be charged.
+                Your 30-day free trail will end on <%= @plan.trial_period_end  -%>.  
+                If you decide to stop using Interval simply cancel your account before <%= @plan.trial_period_end -%> 
+                and you won't be charged.
                 </p>
               <% else %>
                 <p>
-                  You will be able to add 10 workouts with the Free plan.  There is no time limit, and you can upgrade at anytime.    
+                  You will be able to add 10 workouts with the Free plan.  
+                  There is no time limit, and you can upgrade at anytime.    
                 </p>
               <% end %>
               
               <br />
               <h4>Interval is month-to-month.</h4>
               <p>
-                Upgrade, downgrade, or cancel at anytime.  There are no sign-up fees, no long term contracts, and no cancelation fees.
+                Upgrade, downgrade, or cancel at anytime.  
+                There are no sign-up fees, no long term contracts, and no cancelation fees.
               </p>
               <br />
               <%= check_box 'user' ,'terms_of_service' %>
@@ -70,7 +81,7 @@
               <%= hidden_field_tag "plan", @plan.name%>
               <%= submit_tag "Sign Up"%>
               <br /><br />
-              <%= error_messages_for 'user', 'credit_card'%>
+              <%= error_messages_for 'user', 'credit_card', :header_tag => "h4" %>
             </fieldset>
             
             <br/>

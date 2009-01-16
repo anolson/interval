@@ -36,7 +36,8 @@ class UserController < ApplicationController
       @user = User.new(params[:user])
       @subscription = Subscription.new(:credit_card => params[:credit_card])
       @credit_card = @subscription.credit_card
-      if(@subscription.save!)
+      
+      if(@subscription.valid? && @user.valid?) 
         @user.subscription = @subscription
         @user.subscription.plan = @plan
            

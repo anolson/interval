@@ -16,7 +16,7 @@ a{color:#0080FF;text-decoration:none;}
 a:hover{color:#66B3FF;}
 img{border:0px none;}
 input[type=radio]{margin:1px 5px; float: left;}
-input,textarea,select{padding:2px;margin-top: 2px;font-size:12px;}
+input,textarea,select{padding:2px;font-size:12px;}
 h2{margin:10px auto;font-family:Helvetica;width:95%;}
 .container{margin:0px auto;}
 .footer{float:left;padding:10px 0 10px 0;margin:50px 0 0 0;width:960px;text-align:left;background:#DDD;}
@@ -37,7 +37,6 @@ h2{margin:10px auto;font-family:Helvetica;width:95%;}
 .clear{clear:both;}
 .left{float:left;}
 .right{float:right;}
-.fieldWithErrors{display:table;border:2px solid red;}
 fieldset{border:2px solid #CCC;margin-bottom:20px;}
 fieldset legend{font-size:18px;}
 #workout fieldset{background: #E5ECFF;}
@@ -47,11 +46,14 @@ fieldset legend{font-size:18px;}
 .light{color: #555;}
 .lighter{color: #888;}
 #signup li {list-style-image: url(../images/check.png); padding: 2px 0; font-size: 15px;}
-
 #signup table {font-size:13px; border-collapse:collapse;}
 #plans td, #plans th {border: 1px solid #BBB; padding: 10px; text-align: center; width:20%;}
 #plans th {background: #E5ECFF;}
 #plans td.feature {text-align: left;}
 #plans th.features { border: 0; background: #FFF;}
 .check { background: url(../images/check.png) no-repeat center center;}
+.fieldWithErrors{padding:2px;background-color:#F44;display:table;}
+#errorExplanation{border:1px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#FCC;}
+#errorExplanation p{color:#333;margin-bottom:0;padding:5px 0;}
+
 
