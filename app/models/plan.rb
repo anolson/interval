@@ -4,4 +4,8 @@ class Plan < ActiveRecord::Base
   def trial_period_end
     (Date.today + 30).strftime("%B %d, %Y")
   end
+  
+  def paid?
+    price > 0
+  end
 end

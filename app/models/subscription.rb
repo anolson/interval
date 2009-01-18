@@ -6,24 +6,19 @@ class Subscription < ActiveRecord::Base
   def subscribe
     unless (self.plan.name.eql?('Free'))
       options = {  
-        :email => "#{self.user.email}",  
+        :email => "#{user.email}",  
         :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
         :periodicity => :daily,  
-        :comment => "intervalapp.com - #{self.plan.name} Plan",  
+        :comment => "intervalapp.com - #{plan.name} Plan",  
         :payments => 0,
         :initial_payment => 0
       }
       
-      gateway = ActiveMerchant::Billing::PaypalGateway.new(  
-        :login => 'andrew_1232051849_biz_api1.intervalapp.com',  
-        :password => 'EATS3UJSPR8FFBTZ',
-        :signature => 'Anpkc8GMNUtWAXPxSeLzLZToGS4DA2kFXQOpd7BLK0k4oaetOvnHMkzI'
-      )
       response = gateway.recurring(self.plan.price, @credit_card, options)
       
       if(response.success?)
-        self.paypal_profile_id = response.params['profile_id']
-        self.save
+        paypal_profile_id = response.params['profile_id']
+        save
       else
         raise StandardError, response.message
       end
@@ -40,6 +35,9 @@ class Subscription < ActiveRecord::Base
 
   #TODO put paypal un-subscription here
   def cancel
+    if (plan.paid?)
+      response = gateway.cancel_recurring(:profile_id => paypal_profile_id) 
+    end
   end
   
   def credit_card=(card)
@@ -56,6 +54,15 @@ class Subscription < ActiveRecord::Base
   end
   
   private
+  
+    def gateway 
+      @gateway ||= ActiveMerchant::Billing::PaypalGateway.new(  
+        :login => 'andrew_1232051849_biz_api1.intervalapp.com',  
+        :password => 'EATS3UJSPR8FFBTZ',
+        :signature => 'Anpkc8GMNUtWAXPxSeLzLZToGS4DA2kFXQOpd7BLK0k4oaetOvnHMkzI'
+      )
+    end
+    
     def validate_on_create
       unless (self.plan.name.eql?('Free'))
         unless @credit_card.valid?

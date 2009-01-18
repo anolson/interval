@@ -53,6 +53,7 @@ class UserController < ApplicationController
   def delete
     if(request.post?)
       if(params[:confirm_delete])
+        @user.subscription.cancel
         User.destroy(@user)
         signout
       end
