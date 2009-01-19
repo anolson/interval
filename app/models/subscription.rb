@@ -53,8 +53,29 @@ class Subscription < ActiveRecord::Base
     end
   end
   
-  private
+  def is_within_limits?() 
+    is_within_workout_limit? && is_within_size_limit?
+  end
   
+  def is_within_workout_limit?()
+    if(plan.check_workout_limit?)
+      if(plan.limit_by.eql?('week'))
+        week_start = Date.today.beginning_of_week
+        week_end = week_start + 7
+        workouts = Workout.find_by_date_range((week_start..week_end), user)
+        workouts.size < plan.workout_limit
+      else
+        user.workouts.size < plan.workout_limit
+      end
+    end
+  end
+  
+  
+  def is_within_size_limit?()
+    storage_size = user.workouts.collect{ |workout| workout.training_file.first.file_size }.sum < plan.storage_limit
+  end
+  
+  private
     def gateway 
       @gateway ||= ActiveMerchant::Billing::PaypalGateway.new(  
         :login => 'andrew_1232051849_biz_api1.intervalapp.com',  

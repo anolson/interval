@@ -8,6 +8,8 @@ class SiteController < ApplicationController
   end
   
   def plans
+    @plans = Plan.find(:all, :conditions => {:public => true})
+    @user && @current_plan = @user.subscription.plan
   end
   
   def terms

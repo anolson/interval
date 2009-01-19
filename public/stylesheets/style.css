@@ -51,8 +51,12 @@ fieldset legend{font-size:18px;}
 #plans td, #plans th {border: 1px solid #BBB; padding: 10px; text-align: center; width:20%;}
 #plans th {background: #E5ECFF;}
 #plans td.feature {text-align: left;}
-#plans th.features { border: 0; background: #FFF;}
-.check { background: url(../images/check.png) no-repeat center center;}
+#plans th.noborder { border: 0; background: #FFF; padding: 5px;}
+
+#plans th.current {background-color: #DDDDFF;}
+#plans td.current {background-color: #EEE;}
+
+.check { background-image: url(../images/check.png); background-repeat: no-repeat; background-position:center center;}
 .fieldWithErrors{padding:2px;background-color:#F44;display:table;}
 #errorExplanation{border:1px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#FCC;}
 #errorExplanation p{color:#333;margin-bottom:0;padding:5px 0;}

@@ -28,6 +28,10 @@ class TrainingFile < ActiveRecord::Base
     self.filename = file.original_filename
   end
 
+  def file_size
+    payload.length
+  end
+  
   def file_basename 
     File.basename(self.filename, self.file_type)
   end

@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   
   # Pick a unique cookie name to distinguish our session data from others'
   #session :session_key => '_interval_session_id'
+  private
   
   def check_authentication
     unless session[:user]
@@ -32,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
   
   def check_within_plan_limits
-    if(@user.subscription.plan.workout_limit > 0 && @user.workouts.size >= @user.subscription.plan.workout_limit)
+    unless(@user.subscription.is_within_limits?)
       render :partial => 'common/limit_reached', :layout => 'application'
     end
   end

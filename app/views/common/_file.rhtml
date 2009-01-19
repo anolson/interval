@@ -5,6 +5,6 @@
       <%= link_to file.filename, {:controller => "training_files", :action => "download",  :id => file.id}, :action => "download" %> 
     <% end %>
     <%= image_tag('download.png')%>
-    (<%= number_to_human_size(file.payload.length) %>) 
+    (<%= number_to_human_size(file.file_size) %>) 
     added <%= time_ago_in_words(file.created_at) %> ago.
   </li>

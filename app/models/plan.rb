@@ -8,4 +8,8 @@ class Plan < ActiveRecord::Base
   def paid?
     price > 0
   end
+  
+  def check_workout_limit? 
+    workout_limit > 0
+  end
 end

@@ -3,7 +3,7 @@
 <div class="left container full">
  <div class="highlight_box half center">
   <h2>Limit reached.</h2>
-  <div class="large center">You have reached the number of workouts (<%= @user.plan.workout_limit %>) for this plan.</div>
+  <div class="large center">You have reached the number of workouts (<%= @user.subscription.plan.workout_limit %>) for this plan.</div>
   <h2 class="center"><%= link_to "Upgrade your plan.", :controller => 'preferences', :action => 'plan'%></h2>
  </div>
 </div>

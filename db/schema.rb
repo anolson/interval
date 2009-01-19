@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 11) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -73,8 +73,11 @@ ActiveRecord::Schema.define(:version => 12) do
     t.string   "name"
     t.text     "description"
     t.integer  "workout_limit"
+    t.string   "limit_by"
+    t.integer  "storage_limit"
     t.float    "price"
     t.boolean  "enabled"
+    t.boolean  "public"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
