@@ -13,6 +13,25 @@
 
         <label for="display_name">Display Name:</label><br/>
         <%= text_field_tag "preferences[display_name]", @user.preferences[:display_name], :size => 30 %><br/>
-        
+        <br/>
+        <div class="highlight_box">
+          <br/>
+          <strong>You current plan is the:</strong> 
+          <%=@user.subscription.plan.name %> <%= "$#{@user.subscription.plan.price_in_dollars}/month"%> 
+          <%= link_to "Change your plan", {:controller => 'site', :action => 'plans'}, {:class => 'smaller'}-%><br/>
+          <strong>Member since:</strong> 
+          <%= nice_date_short @user.created_at %><br/>
+          <% if @user.subscription.plan.paid? %>
+            <strong>Your next bill will be:</strong> 
+            <%= nice_date_short DateTime.strptime(@subscription_details["next_billing_date"])%> on the 
+            <%=@subscription_details["credit_card_type"]%> ending with 
+            <%=@subscription_details["credit_card_number"]%>.
+          <% end %>
+          <br/><br/>
+          
+        </div>
+        <br/>
         <%= link_to "Delete my account.", {:controller => 'user', :action => 'delete'}, {:class => ' right'}  %>
+        
+        
       </fieldset>

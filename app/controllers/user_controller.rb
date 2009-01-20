@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  skip_before_filter :check_authentication, :except => [:change_password, :delete]
+  skip_before_filter :check_authentication, :except => [:change_password, :delete, :update]
   ssl_required :signin, :signup, :change_password
   
   def change_password
@@ -35,12 +35,12 @@ class UserController < ApplicationController
     if(request.post?)
       @user = User.new(params[:user])
 
-      @subscription = Subscription.new(:credit_card => params[:credit_card])
+      @subscription = Subscription.new(:plan => @plan, :credit_card => params[:credit_card])
       @credit_card = @subscription.credit_card
       if(@subscription.valid? && @user.valid?) 
         @user.subscription = @subscription
         if(@user.save!)
-          @user.subscription.subscribe(@plan)
+          @user.subscription.subscribe
           flash[:notice] = "account created, please signin"        
           redirect_to :action => "signin"
         end
@@ -67,16 +67,20 @@ class UserController < ApplicationController
     @plan = Plan.find_by_name(params[:plan].capitalize)
     
     if(request.post?)
+    
       @user.subscription.credit_card = params[:credit_card]
-      @user.subscription.plan = @plan
-      if(@user.save!)
-        @user.subscription.change
-        flash[:notice] = "account updated"        
-        redirect_to :controller => "preferences"
+      @credit_card = @user.subscription.credit_card
+      
+      if(@user.subscription.valid?)
+        if(@user.save!)
+          @user.subscription.change(@plan)
+          flash[:notice] = "account updated"        
+          redirect_to :controller => 'site', :action => 'plans'
+        end
       end
     end
-  rescue
-    flash[:notice] = $!.to_s
+  #rescue
+  #  flash[:notice] = $!.to_s
   end
   
   

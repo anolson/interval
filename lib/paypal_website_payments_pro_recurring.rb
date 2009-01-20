@@ -28,7 +28,7 @@ module Billing #:nodoc:
 class PaypalGateway < Gateway
 
 # I invented the :suspend action, and this doesn't appear in payflow.rb
-RECURRING_ACTIONS = Set.new([:add, :cancel, :inquiry, :suspend])
+RECURRING_ACTIONS = Set.new([:add, :cancel, :inquiry, :suspend, :modify])
 
 @@API_VERSION = '50.0' # not sure if this overrides the variable in PaypalCommonAPI
 
@@ -43,10 +43,12 @@ RECURRING_ACTIONS = Set.new([:add, :cancel, :inquiry, :suspend])
 # * <tt>comment</tt> - A comment associated with the profile
 def recurring(money, credit_card, options = {})
   options[:name] = credit_card.name if options[:name].blank? && credit_card
-  request = build_recurring_request(options[:profile_id] ? :modify : :add, money, options) do |xml|
+  request = build_recurring_request(options[:profile_id].nil? ? :add : :modify, money, options) do |xml|
     add_credit_card(xml, credit_card, options[:billing_address], options) if credit_card
   end
-  commit('CreateRecurringPaymentsProfile', request)
+  #commit('CreateRecurringPaymentsProfile', request)
+  #raise request.nil?.to_s
+  commit(options[:profile_id].nil? ? 'CreateRecurringPaymentsProfile' : 'UpdateRecurringPaymentsProfile', request)
 end
 
 # cancels an existing recurring profile
@@ -118,6 +120,43 @@ def build_recurring_request(action, money, options)
         end
       end
     end
+  
+  
+  
+  elsif [:modify].include?(action)
+  xml.tag! 'UpdateRecurringPaymentsProfileReq', 'xmlns' => PAYPAL_NAMESPACE do
+    xml.tag! 'UpdateRecurringPaymentsProfileRequest', 'xmlns:n2' => EBAY_NAMESPACE do
+      xml.tag! 'n2:Version', @@API_VERSION # API_VERSION # must be >= 50.0
+      xml.tag! 'n2:UpdateRecurringPaymentsProfileRequestDetails' do
+
+        xml.tag! 'n2:ProfileID', options[:profile_id]
+        xml.tag! 'n2:Note', options[:note] unless options[:note].nil?
+        xml.tag! 'n2:Description', options[:description] unless options[:description].nil? # <= 127 single-byte alphanumeric characters!!!
+
+        # SubscriberName (optional)
+        # SubscriberShippingAddress (optional)
+        # ProfileReference (optional) = The merchant’s own unique reference or invoice number.
+        xml.tag! 'n2:AdditionalBillingCycles', options[:additional_payments].to_s unless options[:additional_payments].nil?
+        xml.tag! 'n2:Amount', amount(money), 'currencyID' => options[:currency] || currency(money) unless money.nil?
+        # ShippingAmount (optional)
+        # TaxAmount (optional)
+        # OutStandingBalance (optional)
+          # The current past due or outstanding amount for this profile. You can only
+          # decrease the outstanding amount—it cannot be increased.
+        # ? AutoBillOutstandingAmount (optional) = NoAutoBill / AddToNextBilling
+        # ? MaxFailedPayments (optional) = The number of failed payments allowed before the profile is automatically suspended.
+
+        yield xml # put card information : CreditCardDetails
+          # Only enter credit card details for recurring payments with direct payments.
+          # Credit card billing address is optional, but if you update any of the address
+          # fields, you must enter all of them. For example, if you want to update the
+          # street address, you must specify all of the address fields listed in
+          # CreditCardDetailsType, not just the field for the street address.
+      end
+    end
+  end
+          
+  
   elsif [:cancel, :suspend].include?(action)
     xml.tag! 'ManageRecurringPaymentsProfileStatusReq', 'xmlns' => PAYPAL_NAMESPACE do
       xml.tag! 'ManageRecurringPaymentsProfileStatusRequest', 'xmlns:n2' => EBAY_NAMESPACE do
