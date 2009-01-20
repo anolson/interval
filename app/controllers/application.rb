@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
   end
   
   def check_within_plan_limits
+    #unless(Subscription.is_within_limits?(@user, @user.subscription.plan))
     unless(@user.subscription.is_within_limits?)
       render :partial => 'common/limit_reached', :layout => 'application'
     end

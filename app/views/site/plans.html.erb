@@ -43,8 +43,7 @@
       <td class="feature">Workouts</td>
       <% @plans.each do |plan| %>
         <td class="plan <%= plan.eql?(@current_plan) && 'current' %>">
-          <% if plan.check_workout_limit? %>
-            
+          <% if plan.has_workout_limit? %>
             <% if plan.paid? %>
               <%= plan.workout_limit %>/<%= plan.limit_by %> <br />
             <% else %>
@@ -85,17 +84,21 @@
           
           <% if @current_plan %>
             <% unless plan.eql?(@current_plan) %>
-              <% if plan.price < @current_plan.price %>
-                <%= link_to "Downgrade to #{plan.name}", 
-                  :controller => 'user', 
-                  :action => 'downgrade', 
-                  :plan => "#{plan.name.downcase}" %>
-              <% else %>
-                <%= link_to "Upgrade to #{plan.name}", 
-                  :controller => 'user', 
-                  :action => 'upgrade', 
-                  :plan => "#{plan.name.downcase}" %>
+              <% if Subscription.is_within_limits?(@user, plan) %>
+
+                <% if plan.price < @current_plan.price %>
+                  <%= link_to "Downgrade to #{plan.name}", 
+                    :controller => 'user', 
+                    :action => 'update', 
+                    :plan => "#{plan.name.downcase}" %>
+                <% else %>
+                  <%= link_to "Upgrade to #{plan.name}", 
+                    :controller => 'user', 
+                    :action => 'update', 
+                    :plan => "#{plan.name.downcase}" %>
+                <% end %>
               <% end %>
+              
             <% end %>
           <% else %>
             <%= link_to "Sign-up for #{plan.name}", :controller => 'user', :action => 'signup', :plan => "#{plan.name.downcase}" %>

@@ -35,12 +35,12 @@ class UserController < ApplicationController
     if(request.post?)
       @user = User.new(params[:user])
 
-      @subscription = Subscription.new(:plan => @plan, :credit_card => params[:credit_card])
+      @subscription = Subscription.new(:credit_card => params[:credit_card])
       @credit_card = @subscription.credit_card
       if(@subscription.valid? && @user.valid?) 
         @user.subscription = @subscription
         if(@user.save!)
-          @user.subscription.subscribe
+          @user.subscription.subscribe(@plan)
           flash[:notice] = "account created, please signin"        
           redirect_to :action => "signin"
         end
@@ -63,6 +63,22 @@ class UserController < ApplicationController
   end
   
 
+  def update
+    @plan = Plan.find_by_name(params[:plan].capitalize)
+    
+    if(request.post?)
+      @user.subscription.credit_card = params[:credit_card]
+      @user.subscription.plan = @plan
+      if(@user.save!)
+        @user.subscription.change
+        flash[:notice] = "account updated"        
+        redirect_to :controller => "preferences"
+      end
+    end
+  rescue
+    flash[:notice] = $!.to_s
+  end
+  
   
   def signout
     reset_session

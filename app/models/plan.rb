@@ -9,7 +9,11 @@ class Plan < ActiveRecord::Base
     price > 0
   end
   
-  def check_workout_limit? 
+  def has_workout_limit? 
     workout_limit > 0
+  end
+
+  def price_in_dollars
+    (price/100).round
   end
 end
