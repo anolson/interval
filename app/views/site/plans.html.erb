@@ -10,8 +10,8 @@
       <% @plans.each do |plan| %>
         <% if plan.eql?(@current_plan) %>
         <th class="noborder"> 
-        <span class="light">Your current plan</span><br/>
-        <%= image_tag "down.png" %>
+          <span class="light">Your current plan</span><br/>
+          <span style="font-size:25px; padding:0px; margin:0px" class="lighter">•</span>
         </th>
         <% else %>
         <th class="noborder"></th>
@@ -89,12 +89,12 @@
                 <% if plan.price < @current_plan.price %>
                   <%= link_to "Downgrade to #{plan.name}", 
                     :controller => 'user', 
-                    :action => 'update', 
+                    :action => 'update_plan', 
                     :plan => "#{plan.name.downcase}" %>
                 <% else %>
                   <%= link_to "Upgrade to #{plan.name}", 
                     :controller => 'user', 
-                    :action => 'update', 
+                    :action => 'update_plan', 
                     :plan => "#{plan.name.downcase}" %>
                 <% end %>
               <% end %>

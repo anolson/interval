@@ -63,24 +63,23 @@ class UserController < ApplicationController
   end
   
 
-  def update
+  def update_plan
     @plan = Plan.find_by_name(params[:plan].capitalize)
-    
     if(request.post?)
-    
-      @user.subscription.credit_card = params[:credit_card]
-      @credit_card = @user.subscription.credit_card
-      
-      if(@user.subscription.valid?)
-        if(@user.save!)
-          @user.subscription.change(@plan)
-          flash[:notice] = "account updated"        
-          redirect_to :controller => 'site', :action => 'plans'
+      if(Subscription.is_within_limits?(@user, @plan))
+        @user.subscription.credit_card = params[:credit_card]
+        @credit_card = @user.subscription.credit_card
+        if(@user.subscription.valid?)
+          if(@user.save!)
+            @user.subscription.change(@plan)
+            flash[:notice] = "account updated"        
+            redirect_to :controller => 'site', :action => 'plans'
+          end
         end
       end
     end
-  #rescue
-  #  flash[:notice] = $!.to_s
+  rescue
+   flash[:notice] = $!.to_s
   end
   
   
