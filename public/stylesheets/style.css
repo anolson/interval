@@ -46,7 +46,7 @@ fieldset legend{font-size:18px;}
 .screenshot div{text-align:center;}
 .light{color: #555;}
 .lighter{color: #888;}
-#signup li {list-style-image: url(../images/check.png); padding: 2px 0; font-size: 15px;}
+
 #signup table {font-size:13px; border-collapse:collapse;}
 #plans td, #plans th {border: 1px solid #BBB; padding: 10px; text-align: center; width:20%;}
 #plans th {background: #E5ECFF;}
@@ -56,6 +56,7 @@ fieldset legend{font-size:18px;}
 #plans th.current {background-color: #DDDDFF;}
 #plans td.current {background-color: #EEE;}
 
+.big_dot{font-size:25px; color:#888;}
 .check { background-image: url(../images/check.png); background-repeat: no-repeat; background-position:center center;}
 .fieldWithErrors{padding:2px;background-color:#F44;display:table;}
 #errorExplanation{border:1px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#FCC;}
