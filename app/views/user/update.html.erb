@@ -1,0 +1,43 @@
+<% @heading_text ='Change you card'%>
+
+  <div class="container half">
+    <% rounded_box @heading_text, "complete", "wide" do %>
+      <% container "full" do %>
+      
+        <% form_tag :action => 'update' do %>  
+            <fieldset>
+              <legend>Billing Information</legend>
+              <label for="credit_card_type">Credit Card Type:</label><br/>
+              <%= select_tag( 'credit_card[type]', options_for_select(['Visa', 'Mastercard', 'Amex'] , 'Visa') ) %><br/><br/>
+
+              <label for="credit_card_first_name">First Name on Credit Card:</label><br/>
+              <%= text_field "credit_card", "first_name", :size => 30 %><br/><br/>
+            
+              <label for="credit_card_last_name">Last Name on Credit Card:</label><br/>
+              <%= text_field "credit_card", "last_name", :size => 30 %><br/><br/>
+
+              <label for="credit_card_number">Credit Card Number:</label><br/>
+              <%= text_field "credit_card", "number", :size => 30 %><br/><br/>
+            
+              <label for="credit_card_verification">Credit Card Verification:</label><br/>
+              <%= text_field "credit_card", "verification_value", :size => 4 %><br/><br/>
+
+              <label for="credit_card_expiration">Credit Card Expiration:</label><br/>
+              <%= select_month Date.today, :add_month_numbers => true, :prefix => "credit_card", :field_name => "month"%>
+              <%= select_year Date.today, 
+                :prefix => "credit_card",  
+                :field_name => "year", 
+                :start_year => 2009, 
+                :end_year => 2024 -%>
+              <br/> <br/>
+              <%= submit_tag "Update"%>
+              <br/><br>
+              <%= error_messages_for 'credit_card', :header_tag => "h4" %>
+            </fieldset>
+        <% end %>
+        <%= set_focus_for('credit_card_type') %>
+        <p style="text-align: center; color: green"><%= flash[:notice] %></p>
+
+      <% end %>
+    <% end %>
+  </div>
