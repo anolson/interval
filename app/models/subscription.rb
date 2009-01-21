@@ -2,65 +2,12 @@ class Subscription < ActiveRecord::Base
   attr_accessor :credit_card
   belongs_to :user
   belongs_to :plan
-
-  def subscribe
-    if(plan.paid?)
-      options = {  
-        :email => "#{user.email}",  
-        :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
-        :periodicity => :daily,  
-        :comment => "intervalapp.com - #{plan.name} Plan",  
-        :payments => 0, 
-        :initial_payment => 0
-      }
-        
-      response = gateway.recurring(plan.price, @credit_card, options)
-      
-      if(response.success?)
-        paypal_profile_id = response.params['profile_id']
-        save
-      else
-        raise StandardError, response.message
-      end
-    end
-  end
   
-  def change(new_plan)
-    if (plan.paid?)
-      if(new_plan.paid?)
-        options = {
-          :profile_id => paypal_profile_id
-        }
-        response = gateway.recurring(new_plan.price, @credit_card, options)
-        if(response.success?)
-          self.paypal_profile_id = response.params['profile_id']
-          self.plan = new_plan
-          save!
-        else
-          raise StandardError, response.message
-        end
-        
-      else
-        cancel
-        self.paypal_profile_id = nil
-        self.plan = new_plan
-        save!
-      end 
-    else
-      options = {  
-        :email => "#{user.email}",  
-        :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
-        :periodicity => :daily,  
-        :comment => "intervalapp.com - #{new_plan.name} Plan",  
-        :payments => 0, 
-        :initial_payment => nil
-      }
-        
-      #raise @credit_card.number.to_s
+  
+  def recurring(new_plan, options = {})
+    if(new_plan.paid?)
       response = gateway.recurring(new_plan.price, @credit_card, options)
       
-     #raise response.success?.to_s
-     
       if(response.success?)
         self.paypal_profile_id = response.params['profile_id']
         self.plan = new_plan
@@ -68,10 +15,61 @@ class Subscription < ActiveRecord::Base
       else
         raise StandardError, response.message
       end
+      
     end
-
   end
-
+  
+  def subscribe
+    if(plan.paid?)
+      options = {  
+        :email => user.email,  
+        :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
+        :periodicity => :daily,  
+        :comment => "intervalapp.com - #{plan.name} Plan",  
+        :payments => 0, 
+        :initial_payment => 0
+      }      
+      recurring(self.plan, options)
+    end
+  end
+  
+  def change(new_plan)
+    if (plan.paid?)
+      if(new_plan.paid?)
+        change_from_paid_to_paid(new_plan)
+      else
+        change_from_paid_to_free(new_plan)
+      end 
+    else
+      change_from_free_to_paid(new_plan)
+    end
+  end
+  
+  def change_from_paid_to_paid(new_plan)
+    options = {
+      :profile_id => paypal_profile_id
+    }
+    recurring(new_plan, options)
+  end
+  
+  def change_from_paid_to_free(new_plan)
+    cancel
+    self.paypal_profile_id = nil
+    self.plan = new_plan
+    save!
+  end
+  
+  def change_from_free_to_paid(new_plan)
+    options = {  
+      :email => user.email,  
+      :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
+      :periodicity => :daily,  
+      :comment => "intervalapp.com - #{new_plan.name} Plan",  
+      :payments => 0, 
+      :initial_payment => nil
+    }
+    recurring(new_plan, options)
+  end
 
   def details()
     if(plan.paid?)
