@@ -83,6 +83,23 @@ class UserController < ApplicationController
   end
   
   
+  def update
+    if(request.post?)
+      @user.subscription.credit_card = params[:credit_card]
+      @credit_card = @user.subscription.credit_card
+      if(@user.subscription.valid?)
+        if(@user.save!)
+          @user.subscription.change
+          flash[:notice] = "account updated"        
+          redirect_to :controller => 'preferences'
+        end
+      end
+    end
+  rescue
+   flash[:notice] = $!.to_s
+  end
+  
+  
   def signout
     reset_session
     redirect_to ''

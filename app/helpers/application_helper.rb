@@ -51,6 +51,10 @@ module ApplicationHelper
   end
   
   def nice_date(date)
+    h date.strftime("%b %d, %Y")
+  end
+  
+  def nice_date_with_day_of_week(date)
     h date.strftime("%A %b %d, %Y")
   end
   
