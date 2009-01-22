@@ -89,7 +89,7 @@ class UserController < ApplicationController
       @credit_card = @user.subscription.credit_card
       if(@user.subscription.valid?)
         if(@user.save!)
-          @user.subscription.change
+          @user.subscription.change(@user.subscription.plan)
           flash[:notice] = "account updated"        
           redirect_to :controller => 'preferences'
         end
