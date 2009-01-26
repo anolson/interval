@@ -81,7 +81,8 @@ class Subscription < ActiveRecord::Base
   #TODO put paypal un-subscription here
   def cancel
     if (plan.paid?)
-      response = gateway.cancel_recurring(:profile_id => paypal_profile_id) 
+      response = gateway.cancel_recurring(paypal_profile_id) 
+      #raise response.message.to_s
     end
   end
   

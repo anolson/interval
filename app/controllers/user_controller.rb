@@ -58,8 +58,8 @@ class UserController < ApplicationController
         signout
       end
     end
-  rescue
-    flash[:notice] = $!.to_s
+  #rescue
+  #  flash[:notice] = $!.to_s
   end
   
 

@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   
   has_many :workouts
   has_and_belongs_to_many :roles
-  has_one :subscription
+  has_one :subscription, :dependent => :destroy 
+
   
   #TODO remove this after migrating
   belongs_to :plan
