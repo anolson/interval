@@ -2,27 +2,27 @@
         <legend>Graphing</legend>
         <h4>Display the following in workout graphs:</h4>
         <%= check_box_tag 'preferences[graph][power]', 
-          'true', 
+          true, 
           @user.preferences[:graph] && @user.preferences[:graph][:power] %> 
         Power<br/><br/>
         
         <%= check_box_tag 'preferences[graph][torque]', 
-          'true', 
+          true, 
           @user.preferences[:graph] && @user.preferences[:graph][:torque] %> 
         Torque<br/><br/>
         
         <%= check_box_tag 'preferences[graph][heartrate]', 
-          'true', 
+          true, 
           @user.preferences[:graph] && @user.preferences[:graph][:heartrate] %> 
         Heartrate<br/><br/>
         
         <%= check_box_tag 'preferences[graph][cadence]', 
-          'true', 
+          true, 
           @user.preferences[:graph] && @user.preferences[:graph][:cadence] %> 
         Cadence<br/><br/>
 
         <%= check_box_tag 'preferences[graph][speed]', 
-          'true', 
+          true, 
           @user.preferences[:graph] && @user.preferences[:graph][:speed] %> 
         Speed<br/><br/>
         <span class="smaller">
