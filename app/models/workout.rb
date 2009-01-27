@@ -57,14 +57,18 @@ class Workout < ActiveRecord::Base
     date = Date.new(year.to_i, month.to_i, day.to_i)
     find_by_permalink_and_user_id_and_performed_on(permalink, user_id, (date..date+1))
   end
-    
-  def self.find_by_date(year, month, day, user_id)
-    date = Date.new(year.to_i, month.to_i, day.to_i)
-    find_all_by_performed_on_and_user_id((date..date+1), user_id)
+
+  def self.find_by_created_at_range(range, user_id)
+    find_all_by_created_at_and_user_id(range, user_id)
   end
 
   def self.find_by_date_range(range, user_id)
     find_all_by_performed_on_and_user_id(range, user_id)
+  end
+    
+  def self.find_by_date(year, month, day, user_id)
+    date = Date.new(year.to_i, month.to_i, day.to_i)
+    find_all_by_performed_on_and_user_id((date..date+1), user_id)
   end
   
   def has_training_files?

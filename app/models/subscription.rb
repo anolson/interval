@@ -115,7 +115,7 @@ class Subscription < ActiveRecord::Base
         if(plan.limit_by.eql?('week'))
           week_start = Date.today.beginning_of_week
           week_end = week_start + 7
-          workouts = Workout.find_by_date_range((week_start..week_end), user)
+          workouts = Workout.find_by_created_at_range((week_start..week_end), user)
           workouts.size < plan.workout_limit
         else
           user.workouts.size < plan.workout_limit
@@ -126,7 +126,10 @@ class Subscription < ActiveRecord::Base
     end
   
     def self.is_within_size_limit?(user, plan)
-      storage_size = user.workouts.collect{ |workout| workout.training_file.first.file_size }.sum < plan.storage_limit
+      workouts = user.workouts.collect { |workout| 
+        workout.has_training_files? && workout.training_file.first.file_size || 0
+      }
+      workouts.sum < plan.storage_limit
     end
     
     def gateway 
