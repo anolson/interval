@@ -1,8 +1,8 @@
       <fieldset>
         <legend>File Upload</legend>
         <%= check_box_tag 'preferences[auto_assign_workout_name]', 
-          'true', 
-          @user.preferences[:auto_assign_workout_name].eql?('true') && true || false %> 
+          true, 
+          @user.preferences[:auto_assign_workout_name] && true || false %> 
         Automatically assign workout name.<br/><br/>
         
         <div id="auto_assign_workout_name_by" class="container full">        
