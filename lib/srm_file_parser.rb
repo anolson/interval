@@ -90,6 +90,7 @@ class SrmParser
       byte2=record.slice(1)
       byte3=record.slice(2)
       @data_values[count]=DataValue.new
+      @data_values[count].time = count * @properties.record_interval
       @data_values[count].power = ( (byte2 & 0x0F) | (byte3 << 4) )
       @data_values[count].speed = ( ( ( (byte2 & 0xF0) << 3) | (byte1 & 0x7F) ) * 32 ) #stored in mm/s
       @data_values[count].cadence = record.slice(3)
@@ -109,14 +110,18 @@ class SrmParser
       while relative_count < @blocks[block_count].count
         #@data_values[count].absolute_time =  Time.at(@blocks[block_count].time/100).utc + (@properties.record_interval*relative_count)
         #@data_values[count].relative_time = Time.at(@blocks[block_count].time/100 - @blocks[0].time/100).utc + (@properties.record_interval*relative_count)
-        @data_values[count].absolute_time =  @blocks[block_count].time/100 + (@properties.record_interval*relative_count)
-        @data_values[count].relative_time = @blocks[block_count].time/100 - @blocks[0].time/100 + (@properties.record_interval*(relative_count + 1))
+        #@data_values[count].absolute_time =  @blocks[block_count].time/100 + (@properties.record_interval*relative_count)
+        #@data_values[count].relative_time = @blocks[block_count].time/100 - @blocks[0].time/100 + (@properties.record_interval*(relative_count + 1))
+        @data_values[count].time_of_day =  @blocks[block_count].time/100 + (@properties.record_interval*relative_count)
+        @data_values[count].time_with_pauses = @blocks[block_count].time/100 - @blocks[0].time/100 + (@properties.record_interval*(relative_count + 1))
+        
+        
         count=count+1
         relative_count=relative_count+1
       end
       block_count=block_count + 1
     end
-    @properties.date_time = data_values.first.absolute_time.to_i
+    @properties.date_time = data_values.first.time_of_day.to_i
   end
   
   def calculate_marker_values

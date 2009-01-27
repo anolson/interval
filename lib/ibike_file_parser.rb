@@ -43,7 +43,7 @@ class IbikeFileParser < CsvFileParser
     records = CSV.parse(@data).slice(5..-1)
     records.each_with_index { |record, index|
       data_value  = DataValue.new
-      data_value.relative_time  = index * @properties.record_interval
+      data_value.time  = index * @properties.record_interval
       data_value.speed = convert_speed(record[SPEED].to_f)
       data_value.power = record[POWER].to_f
       data_value.distance = convert_distance(record[DISTANCE].to_f)

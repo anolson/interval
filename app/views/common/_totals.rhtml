@@ -3,7 +3,7 @@
         <% if @workout.has_training_files? %>
         <tr>
           <td align="right">Total Time :</td>
-          <td><%= nice_duration(Time.at(@workout.training_files.first.data_values.last.relative_time).utc) %></td>
+          <td><%= nice_duration(Time.at(@workout.training_files.first.data_values.last.time_with_pauses).utc) %></td>
         </tr>
         <% end %>
         <tr class="odd">

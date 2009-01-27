@@ -43,7 +43,7 @@
   :data_series => data_series,
   :time_series => [
     {:data => 
-      @data_points.collect_with_index do |value, index| [index, nice_duration(Time.at(value.relative_time).utc)] end } || []
+      @data_points.collect_with_index do |value, index| [index, nice_duration(Time.at(value.time).utc)] end } || []
   ]
 }
 %>

@@ -24,7 +24,7 @@ class PowertapFileParser < CsvFileParser
     
     records.each_with_index { |record, index|
       data_value = DataValue.new
-      data_value.relative_time  = record[MINUTES].to_f * 60
+      data_value.time  = record[MINUTES].to_f * 60
       data_value.torque = record[TORQUE]
       data_value.speed = convert_speed(record[SPEED].to_f)
       data_value.power = record[POWER].to_f

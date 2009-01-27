@@ -52,10 +52,10 @@ class CsvFileParser
   
       if i.eql?(0) 
         marker.distance = @data_values.last.distance
-        marker.duration_seconds = @data_values.last.relative_time
+        marker.duration_seconds = @data_values.last.time
       else
         marker.distance = @data_values[marker.end].distance - @data_values[marker.start].distance
-        marker.duration_seconds = @data_values[marker.end].relative_time - @data_values[marker.start].relative_time
+        marker.duration_seconds = @data_values[marker.end].time - @data_values[marker.start].time
       end
             
       marker.energy = (marker.avg_power.round * marker.duration.to_i)/1000        
