@@ -15,7 +15,7 @@ class CreatePlans < ActiveRecord::Migration
     end
     
     create_table :subscriptions do |t|
-      t.string :paypal_profile_id
+      t.string :paypal_profile_idcd
       t.integer :plan_id
       t.integer :user_id
       t.timestamps

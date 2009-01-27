@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 12) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -38,6 +38,9 @@ ActiveRecord::Schema.define(:version => 11) do
     t.float   "speed"
     t.float   "distance"
     t.float   "torque",           :default => 0.0
+    t.integer "time",             :default => 0
+    t.integer "time_with_pauses", :default => 0
+    t.integer "time_of_day",      :default => 0
   end
 
   add_index "data_values", ["training_file_id"], :name => "index_data_values_on_training_file_id"
