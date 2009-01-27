@@ -3,22 +3,6 @@ class Subscription < ActiveRecord::Base
   belongs_to :user
   belongs_to :plan
   
-  
-  def recurring(new_plan, options = {})
-    if(new_plan.paid?)
-      response = gateway.recurring(new_plan.price, @credit_card, options)
-      
-      if(response.success?)
-        self.paypal_profile_id = response.params['profile_id']
-        self.plan = new_plan
-        save!
-      else
-        raise StandardError, response.message
-      end
-      
-    end
-  end
-  
   def subscribe
     if(plan.paid?)
       options = {  
@@ -45,32 +29,6 @@ class Subscription < ActiveRecord::Base
     end
   end
   
-  def change_from_paid_to_paid(new_plan)
-    options = {
-      :profile_id => paypal_profile_id
-    }
-    recurring(new_plan, options)
-  end
-  
-  def change_from_paid_to_free(new_plan)
-    cancel
-    self.paypal_profile_id = nil
-    self.plan = new_plan
-    save!
-  end
-  
-  def change_from_free_to_paid(new_plan)
-    options = {  
-      :email => user.email,  
-      :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
-      :periodicity => :daily,  
-      :comment => "intervalapp.com - #{new_plan.name} Plan",  
-      :payments => 0, 
-      :initial_payment => nil
-    }
-    recurring(new_plan, options)
-  end
-
   def details()
     if(plan.paid?)
       response = gateway.recurring_inquiry(paypal_profile_id) 
@@ -78,7 +36,6 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  #TODO put paypal un-subscription here
   def cancel
     if (plan.paid?)
       response = gateway.cancel_recurring(paypal_profile_id) 
@@ -110,6 +67,45 @@ class Subscription < ActiveRecord::Base
   end
   
   private
+    def change_from_paid_to_paid(new_plan)
+      options = {
+        :profile_id => paypal_profile_id
+      }
+      recurring(new_plan, options)
+    end
+    
+    def change_from_paid_to_free(new_plan)
+      cancel
+      self.paypal_profile_id = nil
+      self.plan = new_plan
+      save!
+    end
+    
+    def change_from_free_to_paid(new_plan)
+      options = {  
+        :email => user.email,  
+        :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
+        :periodicity => :daily,  
+        :comment => "intervalapp.com - #{new_plan.name} Plan",  
+        :payments => 0, 
+        :initial_payment => nil
+      }
+      recurring(new_plan, options)
+    end
+
+    def recurring(new_plan, options = {})
+      if(new_plan.paid?)
+        response = gateway.recurring(new_plan.price, @credit_card, options)
+        if(response.success?)
+          self.paypal_profile_id = response.params['profile_id']
+          self.plan = new_plan
+          save!
+        else
+          raise StandardError, response.message
+        end
+      end
+    end
+
     def self.is_within_workout_limit?(user, plan)
       if(plan.has_workout_limit?)
         if(plan.limit_by.eql?('week'))
@@ -134,9 +130,9 @@ class Subscription < ActiveRecord::Base
     
     def gateway 
       @gateway ||= ActiveMerchant::Billing::PaypalGateway.new(  
-        :login => 'andrew_1232051849_biz_api1.intervalapp.com',  
-        :password => 'EATS3UJSPR8FFBTZ',
-        :signature => 'Anpkc8GMNUtWAXPxSeLzLZToGS4DA2kFXQOpd7BLK0k4oaetOvnHMkzI'
+        :login => $PAYPAL_LOGIN,  
+        :password => $PAYPAL_PASSWORD,
+        :signature => $PAYPAL_SIGNATURE
       )
     end
     
