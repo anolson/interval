@@ -1,6 +1,6 @@
       <table border="0" cellspacing="0" cellpadding="3">
         <tr><th colspan='2'>Totals</th></tr>
-        <% if @workout.has_training_files? %>
+        <% if @workout.has_training_files? && @workout.training_files.first.powermeter_properties.class.eql?(SrmProperties) %>
         <tr>
           <td align="right">Total Time :</td>
           <td><%= nice_duration(Time.at(@workout.training_files.first.data_values.last.time_with_pauses).utc) %></td>

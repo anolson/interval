@@ -123,7 +123,7 @@ class Subscription < ActiveRecord::Base
   
     def self.is_within_size_limit?(user, plan)
       workouts = user.workouts.collect { |workout| 
-        workout.has_training_files? && workout.training_file.first.file_size || 0
+        workout.has_training_files? && workout.training_files.first.file_size || 0
       }
       workouts.sum < plan.storage_limit
     end
