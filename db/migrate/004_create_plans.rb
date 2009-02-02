@@ -27,8 +27,8 @@ class CreatePlans < ActiveRecord::Migration
     Plan.create :name => "Plus", :description => "Plus plan, 5 workouts/week.", :workout_limit => 5, :limit_by => 'week', :storage_limit => 2147483648, :price => 700, :enabled => true, :public => true
     Plan.create :name => "Pro", :description => "Unlimited Account.", :workout_limit => 0, :price => 1000, :storage_limit => 5368709120, :enabled => true, :public => true
     
-    foreign_key(:subscription, :user_id, :users)
-    foreign_key(:subscription, :plan_id, :plan)
+    foreign_key(:subscriptions, :user_id, :users)
+    foreign_key(:subscriptions, :plan_id, :plan)
   end
 
   def self.down
