@@ -100,7 +100,7 @@ def build_recurring_request(action, money, options)
 
             unless options[:initial_payment].nil?
               xml.tag! ns2 + 'TrialPeriod' do
-                xml.tag! ns2 + 'BillingPeriod', 'Day'
+                xml.tag! ns2 + 'BillingPeriod', 'Month'
                 xml.tag! ns2 + 'BillingFrequency', 1
                 xml.tag! ns2 + 'TotalBillingCycles', 1
                 xml.tag! ns2 + 'Amount', amount(options[:initial_payment]), 'currencyID' => options[:currency] || currency(options[:initial_payment])

@@ -8,7 +8,7 @@ class Subscription < ActiveRecord::Base
       options = {  
         :email => user.email,  
         :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
-        :periodicity => :daily,  
+        :periodicity => :monthly,  
         :comment => "intervalapp.com - #{plan.name} Plan",  
         :payments => 0, 
         :initial_payment => 0
@@ -85,7 +85,7 @@ class Subscription < ActiveRecord::Base
       options = {  
         :email => user.email,  
         :starting_at => Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S"),
-        :periodicity => :daily,  
+        :periodicity => :monthly,  
         :comment => "intervalapp.com - #{new_plan.name} Plan",  
         :payments => 0, 
         :initial_payment => nil
