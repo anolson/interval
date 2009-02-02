@@ -7,7 +7,7 @@ class CreatePlans < ActiveRecord::Migration
       t.column :description,    :text
       t.column :workout_limit,  :integer
       t.column :limit_by,       :string
-      t.column :storage_limit,  :integer
+      t.column :storage_limit,  :integer, :limit => 8
       t.column :price,          :float
       t.column :enabled,        :boolean
       t.column :public,         :boolean
