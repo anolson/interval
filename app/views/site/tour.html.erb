@@ -5,7 +5,7 @@
     <h2>File Upload</h2>    
     <%= content_tag :div, image_tag("upload.png") %>
     <ol>
-     <li>Upload your workouts(PowerTap .csv, iBike .csv, and .srm).</li>
+     <li>Select a <%= link_to "supported file", support_permalink_path("supported_devices") -%> and upload your workout.</li>
      <li>You may also manually add workouts.</li>
     </ol>
   </div>
@@ -16,6 +16,7 @@
     <ol>
      <li>View a summary of your latest workouts.</li>
      <li>Sort by name or date.</li>
+     <li>Quickly see your latest workouts.</li>
     </ol>
   </div>
 
@@ -33,9 +34,18 @@
     <h2>Workout Graph</h2>
     <%= content_tag :div, image_tag("graph.png") %>
     <ol>
-     <li>Graph the power data for your workout.</li>
+     <li>Visualize data from your workout.</li>
      <li>Position your mouse over the graph to see power data at particular time.</li>
      <li>Click and drag the graph to see more detail.</li>
+    </ol>
+  </div>
+
+  <div class="screenshot">
+    <h2>Peak Power Analysis</h2>
+    <%= content_tag :div, image_tag("peak_power.png") %>
+    <ol>
+     <li>View peak power for your workout.</li>
+     <li>See how this workout compares to your all time best.</li>
     </ol>
   </div>
 
