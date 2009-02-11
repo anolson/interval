@@ -21,7 +21,7 @@ atom_feed do |feed|
         xhtml.div "Norm Power: #{workout.markers.first.normalized_power}"
         xhtml.div "Average Speed: #{format_speed_mph(workout.markers.first.avg_speed)}"
         xhtml.div "Average Heartrate: #{workout.markers.first.avg_heartrate}"
-        xhtml.p "Notes:#{workout.notes} "
+        xhtml.p "Notes: #{workout.notes} "
       end
 
       entry.author do |author|
