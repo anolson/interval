@@ -4,7 +4,7 @@ require 'training_file'
 require 'marker'
 require 'data_value'
 
-require 'FasterCSV'
+#require 'FasterCSV'
 
 class CsvFileParser
   include MarkerCalculator
