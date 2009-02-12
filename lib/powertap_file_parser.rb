@@ -42,11 +42,16 @@ class PowertapFileParser < CsvFileParser
     records.shift
     @markers << parse_workout_marker(records)
     
-    @markers << Marker.new(:start => 0, :comment => "")
     records.each_with_index { |record, index|
         if(record[MARKER].to_i > records[index-1][MARKER].to_i) 
-          marker = Marker.new(:start => index, :comment => "")
+          
+          
+          if(@markers.size.eql?(1))
+            @markers << Marker.new(:start => 0, :comment => "")
+          end  
           set_previous_marker_end(index - 1)
+          marker = Marker.new(:start => index, :comment => "")
+            
           @markers << marker
         end
     }
