@@ -9,8 +9,8 @@ class PowertapFileParser < CsvFileParser
   MARKER = 7
 
   def parse_header()
-    header = CSV.parse(@data).shift
-    records = CSV.parse(@data) 
+    header = FasterCSV.parse(@data).shift
+    records = FasterCSV.parse(@data) 
     @properties = PowertapProperties.new
     @properties.speed_units = header[SPEED].to_s.downcase
     @properties.power_units = header[POWER].to_s.downcase
