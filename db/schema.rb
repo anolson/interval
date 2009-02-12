@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.text     "description"
     t.integer  "workout_limit"
     t.string   "limit_by"
-    t.integer  "storage_limit"
+    t.integer  "storage_limit", :limit => 8
     t.float    "price"
     t.boolean  "enabled"
     t.boolean  "public"

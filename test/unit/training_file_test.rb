@@ -43,7 +43,7 @@ class TrainingFileTest < Test::Unit::TestCase
   
    def test_create_ibike
      #file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/Owen.09142008.csv")
-     file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/analyzed_02_08_2009_1456_50_Miles.csv")
+     file = uploaded_file("#{File.expand_path(RAILS_ROOT)}/test/fixtures/iBike.csv")
      
      #training_file = TrainingFile.create({:payload => file})
      
