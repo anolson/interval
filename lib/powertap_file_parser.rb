@@ -19,7 +19,7 @@ class PowertapFileParser < CsvFileParser
   end
 
   def parse_data_values()
-    records = CSV.parse(@data) 
+    records = FasterCSV.parse(@data) 
     records.shift
     
     records.each_with_index { |record, index|
@@ -38,7 +38,7 @@ class PowertapFileParser < CsvFileParser
   
   def parse_markers
     # @markers = Array.new
-    records = CSV.parse(@data) 
+    records = FasterCSV.parse(@data) 
     records.shift
     @markers << parse_workout_marker(records)
     
