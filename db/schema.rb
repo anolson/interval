@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   create_table "subscriptions", :force => true do |t|
-    t.string   "paypal_profile_idcd"
+    t.string   "paypal_profile_id"
     t.integer  "plan_id"
     t.integer  "user_id"
     t.datetime "created_at"
