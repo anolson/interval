@@ -4,7 +4,7 @@ require 'training_file'
 require 'marker'
 require 'data_value'
 
-require 'csv'
+require 'FasterCSV'
 
 class CsvFileParser
   include MarkerCalculator
@@ -23,7 +23,7 @@ class CsvFileParser
   end
   
   def get_parser
-    header = CSV.parse(@data).shift
+    header = FasterCSV.parse(@data).shift
     if header[0].to_s.downcase.eql?("ibike")
       return IbikeFileParser.new(data)
     else

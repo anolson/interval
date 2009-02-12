@@ -15,7 +15,7 @@ class IbikeFileParser < CsvFileParser
    
   def parse_header()
     @properties = IbikeProperties.new()
-    records = CSV.parse(@data)
+    records = FasterCSV.parse(@data)
     header = records.shift
     @properties.version=header[1]
     @properties.units=header[2]
@@ -40,7 +40,7 @@ class IbikeFileParser < CsvFileParser
   end
 
   def parse_data_values()
-    records = CSV.parse(@data).slice(5..-1)
+    records = FasterCSV.parse(@data).slice(5..-1)
     records.each_with_index { |record, index|
       data_value  = DataValue.new
       data_value.time  = index * @properties.record_interval
@@ -54,7 +54,7 @@ class IbikeFileParser < CsvFileParser
   end
   
   def parse_markers
-    records = CSV.parse(@data).slice(5..-1)
+    records = FasterCSV.parse(@data).slice(5..-1)
     @markers << parse_workout_marker(records)
   end
   
