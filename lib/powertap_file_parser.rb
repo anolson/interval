@@ -30,7 +30,7 @@ class PowertapFileParser < CsvFileParser
       data_value.power = record[POWER].to_f
       data_value.distance = convert_distance(record[DISTANCE].to_f)
       data_value.cadence = record[CADENCE].to_i
-      (record[HEARTRATE].to_i < 0) && data_value.heartrate = 0 || data_value.heartrate = record[HEARTRATE].to_i
+      data_value.heartrate = (record[HEARTRATE].to_i < 0) && 0 || record[HEARTRATE].to_i
 
       self.data_values << data_value
     }  
