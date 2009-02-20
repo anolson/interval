@@ -17,7 +17,7 @@
         <div class="container full">
           <fieldset>
             <legend class=larger>Notes</legend>  
-            <div id="notes" class="notes">
+            <div id="<%="workout_notes_#{@workout.id}"%>" class="notes">
               <%= @workout.notes.empty? && "Edit to add notes." || @workout.notes %> 
             </div>
           </fieldset>
