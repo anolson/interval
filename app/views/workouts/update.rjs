@@ -4,7 +4,7 @@ page.remove("lbContent")
 page.replace_html("workout_name_#{@workout.id}", link_to_workout(@workout) )
 page.replace_html("workout_date_#{@workout.id}", nice_date(@workout.performed_on))
 page.replace_html("workout_duration_#{@workout.id}", nice_duration(@workout.markers.first.duration))
-page.replace_html("workout_notes_#{@workout.id}", @workout.notes)
+page.replace_html("workout_notes_#{@workout.id}", truncate(@workout.notes, 50))
 
 page.select("#workout_#{@workout.id}").each do |element|
   element.visual_effect(:highlight)
