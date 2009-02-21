@@ -36,7 +36,7 @@ class CsvFileParser
     parse_markers
     parse_data_values
     calculate_marker_values
-    calculate_peak_power_values
+    calculate_peak_power_values(@markers.first.duration_seconds)
   end
 
   protected

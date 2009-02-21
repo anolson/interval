@@ -26,7 +26,7 @@ class SrmParser
     parse_data_values
     parse_data_value_times
     calculate_marker_values
-    calculate_peak_power_values
+    calculate_peak_power_values(@markers.first.duration_seconds)
   end
   
   def parse_header()
