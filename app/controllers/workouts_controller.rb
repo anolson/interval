@@ -45,8 +45,9 @@ class WorkoutsController < ApplicationController
   
   def update
     @workout.update_attributes(params[:workout])
-    @workout.markers.first.duration = params[:marker]
-    @workout.save!
+    marker = @workout.markers.first
+    marker.duration = params[:marker].symbolize_keys
+    marker.save
   end
     
   def show

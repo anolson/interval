@@ -1,6 +1,6 @@
 <% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
 
-<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date_#{@workout.id}" %>
+<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger" %>
 
 <% @secondary_links = [
   { :text => 'Summary', :options => {:action => 'show', :id => @workout.id, :user => @user.username } }, 

@@ -4,11 +4,7 @@
               <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
                 <%= link_to_workout(workout) %>
               </div>
-              <% unless @sharing %> 
-                <div class="edit smaller">
-                  <%= render(:partial => 'workouts/edit_delete', :locals => {:id => workout.id} ) %>
-                </div>
-              <% end %>
+
               <div class="clear"></div>
               <div class="highlight_box">  
                 

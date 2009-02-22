@@ -1,15 +1,11 @@
-<% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
-<% @editable = @sharing ? false : true %>
-<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date_#{@workout.id}" %>
+<% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name" ) %>
+<% @editable = true %>
+<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date" %>
 
 <% @secondary_links = [
   { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
   { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
   { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
-
-<% if @sharing %>
-<% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
-<% end %>
 
 <div id="main_wrapper">
   <div id="main">
@@ -17,7 +13,7 @@
         <div class="container full">
           <fieldset>
             <legend class=larger>Notes</legend>  
-            <div id="<%="workout_notes_#{@workout.id}"%>" class="notes">
+            <div id="workout_notes" class="notes">
               <%= @workout.notes.empty? && "Edit to add notes." || @workout.notes %> 
             </div>
           </fieldset>
