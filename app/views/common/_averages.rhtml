@@ -12,7 +12,7 @@
         
         <tr >
           <td align="right"> Speed :</td>
-          <td><%= format_speed(@workout.markers.first.avg_speed) %></td>
+          <td><%= format_speed(@workout.markers.first.avg_speed, :include_units => true) %></td>
         </tr>
         <tr class="odd">
           <td align="right"> Cadence :</td>

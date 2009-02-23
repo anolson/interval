@@ -75,36 +75,64 @@ module ApplicationHelper
   end
   
   
-  def format_speed(speed)
-    if @user.preferences[:units_of_measurement].eql?("english")
-      format_speed_mph(speed)
+  def format_speed(speed, options = {})
+    if units_of_measurement.eql?("english")
+      format_speed_in_units_of_measurement(convert_speed_to_mph(speed), options)
     else
-      format_speed_kmh(speed)
-    end
-  end
-  
-  def format_speed_mph(speed)
-    ((speed * 3600) / 1609344.0  ).round_with_precision(1).to_s + " mph"
-  end
-  
-  def format_speed_kmh(speed)
-    ((speed * 3600) / 1000.0  ).round_with_precision(1).to_s + " kmh"
-  end
-
-  def format_distance(distance)
-    if @user.preferences[:units_of_measurement].eql?("english")
-      format_distance_in_miles(distance)
-    else
-      format_distance_in_kilometers(distance)
+      format_speed_in_units_of_measurement(convert_speed_to_kmh(speed), options)
     end 
   end
   
-  def format_distance_in_miles(distance)
-    sprintf( "%.1f miles", distance / 1609344.0 ) 
+  def format_speed_in_units_of_measurement(speed, options = {})
+    if(options[:include_units])
+      sprintf("%.1f #{speed_units}", speed)
+    else
+      sprintf("%.1f", speed)
+    end
+  end
+ 
+  def format_distance(distance, options = {})
+    if units_of_measurement.eql?("english")
+      format_distance_in_units_of_measurement(convert_distance_to_miles(distance), options)
+    else
+      format_distance_in_units_of_measurement(convert_distance_to_kilometers(distance), options)
+    end 
   end
   
-  def format_distance_in_kilometers(distance)
-    sprintf( "%.1f km", distance / 1000.0 ) 
+  def format_distance_in_units_of_measurement(distance, options = {})
+    if(options[:include_units])
+      sprintf("%.1f #{distance_units}", distance)
+    else
+      sprintf("%.1f", distance)
+    end
+  end
+
+  def convert_distance_to_miles(distance)
+    distance / 1609344.0
+  end
+
+  def convert_distance_to_kilometers(distance)
+    distance / 1000000.0
+  end  
+
+  def convert_speed_to_mph(speed)
+    (speed * 3600) / 1609344.0
+  end  
+  
+  def convert_speed_to_kmh(speed)
+    (speed * 3600) / 1000000.0
+  end  
+
+  def speed_units()
+    units_of_measurement.eql?("english") && "mph" || "kmh"
+  end
+  
+  def distance_units()
+    units_of_measurement.eql?("english") && "miles" || "km"
+  end
+  
+  def units_of_measurement
+    @user.preferences[:units_of_measurement]
   end
   
   def link_to_workout(workout, format = nil)

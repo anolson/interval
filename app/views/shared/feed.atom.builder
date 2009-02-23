@@ -11,7 +11,7 @@ atom_feed(:root_url => url_for(:controller => 'shared', :user => @user.username,
           div.div "Duration: #{nice_duration workout.markers.first.duration}", :id => "duration"
           div.div "Average Power: #{workout.markers.first.avg_power}", :id => "average_power"
           div.div "Norm Power: #{workout.markers.first.normalized_power}", :id => "normalized_power"
-          div.div "Average Speed: #{format_speed_mph(workout.markers.first.avg_speed)}", :id => "average_speed"
+          div.div "Average Speed: #{format_speed(workout.markers.first.avg_speed)}", :id => "average_speed"
           div.div "Average Heartrate: #{workout.markers.first.avg_heartrate}", :id => "average_heartrate"
           div.p "Notes: #{truncate(workout.notes, 50)}", :id => "notes"
         end

@@ -30,7 +30,7 @@
     end
     if params[:speed]
       data_series << {
-        :data => @data_points.collect_with_index do |v, i| [i, format_speed_mph(v.speed)] end, 
+        :data => @data_points.collect_with_index do |v, i| [i, format_speed(v.speed)] end, 
         :label => 'Speed', 
         :color => '#00F048'}
     end

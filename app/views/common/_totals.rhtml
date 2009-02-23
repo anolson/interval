@@ -12,7 +12,7 @@
         </tr>
         <tr>
           <td align="right">Distance :</td>
-          <td id="workout_distance"><%= format_distance(@workout.markers.first.distance) %> </td>
+          <td id="workout_distance"><%= format_distance(@workout.markers.first.distance, :include_units => true) %> </td>
         </tr>
         <tr class="odd">
           <td align="right">Energy :</td>
