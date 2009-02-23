@@ -74,12 +74,37 @@ module ApplicationHelper
     javascript_tag("$('#{id}').focus()")
   end
   
+  
+  def format_speed(speed)
+    if @user.preferences[:units_of_measurement].eql?("english")
+      format_speed_mph(speed)
+    else
+      format_speed_kmh(speed)
+    end
+  end
+  
   def format_speed_mph(speed)
-    ((speed * 3600) / 1609344.0  ).round_with_precision(1)
+    ((speed * 3600) / 1609344.0  ).round_with_precision(1).to_s + " mph"
+  end
+  
+  def format_speed_kmh(speed)
+    ((speed * 3600) / 1000.0  ).round_with_precision(1).to_s + " kmh"
+  end
+
+  def format_distance(distance)
+    if @user.preferences[:units_of_measurement].eql?("english")
+      format_distance_in_miles(distance)
+    else
+      format_distance_in_kilometers(distance)
+    end 
   end
   
   def format_distance_in_miles(distance)
-    sprintf( "%.1f", distance / 1609344.0 ) 
+    sprintf( "%.1f miles", distance / 1609344.0 ) 
+  end
+  
+  def format_distance_in_kilometers(distance)
+    sprintf( "%.1f km", distance / 1000.0 ) 
   end
   
   def link_to_workout(workout, format = nil)
