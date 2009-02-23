@@ -9,10 +9,11 @@ atom_feed(:root_url => url_for(:controller => 'shared', :user => @user.username,
       entry.content :type => 'xhtml' do |xhtml|
         xhtml.div :id => "workout_#{workout.id}" do |div|
           div.div "Duration: #{nice_duration workout.markers.first.duration}", :id => "duration"
-          div.div "Average Power: #{workout.markers.first.avg_power}", :id => "average_power"
-          div.div "Norm Power: #{workout.markers.first.normalized_power}", :id => "normalized_power"
-          div.div "Average Speed: #{format_speed(workout.markers.first.avg_speed)}", :id => "average_speed"
-          div.div "Average Heartrate: #{workout.markers.first.avg_heartrate}", :id => "average_heartrate"
+          div.div "Distance: #{format_distance(workout.markers.first.distance, :include_units => true)}", :id => "distance"
+          div.div "Average Power: #{workout.markers.first.avg_power} W", :id => "average_power"
+          div.div "Norm Power: #{workout.markers.first.normalized_power} W", :id => "normalized_power"
+          div.div "Average Speed: #{format_speed(workout.markers.first.avg_speed, :include_units => true)}", :id => "average_speed"
+          div.div "Average Heartrate: #{workout.markers.first.avg_heartrate} bpm", :id => "average_heartrate"
           div.p "Notes: #{truncate(workout.notes, 50)}", :id => "notes"
         end
       end
