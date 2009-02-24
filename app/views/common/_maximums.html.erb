@@ -1,0 +1,23 @@
+<table border="0" cellspacing="0" cellpadding="3">
+  <tr><th colspan='2'>Maximums</th></tr>
+  <tr>
+    <td align="right"> Power :</td>
+    <td><%= @workout.markers.first.max_power %> W</td>
+  </tr>
+  <tr class="odd">
+    <td align="right"> Power to weight :</td>
+    <td><%= power_to_weight_ratio(@workout.markers.first.max_power) || "0.0" %> W/kg</td>
+  </tr>
+  <tr>
+    <td align="right"> Speed :</td>
+    <td><%= format_speed(@workout.markers.first.max_speed, :include_units => true) %></td>
+  </tr>
+  <tr class="odd">
+    <td align="right"> Cadence :</td>
+    <td><%= @workout.markers.first.max_cadence %> rpm</td>
+  </tr>
+  <tr>
+    <td align="right"> Heartrate :</td>
+    <td><%= @workout.markers.first.max_heartrate %> bpm</td>
+  </tr>
+</table>

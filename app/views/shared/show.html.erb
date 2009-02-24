@@ -33,8 +33,9 @@
                   <th>&nbsp;</th>
                   <th>Duration</th>
                   <th>Power (watts)</th>
+                  <th>W/kg</th>
                   <th>Energy (kJ)</th>
-                  <th>Speed (<%speed_units%>)</th>
+                  <th>Speed (<%= speed_units%>)</th>
                   <th>Cadence</th>
                   <th>Heartrate</th>
                 </tr>
@@ -57,7 +58,9 @@
       <%= render :partial => 'common/totals' %>
       <br />
       <%= render :partial => 'common/averages' %>
-      <br />     
+      <br /> 
+      <%= render :partial => 'common/maximums' %>
+      <br />    
     <% end %>
   <% end %>
   <% if @workout.has_training_files? %>

@@ -31,7 +31,8 @@
                   <tr>
                     <th>&nbsp;</th>
                     <th>Duration</th>
-                    <th>Power (watts)</th>
+                    <th>Power (W)</th>
+                    <th>W/kg</th>
                     <th>Energy (kJ)</th>
                     <th>Speed (<%=speed_units%>)</th>
                     <th>Cadence</th>
@@ -57,6 +58,9 @@
       <%= render :partial => 'common/totals' %>
       <br />
       <%= render :partial => 'common/averages' %>
+      <br />
+      
+      <%= render :partial => 'common/maximums' %>
       <br />
     <% end %>
   <% end %>
