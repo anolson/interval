@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 13) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -46,23 +46,25 @@ ActiveRecord::Schema.define(:version => 12) do
   add_index "data_values", ["training_file_id"], :name => "index_data_values_on_training_file_id"
 
   create_table "markers", :force => true do |t|
-    t.boolean "active",           :default => true
-    t.integer "avg_cadence",      :default => 0
-    t.integer "avg_heartrate",    :default => 0
-    t.integer "avg_power",        :default => 0
-    t.float   "avg_speed",        :default => 0.0
+    t.boolean "active",                  :default => true
+    t.integer "avg_cadence",             :default => 0
+    t.integer "avg_heartrate",           :default => 0
+    t.integer "avg_power",               :default => 0
+    t.float   "avg_speed",               :default => 0.0
     t.string  "comment"
-    t.integer "duration_seconds", :default => 0
-    t.float   "distance",         :default => 0.0
+    t.integer "duration_seconds",        :default => 0
+    t.float   "distance",                :default => 0.0
     t.integer "end"
-    t.integer "energy",           :default => 0
-    t.integer "max_cadence",      :default => 0
-    t.integer "max_heartrate",    :default => 0
-    t.integer "max_power",        :default => 0
-    t.float   "max_speed",        :default => 0.0
+    t.integer "energy",                  :default => 0
+    t.integer "max_cadence",             :default => 0
+    t.integer "max_heartrate",           :default => 0
+    t.integer "max_power",               :default => 0
+    t.float   "max_speed",               :default => 0.0
     t.integer "start"
     t.integer "workout_id"
-    t.integer "normalized_power", :default => 0
+    t.integer "normalized_power",        :default => 0
+    t.float   "average_power_to_weight", :default => 0.0
+    t.float   "maximum_power_to_weight", :default => 0.0
   end
 
   create_table "peak_powers", :force => true do |t|
@@ -77,7 +79,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.text     "description"
     t.integer  "workout_limit"
     t.string   "limit_by"
-    t.integer  "storage_limit", :limit => 8
+    t.integer  "storage_limit"
     t.float    "price"
     t.boolean  "enabled"
     t.boolean  "public"
@@ -102,7 +104,7 @@ ActiveRecord::Schema.define(:version => 12) do
   end
 
   create_table "subscriptions", :force => true do |t|
-    t.string   "paypal_profile_idcd"
+    t.string   "paypal_profile_id"
     t.integer  "plan_id"
     t.integer  "user_id"
     t.datetime "created_at"

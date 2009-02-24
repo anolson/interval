@@ -6,7 +6,7 @@
         </tr>
         <tr class="odd">
           <td align="right">Power to Weight :</td>
-          <td><%= power_to_weight_ratio(@workout.markers.first.avg_power) || "0.0"  %> W/kg</td>
+          <td><%= @workout.markers.first.average_power_to_weight(@user.preferences[:weight].to_f) %> W/kg</td>
         </tr>
         <tr>
           <td align="right">Norm Power&trade; :</td>
