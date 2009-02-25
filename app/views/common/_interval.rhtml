@@ -9,7 +9,7 @@
     <%= interval.avg_power %>/<%= interval.max_power %>
   </td>
   <td>
-    <%= power_to_weight_ratio(interval.avg_power) || "0.0" %>
+    <%= interval.average_power_to_weight(@user.preferences[:weight].to_f) %>
   </td>
   <td>
     <%= interval.energy %>
