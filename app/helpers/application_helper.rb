@@ -135,12 +135,6 @@ module ApplicationHelper
     @user.preferences[:units_of_measurement]
   end
   
-  def power_to_weight_ratio(power)
-    weight = @user.preferences[:weight].to_f
-    if(weight > 0)
-      (power/weight).round_with_precision(2)
-    end
-  end
   
   def link_to_workout(workout, format = nil)
     link_to workout.name, 
