@@ -22,7 +22,7 @@ class Marker < ActiveRecord::Base
   
   def average_power_to_weight(weight)
     power_to_weight = read_attribute(:average_power_to_weight)
-    if(power_to_weight.eql?(0.0))
+    if(power_to_weight.nil?)
       power_to_weight = calculate_power_to_weight(avg_power, weight)
       update_attribute(:average_power_to_weight, power_to_weight)    
     end
@@ -31,7 +31,7 @@ class Marker < ActiveRecord::Base
   
   def maximum_power_to_weight(weight)
     power_to_weight = read_attribute(:maximum_power_to_weight)
-    if(power_to_weight.eql?(0.0))
+    if(power_to_weight.nil?)
       power_to_weight = calculate_power_to_weight(max_power, weight)
       update_attribute(:maximum_power_to_weight, power_to_weight)    
     end
