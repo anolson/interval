@@ -13,14 +13,19 @@
           <td><%= @workout.markers.first.normalized_power %> W</td>
         </tr>
         <tr class="odd">
+          <td align="right">TSS/IF&trade; :</td>
+          <td><%= @workout.markers.first.tss_if(@user.preferences[:threshold_power].to_f) %></td>
+        </tr>
+        
+        <tr >
           <td align="right"> Speed :</td>
           <td><%= format_speed(@workout.markers.first.avg_speed, :include_units => true) %></td>
         </tr>
-        <tr>
+        <tr class="odd">
           <td align="right"> Cadence :</td>
           <td><%= @workout.markers.first.avg_cadence %> rpm</td>
         </tr>
-        <tr class="odd">
+        <tr >
           <td align="right"> Heartrate :</td>
           <td><%= @workout.markers.first.avg_heartrate %> bpm</td>
         </tr>
