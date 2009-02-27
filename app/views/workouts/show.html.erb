@@ -51,7 +51,8 @@
 
   </div>
 </div>
-<% sidebar_div_tag do %>
+<% content_tag :div, :id => "sidebar" do %>
+  
   <% rounded_box nil, "complete", "wide" do %>
     <div class="top">Workout Details</div>
     <% container "full" do %>
@@ -64,6 +65,7 @@
       <br />
     <% end %>
   <% end %>
+  
   <% if @workout.has_training_files? %>
     <%= render :partial => 'common/device_properties' %>
   <% end %>

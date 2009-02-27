@@ -32,7 +32,8 @@ module ApplicationHelper
   end
   
   def rounded_box(header, wrapper_size, box_size, options = {}, &block)
-    block_to_partial('common/rounded_box', options.merge(:header => header, :wrapper_size => wrapper_size, :box_size => box_size), &block)
+    block_to_partial('common/rounded_box', 
+      options.merge(:header => header, :wrapper_size => wrapper_size, :box_size => box_size), &block)
   end
   
   def container(size, options = {}, &block)
