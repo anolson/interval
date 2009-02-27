@@ -52,33 +52,32 @@ class Marker < ActiveRecord::Base
     training_stress_score_value = read_attribute(:training_stress_score)
     if(training_stress_score_value.nil?)
       training_stress_score_value = calculate_training_stress_score(threshold_power)
-      puts "tss_value: #{training_stress_score_value}"
       update_attribute(:training_stress_score, training_stress_score_value)    
     end
-    training_stress_score_value
+    training_stress_score_value.round
   end
 
   def calculate_training_stress_score(threshold_power)
-    normalized_work = normalized_power * duration_seconds
-    puts "normalized_work: #{normalized_work}"
-    raw_training_stress_score = normalized_work * intensity_factor(threshold_power)
-    puts "rawTSS: #{raw_training_stress_score}"
-    (raw_training_stress_score/(threshold_power * 3600)) * 100
+    if(threshold_power > 0)
+      normalized_work = normalized_power * duration_seconds
+      raw_training_stress_score = normalized_work * intensity_factor(threshold_power)
+      (raw_training_stress_score/(threshold_power * 3600)) * 100
+    end
   end
 
   def intensity_factor(threshold_power)
     intensity_factor_value = read_attribute(:intensity_factor)
     if(intensity_factor_value.nil?)
       intensity_factor_value = calculate_intensity_factor(threshold_power)
-      puts "if_value: #{intensity_factor_value}"
       update_attribute(:intensity_factor, intensity_factor_value)    
     end
-    intensity_factor_value
+    intensity_factor_value.round_with_precision(3)
   end
   
   def calculate_intensity_factor(threshold_power)
-    puts "if: #{normalized_power/threshold_power}"
-    normalized_power/threshold_power
+    if(threshold_power)
+      normalized_power/threshold_power
+    end
   end
   
 end
