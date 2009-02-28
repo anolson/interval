@@ -6,33 +6,38 @@
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.power] end, 
         :label => 'Power', 
-        :color => '#00A8F0'}
+        :color => '#00A8F0', 
+        :units => 'W'}
     end
     
     if params[:torque]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.torque] end, 
         :label => 'Torque', 
-        :color => '#A8F000'}
+        :color => '#A8F000',
+        :units => 'ft/lbs'}
     end
     
     if params[:heartrate]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.heartrate] end, 
         :label => 'Heartrate', 
-        :color => '#CB4B4B'}
+        :color => '#CB4B4B',
+        :units => 'bpm'}
     end
     if params[:cadence]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, v.cadence] end, 
         :label => 'Cadence', 
-        :color => '#F000A8'}
+        :color => '#F000A8',
+        :units => 'rpm'}
     end
     if params[:speed]
       data_series << {
         :data => @data_points.collect_with_index do |v, i| [i, format_speed(v.speed)] end, 
         :label => 'Speed', 
-        :color => '#00F048'}
+        :color => '#00F048', 
+        :units => speed_units}
     end
 
   #}

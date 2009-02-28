@@ -14,9 +14,16 @@
           <td align="right">Distance :</td>
           <td id="workout_distance"><%= format_distance(@workout.markers.first.distance, :include_units => true) %> </td>
         </tr>
-        
         <tr class="odd">
           <td align="right">Energy :</td>
           <td id="workout_energy"><%= @workout.markers.first.energy %> kJ</td>
+        </tr>
+        <tr>
+          <td align="right">Norm Power&trade; :</td>
+          <td><%= @workout.markers.first.normalized_power %> W</td>
+        </tr>
+        <tr class="odd">
+          <td align="right">TSS/IF&trade; :</td>
+          <td><%= @workout.markers.first.tss_if(@user.preferences[:threshold_power].to_f) %></td>
         </tr>
       </table>

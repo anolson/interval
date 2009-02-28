@@ -41,11 +41,12 @@ function drawPlot (series, options) {
 }
 
 function create_labels(series) {
-  label_template = new Template('<tr id="#{label}"><td align="right">#{name} :</td><td><span id="#{selected}">0</span></td></tr>');
+  label_template = new Template('<tr id="#{label}"><td align="right">#{name} :</td><td><span id="#{selected}">0</span> <span>#{units}</span></td></tr>');
   series.each(function(s, i) {
     if($('label_' + i) != null) $('label_' + i).remove();
     $('graph_labels').firstDescendant().insert(label_template.evaluate({
       name: s.label,
+			units: s.units,
       label: "label_" + i,
       selected: "selected_" + i,
     }));  
