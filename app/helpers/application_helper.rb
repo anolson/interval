@@ -75,6 +75,13 @@ module ApplicationHelper
     javascript_tag("$('#{id}').focus()")
   end
   
+  def format_power(power) power end
+  
+  def format_torque(torque) torque end
+  
+  def format_heartrate(heartrate) heartrate end
+
+  def format_cadence(cadence) cadence end
   
   def format_speed(speed, options = {})
     if units_of_measurement.eql?("english")
@@ -123,7 +130,38 @@ module ApplicationHelper
   def convert_speed_to_kmh(speed)
     (speed * 3600) / 1000000.0
   end  
+  
+  def units(measurement)
+    if(measurement.eql?(:power))
+      power_units
+    elsif(measurement.eql?(:torque))
+      torque_units
+    elsif(measurement.eql?(:heartrate_units))
+      heartrate_units
+    elsif(measurement.eql?(:cadence))
+      cadence_units
+    elsif(measurement.eql?(:speed))
+      speed_units
+    end
+    
+  end
 
+  def power_units()
+    "W"
+  end
+
+  def torque_units()
+    units_of_measurement.eql?("english") && "ft-lbs" || "N-m"
+  end
+  
+  def heartrate_units()
+    "bpm"
+  end
+  
+  def cadence_units()
+    "rpm"
+  end
+      
   def speed_units()
     units_of_measurement.eql?("english") && "mph" || "kmh"
   end
@@ -136,6 +174,19 @@ module ApplicationHelper
     @user.preferences[:units_of_measurement]
   end
   
+  def power_plot_line_color() "#00A8F0" end
+
+  def torque_plot_line_color() "#A8F000"end
+  
+  def heartrate_plot_line_color() "#CB4B4B" end
+  
+  def cadence_plot_line_color() "#F000A8" end
+  
+  def speed_plot_line_color() "#00F048" end  
+  
+  def available_plot_lines
+    [:power, :torque, :heartrate, :cadence, :speed]
+  end
   
   def link_to_workout(workout, format = nil)
     link_to workout.name, 
