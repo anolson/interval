@@ -1,6 +1,5 @@
 <% data_series = Array.new %>
 <%    
-
   params.to_options.each_key { |key|
     data_series << {
       :data => @data_points.collect_with_index do |v, i| [i, send("format_#{key}", v.send(key))] end, 

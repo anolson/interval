@@ -55,7 +55,7 @@ class WorkoutsController < ApplicationController
       format.html
       format.json {        
         @data_points = @workout.data_points
-        render :layout => false
+        render :template => 'common/workouts/show.json.erb', :layout => false
       }
     end
   end
