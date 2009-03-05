@@ -93,6 +93,10 @@ module WorkoutsHelper
   
   def speed_plot_line_color() "#00F048" end  
   
+  def plot_line_options()
+    params.sort.collect{|p| p[0].to_sym}.find_all{|p| available_plot_lines.include?(p)}
+  end
+  
   def available_plot_lines
     [:power, :torque, :heartrate, :cadence, :speed]
   end
