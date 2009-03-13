@@ -31,6 +31,28 @@
                 <td align="right">Time :</td><td><span id="selected_time">00:00:00</span></td>
               </tr>
             </table>
+            
+            
+            <table border="0" cellspacing="5" cellpadding="5">
+              <tr><td>Start</td> <td>End</td></tr>
+
+              <% @workout.markers.each_with_index do |marker, i| %>
+              <tr>
+                <td>
+                  <%= link_to_function("Select", "set_marker_selection(#{marker.start}, #{marker.end}); display_marker_details(#{marker.id}); ") %>
+                
+                <div id="<%= "marker_details_#{marker.id}" %>" style="display:none">
+                  <table border="0" cellspacing="5" cellpadding="5">
+                    <tr><td align=right>Duration</td><td><%= nice_duration marker.duration %></td></tr>
+                    <tr><td align=right>Distance</td><td><%= format_distance marker.distance %></td></tr>
+                    <tr><td align=right>Energy</td><td><%= marker.energy %> kJ</td></tr>
+                  </table>
+                </div>
+                </td>
+              <% end %>
+            </table>
+            <div id="marker_details_display"></div>
+            
           </div>
           <div class="smaller right">Note: Click and drag to see more detail.</div>
           <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
@@ -54,7 +76,8 @@
 
              			if(data_series){
              				$('plot').setStyle({'display':'block'});
-                     var f = drawPlot(data_series);
+                     //var f = drawPlot(data_series);
+                     plot = drawPlot(data_series);
                    }
              		}
              	});

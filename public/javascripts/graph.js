@@ -4,6 +4,8 @@ const CADENCE = 2;
 const HEARTRATE = 1;
 var time_series;
 var data_series;
+var plot;
+var zoom_on_selection;
     
 var global_options = {
 	grid: { 
@@ -86,6 +88,16 @@ function smooth_data(series) {
 	 return smoothed_data;	  
 }
 
+function set_marker_selection(start, end) {
+	zoom_on_selection = false;
+	plot.setSelection({x1:start, x2:end})	
+}
+
+function display_marker_details(id) {
+	var html = ${'marker_details_30'};
+	Element.update('marker_details_display', html);
+}
+
 $('plot').observe('flotr:mousemove', function(event){
   var pos = event.memo[1];
   var x=Math.round(pos.x);
@@ -96,7 +108,7 @@ $('plot').observe('flotr:mousemove', function(event){
     $('selected_' + i).innerHTML = s.data[x][1];
   });
   //$('selected_power').innerHTML = data_series[POWER]['data'][i][1];
-  
+  zoom_on_selection=true;
 });	
 
 $('plot').observe('mouseout', function(event){
@@ -106,14 +118,20 @@ $('plot').observe('mouseout', function(event){
   });
 });
 
+/*$('plot').observe('click', function(event){
+	zoom_on_selection=true;
+});*/
+
 $('plot').observe('flotr:select', function(event){
-	var selection = event.memo[0];
- 	var begin = Math.round(selection.x1);
- 	var end = Math.round(selection.x2);
-  var f = drawPlot(slice_data(data_series, begin, end));
- 	Element.show('zoom_reset');
+	if(zoom_on_selection == true) {
+		var selection = event.memo[0];
+ 		var begin = Math.round(selection.x1);
+ 		var end = Math.round(selection.x2);
+  	plot = drawPlot(slice_data(data_series, begin, end));
+ 		Element.show('zoom_reset');
+	}
 });
 
 $('zoom_reset').observe('click', function() { 
-	drawPlot(data_series, {}); Element.hide('zoom_reset'); 
+	plot = drawPlot(data_series, {}); Element.hide('zoom_reset'); 
 });
