@@ -33,13 +33,14 @@
             </table>
             
             
-            <table border="0" cellspacing="5" cellpadding="5">
-              <tr><td>Start</td> <td>End</td></tr>
+            <div>
+              <table border="0" cellspacing="5" cellpadding="5">
+              <tr><td>Markers</td></tr>
 
               <% @workout.markers.each_with_index do |marker, i| %>
               <tr>
                 <td>
-                  <%= link_to_function("Select", "set_marker_selection(#{marker.start}, #{marker.end}); display_marker_details(#{marker.id}); ") %>
+                  <%= link_to_function("Select", "select_marker(#{marker.id}, #{marker.start}, #{marker.end})") %>
                 
                 <div id="<%= "marker_details_#{marker.id}" %>" style="display:none">
                   <table border="0" cellspacing="5" cellpadding="5">
@@ -52,6 +53,7 @@
               <% end %>
             </table>
             <div id="marker_details_display"></div>
+            </div>
             
           </div>
           <div class="smaller right">Note: Click and drag to see more detail.</div>

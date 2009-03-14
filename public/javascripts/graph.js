@@ -88,14 +88,18 @@ function smooth_data(series) {
 	 return smoothed_data;	  
 }
 
+function select_marker(id, start, end) {
+	set_marker_selection(start, end);
+	display_marker_details('marker_details_' + id);
+}
+
 function set_marker_selection(start, end) {
 	zoom_on_selection = false;
 	plot.setSelection({x1:start, x2:end})	
 }
 
 function display_marker_details(id) {
-	var html = ${'marker_details_30'};
-	Element.update('marker_details_display', html);
+	Element.update('marker_details_display', $(id).innerHTML);
 }
 
 $('plot').observe('flotr:mousemove', function(event){
