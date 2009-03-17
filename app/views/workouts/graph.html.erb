@@ -11,7 +11,7 @@
   <% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
 <% end %>
 
-<div id="main">
+<dim id="main_wrapper"><div id="main">
   <% rounded_box nil, "complete", "full" do %> 
 
     <% if @user.preferences[:graph]  %>
@@ -20,43 +20,24 @@
           <div class="zoom">   
             <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
           </div>
-          <div id="plot" class="plot" style="height:400px; width:850px">
-            <div id="loader" style="padding-top: 150px; text-align:center">
-            <%= image_tag("loader.gif") %><br/>
-            Loading graph.</div>
+          <div class="container complete">
+            <div id="plot" class="plot" style="height:400px; width:700px">
+              <div id="loader" style="padding-top: 150px; text-align:center">
+              <%= image_tag("loader.gif") %><br/>
+              Loading graph.</div>
+            </div>
+
+            
           </div>
-          <div id="graph_summary">      
+          <div id="graph_summary" >      
             <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
               <tr>
-                <td align="right">Time :</td><td><span id="selected_time">00:00:00</span></td>
+                <td align="left">Time : <span id="selected_time">00:00:00</span></td>
               </tr>
             </table>
-            
-            
-            <div>
-              <table border="0" cellspacing="5" cellpadding="5">
-              <tr><td>Markers</td></tr>
-
-              <% @workout.markers.each_with_index do |marker, i| %>
-              <tr>
-                <td>
-                  <%= link_to_function("Select", "select_marker(#{marker.id}, #{marker.start}, #{marker.end})") %>
-                
-                <div id="<%= "marker_details_#{marker.id}" %>" style="display:none">
-                  <table border="0" cellspacing="5" cellpadding="5">
-                    <tr><td align=right>Duration</td><td><%= nice_duration marker.duration %></td></tr>
-                    <tr><td align=right>Distance</td><td><%= format_distance marker.distance %></td></tr>
-                    <tr><td align=right>Energy</td><td><%= marker.energy %> kJ</td></tr>
-                  </table>
-                </div>
-                </td>
-              <% end %>
-            </table>
-            <div id="marker_details_display"></div>
-            </div>
-            
           </div>
-          <div class="smaller right">Note: Click and drag to see more detail.</div>
+          <br/>
+          <div class="smaller right">Note: Click and drag to see more detail.</div>  
           <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
 
           <script type="text/javascript">
@@ -107,4 +88,37 @@
     <% end %>
   <% end %>
   <%= render :partial => 'common/back' %>
-</div>
+</div></dim>
+
+<% content_tag :div, :id => "sidebar" do %>
+  
+  <% rounded_box nil, "complete", "wide" do %>
+    <div class="top">Intervals</div>
+    
+  
+    <% content_tag :div, :class => "container full" do %>
+      <div>
+        <table border="0" cellspacing="5" cellpadding="5">
+        <tr><td>Markers</td></tr>
+
+        <% @workout.markers.each_with_index do |marker, i| %>
+        <tr>
+          <td>
+            <%= link_to_function("Select", "select_marker(#{marker.id}, #{marker.start}, #{marker.end})") %>
+        
+          <div id="<%= "marker_details_#{marker.id}" %>" style="display:none">
+            <table border="0" cellspacing="5" cellpadding="5">
+              <tr><td align=right>Duration</td><td><%= nice_duration marker.duration %></td></tr>
+              <tr><td align=right>Distance</td><td><%= format_distance marker.distance %></td></tr>
+              <tr><td align=right>Energy</td><td><%= marker.energy %> kJ</td></tr>
+            </table>
+          </div>
+          </td>
+        <% end %>
+      </table>
+      <div id="marker_details_display"></div>
+      </div>
+    <% end %>
+  <% end %>
+  
+<% end %>

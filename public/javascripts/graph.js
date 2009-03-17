@@ -26,7 +26,7 @@ var global_options = {
    	show: true,
    	location: 'ne'
  	}, 
- 	shadowSize: 2
+ 	shadowSize: 1
 } 
 
 function xAxisFormatter(label) {
@@ -43,10 +43,11 @@ function drawPlot (series, options) {
 }
 
 function create_labels(series) {
-  label_template = new Template('<tr id="#{label}"><td align="right">#{name} :</td><td><span id="#{selected}">0</span> <span>#{units}</span></td></tr>');
+  //label_template = new Template('<tr id="#{label}"><td align="right">#{name} :</td><td><span id="#{selected}">0</span> <span>#{units}</span></td></tr>');
+  label_template = new Template('<td id="#{label}" align="center">#{name} : <span id="#{selected}">0</span> <span>#{units}</span></td>');
   series.each(function(s, i) {
     if($('label_' + i) != null) $('label_' + i).remove();
-    $('graph_labels').firstDescendant().insert(label_template.evaluate({
+    $('graph_labels').firstDescendant().firstDescendant().insert(label_template.evaluate({
       name: s.label,
 			units: s.units,
       label: "label_" + i,
@@ -62,6 +63,7 @@ function slice_data(series, start, end) {
   series.each(function(s, i) {
     sliced[i] = new Object();
     sliced[i].label = s.label;
+		sliced[i].units = s.units;
 		sliced[i].color = s.color;	
     sliced[i].data = s.data.slice(start, end);
   });
@@ -81,6 +83,7 @@ function smooth_data(series) {
 		series.each(function(s, i) {
 	    smoothed_data[i] = Object();
 	    smoothed_data[i].label = s.label;
+			smoothed_data[i].units = s.units;
 			smoothed_data[i].color = s.color;
 	    smoothed_data[i].data = s.data.eachSlice(size, function(point) { return point.first(); } );
 	  });
