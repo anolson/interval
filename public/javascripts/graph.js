@@ -102,7 +102,18 @@ function set_marker_selection(start, end) {
 }
 
 function display_marker_details(id) {
-	Element.update('marker_details_display', $(id).innerHTML);
+	//$(id).toggle();
+	
+	if(!$(id).visible()) {
+		Effect.SlideDown(id);
+	}
+	else {
+		Effect.SlideUp(id);
+		plot.clearSelection();
+	}
+	
+	
+	//Element.update('marker_details_display', $(id).innerHTML);
 }
 
 $('plot').observe('flotr:mousemove', function(event){
