@@ -5,7 +5,7 @@
     <td><%= @workout.markers.first.max_power %> W</td>
   </tr>
   <tr class="odd">
-    <td align="right"> Power to weight :</td>
+    <td align="right"> Power / Weight :</td>
     <td><%= @workout.markers.first.maximum_power_to_weight(@user.preferences[:weight].to_f) %> W/kg</td>
   </tr>
   <tr>
