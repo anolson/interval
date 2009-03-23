@@ -1,29 +1,31 @@
-      <table border="0" cellspacing="0" cellpadding="3">
-        <tr><th colspan='2'>Totals</th></tr>
-        <% if @workout.has_training_files? && @workout.training_files.first.powermeter_properties.class.eql?(SrmProperties) %>
-        <tr>
-          <td align="right">Total Time :</td>
-          <td><%= nice_duration(Time.at(@workout.training_files.first.data_values.last.time_with_pauses).utc) %></td>
-        </tr>
-        <% end %>
-        <tr class="odd">
-          <td align="right">Ride Time :</td>
-          <td id="workout_duration" ><%= nice_duration(@workout.markers.first.duration) %></td>
-        </tr>
-        <tr>
-          <td align="right">Distance :</td>
-          <td id="workout_distance"><%= format_distance(@workout.markers.first.distance, :include_units => true) %> </td>
-        </tr>
-        <tr class="odd">
-          <td align="right">Energy :</td>
-          <td id="workout_energy"><%= @workout.markers.first.energy %> kJ</td>
-        </tr>
-        <tr>
-          <td align="right">Norm Power&trade; :</td>
-          <td><%= @workout.markers.first.normalized_power %> W</td>
-        </tr>
-        <tr class="odd">
-          <td align="right">TSS/IF&trade; :</td>
-          <td><%= @workout.markers.first.tss_if(@user.preferences[:threshold_power].to_f) %></td>
-        </tr>
-      </table>
+      <div class="twoColumn">
+        <table border="0" cellspacing="0" cellpadding="3">
+          <tr><th colspan='2'>Totals</th></tr>
+          <% if @workout.has_training_files? && @workout.training_files.first.powermeter_properties.class.eql?(SrmProperties) %>
+          <tr>
+            <td align="right">Total Time :</td>
+            <td><%= nice_duration(Time.at(@workout.training_files.first.data_values.last.time_with_pauses).utc) %></td>
+          </tr>
+          <% end %>
+          <tr class="odd">
+            <td align="right">Ride Time :</td>
+            <td id="workout_duration" ><%= nice_duration(@workout.markers.first.duration) %></td>
+          </tr>
+          <tr>
+            <td align="right">Distance :</td>
+            <td id="workout_distance"><%= format_distance(@workout.markers.first.distance, :include_units => true) %> </td>
+          </tr>
+          <tr class="odd">
+            <td align="right">Energy :</td>
+            <td id="workout_energy"><%= @workout.markers.first.energy %> kJ</td>
+          </tr>
+          <tr>
+            <td align="right">Norm Power&trade; :</td>
+            <td><%= @workout.markers.first.normalized_power %> W</td>
+          </tr>
+          <tr class="odd">
+            <td align="right">TSS/IF&trade; :</td>
+            <td><%= @workout.markers.first.tss_if(@user.preferences[:threshold_power].to_f) %></td>
+          </tr>
+        </table>
+      </div>

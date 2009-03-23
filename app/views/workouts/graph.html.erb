@@ -97,27 +97,36 @@
     
   
     <% content_tag :div, :class => "container full" do %>
-      <div>
-        <table border="0" cellspacing="5" cellpadding="5">
-        <tr><td>Markers</td></tr>
-
+      <div class="threeColumn">
+        <table border="0" cellspacing="0" cellpadding="3">
         <% @workout.markers.each_with_index do |marker, i| %>
-        <tr>
-          <td>
-            <%= link_to_function("Select", "select_marker(#{marker.id}, #{marker.start}, #{marker.end})") %>
-        
-          <div id="<%= "marker_details_#{marker.id}" %>" style="display:none">
-            <table border="0" cellspacing="5" cellpadding="5">
-              <tr><td align=right>Duration</td><td><%= nice_duration marker.duration %></td></tr>
-              <tr><td align=right>Distance</td><td><%= format_distance marker.distance %></td></tr>
-              <tr><td align=right>Energy</td><td><%= marker.energy %> kJ</td></tr>
-            </table>
-          </div>
-          </td>
+          <tr>
+            <td align="right">
+              <%= link_to_function( ( (i>0) && "#{'Interval #' + i.to_s}" || "Entire workout"), "select_marker(#{marker.id}, #{marker.start}, #{marker.end})") %>
+            </td>
+            <td>
+              <%= nice_duration marker.duration%>
+            </td>
+            <td>
+              <%= format_distance(marker.distance, :include_units => true) %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div id="<%= "marker_details_#{marker.id}" %>" style="display:none">
+                <table border="0" cellspacing="0" cellpadding="3">
+                  <tr><td align=right>Duration</td><td><%= nice_duration marker.duration %></td></tr>
+                  <tr><td align=right>Distance</td><td><%= format_distance marker.distance %></td></tr>
+                  <tr><td align=right>Energy</td><td><%= marker.energy %> kJ</td></tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+            
         <% end %>
-      </table>
-      <div id="marker_details_display" style="display:none"></div>
+        </table>
       </div>
+
     <% end %>
   <% end %>
   

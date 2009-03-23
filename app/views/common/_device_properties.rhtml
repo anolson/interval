@@ -2,24 +2,26 @@
       <% rounded_box nil, "complete", "wide" do %>
         <div class="top">Device Properties</div>
         <% container "full" do %>
-          <table border="0" cellspacing="0" cellpadding="3">
-            <tr>
-              <td align="right"> Slope :</td>
-              <td><%= sprintf("%.1f", @workout.training_files.first.powermeter_properties.slope) %> Hz/Nm</td>
-            </tr>
-            <tr class="odd">
-              <td align="right"> Wheel Size :</td>
-              <td><%= @workout.training_files.first.powermeter_properties.wheel_size %> mm</td>
-            </tr>
-            <tr>
-              <td align="right"> Zero Offset :</td>
-              <td><%= @workout.training_files.first.powermeter_properties.zero_offset %> Hz </td>
-            </tr>
-            <tr class="odd">
-              <td align="right"> Temp :</td>
-              <td><%= @workout.training_files.first.powermeter_properties.comment.split(" ").first %>&deg;</td>
-            </tr>
-          </table>
+          <div class="twoColumn">
+            <table border="0" cellspacing="0" cellpadding="3">
+              <tr>
+                <td align="right"> Slope :</td>
+                <td><%= sprintf("%.1f", @workout.training_files.first.powermeter_properties.slope) %> Hz/Nm</td>
+              </tr>
+              <tr class="odd">
+                <td align="right"> Wheel Size :</td>
+                <td><%= @workout.training_files.first.powermeter_properties.wheel_size %> mm</td>
+              </tr>
+              <tr>
+                <td align="right"> Zero Offset :</td>
+                <td><%= @workout.training_files.first.powermeter_properties.zero_offset %> Hz </td>
+              </tr>
+              <tr class="odd">
+                <td align="right"> Temp :</td>
+                <td><%= @workout.training_files.first.powermeter_properties.comment.split(" ").first %>&deg;</td>
+              </tr>
+            </table>
+          </div>
         <% end %>
       <% end %>
     <% end %>

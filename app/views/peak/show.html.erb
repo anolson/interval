@@ -42,22 +42,25 @@
   <div class="top">Peak Power</div>
    <% container "full" do %>
     <% unless @workout.peak_powers.empty? %>
-    <table border="0" cellspacing="0" cellpadding="3">
-      <tr>
-        <th colspan=2>This Workout</th> 
-      </tr>
-      <%= render :partial => 'peak_power', :collection => @workout.peak_powers %>
-    </table>
+    <div class="twoColumn">
+      <table border="0" cellspacing="0" cellpadding="3">
+        <tr>
+          <th colspan=2>This Workout</th> 
+        </tr>
+        <%= render :partial => 'peak_power', :collection => @workout.peak_powers %>
+      </table>
+    </div>
     <p class="smaller">* Indicates a new all time best peak power.</p>
     <br />
     <% end %>
-    <table border="0" cellspacing="0" cellpadding="3">
-      <tr>
-        <th colspan=2>All time best</th> 
-      </tr>
-      <%= render :partial => 'all_time_best', :collection => @all_time_best %>
-    </table>
-    
+    <div class="twoColumn">
+      <table border="0" cellspacing="0" cellpadding="3">
+        <tr>
+          <th colspan=2>All time best</th> 
+        </tr>
+        <%= render :partial => 'all_time_best', :collection => @all_time_best %>
+      </table>
+    </div>
   <% end %>
   <% end %>
 <% end %>
