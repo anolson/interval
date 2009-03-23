@@ -26,7 +26,7 @@ class Marker < ActiveRecord::Base
       power_to_weight = calculate_power_to_weight(avg_power, weight)
       update_attribute(:average_power_to_weight, power_to_weight)    
     end
-    power_to_weight
+    power_to_weight.nil? && 0.0 || power_to_weight
   end
   
   def maximum_power_to_weight(weight)
@@ -35,7 +35,7 @@ class Marker < ActiveRecord::Base
       power_to_weight = calculate_power_to_weight(max_power, weight)
       update_attribute(:maximum_power_to_weight, power_to_weight)    
     end
-    power_to_weight
+    power_to_weight.nil? && 0.0 || power_to_weight
   end
   
   def calculate_power_to_weight(power, weight)
@@ -52,9 +52,9 @@ class Marker < ActiveRecord::Base
     training_stress_score_value = read_attribute(:training_stress_score)
     if(training_stress_score_value.nil?)
       training_stress_score_value = calculate_training_stress_score(threshold_power)
-      update_attribute(:training_stress_score, training_stress_score_value)    
+      update_attribute(:training_stress_score, training_stress_score_value)
     end
-    training_stress_score_value.round
+    training_stress_score_value.nil? && 0 || training_stress_score_value.round
   end
 
   def calculate_training_stress_score(threshold_power)
@@ -71,11 +71,11 @@ class Marker < ActiveRecord::Base
       intensity_factor_value = calculate_intensity_factor(threshold_power)
       update_attribute(:intensity_factor, intensity_factor_value)    
     end
-    intensity_factor_value.round_with_precision(3)
+    intensity_factor_value.nil? && 0.0 || intensity_factor_value.round_with_precision(3)
   end
   
   def calculate_intensity_factor(threshold_power)
-    if(threshold_power)
+    if(threshold_power > 0)
       normalized_power/threshold_power
     end
   end
