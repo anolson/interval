@@ -11,84 +11,86 @@
   <% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
 <% end %>
 
-<dim id="main_wrapper"><div id="main">
-  <% rounded_box nil, "complete", "full" do %> 
+<div id="main_wrapper">
+  <div id="main">
+    <% rounded_box nil, "complete", "full" do %> 
 
-    <% if @user.preferences[:graph]  %>
-      <% container "full" do %>
-        <% if @workout.has_training_files? %>
-          <div class="zoom">   
-            <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
-          </div>
-          <div class="container complete">
-            <div id="plot" class="plot" style="height:400px; width:700px">
-              <div id="loader" style="padding-top: 150px; text-align:center">
-              <%= image_tag("loader.gif") %><br/>
-              Loading graph.</div>
+      <% if @user.preferences[:graph]  %>
+        <% container "full" do %>
+          <% if @workout.has_training_files? %>
+            <div class="zoom">   
+              <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
             </div>
+            <div class="container complete">
+              <div id="plot" class="plot" style="height:400px; width:700px">
+                <div id="loader" style="padding-top: 150px; text-align:center">
+                <%= image_tag("loader.gif") %><br/>
+                Loading graph.</div>
+              </div>
 
-            
-          </div>
-          <div id="graph_summary" >      
-            <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
-              <tr>
-                <td align="left">Time : <span id="selected_time">00:00:00</span></td>
-              </tr>
-            </table>
-          </div>
-          <br/>
-          <div class="smaller right">Note: Click and drag to see more detail.</div>  
-          <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
+              
+            </div>
+            <div id="graph_summary" >      
+              <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
+                <tr>
+                  <td align="left">Time : <span id="selected_time">00:00:00</span></td>
+                </tr>
+              </table>
+            </div>
+            <br/>
+            <div class="smaller right">Note: Click and drag to see more detail.</div>  
+            <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
 
-          <script type="text/javascript">
-            document.observe('dom:loaded', function(){
-              Element.hide('zoom_reset');
-              <% 
-                graph_options = @user.preferences[:graph].collect { |k,v| 
-                  v && k.to_s + '=true' || nil
-                }.join("&")
-              %>
-              var url = "<%= "/workouts/show/#{@workout.id}.json?#{graph_options}" %>";
+            <script type="text/javascript">
+              document.observe('dom:loaded', function(){
+                Element.hide('zoom_reset');
+                <% 
+                  graph_options = @user.preferences[:graph].collect { |k,v| 
+                    v && k.to_s + '=true' || nil
+                  }.join("&")
+                %>
+                var url = "<%= "/workouts/show/#{@workout.id}.json?#{graph_options}" %>";
 
-              new Ajax.Request(url, {
-             		method:'get',
-             		onSuccess: function(transport){
-             			var json = transport.responseText.evalJSON();
-             			data_series = json.data_series
-             			time_series = json.time_series
+                new Ajax.Request(url, {
+                  method:'get',
+                  onSuccess: function(transport){
+                    var json = transport.responseText.evalJSON();
+                    data_series = json.data_series
+                    time_series = json.time_series
 
-             			if(data_series){
-             				$('plot').setStyle({'display':'block'});
-                     //var f = drawPlot(data_series);
-                     plot = drawPlot(data_series);
-                   }
-             		}
-             	});
-            });
-          </script>
-        <% else %>
-          <div class="left container full">
-           <div class="highlight_box full">
-             <br />
-            <div class="large center">No graph data available for this workout.</div>
-            <br />
-           </div>
-          </div>
+                    if(data_series){
+                      $('plot').setStyle({'display':'block'});
+                       //var f = drawPlot(data_series);
+                       plot = drawPlot(data_series);
+                     }
+                  }
+                });
+              });
+            </script>
+          <% else %>
+            <div class="left container full">
+             <div class="highlight_box full">
+               <br />
+              <div class="large center">No graph data available for this workout.</div>
+              <br />
+             </div>
+            </div>
+          <% end %>
         <% end %>
+      <% else %>
+        <div class="center container half">
+         <div class="highlight_box full">
+          <br />
+          <span class="large">You have not selected anything to graph.</span>
+          <h2><%= link_to "Update your preferences.", :controller => "preferences", :action => "index" %></h2>
+          <br />
+         </div>
+        </div>
       <% end %>
-    <% else %>
-      <div class="center container half">
-       <div class="highlight_box full">
-        <br />
-        <span class="large">You have not selected anything to graph.</span>
-        <h2><%= link_to "Update your preferences.", :controller => "preferences", :action => "index" %></h2>
-        <br />
-       </div>
-      </div>
     <% end %>
-  <% end %>
-  <%= render :partial => 'common/back' %>
-</div></dim>
+    <%= render :partial => 'common/back' %>
+  </div>
+</div>
 
 <% content_tag :div, :id => "sidebar" do %>
   
@@ -99,10 +101,15 @@
     <% content_tag :div, :class => "container full" do %>
       <div class="threeColumn">
         <table border="0" cellspacing="0" cellpadding="3">
+          <tr>
+            <th>&nbsp;</th>
+            <th>Time</th>
+            <th>Distance</th>
+          </tr>
         <% @workout.markers.each_with_index do |marker, i| %>
           <tr>
             <td align="right">
-              <%= link_to_function( ( (i>0) && "#{'Interval #' + i.to_s}" || "Entire workout"), "select_marker(#{marker.id}, #{marker.start}, #{marker.end})") %>
+              <%= link_to_function( ( (i>0) && "Inteval #{i}." || "Workout."), "select_marker(#{marker.id}, #{marker.start}, #{marker.end})") %>
             </td>
             <td>
               <%= nice_duration marker.duration%>
@@ -113,11 +120,56 @@
           </tr>
           <tr>
             <td colspan="3">
-              <div id="<%= "marker_details_#{marker.id}" %>" style="display:none">
+            
+              <div id="<%= "marker_details_#{marker.id}" %>" style="display:none" class="markerDetails">
                 <table border="0" cellspacing="0" cellpadding="3">
-                  <tr><td align=right>Duration</td><td><%= nice_duration marker.duration %></td></tr>
-                  <tr><td align=right>Distance</td><td><%= format_distance marker.distance %></td></tr>
-                  <tr><td align=right>Energy</td><td><%= marker.energy %> kJ</td></tr>
+                  <tr><td align=right>Energy :</td><td><%= marker.energy %> kJ</td></tr>
+                  <tr><td align=right>NP :</td><td><%= marker.normalized_power %> W</td></tr>
+                  <tr><td align=right>TSS/IF :</td><td><%= marker.tss_if(@user.preferences[:threshold_power].to_f) %> </td></tr>
+                  <tr>
+                    <td colspan="2">
+                      <div class="averageMaximum">
+                      <table border="0" cellspacing="0" cellpadding="3" class="smaller">
+                        
+                        <tr>
+                          <th>&nbsp;</th>
+                          <th>Avg</th>
+                          <th>Max</th>
+                        </tr>
+                        <tr>
+                          <td>Power</td>
+                          <td><%= marker.avg_power %> W</td>
+                          <td><%= marker.max_power %> W</td>
+                        </tr>                        
+
+                        <tr class="odd">
+                          <td>P:W</td>
+                          <td><%= marker.average_power_to_weight(@user.preferences[:weight].to_f) %> W/kg</td>
+                          <td><%= marker.maximum_power_to_weight(@user.preferences[:weight].to_f) %> W/kg</td>
+                        </tr>
+                        
+                        <tr>
+                          <td>Speed</td>
+                          <td><%= format_speed(marker.avg_speed, :include_units => true) %></td>
+                          <td><%= format_speed(marker.max_speed, :include_units => true) %></td>
+                        </tr>
+                        
+                        <tr class="odd">
+                          <td>Cadence</td>
+                          <td><%= marker.avg_cadence %> rpm</td>
+                          <td><%= marker.max_cadence %> rpm</td>
+                        </tr>
+                        
+                        <tr>
+                          <td>Heartrate</td>
+                          <td><%= marker.avg_heartrate %> bpm</td>
+                          <td><%= marker.max_heartrate %> bpm</td>
+                        </tr>
+                                                                                                
+                      </table>
+                      </div>
+                    </td>
+                  </tr>
                 </table>
               </div>
             </td>

@@ -6,6 +6,7 @@ var time_series;
 var data_series;
 var plot;
 var zoom_on_selection;
+var previous_marker_id;
     
 var global_options = {
 	grid: { 
@@ -93,27 +94,35 @@ function smooth_data(series) {
 
 function select_marker(id, start, end) {
 	set_marker_selection(start, end);
-	display_marker_details('marker_details_' + id);
+  hide_previous_marker_details(id);
+	display_marker_details(id);
 }
 
 function set_marker_selection(start, end) {
 	zoom_on_selection = false;
-	plot.setSelection({x1:start, x2:end})	
+  plot.setSelection({x1:start, x2:end})	
+}
+
+function hide_previous_marker_details(id) {
+  if(previous_marker_id && previous_marker_id != id) {
+    $('marker_details_' + previous_marker_id).hide();
+  }
 }
 
 function display_marker_details(id) {
-	//$(id).toggle();
-	
-	if(!$(id).visible()) {
-		Effect.SlideDown(id);
+	marker_details_id = 'marker_details_' + id
+  
+	if(!$(marker_details_id).visible()) {
+    previous_marker_id = id;
 	}
 	else {
-		Effect.SlideUp(id);
-		plot.clearSelection();
+    previous_marker_id = null;
+    plot.clearSelection();
 	}
-	
-	
-	//Element.update('marker_details_display', $(id).innerHTML);
+  //Effect.SlideUp(id);
+  $(marker_details_id).toggle();
+
+
 }
 
 $('plot').observe('flotr:mousemove', function(event){
