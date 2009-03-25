@@ -38,6 +38,11 @@ ActionController::Routing::Routes.draw do |map|
       :action => 'tour'
     
   map.root :controller => 'site', :action => 'index'
+
+
+  map.connect 'shared/:user/:action.:format',
+    :requirements => { :user => /\w[\w\.\-_@]+/ },
+    :controller => 'shared'
     
   map.connect 'shared/:user/:action/:id.:format',
     :requirements => { :user => /\w[\w\.\-_@]+/ },
