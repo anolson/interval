@@ -11,7 +11,7 @@
 #main .stats{margin:5px;text-align:right;}
 #main .notes{font-family:Monaco;margin:10px 5px;}
 #main .edit{float:left;margin:8px 0 0 8px;}
-#main .zoom{text-align:right;margin:0px 20px;}
+#main .zoom{text-align:right;}
 #main .plot{margin:10px auto;}
 #more{width:100%;float:left;}
 #more p{margin:15px;}

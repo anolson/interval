@@ -1,0 +1,68 @@
+
+          <tr>
+            <td align="right">
+              <%= link_to_function( ( (graph_marker_counter > 0) && "Inteval #{graph_marker_counter}." || "Workout."), "select_marker(#{graph_marker.id}, #{graph_marker.start}, #{graph_marker.end})") %>
+            </td>
+            <td>
+              <%= nice_duration graph_marker.duration%>
+            </td>
+            <td>
+              <%= format_distance(graph_marker.distance, :include_units => true) %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div id="<%= "marker_details_#{graph_marker.id}" %>" style="display:none" class="markerDetails">
+                <table border="0" cellspacing="0" cellpadding="3">
+                  <tr><td align=right>Energy :</td><td><%= graph_marker.energy %> kJ</td></tr>
+                  <tr><td align=right>NP :</td><td><%= graph_marker.normalized_power %> W</td></tr>
+                  <tr><td align=right>TSS/IF :</td><td><%= graph_marker.tss_if(@user.preferences[:threshold_power].to_f) %> </td></tr>
+                  <tr>
+                    <td colspan="2">
+                      <div class="averageMaximum">
+                      <table border="0" cellspacing="0" cellpadding="3">
+                        
+                        <tr>
+                          <th>&nbsp;</th>
+                          <th>Avg</th>
+                          <th>Max</th>
+                        </tr>
+                        <tr>
+                          <td>Power</td>
+                          <td><%= graph_marker.avg_power %> W</td>
+                          <td><%= graph_marker.max_power %> W</td>
+                        </tr>                        
+
+                        <tr class="odd">
+                          <td>P:W</td>
+                          <td><%= graph_marker.average_power_to_weight(@user.preferences[:weight].to_f) %> W/kg</td>
+                          <td><%= graph_marker.maximum_power_to_weight(@user.preferences[:weight].to_f) %> W/kg</td>
+                        </tr>
+                        
+                        <tr>
+                          <td>Speed</td>
+                          <td><%= format_speed(graph_marker.avg_speed, :include_units => true) %></td>
+                          <td><%= format_speed(graph_marker.max_speed, :include_units => true) %></td>
+                        </tr>
+                        
+                        <tr class="odd">
+                          <td>Cadence</td>
+                          <td><%= graph_marker.avg_cadence %> rpm</td>
+                          <td><%= graph_marker.max_cadence %> rpm</td>
+                        </tr>
+                        
+                        <tr>
+                          <td>Heartrate</td>
+                          <td><%= graph_marker.avg_heartrate %> bpm</td>
+                          <td><%= graph_marker.max_heartrate %> bpm</td>
+                        </tr>
+                                                                                                
+                      </table>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+

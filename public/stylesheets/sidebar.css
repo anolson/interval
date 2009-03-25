@@ -21,3 +21,6 @@
 
 .averageMaximum table{background:#FFF;margin:5px auto;width:95%;font-size:11px;text-align:left;border:2px solid #CCC;}
 .averageMaximum td{width:33%;}
+
+#sidebar ul{list-style-type:none; padding-left:15px; margin:5px 0}
+#sidebar li{margin-bottom:2px}

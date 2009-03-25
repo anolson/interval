@@ -43,6 +43,7 @@ class SummaryController < ApplicationController
     
     def summary_for_period(range, period, type)
       workouts = Workout.find_by_date_range(range, session[:user])
+      
       { :period => period,
         :type => type,
         :duration => Time.at(PowerCalculator::total(workouts.collect {|workout| workout.markers.first.duration.to_i unless workout.processing?}) || 0).utc,

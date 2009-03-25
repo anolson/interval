@@ -1,0 +1,19 @@
+    <% if @workout.markers.count > 0 %>
+      <div class="top">Intervals</div>
+      <% content_tag :div, :class => "container full" do %>
+
+        <div class="threeColumn">
+          <table border="0" cellspacing="0" cellpadding="3">
+            <tr>
+              <th>&nbsp;</th>
+              <th>Time</th>
+              <th>Distance</th>
+            </tr>
+            
+            <%= render :partial => 'common/workouts/graph_marker', :collection => @workout.markers%>
+            
+            
+          </table>
+        </div>      
+      <% end %>
+    <% end%>

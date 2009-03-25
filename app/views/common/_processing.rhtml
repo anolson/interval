@@ -1,6 +1,8 @@
 <% unless processing.empty? %>
-  <div class="container wide" id="processing">
-    <span class="light">Processing <%= pluralize processing.size, "workout" %>.</span>
-    <%= render :partial => "common/processing_workout", :collection => processing %>
+  <div class="container wide">
+    <div id="processing">
+      <span class="light">Processing <%= pluralize processing.size, "workout" %>.</span>
+      <%= render :partial => "common/processing_workout", :collection => processing %>    
+    </div>
   </div>
 <% end %>
