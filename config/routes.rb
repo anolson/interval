@@ -1,8 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  #map.resources :articles
-
-  #map.resources :users
-
   # The priority is based upon order of creation: first created -> highest priority.
   
   # Sample of regular route:
@@ -43,64 +39,17 @@ ActionController::Routing::Routes.draw do |map|
     
   map.root :controller => 'site', :action => 'index'
     
-    
-  # map.connect 'shared/:user',
-  #    :controller => 'shared',
-  #    :action => 'index'
-
-  map.connect 'shared/:user/:action.:format',
-    :controller => 'shared'
-     
   map.connect 'shared/:user/:action/:id.:format',
+    :requirements => { :user => /\w[\w\.\-_@]+/ },
     :controller => 'shared'
   
   map.connect 'shared/:user/:action/:id',
-      :controller => 'shared'
-      
-  
-  #map.resources :workouts
-   
-
-     
-  #map.connect '/workouts',
-  #  :controller => 'workouts',
-  #  :action => 'index'   
-      
-  #map.connect 'workouts/:year/:month/:day/daily', 
-  #  :controller => 'workouts',
-  #  :action => 'index',
-  #  :requirements => { :year => /(19|20)\d\d/, :month => /[01]?\d/, :day => /[0-3]?\d/}
-  
-  #map.connect 'workouts/:year/:month/:day/daily/details', 
-  #    :controller => 'workouts',
-  #    :action => 'details',
-  #    :requirements => { :year => /(19|20)\d\d/, :month => /[01]?\d/, :day => /[0-3]?\d/}
-
-
-
-
-  #map.connect 'workouts/:page', 
-  #  :controller => 'workouts',
-  #  :action => 'index'
-
-
-  #map.connect 'workouts/:year/:month/:day/:permalink/show', 
-  #  :controller => 'workouts',
-  #  :action => 'show',
-  #  :requirements => { :year => /(19|20)\d\d/, :month => /[01]?\d/, :day => /[0-3]?\d/}
-  
-  #map.connect 'workouts/:year/:month/:day/:permalink/graph', 
-  #    :controller => 'workouts',
-  #    :action => 'graph',
-  #    :requirements => { :year => /(19|20)\d\d/, :month => /[01]?\d/, :day => /[0-3]?\d/}  
-        
-  #map.connect 'workouts/:year/:month/:day/daily/:action', 
-  #  :controller => 'workouts'
+    :requirements => { :user => /\w[\w\.\-_@]+/ },
+    :controller => 'shared'
 
   map.connect 'workouts/show/:begin/:end/:id.:format', 
       :controller => 'workouts',
       :action => 'show'
-    
 
   map.namespace(:admin) do |admin|
     admin.resources :articles

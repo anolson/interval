@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :peak_powers, :through => :workouts
   
   validates_presence_of :username
+  validates_format_of :username, :with => /\A\w[\w\.\-_@]+\z/, :on => :create
   validates_presence_of :email
   validates_presence_of :password, :password_confirmation, :if => :password_required?
   validates_acceptance_of :terms_of_service, :allow_nil => false, :accept => true
