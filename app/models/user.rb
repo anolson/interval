@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
     :parse_srm_comment => false, 
     :sort_order => "name", 
     :auto_assign_workout_name => true, 
-    :auto_assign_workout_name_by => 'filename', 
+    :auto_assign_workout_name_by => 'filename',
+    :units_of_measurement => 'english', 
     :graph => {:power => true}}
   
   has_many :workouts
