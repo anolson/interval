@@ -13,6 +13,9 @@
 #main .edit{float:left;margin:8px 0 0 8px;}
 #main .zoom{text-align:right;}
 #main .plot{margin:10px auto;}
+
+#plot_wrapper{margin:10px auto;overflow:auto; width:95%;}
+
 #more{width:100%;float:left;}
 #more p{margin:15px;}
 #content{clear:both;margin:10px auto;padding-top:20px;padding-bottom:20px;text-align:left;background:#FFF;border-top:2px solid #BBB;border-bottom:2px solid #BBB;}
