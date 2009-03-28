@@ -44,11 +44,8 @@
             <script type="text/javascript">
             
               Event.observe(window, 'resize', function() { 
-                //alert( $('plot_wrapper').getWidth()  ); 
                 $('plot').setStyle({width:$('plot_wrapper').getWidth() * .94} );
                 drawPlot(data_series);
-                
-                //setStyle({paddingBottom:$('sidebar').getHeight() - $('main').getHeight()});
               });
               
               document.observe('dom:loaded', function(){
