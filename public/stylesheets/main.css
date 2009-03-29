@@ -14,7 +14,7 @@
 #main .zoom{text-align:right; margin:0 10px;}
 #main .plot{margin:10px auto;}
 
-#plot_wrapper{margin:10px auto;overflow:auto; width:100%;}
+#plot_wrapper{margin:0px auto;overflow:auto; width:100%;}
 
 #more{width:100%;float:left;}
 #more p{margin:15px;}
