@@ -11,10 +11,10 @@
 #main .stats{margin:5px;text-align:right;}
 #main .notes{font-family:Monaco;margin:10px 5px;}
 #main .edit{float:left;margin:8px 0 0 8px;}
-#main .zoom{text-align:right;}
+#main .zoom{text-align:right; margin:0 10px;}
 #main .plot{margin:10px auto;}
 
-#plot_wrapper{margin:10px auto;overflow:auto; width:95%;}
+#plot_wrapper{margin:10px auto;overflow:auto; width:100%;}
 
 #more{width:100%;float:left;}
 #more p{margin:15px;}
