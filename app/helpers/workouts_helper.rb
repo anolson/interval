@@ -1,11 +1,18 @@
 module WorkoutsHelper
-     def format_power(power) power end
   
-  def format_torque(torque) torque end
+  def format_power_for_graph(power) power end
   
-  def format_heartrate(heartrate) heartrate end
+  def format_torque_for_graph(torque) torque end
+  
+  def format_heartrate_for_graph(heartrate) heartrate end
 
-  def format_cadence(cadence) cadence end
+  def format_cadence_for_graph(cadence) cadence end
+  
+  def format_speed_for_graph(speed) 
+    format_speed(speed, {:scale_speed => true}) 
+  end
+  
+  
   
   def format_speed(speed, options = {})
     if units_of_measurement.eql?("english")
@@ -16,10 +23,15 @@ module WorkoutsHelper
   end
   
   def format_speed_in_units_of_measurement(speed, options = {})
+    if(options[:scale_speed])
+      speed = speed * 10
+    end
+    
     if(options[:include_units])
       sprintf("%.1f #{speed_units}", speed)
     else
-      sprintf("%.1f", speed)
+      #sprintf("%.1f", speed)
+      speed.round_with_precision(1)
     end
   end
  

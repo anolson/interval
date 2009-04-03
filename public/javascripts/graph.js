@@ -14,6 +14,10 @@ var global_options = {
  	xaxis: {
    	tickFormatter: xAxisFormatter
  	},
+	//yaxis: {
+	//	min: 0,
+	//	max: 500
+	//},
  	selection: {
    	mode: 'x'
  	},
@@ -132,7 +136,13 @@ $('plot').observe('flotr:mousemove', function(event){
   $('selected_time').innerHTML = time_series[0]['data'][x][1];
   
   data_series.each(function(s, i) {
-    $('selected_' + i).innerHTML = s.data[x][1];
+		if(i==SPEED) {
+			$('selected_' + i).innerHTML = (s.data[x][1]/10).toFixed(1);
+		}
+		else {
+			$('selected_' + i).innerHTML = s.data[x][1];
+		}
+    
   });
   //$('selected_power').innerHTML = data_series[POWER]['data'][i][1];
   zoom_on_selection=true;

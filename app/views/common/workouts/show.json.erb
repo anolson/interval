@@ -3,7 +3,7 @@
   #params.to_options.each_key { |key|
   plot_line_options.each {  |key|
     data_series << {
-      :data => @data_points.collect_with_index do |v, i| [i, send("format_#{key}", v.send(key))] end, 
+      :data => @data_points.collect_with_index do |v, i| [i, send("format_#{key}_for_graph", v.send(key))] end, 
       :label => key.to_s.capitalize, 
       :color => send("#{key}_plot_line_color"), 
       :units => send("#{key}_units") }
