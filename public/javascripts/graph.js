@@ -14,10 +14,6 @@ var global_options = {
  	xaxis: {
    	tickFormatter: xAxisFormatter
  	},
-	//yaxis: {
-	//	min: 0,
-	//	max: 500
-	//},
  	selection: {
    	mode: 'x'
  	},
