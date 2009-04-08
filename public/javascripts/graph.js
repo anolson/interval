@@ -12,8 +12,13 @@ var global_options = {
 	grid: { 
 		backgroundColor:'#FFFFFF' }, 
  	xaxis: {
-   	tickFormatter: xAxisFormatter
- 	},
+   	tickFormatter: xAxisFormatter,
+		noTicks: 6
+	},
+	yaxis: {
+		noTicks: 6
+	},
+	
  	selection: {
    	mode: 'x'
  	},
@@ -25,7 +30,7 @@ var global_options = {
 	legend: {
  	backgroundOpacity: 0.85,
    	show: true,
-   	location: 'ne'
+   	position: 'ne'
  	}, 
  	shadowSize: 1
 } 
@@ -42,6 +47,16 @@ function drawPlot (series, options) {
   create_labels(series);
   return Flotr.draw($('plot'), smooth_data(series), opts);
 }
+
+function resizePlot() {
+	$('plot').setStyle({width:$('plot_wrapper').getWidth() * .95} );
+	Element.hide('zoom_reset');
+}
+
+function redrawPlot() {
+  plot = drawPlot(data_series);
+}
+
 
 function create_labels(series) {
   //label_template = new Template('<tr id="#{label}"><td align="right">#{name} :</td><td><span id="#{selected}">0</span> <span>#{units}</span></td></tr>');
@@ -166,5 +181,6 @@ $('plot').observe('flotr:select', function(event){
 });
 
 $('zoom_reset').observe('click', function() { 
-	plot = drawPlot(data_series, {}); Element.hide('zoom_reset'); 
+	plot = drawPlot(data_series, {}); 
+	Element.hide('zoom_reset'); 
 });

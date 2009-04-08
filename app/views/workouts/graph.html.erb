@@ -39,17 +39,17 @@
             </div>
             <br/>
             
-            <%= javascript_include_tag('flotr/flotr.debug-0.2.0-alpha', 'graph') %>
+            <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
 
             <script type="text/javascript">
             
-              //Event.observe(window, 'resize', function() { 
-              //  $('plot').setStyle({width:$('plot_wrapper').getWidth() * .94} );
-              //  drawPlot(data_series);
-              //});
+              Event.observe(window, 'resize', function() { 
+                  resizePlot();
+                  redrawPlot();
+              });
               
               document.observe('dom:loaded', function(){
-                Element.hide('zoom_reset');
+                resizePlot();
                 <% 
                   graph_options = @user.preferences[:graph].collect { |k,v| 
                     v && k.to_s + '=true' || nil
