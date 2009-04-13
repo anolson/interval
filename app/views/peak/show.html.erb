@@ -70,19 +70,7 @@
 <script type="text/javascript">
   document.observe('dom:loaded', function(){
     var url = "<%= url_for(:action => 'show', :id => @workout.id, :format => 'json') %>"
-    new Ajax.Request(url, {
-   		method:'get',
-   		onSuccess: function(transport){
-   			var json = transport.responseText.evalJSON();
-   			data_series = json.data_series
-   			time_series = json.time_series
-
-   			if(data_series){
-   				$('plot').setStyle({'display':'block'});
-           var f = drawPlot(data_series);
-         }
-   		}
-   	});
+    loadPeakPowerPlot(url);
   });
 </script>
 
@@ -93,4 +81,3 @@
     }
   })
 </script>
-

@@ -1,7 +1,3 @@
-const POWER = 0;
-const SPEED = 1;
-const CADENCE = 2;
-const HEARTRATE = 1;
 var time_series;
 var data_series;
 var plot;
@@ -13,12 +9,11 @@ var global_options = {
 		backgroundColor:'#FFFFFF' }, 
  	xaxis: {
    	tickFormatter: xAxisFormatter,
-		noTicks: 6
+		noTicks: 9
 	},
 	yaxis: {
 		noTicks: 6
 	},
-	
  	selection: {
    	mode: 'x'
  	},
@@ -28,7 +23,7 @@ var global_options = {
    	track: false
 	},
 	legend: {
- 	backgroundOpacity: 0.85,
+    backgroundOpacity: 0.85,
    	show: true,
    	position: 'ne'
  	}, 
@@ -42,10 +37,37 @@ function xAxisFormatter(label) {
 
 }
  
+function loadWorkoutPlot(url) {
+  resizePlot();
+  
+  Event.observe(window, 'resize', function() { 
+    resizePlot();
+    redrawPlot();
+  });
+              
+  document.observe('dom:loaded', function() {
+    new Ajax.Request(url, {
+      method:'get',
+      onSuccess: function(transport){
+        var json = transport.responseText.evalJSON();
+        data_series = json.data_series
+        time_series = json.time_series
+
+        if(data_series){
+          $('plot').setStyle({'display':'block'});
+
+           plot = drawPlot(data_series);
+         }
+      }
+    });
+  });
+}
+ 
 function drawPlot (series, options) {
   var opts = Object.extend(Object.clone(global_options), options || {});
   create_labels(series);
   return Flotr.draw($('plot'), smooth_data(series), opts);
+  
 }
 
 function resizePlot() {
@@ -59,16 +81,16 @@ function redrawPlot() {
 
 
 function create_labels(series) {
-  //label_template = new Template('<tr id="#{label}"><td align="right">#{name} :</td><td><span id="#{selected}">0</span> <span>#{units}</span></td></tr>');
   label_template = new Template('<td id="#{label}" align="center">#{name} : <span id="#{selected}">0</span> <span>#{units}</span></td>');
+  
   series.each(function(s, i) {
     if($('label_' + i) != null) $('label_' + i).remove();
     $('graph_labels').firstDescendant().firstDescendant().insert(label_template.evaluate({
       name: s.label,
 			units: s.units,
       label: "label_" + i,
-      selected: "selected_" + i,
-    }));  
+      selected: "selected_" + i
+    }));
   });
   
 }
@@ -83,16 +105,11 @@ function slice_data(series, start, end) {
 		sliced[i].color = s.color;	
     sliced[i].data = s.data.slice(start, end);
   });
-  //sliced[POWER].label = series[POWER].label;
-  //sliced[POWER].data = series[POWER]['data'].slice(start, end)
-  //sliced[HEARTRATE].label = series[HEARTRATE].label;
-  //sliced[HEARTRATE].data = series[HEARTRATE]['data'].slice(start, end)
+
   return sliced;
 }
 
 function smooth_data(series) { 
-   
-  //var smoothed_data = [Object(), Object()];
   var smoothed_data = new Array(series.size());
   if(series.size()>0) {
 		var size = (series[0]['data'].length>500) ? Math.round(series[0]['data'].length/500) : 1;
@@ -134,7 +151,6 @@ function display_marker_details(id) {
     previous_marker_id = null;
     plot.clearSelection();
 	}
-  //Effect.SlideUp(id);
   $(marker_details_id).toggle();
 
 
@@ -147,7 +163,7 @@ $('plot').observe('flotr:mousemove', function(event){
   $('selected_time').innerHTML = time_series[0]['data'][x][1];
   
   data_series.each(function(s, i) {
-		if(i==SPEED) {
+    if(s.label=='Speed') {
 			$('selected_' + i).innerHTML = (s.data[x][1]/10).toFixed(1);
 		}
 		else {
@@ -155,7 +171,6 @@ $('plot').observe('flotr:mousemove', function(event){
 		}
     
   });
-  //$('selected_power').innerHTML = data_series[POWER]['data'][i][1];
   zoom_on_selection=true;
 });	
 
@@ -166,9 +181,6 @@ $('plot').observe('mouseout', function(event){
   });
 });
 
-/*$('plot').observe('click', function(event){
-	zoom_on_selection=true;
-});*/
 
 $('plot').observe('flotr:select', function(event){
 	if(zoom_on_selection == true) {

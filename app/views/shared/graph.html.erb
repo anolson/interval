@@ -11,54 +11,37 @@
     <% rounded_box nil, "complete", "full" do %> 
 
       <% if @user.preferences[:graph]  %>
-
-
-        <% container "full" do %>
-
+        <% content_tag :div,   :id => "plot_wrapper" do %>
           <% if @workout.has_training_files? %>
             <div class="zoom">   
               <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
             </div>
-            <div id="plot" class="plot" style="height:400px; width:850px">
-              <div id="loader" style="padding-top: 150px; text-align:center">
-              <%= image_tag("loader.gif") %><br/>
-              Loading graph.</div>
+            <div class="container complete">
+              <div id="plot" class="plot" style="height:400px; width:700px">
+                <div id="loader" style="padding-top: 150px; text-align:center">
+                <%= image_tag("loader.gif") %><br/>
+                Loading graph.</div>
+              </div>
             </div>
-            <div id="graph_summary">      
+            <div id="graph_summary" >      
               <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
                 <tr>
-                  <td align="right">Time :</td><td><span id="selected_time">00:00:00</span></td>
+                  <td align="center">Time : <span id="selected_time">00:00:00</span></td>
                 </tr>
               </table>
             </div>
-            <div class="smaller right">Note: Click and drag to see more detail.</div>
+            <br/>
             <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
-
             <script type="text/javascript">
-              document.observe('dom:loaded', function(){
-                Element.hide('zoom_reset');
-                <% 
-                  graph_options = @user.preferences[:graph].collect { |k,v| 
-                    v && k.to_s + '=true' || nil
-                  }.join("&")
-                %>
-                var url = "<%= "/shared/#{@user.username}/show/#{@workout.id}.json?#{graph_options}" %>";
-
-                new Ajax.Request(url, {
-               		method:'get',
-               		onSuccess: function(transport){
-               			var json = transport.responseText.evalJSON();
-               			data_series = json.data_series
-               			time_series = json.time_series
-
-               			if(data_series){
-               				$('plot').setStyle({'display':'block'});
-                       var f = drawPlot(data_series);
-                     }
-               		}
-               	});
-              });
-            </script>           
+              <% 
+                graph_options = @user.preferences[:graph].collect { |k,v| 
+                  v && k.to_s + '=true' || nil
+                }.join("&")
+              %>
+              var url = "<%= "/shared/#{@user.username}/show/#{@workout.id}.json?#{graph_options}" %>";
+              loadWorkoutPlot(url);
+            </script>
+            
           <% else %>
             <div class="left container full">
              <div class="highlight_box full">
@@ -69,6 +52,7 @@
             </div>
           <% end %>
         <% end %>
+        <div class="container full"><p class="smaller right">Note: Click and drag to see more detail.</p></div>  
       <% else %>
         <div class="center container half">
          <div class="highlight_box full">

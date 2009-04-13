@@ -33,7 +33,6 @@
                   <th>&nbsp;</th>
                   <th>Duration</th>
                   <th>Power (watts)</th>
-                  <th>W/kg</th>
                   <th>Energy (kJ)</th>
                   <th>Speed (<%= speed_units%>)</th>
                   <th>Cadence</th>
@@ -70,12 +69,4 @@
   <%= render :partial => 'common/workouts/peaksware_trademark' %>
   
 <% end %>
-
-<script>
-  document.observe('dom:loaded', function(){  
-    if($('main').getHeight() < $('sidebar').getHeight()) {
-      $('main_wrapper').setStyle({paddingBottom:$('sidebar').getHeight() - $('main').getHeight()});
-    }
-  })
-</script>
 

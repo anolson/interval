@@ -7,7 +7,7 @@
         <%= radio_button_tag 'sort_order', 'name', 
           @sort_order.eql?('name') && true || false, 
           {:disabled => (@workouts.empty? && 'disabled')} %> Name 
-        <p></p>
+        <div style="width:0;height:0;padding:3px"></div>
         <%= radio_button_tag 'sort_order', 'performed_on', 
           @sort_order.eql?('performed_on') && true || false, 
           {:disabled => (@workouts.empty? && 'disabled')}  %> Date

@@ -27,52 +27,30 @@
                 <%= image_tag("loader.gif") %><br/>
                 Loading graph.</div>
               </div>
-
-              
             </div>
             <div id="graph_summary" >      
               <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
                 <tr>
-                  <td align="left">Time : <span id="selected_time">00:00:00</span></td>
+                  <td align="center">Time : <span id="selected_time">00:00:00</span></td>
                 </tr>
               </table>
             </div>
             <br/>
             
             <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
-
-            <script type="text/javascript">
             
-              Event.observe(window, 'resize', function() { 
-                  resizePlot();
-                  redrawPlot();
-              });
-              
-              document.observe('dom:loaded', function(){
-                resizePlot();
-                <% 
-                  graph_options = @user.preferences[:graph].collect { |k,v| 
-                    v && k.to_s + '=true' || nil
-                  }.join("&")
-                %>
-                var url = "<%= "/workouts/show/#{@workout.id}.json?#{graph_options}" %>";
+            <script type="text/javascript">
+                        
+              <% 
+                graph_options = @user.preferences[:graph].collect { |k,v| 
+                  v && k.to_s + '=true' || nil
+                }.join("&")
+              %>
+              var url = "<%= "/workouts/show/#{@workout.id}.json?#{graph_options}" %>";
+              loadWorkoutPlot(url);
 
-                new Ajax.Request(url, {
-                  method:'get',
-                  onSuccess: function(transport){
-                    var json = transport.responseText.evalJSON();
-                    data_series = json.data_series
-                    time_series = json.time_series
-
-                    if(data_series){
-                      $('plot').setStyle({'display':'block'});
-                       //var f = drawPlot(data_series);
-                       plot = drawPlot(data_series);
-                     }
-                  }
-                });
-              });
             </script>
+            
           <% else %>
             <div class="left container full">
              <div class="highlight_box full">
