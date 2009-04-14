@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 16) do
+ActiveRecord::Schema.define(:version => 17) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(:version => 16) do
     t.float   "intensity_factor"
   end
 
+  add_index "markers", ["workout_id"], :name => "index_markers_on_workout_id"
+
   create_table "peak_powers", :force => true do |t|
     t.integer "duration",   :default => 0
     t.integer "start",      :default => 0
@@ -76,12 +78,14 @@ ActiveRecord::Schema.define(:version => 16) do
     t.integer "workout_id", :default => 0
   end
 
+  add_index "peak_powers", ["workout_id"], :name => "index_peak_powers_on_workout_id"
+
   create_table "plans", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "workout_limit"
     t.string   "limit_by"
-    t.integer  "storage_limit", :limit => 8
+    t.integer  "storage_limit"
     t.float    "price"
     t.boolean  "enabled"
     t.boolean  "public"
@@ -121,6 +125,8 @@ ActiveRecord::Schema.define(:version => 16) do
     t.integer  "workout_id"
   end
 
+  add_index "training_files", ["workout_id"], :name => "index_training_files_on_workout_id"
+
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.boolean  "disabled",         :default => false
@@ -143,5 +149,7 @@ ActiveRecord::Schema.define(:version => 16) do
     t.integer  "user_id"
     t.string   "state",        :default => "created"
   end
+
+  add_index "workouts", ["user_id"], :name => "index_workouts_on_user_id"
 
 end
