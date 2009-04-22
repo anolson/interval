@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 17) do
+ActiveRecord::Schema.define(:version => 18) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(:version => 17) do
     t.boolean  "uploaded",     :default => false
     t.integer  "user_id"
     t.string   "state",        :default => "created"
+    t.boolean  "shared",       :default => true
   end
 
   add_index "workouts", ["user_id"], :name => "index_workouts_on_user_id"

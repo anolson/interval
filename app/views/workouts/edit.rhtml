@@ -12,7 +12,11 @@
         {:time_separator => ': ', :prefix => 'marker', :include_seconds => true})%> <br/><br/>
 
       <label for="notes">Notes:</label><br/>
-      <%= text_area :workout, :notes, :rows => 2%><br/><br/>
+      <%= text_area :workout, :notes, :rows => 3%><br/><br/>
+
+      <label for="shared">Shared this workout with others:</label><br/>
+
+
 
       <%= submit_tag "Update" %>
     <% end %>
