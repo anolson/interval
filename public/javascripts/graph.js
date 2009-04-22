@@ -71,7 +71,7 @@ function drawPlot (series, options) {
 }
 
 function resizePlot() {
-	$('plot').setStyle({width:$('plot_wrapper').getWidth() * .95} );
+	$('plot').setStyle({width:$('plot_wrapper').getWidth() * .95 + 'px'} );
 	Element.hide('zoom_reset');
 }
 
