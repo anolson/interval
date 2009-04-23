@@ -1,6 +1,6 @@
 module WorkoutsHelper
   
-  def format_power_for_graph(power) power end
+  def format_power_for_graph(power) power.round end
   
   def format_torque_for_graph(torque) torque end
   
