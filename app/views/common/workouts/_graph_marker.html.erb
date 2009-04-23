@@ -1,7 +1,7 @@
 
           <tr>
             <td align="right">
-              <%= link_to_function( ( (graph_marker_counter > 0) && "Inteval #{graph_marker_counter}." || "Workout."), "select_marker(#{graph_marker.id}, #{graph_marker.start}, #{graph_marker.end})") %>
+              <%= link_to_function( ( (graph_marker_counter > 0) && "Interval #{graph_marker_counter}." || "Workout."), "select_marker(#{graph_marker.id}, #{graph_marker.start}, #{graph_marker.end})") %>
             </td>
             <td>
               <%= nice_duration graph_marker.duration%>
