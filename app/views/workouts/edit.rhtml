@@ -14,8 +14,9 @@
       <label for="notes">Notes:</label><br/>
       <%= text_area :workout, :notes, :rows => 3%><br/><br/>
 
-      <label for="shared">Shared this workout with others:</label><br/>
-
+      <%= check_box :workout, :shared %>
+      <label for="shared">Shared this workout with others.</label><br/><br/>
+      
 
 
       <%= submit_tag "Update" %>

@@ -58,13 +58,13 @@ class SharedController < ApplicationController
     def find_workouts
       @sort_order = params[:sort_order] || 'name'
       order = @sort_order.eql?('name') && "#{@sort_order} ASC" || "#{@sort_order} DESC"
-      @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order)
+      @workouts = Workout.paginate_by_user_id(@user.id, :page => params[:page], :order => order, :conditions => { :state => ["created", "uploaded"], :shared => true})
     end
     
     def find_workout
       @workout = Workout.find(params[:id]) 
-      unless @workout.belongs_to_user?(@user.id)
-        redirect_to :action => 'index'
+      if(!@workout.belongs_to_user?(@user.id) or !@workout.shared)
+          redirect_to :action => 'index'
       end
     end
     
