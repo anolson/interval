@@ -24,7 +24,7 @@ class SharedController < ApplicationController
   
   def feed
     @updated = @user.workouts.last ? @user.workouts.last.created_at : Time.now.utc
-    @workouts = @user.workouts.find :all, :order => 'performed_on DESC'
+    @workouts = @user.workouts.find(:all, :conditions => { :state => ["created", "uploaded"], :shared => true})
     respond_to do |format|
       format.atom { render :layout => false }
     end
