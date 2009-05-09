@@ -2,14 +2,32 @@
         <legend>Sharing</legend>
         <%= check_box_tag 'preferences[enable_sharing]', 'true', @user.preferences[:enable_sharing] %>
         Share my workouts.<br/><br/>
-        Others will be able to view your workouts at: <br/><br/>
-        <span class="larger">
-          <%= url_for :host => 'intervalapp.com', :controller => 'shared', :user => @user.username %>
-        </span><br/><br/>
-        <div class="larger">
-          <%= image_tag 'feed.png', :style => 'float:left' %>
-          <div style='float:left; margin:2px'> 
-            <%= link_to "Subscribe", :controller => "shared", :user => @user.username, :action => "feed" %>
+        Your workouts are now accessible from your 
+        <%= link_to "private workout page", :controller => "shared", :action => "index" %>.  You can also subscribe to the
+        <%= link_to "feed", :controller => "shared", :action => "feed" %>.<br/><br/>
+        <span class="light smaller">
+          (Your private page is a like a password.  Only share it with the people that you want viewing your workouts.)
+        </span>
+        <br/><br/>
+        <%= link_to "Reset Private Links.", :controller => "items", :action => "index" %><br/><br/>
+        <div class="highlight_box">
+          <br/>
+          <%= check_box_tag 'preferences[share_workouts_publicly]', 'true', @user.preferences[:share_workouts_publicly] %>
+          Share my workouts publicly at 
+          <%= link_to nil, :host => "intervalapp.com", :controller => 'shared', :user => @user.username %>.<br/><br/>  
+          Let anyone view your workouts by publicizing the link above.
+          <br/><br/>
+          <div class="larger">
+            <%= image_tag 'feed.png', :style => 'float:left' %>
+            <div style='float:left; margin:2px'> 
+              <%= link_to "Subscribe", :controller => "shared", :user => @user.username, :action => "feed" %>
+            </div>
+            <div class="clear"></div>
           </div>
-        </div>        
+          <br/>
+        </div>
+        
+        
+   
+                    
       </fieldset>
