@@ -3,13 +3,19 @@
         <%= check_box_tag 'preferences[enable_sharing]', 'true', @user.preferences[:enable_sharing] %>
         Share my workouts.<br/><br/>
         Your workouts are now accessible from your 
-        <%= link_to "private workout page", :controller => "shared", :action => "index" %>.  You can also subscribe to the
-        <%= link_to "feed", :controller => "shared", :action => "feed" %>.<br/><br/>
+        <%= link_to "private workout page", 
+          :controller => "shared", 
+          :hash => @user.private_sharing_hash %>.  
+        You can also subscribe to the
+        <%= link_to "feed", 
+          :controller => "shared", 
+          :hash => @user.private_sharing_hash,
+          :action => "feed" %>.<br/><br/>
         <span class="light smaller">
           (Your private page is a like a password.  Only share it with the people that you want viewing your workouts.)
         </span>
         <br/><br/>
-        <%= link_to "Reset Private Links.", :controller => "items", :action => "index" %><br/><br/>
+        <%= link_to "Reset Private Links.", :controller => "user", :action => "reset_sharing_links" %><br/><br/>
         <div class="highlight_box">
           <br/>
           <%= check_box_tag 'preferences[share_workouts_publicly]', 'true', @user.preferences[:share_workouts_publicly] %>
@@ -25,9 +31,5 @@
             <div class="clear"></div>
           </div>
           <br/>
-        </div>
-        
-        
-   
-                    
+        </div>      
       </fieldset>

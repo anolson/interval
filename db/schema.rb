@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 18) do
+ActiveRecord::Schema.define(:version => 19) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(:version => 18) do
 
   create_table "users", :force => true do |t|
     t.datetime "created_at"
-    t.boolean  "disabled",         :default => false
+    t.boolean  "disabled",             :default => false
     t.datetime "last_login"
     t.string   "password_hash"
     t.string   "password_salt"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(:version => 18) do
     t.boolean  "terms_of_service"
     t.text     "preferences"
     t.text     "email"
+    t.string   "private_sharing_hash"
   end
 
   create_table "workouts", :force => true do |t|

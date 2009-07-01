@@ -13,6 +13,12 @@ class UserController < ApplicationController
     flash[:notice] = $!.to_s 
   end
   
+  def reset_sharing_links
+    user = User.find session[:user]
+    user.update_attribute(:private_sharing_hash, user.generate_private_sharing_hash)
+    redirect_to :controller => 'preferences'
+  end
+  
   def signin
     if request.post?
       user = User.authenticate(params[:user][:username], params[:user ][:password])

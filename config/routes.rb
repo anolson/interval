@@ -39,6 +39,15 @@ ActionController::Routing::Routes.draw do |map|
     
   map.root :controller => 'site', :action => 'index'
 
+  map.connect 'shared/private/:hash/:action.:format',
+    :controller => 'shared'
+
+  map.connect 'shared/private/:hash/:action/:id.:format',
+    :controller => 'shared'
+
+  map.connect 'shared/private/:hash/:action/:id',
+    :controller => 'shared'
+    
 
   map.connect 'shared/:user/:action.:format',
     :requirements => { :user => /\w[\w\.\-_@]+/ },
@@ -51,6 +60,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'shared/:user/:action/:id',
     :requirements => { :user => /\w[\w\.\-_@]+/ },
     :controller => 'shared'
+   
+
+    
 
   map.connect 'workouts/show/:begin/:end/:id.:format', 
       :controller => 'workouts',

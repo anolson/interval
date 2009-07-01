@@ -90,6 +90,19 @@ class User < ActiveRecord::Base
     }
   end
   
+  def private_sharing_hash 
+    private_sharing_hash_value = read_attribute(:private_sharing_hash)
+    if(private_sharing_hash_value.nil?)
+      private_sharing_hash_value = generate_private_sharing_hash
+      update_attribute(:private_sharing_hash, private_sharing_hash_value)
+    end
+    private_sharing_hash_value
+  end
+  
+  def generate_private_sharing_hash
+    Digest::MD5.hexdigest([Array.new(6) { rand(256).chr}.join].pack('m').chomp)
+  end
+  
   protected
     def password_required?
       password_hash.blank? || !password.blank?

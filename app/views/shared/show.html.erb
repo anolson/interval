@@ -2,10 +2,7 @@
 
 <% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger" %>
 
-<% @secondary_links = [
-  { :text => 'Summary', :options => {:action => 'show', :id => @workout.id, :user => @user.username } }, 
-  { :text => 'Graph', :options => {:action => 'graph', :id => @workout.id, :user => @user.username } }] %>
-
+<% @secondary_links = options_for_secondary_links %>
 
 <div id="main_wrapper">
   <div id="main">
