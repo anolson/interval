@@ -1,4 +1,4 @@
-class AddIndicies < ActiveRecord::Migration
+class AddIndices < ActiveRecord::Migration
   def self.up
     if(ENV["RAILS_ENV"] == "production")
       add_index(:workouts, :user_id)
