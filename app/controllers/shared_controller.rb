@@ -59,7 +59,7 @@ class SharedController < ApplicationController
     
     def check_public_sharing
       @user = User.find_by_username(params[:user]) or raise ActiveRecord::RecordNotFound
-      if @user.preferences[:share_workouts_publicly].eql?(false)
+      if(@user.preferences[:share_workouts_publicly].eql?(false) || @user.preferences[:enable_sharing].eql?(false))
         render :action => 'sharing_not_enabled', :layout => 'application'
       end
     end
