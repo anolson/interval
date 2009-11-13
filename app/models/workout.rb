@@ -28,9 +28,9 @@ class Workout < ActiveRecord::Base
   end
   
   
-  def initialize(workout={}, file_options={})
-    super(workout)
-    self.permalink = workout[:name] || ""
+  def initialize(params = {})
+    super(params)
+    self.name = "New Workout" if self.name.empty?
   end
     
   def self.per_page 
@@ -118,11 +118,10 @@ class Workout < ActiveRecord::Base
   end
   
   def auto_assign(options)
-    self.performed_on = options[:performed_on] if options[:performed_on]
-    self.name = options[:name] if options[:name]
-    self.notes = options[:notes] if options[:notes]
+    self.performed_on = option[:performed_on] if options[:perfomed_on]
+    self.name = generate_workout_name(options[:auto_assign_name_by]) if options[:auto_assign_name]
+    self.notes = generate_workout_comments() if options[:append_srm_comment_to_notes]
   end
-  
 end
 
 module Enumerable

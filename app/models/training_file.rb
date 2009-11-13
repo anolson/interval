@@ -17,12 +17,11 @@ class TrainingFile < ActiveRecord::Base
 
   attr_accessor :markers, :peak_powers
   
-  # def initialize(params = {})
-  #     super(params)
-  #     #parse_file_header
-  #     
-  #   end
-  #   
+  def initialize(params = {})
+    super(params)
+    parse_file_header
+  end
+    
   def payload=(file = {})
     write_attribute(:payload, file.read)
     self.filename = file.original_filename
@@ -48,10 +47,9 @@ class TrainingFile < ActiveRecord::Base
      return self.file_type.eql?(IbikeFileParser::IBIKE)
   end
   
-  # def performed_on
-  #     date = powermeter_properties.date
-  #     Time.mktime(date.year.to_i, date.month.to_i, date.day.to_i, 0, 0, 0, 0) + data_values.first.absolute_time.to_i
-  #   end
+  def has_performed_on_date_time
+    self.powermeter_properties.class.eql?(IbikeProperties) || self.powermeter_properties.class.eql?(SrmProperties)
+  end
   
   def parse_file_data()
     file_parser = get_file_parser()
@@ -74,10 +72,6 @@ class TrainingFile < ActiveRecord::Base
       # get only the filename, not the whole path
     #  filename.split('\\').last.gsub(/[^\w\.\-]/,'_') 
     #end 
-        
-    #def validate_file_type
-    #  
-    #end
 
     def validate_on_create 
       regex = %r{\.(srm|csv)$}i
@@ -88,7 +82,6 @@ class TrainingFile < ActiveRecord::Base
       if self.is_srm_file_type?()
         SrmParser.new(self.payload)
       else
-        #PowertapParser.new
         CsvFileParser.new(self.payload).get_parser
       end
     end
