@@ -36,29 +36,6 @@ class Workout < ActiveRecord::Base
   def self.per_page 
     5
   end
-  
-  def tag_string
-    self.tags.join(Tag::SEPERATOR)  
-  end
-  
-  def tag_string=(tag_string = "")
-    new_tags=[]
-    tag_string.split(Tag::SEPERATOR).each do |tag|
-      unless(self.tags.include?(tag))
-        new_tags << Tag.find_or_create_by_name(tag.strip)
-      end
-    end
-    self.tags = new_tags
-  end
-  
-  def permalink=(name)
-    write_attribute(:permalink, name.gsub(" ", "_").gsub(/\W+/, "_").downcase)
-  end
-  
-  def self.find_by_permalink(permalink, user_id, year, month, day)
-    date = Date.new(year.to_i, month.to_i, day.to_i)
-    find_by_permalink_and_user_id_and_performed_on(permalink, user_id, (date..date+1))
-  end
 
   def self.find_by_created_at_range(range, user_id)
     find_all_by_created_at_and_user_id(range, user_id)
