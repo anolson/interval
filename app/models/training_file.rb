@@ -1,27 +1,14 @@
 require 'srm_file_parser'
-#require 'powertap_file_parser'
-
 require 'csv_file_parser'
 require 'ibike_file_parser'
 
 class TrainingFile < ActiveRecord::Base
   serialize :powermeter_properties
   belongs_to :workout
-  #has_many :markers,  :dependent => :destroy
   has_many :data_values, :order => 'id', :dependent => :destroy
-  
-  #before_create :validate_file_type
-  
-  #validates_format_of :filename, :with => %r{\.(csv|srm)$}
-  
 
   attr_accessor :markers, :peak_powers
-  
-  def initialize(params = {})
-    super(params)
-    parse_file_header
-  end
-    
+
   def payload=(file = {})
     write_attribute(:payload, file.read)
     self.filename = file.original_filename
@@ -58,13 +45,6 @@ class TrainingFile < ActiveRecord::Base
     self.powermeter_properties=file_parser.properties
     @markers = file_parser.markers
     @peak_powers = file_parser.peak_powers
-  end
-  
-  def parse_file_header()
-    file_parser = get_file_parser()
-    file_parser.data = self.payload
-    file_parser.parse_header()
-    self.powermeter_properties=file_parser.properties
   end
   
   private
