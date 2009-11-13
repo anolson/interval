@@ -9,6 +9,8 @@ class Workout < ActiveRecord::Base
   
   validates_presence_of :name
   
+  before_validation :create_empty_name
+  
   acts_as_state_machine :initial => :created
   state :created
   state :processing
@@ -26,10 +28,8 @@ class Workout < ActiveRecord::Base
   event :process_destroy do
     transitions :to => :destroying, :from => [:created, :uploaded]
   end
-  
-  
-  def initialize(params = {})
-    super(params)
+    
+  def create_empty_name
     self.name = "New Workout" if self.name.empty?
   end
     

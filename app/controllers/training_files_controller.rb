@@ -26,5 +26,4 @@ class TrainingFilesController < ApplicationController
       render(:action => 'new')
     end
   end
-
 end
