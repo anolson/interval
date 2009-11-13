@@ -5,6 +5,8 @@ class Workout < ActiveRecord::Base
   has_many :markers, :order => 'id', :dependent => :destroy 
   has_many :peak_powers, :dependent => :destroy
   
+  accepts_nested_attributes_for :training_files
+  
   validates_presence_of :name
   
   acts_as_state_machine :initial => :created

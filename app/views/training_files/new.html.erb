@@ -11,7 +11,7 @@
 
       <% form_tag({:action => 'create'}, :multipart => true)  do %>
         <label for="file">File:</label><br/>
-        <%= file_field("training_file", "payload") %><br/><br/>
+        <%= file_field("workout[training_files_attributes][0]", "payload") %><br/><br/>
         
         <label for="name">Name:</label><br/>
         <%= text_field "workout", "name" %><br/><br/>
