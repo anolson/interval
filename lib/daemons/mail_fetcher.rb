@@ -22,22 +22,7 @@ while($running) do
   imap.select('Inbox')
   imap.uid_search(["NOT", "DELETED"]).each do |uid|
     ActiveRecord::Base.logger.info "MailFetcher - Reading message #{uid}.\n"
-    mail = TMail::Mail.parse(imap.uid_fetch(uid, 'RFC822').first.attr['RFC822'])
-
-    unless(mail.attachments.blank?)
-      params = {
-        :name => mail.subject,
-        :performed_on => mail.date,
-        :notes => mail.body.split("\n"),
-        :training_files_attributes => [{:payload => mail.attachments.first.gets(nil)}]
-      } 
-      workout = Workout.new params
-      if workout.save
-        workout.process!
-        WorkoutsWorker.async_process_workout(:workout_id => workout.id)
-      end
-    end
-        
+    Workout.create_from_email(imap.uid_fetch(uid, 'RFC822').first.attr['RFC822'])
     imap.uid_store(uid, "+FLAGS", [:Deleted])
   end
   
