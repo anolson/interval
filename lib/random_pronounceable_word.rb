@@ -1,5 +1,5 @@
-module RandomPronounceableWord
-  def random_pronounceable_word
+module RandomPronounceableString
+  def random_pronounceable_string
     letters = { ?v => 'aeiou',
                 ?c => 'bcdfghjklmnprstvwyz' }
     word = ''
