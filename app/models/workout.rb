@@ -42,8 +42,8 @@ class Workout < ActiveRecord::Base
         :training_files_attributes => [{:payload => mail.attachments.first}]
       } 
       workout = Workout.new params
-      #TODO fix this.
-      workout.user = User.find 2
+      workout.user = User.find_by_email_upload(mail.from.first.split('@').first.split('+').second)
+      
       if workout.save
         workout.process!
         WorkoutsWorker.async_process_workout(:workout_id => workout.id)

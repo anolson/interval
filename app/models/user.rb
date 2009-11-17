@@ -1,5 +1,6 @@
 require 'digest/sha2'
 class User < ActiveRecord::Base
+  include RandomPronounceableWord
   DEFAULT_PREFERENCES = {
     :display_name => "", 
     :parse_srm_comment => false, 
@@ -101,6 +102,19 @@ class User < ActiveRecord::Base
   
   def generate_private_sharing_hash
     Digest::MD5.hexdigest([Array.new(6) { rand(256).chr}.join].pack('m').chomp)
+  end
+  
+  def upload_email_address
+    upload_email_address_value = read_attribute(:upload_email_address)
+    if upload_email_address_value.nil?
+      upload_email_address_value = generate_upload_email_address
+      update_attribute(:upload_email_address, upload_email_address_value)
+    end
+    upload_email_address_value
+  end
+  
+  def generate_upload_email_address
+    "upload+#{random_pronounceable_word}@intervalapp.com"
   end
   
   protected
