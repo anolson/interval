@@ -19,7 +19,6 @@ class SrmParser
   end
   
   def parse_training_file()
-
     parse_header
     parse_markers
     parse_blocks

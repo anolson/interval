@@ -34,7 +34,7 @@ class TrainingFile < ActiveRecord::Base
      return self.file_type.eql?(IbikeFileParser::IBIKE)
   end
   
-  def has_performed_on_date_time
+  def has_performed_on_date_time?
     self.powermeter_properties.class.eql?(IbikeProperties) || self.powermeter_properties.class.eql?(SrmProperties)
   end
   

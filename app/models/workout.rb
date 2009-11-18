@@ -41,7 +41,7 @@ class Workout < ActiveRecord::Base
           params = {
             :name => mail.subject,
             :performed_on => mail.date,
-            :notes => mail.body_plain.split("\n\n").first,
+            :notes => mail.body_plain.strip,
             :training_files_attributes => [{:payload => mail.attachments.first}]
           } 
           workout = Workout.new params
@@ -122,7 +122,7 @@ class Workout < ActiveRecord::Base
   end
   
   def auto_assign(options)
-    self.performed_on = option[:performed_on] if options[:perfomed_on]
+    self.performed_on = options[:performed_on] if options[:performed_on]
     self.name = generate_workout_name(options[:auto_assign_name_by]) if options[:auto_assign_name]
     self.notes = generate_workout_comments() if options[:append_srm_comment_to_notes]
   end
