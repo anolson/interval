@@ -110,10 +110,10 @@ class User < ActiveRecord::Base
       upload_email_secret_value = generate_upload_email_secret
       update_attribute(:upload_email_secret, upload_email_secret_value)
     end
-    upload_email_address_value
+    upload_email_secret_value
   end
   
-  def generate_upload_email_address
+  def generate_upload_email_secret
     random_pronounceable_string
   end
   
