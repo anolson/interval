@@ -1,15 +1,18 @@
-<% @primary_heading= link_to content_tag(:h1, "Training Summary"), :action => "index" %>
+<% @heading = content_tag :span, "Training Summary.", :class => "larger" %>
 
-<div class="summary">
-  <% rounded_box "Weekly", "half", "full" do %>
-    <% container "full" do %>
-      <%= render :partial => 'weekly' %>
+<div id="main">
+  <%= render(:partial => 'common/secondary') %>
+  <div class="summary">
+    <% rounded_box "Weekly", "half", "full" do %>
+      <% container "full" do %>
+        <%= render :partial => 'weekly' %>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <% rounded_box "Monthly", "half", "full" do %>
-    <% container "full" do %>
-      <%= render :partial => 'monthly' %>
+    <% rounded_box "Monthly", "half", "full" do %>
+      <% container "full" do %>
+        <%= render :partial => 'monthly' %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>  
 </div>

@@ -23,14 +23,6 @@
     
     <div id="content">
       <div class="container full">
-        <div id="sub">
-          <%= @primary_heading %>
-          <div class="smaller edit">
-            <%= @editable && render(:partial => 'workouts/edit_delete', :locals => {:id => @workout.id}) || nil %>
-          </div>
-          <div class="clear"></div>
-        </div>
-        <%= @secondary_heading && render(:partial => 'common/secondary') %>
         <%= @content_for_layout  %>
         <div class="clear"></div>
       </div>

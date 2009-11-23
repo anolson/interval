@@ -1,7 +1,7 @@
 <% if session[:user] && @user %>
-<div id="toolbar" style="text-align:right; padding:5px 15px; margin:0; position:absolute; top:5px; right:35px" class="smaller">
-  Signed in as <%= @user.preferences[:display_name] %>
-  (<%= link_to('Sign-out', :controller => 'user', :action => 'signout') %>)
+<div id="toolbar" class="smaller">
+  Signed in as <%= @user.preferences[:display_name] %>.
+  <%= link_to('Sign-out.', :controller => 'user', :action => 'signout') %>
 </div>
 <% end %>
 

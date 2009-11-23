@@ -1,11 +1,11 @@
-<% @primary_heading = link_to content_tag(:h1, "Workouts"), :controller => 'workouts', :action => "index" %>
-<% @secondary_heading = content_tag :span, "Upload a workout.", :class => "larger" %>
+<% @heading = content_tag :span, "Upload a workout.", :class => "larger" %>
 
-<% @secondary_links = [
+<% @links = [
   { :text => 'Upload Workout', :options => {:controller => 'training_files', :action => 'new' } }, 
   { :text => 'Add Workout', :options => {:controller => 'workouts', :action => 'new' } } ] %>
 
 <div id="main">
+  <%= render(:partial => 'common/secondary') %>
   <% rounded_box "Upload workout", "half", "full" do %>
     <% container "full" do %>
 

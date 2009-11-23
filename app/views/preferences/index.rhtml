@@ -1,6 +1,7 @@
-<% @primary_heading= link_to content_tag(:h1, "User Preferences"), :action => "index" %>
+<% @heading = content_tag :span, "User Preferences.", :class => "larger" %>
 
 <div id="main">
+  <%= render(:partial => 'common/secondary') %>
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
       <% form_tag do %>
@@ -17,6 +18,7 @@
         <%= render :partial => 'sharing' %>
 
       <%= submit_tag "Update" %>
+      <br /><br />
       <%= set_focus_for('user_username') %>
       <% end %>
     <% end %>

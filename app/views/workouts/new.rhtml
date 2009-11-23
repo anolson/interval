@@ -1,12 +1,12 @@
-<% @primary_heading = link_to content_tag(:h1, "Workouts"), :action => "index" %>
-<% @secondary_heading = content_tag :span, "Add a new workout.", :class => "larger" %>
+<% @heading = content_tag :span, "Add a new workout.", :class => "larger" %>
 
-<% @secondary_links = [
+<% @links = [
   { :text => 'Upload Workout', :options => {:controller => 'training_files', :action => 'new' } }, 
   { :text => 'Add Workout', :options => {:controller => 'workouts', :action => 'new' } } ] %>
 
 <div id="main">
-  <% rounded_box "Add workout", "half", "full" do %>  
+  <%= render(:partial => 'common/secondary') %>
+  <% rounded_box "", "half", "full" do %>  
     <% container "full" do %>  
       <% form_tag :action => 'create' do %>
         <label for="name">Name:</label><br/>
@@ -28,17 +28,20 @@
   <% end %>
   
   <div style="float:left; margin-top: 10px;" class="half">
-    <p class=larger>Add a workout that you did without a powermeter.  Specify a name, the date, the duration, and optionally some notes about the workout.  Workouts added this way don't have all the features of uploaded workouts.</p>
-       <br/>
-       <p>After you add the workout, you will be able to:</p>
-       <ul>
-        <li>View simple workout data.</li>
-        <li>Share you workout with others.</li>
-        <li>Track the progress of your training.</li>
-       </ul>
-       
+    <p class="larger">
+      Add a workout that you did without a powermeter. Specify a name, the date, the duration, and optionally some notes about the workout. Workouts added this way don't have all the features of uploaded workouts.
+    </p>
+    <br/>
+    <p>
+      After you add the workout, you will be able to:
+    </p>
+    <ul>
+      <li>View simple workout data.</li>
+      <li>Share you workout with others.</li>
+      <li>Track the progress of your training.</li>
+    </ul>
   </div>
-  
+
   <p style="text-align: center; color: green"><%= flash[:error] %></p>
   <%= error_messages_for 'workout' %>
 </div>

@@ -1,15 +1,16 @@
-<% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name" ) %>
 <% @editable = true %>
-<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date" %>
+<% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
+<% @date = nice_datetime(@workout.performed_on) %>
 
-<% @secondary_links = [
+<% @links = [
   { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
   { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
   { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
 
 <div id="main_wrapper">
   <div id="main">
-    <div id="workout" class="list">
+    <%= render(:partial => 'common/secondary') %>
+    <div id="workout" class="summary">
         <div class="container full">
           <fieldset>
             <legend class=larger>Notes</legend>  

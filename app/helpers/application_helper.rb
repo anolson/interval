@@ -1,11 +1,11 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def navigation_item(name, options = {})    
-    content_tag :li, link_to_unless_current(name, options), :class => current_page?(options) && 'current' || nil 
+    content_tag :li, link_to(name, options.reject{|k,v| k.eql?(:include)}), :class => current_page?(options) && 'current' || nil 
   end
   
   def navigation_item_for_controller(name, options = {})    
-    content_tag :li, link_to_unless_current_controller(name, options), :class => current_controller?(options) && 'current' || nil 
+    content_tag :li, link_to(name, options.reject{|k,v| k.eql?(:include)}), :class => current_controller?(options) && 'current' || nil 
   end
   
   def secondary_item(name, options = {})    
