@@ -97,12 +97,12 @@ p{margin:5px 5px 5px 10px;}
 #plans td, #plans th {border: 1px solid #BBB; padding: 10px; text-align: center; width:20%;}
 #plans th {background: #E5ECFF;}
 #plans th.current {background-color: #DDDDFF;}
-#plans th.noborder { border: 0; background: #FFF; padding: 5px;}
+#plans th.noborder { border: 0; background: #EEE; padding: 5px;}
 #plans td.current {background-color: #EEE;}
 #plans td.feature {text-align: left;}
 #plot_wrapper{margin:0px auto;overflow:auto; width:100%;}
 #processing {margin-top:10px}
-#signup table {font-size:13px; border-collapse:collapse;}
+#signup table {font-size:13px; border-collapse:collapse; background-color: #FFF;}
 #secondary{width:100%;padding: 5px 0;background-color:#DEF;font-size:13px;color:#333; margin-bottom:10px;}
 #secondary .date{float:left; margin:14px 0 0 0px;}
 #secondary ul{float:right;padding:5px 10px;margin:0;}
