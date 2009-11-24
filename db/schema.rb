@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20) do
+ActiveRecord::Schema.define(:version => 21) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -100,10 +100,12 @@ ActiveRecord::Schema.define(:version => 20) do
     t.text   "description"
   end
 
-  create_table "roles_users", :force => true do |t|
+  create_table "roles_users", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
+
+  add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
 
   create_table "subscriptions", :force => true do |t|
     t.string   "paypal_profile_id"
