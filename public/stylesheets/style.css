@@ -1,5 +1,5 @@
 @import @import url("pagination.css");@import url("lightbox.css");
-body{font-family:"Lucida Grande",Verdana,Sans-Serif;font-size:13px;color:#333;text-align:center;margin:0;padding:0;background:#455E7F;background-image:url(../images/body1.png);background-repeat:repeat-x;background-position:top right;}
+body{font-family:"Lucida Grande",Verdana,Sans-Serif;font-size:13px;color:#333;text-align:center;margin:0;padding:0;background:#455E7F;background-image:url(../images/body.png);background-repeat:repeat-x;background-position:top right;}
 a{color:#0080FF;text-decoration:none;}
 a:hover{color:#66B3FF;}
 fieldset{border:2px solid #BBB;margin-bottom:20px;}
