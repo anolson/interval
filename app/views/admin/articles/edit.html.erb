@@ -1,6 +1,11 @@
-<% @primary_heading= link_to content_tag(:h1, "Articles"), :action => "index" %>
+<% @heading = content_tag :span, "Edit article.", :class => "larger" %>
+
+<% @links = [
+  { :text => 'Preview.', :options => {:controller => 'admin/articles', :action => 'show' } } ] %>
+
 
 <div id="main">
+  <%= render(:partial => 'common/secondary') %>
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
       <% form_for([:admin, @article]) do |f| %>
@@ -22,12 +27,11 @@
         </fieldset>
         
         <p>
-          <%= f.submit "Update" %>
+          <%= f.submit "Update" %> | <%= link_to 'cancel.', admin_articles_path %>
         </p>
       <% end %>      
     <% end %>
 
   <% end %>
-  <%= link_to 'Show', admin_article_path %> |
-  <%= link_to 'Back', admin_articles_path %>
+
 </div>

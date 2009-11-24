@@ -1,11 +1,7 @@
 page.hide("lightbox")
 page.hide("overlay")
 page.remove("lbContent")
-page.replace_html("workout_name", link_to_workout(@workout) )
+page.replace_html("workout_name", @workout.name)
 page.replace_html("workout_date", nice_datetime(@workout.performed_on))
 page.replace_html("workout_duration", nice_duration(@workout.markers.first.duration))
 page.replace_html("workout_notes", @workout.notes)
-
-page.select("#workout_name").each do |element|
-  element.visual_effect(:highlight)
-end

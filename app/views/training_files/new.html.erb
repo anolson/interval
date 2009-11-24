@@ -6,7 +6,7 @@
 
 <div id="main">
   <%= render(:partial => 'common/secondary') %>
-  <% rounded_box "Upload workout", "half", "full" do %>
+  <% rounded_box nil, "half", "full" do %>
     <% container "full" do %>
 
       <% form_tag({:action => 'create'}, :multipart => true)  do %>
@@ -45,13 +45,5 @@
     <%= error_messages_for 'workout'%>
     <%= error_messages_for 'training_file'%>
   </div>
+  <%= render :partial => 'common/back' %>
 </div>
-
-<%= render :partial => 'common/back' %>
-
-
-
-
-
-
-

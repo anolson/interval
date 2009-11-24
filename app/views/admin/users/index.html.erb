@@ -1,8 +1,8 @@
-<% @primary_heading = link_to content_tag(:h1, "Users"), :action => "index" %>
-<% @secondary_heading = content_tag :span, "Listing all users (#{@users.length})", :class => "larger" %>
+<% @heading = content_tag :span, "Listing all users (#{@users.length})", :class => "larger" %>
 
 <div id="main"> 
-  <div class="list">   
+  <%= render(:partial => 'common/secondary') %>  
+  <div class="list"> 
     <% rounded_box nil, "complete", "full" do %> 
     <div class="container full"> 
     <table border="0" cellspacing="0" cellpadding="5">

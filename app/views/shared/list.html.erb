@@ -1,8 +1,7 @@
-<% @primary_heading = link_to content_tag(:h1, "#{@user.preferences[:display_name]}'s Shared Workouts"), :action => "index" %>
-<% @secondary_heading = content_tag :span, 'Listing workouts', :class => "larger" %>
-
+<% @heading = content_tag :span, "#{@user.preferences[:display_name]}'s shared workouts.", :class => "larger" %>
 <div id="main_wrapper">
-  <div id="main">   
+  <div id="main"> 
+    <%= render(:partial => 'common/secondary') %>  
     <% if @workouts.size > 0 then %>
       <%= render :partial => 'common/workouts' %>
     <% else %>

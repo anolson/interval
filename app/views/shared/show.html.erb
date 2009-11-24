@@ -1,12 +1,11 @@
-<% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
-
-<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger" %>
-
-<% @secondary_links = options_for_secondary_links %>
+<% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
+<% @date = nice_datetime(@workout.performed_on) %>
+<% @links = options_for_secondary_links %>
 
 <div id="main_wrapper">
   <div id="main">
-    <div id ="workout" class="list">
+    <%= render(:partial => 'common/secondary') %>  
+    <div id ="workout" class="summary">
     
       <div class="container full">
         <fieldset>

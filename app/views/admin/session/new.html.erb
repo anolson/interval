@@ -1,4 +1,4 @@
-<% @heading_text ='Admin Sign In'%>
+<% @heading_text ='Administrivia'%>
 
 <div class="container half">
   <% rounded_box @heading_text, "complete", "wide" do %>
@@ -16,6 +16,7 @@
         <p>
           <%= f.submit "Sign In" %>
         </p>
+        <%= set_focus_for('user_username') %>
       <% end %>
     <% end %>
   <% end %>

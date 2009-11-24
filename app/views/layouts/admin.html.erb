@@ -16,13 +16,6 @@
     <%= render(:partial => 'common/admin/navigation') %>
     <div id="content">
       <div class="container full">
-        <% if @primary_heading -%>
-          <div id="sub">
-            <%= @primary_heading %>
-            <div class="clear"></div>
-          </div>
-        <% end %>
-        <%= @secondary_heading && render(:partial => 'common/secondary') %>
         <%= @content_for_layout  %>
         <div class="clear"></div>
       </div>

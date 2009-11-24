@@ -1,10 +1,9 @@
-<% @primary_heading = content_tag(:h1, link_to( @workout.name, :action => "show"), :id => "workout_name_#{@workout.id}" ) %>
-<% @editable = @sharing ? false : true %>
-<% @secondary_heading = content_tag :span, nice_datetime(@workout.performed_on), :class => "larger", :id => "workout_date_#{@workout.id}" %>
-
-<% @secondary_links = options_for_secondary_links %>
+<% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
+<% @date = nice_datetime(@workout.performed_on) %>
+<% @links = options_for_secondary_links %>
 
   <div id="main">
+    <%= render(:partial => 'common/secondary') %>  
     <% rounded_box nil, "complete", "full" do %> 
 
       <% if @user.preferences[:graph]  %>

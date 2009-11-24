@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def navigation_item(name, options = {})    
-    content_tag :li, link_to(name, options.reject{|k,v| k.eql?(:include)}), :class => current_page?(options) && 'current' || nil 
+    content_tag :li, link_to(name, options), :class => current_page?(options) && 'current' || nil 
   end
   
   def navigation_item_for_controller(name, options = {})    
@@ -74,13 +74,5 @@ module ApplicationHelper
   def set_focus_for(id)
     javascript_tag("$('#{id}').focus()")
   end
-  
-   
-  def link_to_workout(workout, format = nil)
-    link_to workout.name, 
-      :action => "show",  
-      :id => workout.id,
-      :format => format 
-    end
   
 end

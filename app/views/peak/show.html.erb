@@ -2,17 +2,18 @@
 
 <% @secondary_heading = content_tag :span, "Peak Power for #{nice_date(@workout.performed_on)}", :class => "larger", :id => "workout_date_#{@workout.id}" %>
 
-<% @secondary_links = [
+<% @editable = true %>
+<% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
+<% @date = nice_datetime(@workout.performed_on) %>
+
+<% @links = [
   { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
   { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
   { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
 
-<% if @sharing %>
-<% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
-<% end %>
-
 <div id="main_wrapper">
   <div id="main">
+    <%= render(:partial => 'common/secondary') %>
     <% rounded_box nil, "complete", "full" do %> 
       <div class="container full">
         <% unless @workout.peak_powers.empty? %>

@@ -1,11 +1,10 @@
-<% @primary_heading = link_to content_tag(:h1, "Articles"), :action => "index" %>
-<% @secondary_heading = content_tag :span, "Listing all articles (#{@articles.length})", :class => "larger" %>
-
-<% @secondary_links = [
-  { :text => 'Add Article', :options => {:controller => 'admin/articles', :action => 'new' } } ] %>
+<% @heading = content_tag :span, "Listing all articles (#{@articles.length})", :class => "larger" %>
+<% @links = [
+  { :text => 'Add an article.', :options => {:controller => 'admin/articles', :action => 'new' } } ] %>
 
 
-<div id="main"> 
+<div id="main">
+  <%= render(:partial => 'common/secondary') %>  
   <div class="list">   
     <% rounded_box nil, "complete", "full" do %> 
     <div class="container full"> 

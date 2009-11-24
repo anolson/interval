@@ -29,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user',
     :action => 'signout'
   
-  map.signout 'upload', 
+  map.upload 'upload', 
       :controller => 'training_files',
       :action => 'new'
 
@@ -64,9 +64,6 @@ ActionController::Routing::Routes.draw do |map|
     :requirements => { :user => /\w[\w\.\-_@]+/ },
     :controller => 'shared'
    
-
-    
-
   map.connect 'workouts/show/:begin/:end/:id.:format', 
       :controller => 'workouts',
       :action => 'show'

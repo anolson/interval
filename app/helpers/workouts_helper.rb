@@ -12,8 +12,6 @@ module WorkoutsHelper
     format_speed(speed, {:scale_speed => true}) 
   end
   
-  
-  
   def format_speed(speed, options = {})
     if units_of_measurement.eql?("english")
       format_speed_in_units_of_measurement(convert_speed_to_mph(speed), options)
@@ -112,6 +110,11 @@ module WorkoutsHelper
   def available_plot_lines
     [:power, :torque, :heartrate, :cadence, :speed]
   end
-
-    
+  
+  def link_to_workout(workout, format = nil)
+    link_to workout.name, 
+      :action => "show",  
+      :id => workout.id,
+      :format => format    
+  end
 end

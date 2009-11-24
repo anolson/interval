@@ -1,4 +1,4 @@
-<% @editable = @sharing ? false : true %>
+<% @editable = true %>
 <% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
 <% @date = nice_datetime(@workout.performed_on) %>
 
@@ -6,10 +6,6 @@
   { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
   { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
   { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
-  
-<% if @sharing %>
-  <% @secondary_links.each {|l| l[:options].merge!({:user => @user.username})}  %>
-<% end %>
 
 <div id="main_wrapper">
   <div id="main">
@@ -37,7 +33,7 @@
               </table>
             </div>
             <br/>
-            
+            <p class="smaller right">Note: Click and drag to see more detail.</p>
             <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
             
             <script type="text/javascript">
@@ -53,16 +49,18 @@
             </script>
             
           <% else %>
-            <div class="left container full">
-             <div class="highlight_box full">
-               <br />
-              <div class="large center">No graph data available for this workout.</div>
-              <br />
-             </div>
+            <div class="container full">
+              <br/>
+              <div class="highlight_box full">
+                <br />
+                <div class="large center">No graph data available for this workout.</div>
+                <br />
+              </div>
+              <br/>
             </div>
           <% end %>
         <% end %>
-        <div class="container full"><p class="smaller right">Note: Click and drag to see more detail.</p></div>  
+        
       <% else %>
         <div class="center container half">
          <div class="highlight_box full">

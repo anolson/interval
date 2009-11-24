@@ -4,14 +4,14 @@ a{color:#0080FF;text-decoration:none;}
 a:hover{color:#66B3FF;}
 fieldset{border:2px solid #BBB;margin-bottom:20px;}
 fieldset legend{font-size:18px;}
+form {padding: 10px 0;}
 h2{margin:10px auto;font-family:Helvetica;width:95%;}
 img{border:0px none;}
 input,textarea,select{padding:2px;font-size:12px;}
 input[type=radio]{margin:1px 5px; float: left;}
 input[type=checkbox]{margin:0px 5px; float: left;}
 p{margin:5px 5px 5px 10px;}
-.averageMaximum table{background:#FFF;margin:5px auto;width:95%;font-size:11px;text-align:left;border:2px solid #BBB;}
-.averageMaximum td{width:33%;}
+
 .big_dot{font-size:25px; color:#888;}
 .blue_border{border:1px solid #36F;}
 .box_wrapper{float:left;}
@@ -38,9 +38,7 @@ p{margin:5px 5px 5px 10px;}
 .lighter{color: #888;}
 .info_box{margin:5px auto;background-color:#B3DAFF;font-size:13px;color:#333;}
 .info_box span{width:100%;float:left;margin:8px 0;text-align:center;}
-.markerDetails table{background:#EEE;margin:5px auto;width:95%;font-size:11px;text-align:left;border:2px solid #BBB;}
-.markerDetails th{background:#DDD;font-weight:normal;text-align:left;padding-left:5px;font-size:12px;}
-.markerDetails td{width:33%;}
+
 .odd{background:#E8EDFF;}
 .right{float:right;}
 .screenshot{width:85%; margin:40px auto; border-bottom: 2px solid #CCC;}
@@ -53,7 +51,15 @@ p{margin:5px 5px 5px 10px;}
 .twoColumn table{background:#FFF;margin:5px auto;width:95%;font-size:12px;text-align:left;border:2px solid #BBB;}
 .twoColumn td{width:50%;}
 .twoColumn th{background:#EEE;font-weight:normal;text-align:left;padding-left:5px;font-size:14px;}
+.markerDetails table{background:#EEE;margin:5px auto;width:95%;font-size:11px;text-align:left;border:2px solid #BBB;}
+.markerDetails th{background:#DDD;font-weight:normal;text-align:left;padding-left:5px;font-size:12px;}
+.markerDetails td{width:33%;}
+.averageMaximum table{background:#FFF;margin:5px auto;width:95%;font-size:11px;text-align:left;border:2px solid #BBB;}
+.averageMaximum td{width:33%;}
 .wide{width:90%;}
+
+
+
 
 #content{clear:both;margin:10px auto;padding-top:20px;padding-bottom:20px;text-align:left;background:#EEE; border-top:1px solid #BBB;border-bottom:2px solid #bbb;}
 #errorExplanation{border:1px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#FCC;}
@@ -75,7 +81,7 @@ p{margin:5px 5px 5px 10px;}
 #main .plot{margin:10px auto;}
 #main .stats{margin:5px;text-align:right;}
 #main .summary{padding:0 10px;}
-#main .summary table{border:2px solid #BBB;background:#FFF;margin:10px auto;width:100%;font-size:13px;text-align:left;}
+#main .summary table, .list table{border:2px solid #BBB;background:#FFF;margin:10px auto;width:100%;font-size:13px;text-align:left;}
 #main .zoom{text-align:right; margin:0 10px;}
 #main_wrapper{float:left;width:70%;}
 #more{width:100%;float:left;}
@@ -103,7 +109,7 @@ p{margin:5px 5px 5px 10px;}
 #secondary li{float:left;list-style-type:none;margin:4px 3px;}
 #secondary span{float:left;margin:5px 10px 5px 20px; font-size:20px; font-weight: bold; color:#444;}
 #sidebar{float:right;width:29%;}
-#sidebar form{margin:5px 15px;}
+#sidebar form{margin:5px 10px; padding: 0;}
 #sidebar h2{color:#333;margin:5px 5px 5px 10px;}
 #sidebar h4{margin:10px 10px 2px 10px;text-decoration:underline;}
 #sidebar ul{list-style-type:none; padding-left:15px; margin:5px 0}
@@ -113,7 +119,7 @@ p{margin:5px 5px 5px 10px;}
 #site{float:left; width:100%;}
 #title{float:left;margin:5px 5px 5px 25px;}
 #title a{color:#006ADB;}
-#toolbar {text-align:right; padding:5px 15px; margin:0; position:absolute; top:5px; right:35px; color:#DDD; font-weight: bold;}
+#toolbar {text-align:right; padding:5px; margin:0; position:absolute; top:5px; right:25px; color:#DDD; font-weight: bold;}
 #toolbar a {color: #69F;}
 #upload {margin: 10px;}
 #workout fieldset{background: #E5ECFF;}
