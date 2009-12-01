@@ -25,6 +25,15 @@
         <%= check_box_tag 'preferences[append_srm_comment_to_notes]', 'true',   
           @user.preferences[:append_srm_comment_to_notes].eql?('true') && true || false %>
         Append SRM comment to workout notes.
+        <br/><br/>
+        <div class="highlight_box">
+          <h3>Upload files to Interval by email.</h3> <p>Attach a file to a message addressed to:</p>
+          <div class="center larger"><%= mail_to "upload+#{@user.upload_email_secret}@intervalapp.com"%></div>
+          <br/>
+          <div class="smaller">(Optionally specify a name for the workout in the subject and some notes in the body.)</div>
+          <h4>Also, don't share this address with anyone.</h4>
+          <%= link_to "Reset Upload Email.", :controller => "user", :action => "reset_upload_address" %><br/><br/>
+        </div>
       </fieldset> 
       
       <%= observe_field 'preferences_auto_assign_workout_name', 
