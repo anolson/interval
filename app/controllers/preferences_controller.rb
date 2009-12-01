@@ -1,4 +1,6 @@
 class PreferencesController < ApplicationController
+  layout 'standard'
+    
   def index
     @subscription_details = @user.subscription.details
     save_preferences
