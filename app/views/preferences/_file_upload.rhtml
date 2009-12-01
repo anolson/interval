@@ -27,13 +27,23 @@
         Append SRM comment to workout notes.
         <br/><br/>
         <div class="highlight_box">
-          <h3>Upload files to Interval by email.</h3> <p>Attach a file to a message addressed to:</p>
-          <div class="center larger"><%= mail_to "upload+#{@user.upload_email_secret}@intervalapp.com"%></div>
-          <br/>
-          <div class="smaller">(Optionally specify a name for the workout in the subject and some notes in the body.)</div>
-          <h4>Also, don't share this address with anyone.</h4>
-          <%= link_to "Reset Upload Email.", :controller => "user", :action => "reset_upload_address" %><br/><br/>
-        </div>
+          <div class="container full">
+            
+              <h3>Upload files to Interval by email.</h3>
+              Simply email a file to:
+              <div class="center">
+                <br/>
+                <span class="larger"><%= mail_to "upload+#{@user.upload_email_secret}@intervalapp.com"%></span>
+                <span class="smaller">(<%= link_to "Reset address.", :controller => "user", :action => "reset_upload_address" %>)</span>
+              </div>
+              
+              <br/>
+              <div class="smaller">(Optionally specify a name for the workout in the subject and some notes in the body.)</div>
+              <br/><br/>
+              <strong>This address is unique to you, don't share this address with anyone else.</strong>
+            </div>            
+          </div>
+
       </fieldset> 
       
       <%= observe_field 'preferences_auto_assign_workout_name', 
