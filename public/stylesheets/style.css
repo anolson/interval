@@ -1,4 +1,4 @@
-@import @import url("pagination.css");@import url("lightbox.css");
+@import url("pagination.css");@import url("lightbox.css");
 body{font-family:"Lucida Grande",Verdana,Sans-Serif;font-size:13px;color:#333;text-align:center;margin:0;padding:0;background:#455E7F;background-image:url(../images/body.png);background-repeat:repeat-x;background-position:top right;}
 a{color:#0080FF;text-decoration:none;}
 a:hover{color:#66B3FF;}
@@ -61,7 +61,7 @@ p{margin:5px 5px 5px 10px;}
 
 
 
-#content{clear:both;margin:10px auto;padding-top:20px;padding-bottom:20px;text-align:left;background:#EEE; border-top:1px solid #BBB;border-bottom:2px solid #bbb;}
+#content{clear:both;margin:10px auto;padding-top:20px;padding-bottom:20px;text-align:left;background:#EEE; border-top:1px solid #BBB;border-bottom:1px solid #BBB;}
 #errorExplanation{border:1px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#FCC;}
 #errorExplanation p{color:#333;margin-bottom:0;padding:5px 0;}
 #footer {color: #DDD; font-weight: bold;}
@@ -87,13 +87,19 @@ p{margin:5px 5px 5px 10px;}
 #more{width:100%;float:left;}
 #more p{margin:15px;}
 #navigation{float:left; width:100%;}
-#navigation a {color:#69F; padding:6px 8px; display: inline; float:left; border:0; margin-bottom:3px;}
-#navigation a:hover{background-color:#3173CB; color:#EEE;}
-#navigation ul{float:left;padding: 0px; margin:0; margin-left:30px; margin-top:5px;font-weight: bold;}
+#navigation a {padding:6px 8px;display:inline; float:left; border:0; margin-bottom:3px;}
+#navigation ul{float:left;padding:0;margin:5px 0 0 20px; font-weight: bold;}
 #navigation li{float:left;list-style-type:none;margin-right:10px; display:inline;}
-#navigation .current {background-color:#EEE;color:#333; border:1px solid #999; border-bottom:none; margin-bottom: -1px;}
-#navigation .current a {color:#333}
-#navigation .current a:hover {background-color: transparent; }
+#site #navigation a {color:#69F;}
+#site #navigation {float:right; margin-top:8px; width:auto;}
+#site #navigation a:hover{color:#ACF;}
+#site #navigation .current a {color:#EEE}
+#app #navigation a {color:#69F;}
+#app #navigation a:hover{background-color:#3173CB; color:#EEE;}
+#app #navigation ul{margin-left:30px;}
+#app #navigation .current {background-color:#EEE; border:1px solid #999; border-bottom:none; margin-bottom: -1px;}
+#app #navigation .current a {color:#333}
+#app #navigation .current a:hover {background-color: transparent;}
 #plans td, #plans th {border: 1px solid #BBB; padding: 10px; text-align: center; width:20%;}
 #plans th {background: #E5ECFF;}
 #plans th.current {background-color: #DDDDFF;}
@@ -116,7 +122,9 @@ p{margin:5px 5px 5px 10px;}
 #sidebar li{margin-bottom:2px}
 #sidebar .container{margin:0px auto;}
 #sidebar .top{font-size:18px;margin:0px auto;padding:2px 0;width:90%;}
-#site{float:left; width:100%;}
+
+/*#site{float:left; width:100%;}*/
+
 #title{float:left;margin:5px 5px 5px 25px;}
 #title a{color:#006ADB;}
 #toolbar {text-align:right; padding:5px; margin:0; position:absolute; top:5px; right:25px; color:#DDD; font-weight: bold;}

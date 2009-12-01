@@ -7,7 +7,7 @@
     <%= stylesheet_link_tag 'style' %>
     <%= javascript_include_tag 'prototype' %>
   </head>
-  <body>
+  <body id="site">
     <span id="title">
      <%= link_to image_tag("interval.png"),  '/'  %>
     </span>
@@ -21,9 +21,7 @@
             <div class="clear"></div>
           </div>
         <% end %>
-        <div id="site">
-          <%= @content_for_layout  %>
-        </div>
+        <%= @content_for_layout  %>
       </div>
       <div class="clear"></div> 
     </div>
