@@ -1,5 +1,5 @@
 class SharedController < ApplicationController
-  layout 'standard'
+  
   skip_before_filter :check_authentication
   
   before_filter :check_sharing
