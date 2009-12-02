@@ -1,0 +1,8 @@
+<div id="navigation">
+  <ul>
+    <%= navigation_item 'Home', {:controller => 'site'}%>
+    <%= navigation_item 'Tour', tour_url%>
+    <%= navigation_item 'Pricing & Sign-up',  {:controller => 'site', :action => 'plans'}%>
+    <%= navigation_item 'Sign-in', {:controller => 'user', :action => 'signin'}%>
+  </ul>
+</div>
