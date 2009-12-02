@@ -36,7 +36,7 @@ p{margin:5px 5px 5px 10px;}
 .left{float:left;}
 .light{color: #555;}
 .lighter{color: #888;}
-.info_box{margin:5px auto;background-color:#B3DAFF;font-size:13px;color:#333;}
+.info_box{margin:5px auto;background-color:#B3DAFF;font-size:13px;color:#333; border:1px solid #BBB; width:400px;}
 .info_box span{width:100%;float:left;margin:8px 0;text-align:center;}
 
 .odd{background:#E8EDFF;}
