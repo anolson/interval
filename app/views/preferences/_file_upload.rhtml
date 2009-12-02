@@ -29,18 +29,20 @@
         <div class="highlight_box">
           <div class="container full">
             
-              <h3>Upload files to Interval by email.</h3>
-              Simply email a file to:
-              <div class="center">
-                <br/>
-                <span class="larger"><%= mail_to "upload+#{@user.upload_email_secret}@intervalapp.com"%></span>
-                <span class="smaller">(<%= link_to "Reset address.", :controller => "user", :action => "reset_upload_address" %>)</span>
-              </div>
+              <h3>Add workouts by emailing them to Interval.</h3>
               
-              <br/>
-              <div class="smaller">(Optionally specify a name for the workout in the subject and some notes in the body.)</div>
+              <span>Simply email a file to:</span>
+              <span><%= mail_to "upload+#{@user.upload_email_secret}@intervalapp.com"%></span>
               <br/><br/>
-              <strong>This address is unique to you, don't share this address with anyone else.</strong>
+              <div class="smaller">(You can optionally add a name for the workout in the subject and some notes in the body.)</div>
+              <br/>
+              <span>
+                <%= link_to "Reset upload address.", :controller => "user", :action => "reset_upload_address" %>
+              </span>
+              
+
+              <br/><br/>
+              <strong>This address is unique to you, so don't share it with anyone else.</strong>
             </div>            
           </div>
 

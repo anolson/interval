@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
   end
   
   def generate_upload_email_secret
-    random_pronounceable_string
+    random_pronounceable_string + (100 + rand(899)).to_s
   end
   
   protected

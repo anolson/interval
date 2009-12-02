@@ -19,6 +19,12 @@ class UserController < ApplicationController
     redirect_to :controller => 'preferences'
   end
   
+  def reset_upload_address
+    user = User.find session[:user]
+    user.update_attribute(:upload_email_secret, user.generate_upload_email_secret)
+    redirect_to :controller => 'preferences'
+  end
+  
   def signin
     if request.post?
       user = User.authenticate(params[:user][:username], params[:user ][:password])
