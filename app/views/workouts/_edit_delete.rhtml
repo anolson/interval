@@ -1,4 +1,4 @@
-<div class="smaller edit">
+<div id="edit" class="smaller" style="display:none;">
   <%= link_to("Edit", {:controller => "workouts", :action => "edit", :id => id}, :class=>"lbOn") %>&nbsp;
   <%= link_to(image_tag("delete.png", :title => "Delete"), {:controller => "workouts", :action => "destroy", :id => id}, :confirm => "Are you sure you want to delete this workout?") %>
 </div>

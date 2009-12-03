@@ -62,6 +62,7 @@ p{margin:5px 5px 5px 10px;}
 
 
 #content{clear:both;margin:10px auto;padding-top:20px;padding-bottom:20px;text-align:left;background:#EEE; border-top:1px solid #BBB;border-bottom:1px solid #BBB;}
+#edit{float:left;margin:14px 0 0 6px;}
 #errorExplanation{border:1px solid red;padding:7px;padding-bottom:12px;margin-bottom:20px;background-color:#FCC;}
 #errorExplanation p{color:#333;margin-bottom:0;padding:5px 0;}
 #footer {color: #DDD; font-weight: bold;}
@@ -75,7 +76,6 @@ p{margin:5px 5px 5px 10px;}
 #main p{margin:5px;}
 #main th{background:#EEE;font-weight:normal;text-align:left;font-size:14px;}
 #main .details{float:left;width:100%;}
-#main .edit{float:left;margin:14px 0 0 6px;}
 #main .list{margin-top:10px;}
 #main .notes{font-family:Monaco;margin:10px 5px;}
 #main .plot{margin:10px auto;}
@@ -111,7 +111,7 @@ p{margin:5px 5px 5px 10px;}
 #signup table {font-size:13px; border-collapse:collapse; background-color: #FFF;}
 #secondary{width:100%;padding: 5px 0;background-color:#DEF;font-size:13px;color:#333; margin-bottom:10px;}
 #secondary .date{float:left; margin:14px 0 0 0px;}
-#secondary ul{float:right;padding:5px 10px;margin:0;}
+#secondary ul{float:right;padding:6px 10px;margin:0;}
 #secondary li{float:left;list-style-type:none;margin:4px 3px;}
 #secondary span{float:left;margin:5px 10px 5px 20px; font-size:20px; font-weight: bold; color:#444;}
 #sidebar{float:right;width:29%;}
