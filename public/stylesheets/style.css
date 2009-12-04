@@ -36,7 +36,7 @@ p{margin:5px 5px 5px 10px;}
 .left{float:left;}
 .light{color: #555;}
 .lighter{color: #888;}
-.info_box{margin:5px auto;background-color:#B3DAFF;font-size:13px;color:#333; border:1px solid #BBB; width:400px;}
+.info_box{margin:5px auto;background-color:#B3DAFF;font-size:13px;color:#333; border:1px solid #BBB;}
 .info_box span{width:100%;float:left;margin:8px 0;text-align:center;}
 
 .odd{background:#E8EDFF;}
@@ -57,7 +57,7 @@ p{margin:5px 5px 5px 10px;}
 .averageMaximum table{background:#FFF;margin:5px auto;width:95%;font-size:11px;text-align:left;border:2px solid #BBB;}
 .averageMaximum td{width:33%;}
 .wide{width:90%;}
-
+.width_400{width: 400px;}
 
 
 
