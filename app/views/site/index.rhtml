@@ -4,7 +4,7 @@
       View, track, and share your powermeter data.  
     </span>
     <br/><br/>
-    <% info_box do %>
+    <% content_tag :div, :class => "info_box width_400" do %>
       <span class="larger">
         <%= link_to "Sign-up for Free", :controller => "site", :action => "plans" %> and find out what you can do.
       </span>
@@ -12,7 +12,9 @@
         (Sign-up only takes seconds) Already have an account?
         <%= link_to "Sign-in", :controller => "user", :action => "signin" %>
       </span>
+			<div class="clear"></div>
     <% end %>
+		
   </div>
 </div>
 <div class="right center half" style="width:45%">
