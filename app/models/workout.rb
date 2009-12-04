@@ -3,7 +3,7 @@ class Workout < ActiveRecord::Base
   has_many :training_files, :dependent => :destroy 
   has_many :comments
   has_many :markers, :order => 'id', :dependent => :destroy 
-  has_many :peak_powers, :dependent => :destroy
+  has_many :peak_powers, :order=> 'id', :dependent => :destroy
   
   accepts_nested_attributes_for :training_files
   
