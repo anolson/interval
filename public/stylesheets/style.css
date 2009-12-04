@@ -71,7 +71,7 @@ p{margin:5px 5px 5px 10px;}
 #footer li{float:left;list-style-type:none;margin:2px;}
 #graph_summary table{border:1px solid #BBB;margin:0px auto;background:#CCC;font-size:10px;text-align:left;}
 #graph_summary td{background:#EEE;width:100px}
-#main{float:left; width:100%; background-color: #FFF; border:2px solid #BBB;}
+#main{float:left; width:100%; background-color: #FFF; border:2px solid #BBB; min-width:663px;}
 #main h4{margin:5px;}
 #main p{margin:5px;}
 #main th{background:#EEE;font-weight:normal;text-align:left;font-size:14px;}
@@ -114,7 +114,7 @@ p{margin:5px 5px 5px 10px;}
 #secondary ul{float:right;padding:6px 10px;margin:0;}
 #secondary li{float:left;list-style-type:none;margin:4px 3px;}
 #secondary span{float:left;margin:5px 10px 5px 20px; font-size:20px; font-weight: bold; color:#444;}
-#sidebar{float:right;width:29%;}
+#sidebar{float:right;width:30%;}
 #sidebar form{margin:5px 10px; padding: 0;}
 #sidebar h2{color:#333;margin:5px 5px 5px 10px;}
 #sidebar h4{margin:10px 10px 2px 10px;text-decoration:underline;}
@@ -122,6 +122,8 @@ p{margin:5px 5px 5px 10px;}
 #sidebar li{margin-bottom:2px}
 #sidebar .container{margin:0px auto;}
 #sidebar .top{font-size:18px;margin:0px auto;padding:2px 0;width:90%;}
+
+#sidebar .box{margin: 0; margin-bottom:15px; float:right;}
 
 /*#site{float:left; width:100%;}*/
 
