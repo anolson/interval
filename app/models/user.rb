@@ -33,9 +33,6 @@ class User < ActiveRecord::Base
   def initialize(options = {})
     super(options)
     set_default_preferences
-    
-    #TODO remove this
-    #self.plan = Plan.find_by_name("Free")
   end
   
   def set_default_preferences
