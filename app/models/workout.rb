@@ -37,20 +37,18 @@ class Workout < ActiveRecord::Base
       upload_email_secret = mail.to.first.split('@').first.split('+').second
       if(upload_email_secret)
         user = User.find_by_upload_email_secret upload_email_secret    
-        if(user and user.subscription.is_within_limits?)
-          params = {
-            :name => mail.subject,
-            :performed_on => mail.date,
-            :notes => mail.body_plain.strip,
-            :training_files_attributes => [{:payload => mail.attachments.first}]
-          } 
-          workout = Workout.new params
-          workout.user = user
-          
-          if workout.save
-            workout.process!
-            WorkoutsWorker.async_process_workout(:workout_id => workout.id)
-          end
+        params = {
+          :name => mail.subject,
+          :performed_on => mail.date,
+          :notes => mail.body_plain.strip,
+          :training_files_attributes => [{:payload => mail.attachments.first}]
+        } 
+        workout = Workout.new params
+        workout.user = user
+        
+        if workout.save
+          workout.process!
+          WorkoutsWorker.async_process_workout(:workout_id => workout.id)
         end
       end
     end
