@@ -9,7 +9,7 @@ h2{margin:10px auto;font-family:Helvetica;width:95%;}
 img{border:0px none;}
 input,textarea,select{padding:2px;font-size:12px;}
 input[type=radio]{margin:1px 5px; float: left;}
-input[type=checkbox]{margin:0px 5px; float: left;}
+input[type=checkbox]{margin:1px 5px 0 0; float: left;}
 p{margin:5px 5px 5px 10px;}
 
 .big_dot{font-size:25px; color:#888;}

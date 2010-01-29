@@ -1,30 +1,38 @@
       <fieldset>
         <legend>Graphing</legend>
         <h4>Display the following in workout graphs:</h4>
-        <%= check_box_tag 'preferences[graph][power]', 
-          true, 
-          @user.preferences[:graph] && @user.preferences[:graph][:power] %> 
-        Power<br/><br/>
-        
-        <%= check_box_tag 'preferences[graph][torque]', 
-          true, 
-          @user.preferences[:graph] && @user.preferences[:graph][:torque] %> 
-        Torque<br/><br/>
-        
-        <%= check_box_tag 'preferences[graph][heartrate]', 
-          true, 
-          @user.preferences[:graph] && @user.preferences[:graph][:heartrate] %> 
-        Heartrate<br/><br/>
-        
-        <%= check_box_tag 'preferences[graph][cadence]', 
-          true, 
-          @user.preferences[:graph] && @user.preferences[:graph][:cadence] %> 
-        Cadence<br/><br/>
+        <p>        
+          <%= check_box_tag 'preferences[graph][power]', 
+            true, 
+            @user.preferences[:graph] && @user.preferences[:graph][:power] %> 
+          Power
+        </p>
+        <p>
+          <%= check_box_tag 'preferences[graph][torque]', 
+            true, 
+            @user.preferences[:graph] && @user.preferences[:graph][:torque] %> 
+          Torque
+        </p>
+        <p>
+          <%= check_box_tag 'preferences[graph][heartrate]', 
+            true, 
+            @user.preferences[:graph] && @user.preferences[:graph][:heartrate] %> 
+          Heartrate
+        </p>
+        <p>
+          <%= check_box_tag 'preferences[graph][cadence]', 
+            true, 
+            @user.preferences[:graph] && @user.preferences[:graph][:cadence] %> 
+          Cadence
+        </p>
 
-        <%= check_box_tag 'preferences[graph][speed]', 
-          true, 
-          @user.preferences[:graph] && @user.preferences[:graph][:speed] %> 
-        Speed<br/><br/>
+        <p>
+          <%= check_box_tag 'preferences[graph][speed]', 
+            true, 
+            @user.preferences[:graph] && @user.preferences[:graph][:speed] %> 
+          Speed          
+        </p>
+        <br />
         <span class="smaller">
           (If your graphs are taking longer to display, try making fewer selections.)
         </span>

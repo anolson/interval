@@ -1,6 +1,6 @@
 class UserController < ApplicationController
-  skip_before_filter :check_authentication, :except => [:change_password, :delete, :update, :update_plan]
-  ssl_required :signin, :signup, :change_password, :update, :update_plan
+  skip_before_filter :check_authentication, :except => [:change_password, :delete, :update]
+  ssl_required :signin, :signup, :change_password, :update
   
   def change_password
     if request.post?
@@ -43,7 +43,8 @@ class UserController < ApplicationController
   end
   
   def signup
-    @plan = Plan.find_by_name(params[:plan].capitalize)
+    @plan = Plan.find_by_name("comp")
+    
     if(request.post?)
       @user = User.new(params[:user])
 
@@ -73,44 +74,6 @@ class UserController < ApplicationController
   #rescue
   #  flash[:notice] = $!.to_s
   end
-  
-
-  def update_plan
-    @plan = Plan.find_by_name(params[:plan].capitalize)
-    if(request.post?)
-      if(Subscription.is_within_limits?(@user, @plan))
-        @user.subscription.credit_card = params[:credit_card]
-        @credit_card = @user.subscription.credit_card
-        if(@user.subscription.valid?)
-          if(@user.save!)
-            @user.subscription.change(@plan)
-            flash[:notice] = "account updated"        
-            redirect_to :controller => 'site', :action => 'plans'
-          end
-        end
-      end
-    end
-  rescue
-   flash[:notice] = $!.to_s
-  end
-  
-  
-  def update
-    if(request.post?)
-      @user.subscription.credit_card = params[:credit_card]
-      @credit_card = @user.subscription.credit_card
-      if(@user.subscription.valid?)
-        if(@user.save!)
-          @user.subscription.change(@user.subscription.plan)
-          flash[:notice] = "account updated"        
-          redirect_to :controller => 'preferences'
-        end
-      end
-    end
-  rescue
-   flash[:notice] = $!.to_s
-  end
-  
   
   def signout
     reset_session
