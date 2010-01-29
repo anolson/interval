@@ -43,20 +43,11 @@ class UserController < ApplicationController
   end
   
   def signup
-    @plan = Plan.find_by_name("comp")
-    
-    if(request.post?)
+     if(request.post?)
       @user = User.new(params[:user])
-
-      @subscription = Subscription.new(:plan => @plan, :credit_card => params[:credit_card])
-      @credit_card = @subscription.credit_card
-      if(@subscription.valid? && @user.valid?) 
-        @user.subscription = @subscription
-        if(@user.save!)
-          @user.subscription.subscribe
-          flash[:notice] = "account created, please signin"        
-          redirect_to :action => "signin"
-        end
+      if(@user.save) 
+        flash[:notice] = "Thanks signing up, please signin now."        
+        redirect_to :action => "signin"
       end
     end
   rescue
@@ -66,7 +57,6 @@ class UserController < ApplicationController
   def delete
     if(request.post?)
       if(params[:confirm_delete])
-        @user.subscription.cancel
         User.destroy(@user)
         signout
       end

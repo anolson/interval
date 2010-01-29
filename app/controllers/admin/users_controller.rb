@@ -62,8 +62,6 @@ class Admin::UsersController < Admin::AdminController
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        @user.subscription.plan = Plan.find(params[:plan][:id])
-        @user.subscription.save
         flash[:notice] = 'Admin::Users was successfully updated.'
         format.html { redirect_to(:action => "edit", :id => @user.id) }
         format.xml  { head :ok }

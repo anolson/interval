@@ -2,19 +2,10 @@ class PreferencesController < ApplicationController
   layout 'standard'
     
   def index
-    @subscription_details = @user.subscription.details
     save_preferences
   end
-  
-  def plan
-    @plans = Plan.find(:all)    
-  end
     
-  private 
-    #def find_user
-    #   @user = User.find(session[:user])
-    #end
-  
+  private   
     def save_preferences
       if request.post?
         @user.update_attributes(params[:user])
