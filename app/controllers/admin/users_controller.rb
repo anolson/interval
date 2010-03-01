@@ -36,7 +36,6 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin_users/1/edit
   def edit
     @user = User.find(params[:id])
-    @plans = Plan.find(:all)
   end
 
   # POST /admin_users

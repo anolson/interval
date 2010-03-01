@@ -6,15 +6,10 @@
 <% end %>
 
 <div id="navigation">
-  <% unless admin_logged_in? %>
-    <ul>
-      <%= navigation_item 'Home', root_url%>
-    </ul>
-  <% else %>
-
+  <% if admin_logged_in? %>
     <ul>
       <%= navigation_item_for_controller 'Users',  {:controller => 'users', :include => ['users']}%>
       <%= navigation_item_for_controller 'Articles',  {:controller => 'articles', :include => ['articles']}%>
     </ul>        
   <% end %>
-    </div>
+</div>
