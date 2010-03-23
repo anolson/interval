@@ -2,7 +2,6 @@ class WorkoutsController < ApplicationController
   layout 'standard'
   before_filter :find_workouts, :only => [:index, :list]
   before_filter :check_that_workout_belongs_to_user, :only => [:show, :graph, :edit, :update, :destroy, :poll]
-  before_filter :check_within_plan_limits, :only => [:new, :create]
  
   def index
     @workout_count = @user.workouts.count(:conditions => "state != 'destroying'")

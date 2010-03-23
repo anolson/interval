@@ -10,7 +10,7 @@
                 
                 <div class="left" style="width: 70%;">
                   <div id="<%="workout_notes_#{workout.id}"%>" class="notes complete left">
-                    <%= workout.notes.empty? && "Edit to add notes." || truncate(workout.notes, 50) %>
+                    <%= workout.notes.empty? && "Edit to add notes." || truncate(workout.notes, {:length => 50}) %>
                   </div>   
                   <div style="margin: 5px" class="complete left">
                     <span id="<%="workout_date_#{workout.id}"%>" class="small lighter">

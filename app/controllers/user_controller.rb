@@ -46,7 +46,7 @@ class UserController < ApplicationController
      if(request.post?)
       @user = User.new(params[:user])
       if(@user.save!) 
-        flash[:notice] = "Thanks signing up, please signin now."        
+        flash[:notice] = "Thanks for signing up, please signin now."        
         redirect_to :action => "signin"
       end
     end

@@ -1,7 +1,6 @@
 class TrainingFilesController < ApplicationController
   layout 'standard'
-  before_filter :check_within_plan_limits, :only => [:new, :create]
-  
+    
   def download
     file=TrainingFile.find(params[:id])
     workout = Workout.find(file.workout)
