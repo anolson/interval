@@ -6,4 +6,4 @@ marker_for_recovery:
 marker_for_one_week_ago_raceride:
   id: 2
   duration_seconds: <%= 2.hour %>
-  workout_id: 2
+  workout_id: 5

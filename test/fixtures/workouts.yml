@@ -8,6 +8,7 @@ recovery:
   permalink: "rr"
   
 pr:
+  id: 2
   name: "Paris Roubaix"
   performed_on: <%= Time.now %>
   notes: "RR on the bike path."
@@ -15,6 +16,7 @@ pr:
   permalink: "paris_roubaix"
   
 one_week_ago_endurance:
+  id: 3
   name: "Endurance Miles"
   performed_on: "5/5/08 1:00"
   notes: "Big Miles."
@@ -22,6 +24,7 @@ one_week_ago_endurance:
   permalink: "endurance_miles"
 
 one_week_ago_recovery:
+  id: 4
   name: "recovery ride"
   performed_on: "5/7/08 4:00"
   notes: "Easy Ride."
@@ -29,7 +32,7 @@ one_week_ago_recovery:
   permalink: "recovery_ride"
   
 one_week_ago_raceride:
-  id: 2
+  id: 5
   name: "race ride"
   performed_on: "5/8/08 4:00"
   notes: "Hard Ride."

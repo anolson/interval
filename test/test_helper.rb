@@ -23,16 +23,7 @@ class ActiveSupport::TestCase
   # instantiated fixtures translates to a database query per test method),
   # then set this back to true.
   self.use_instantiated_fixtures  = false
-
-  # Add more helper methods to be used by all tests here...
-  def signin(username, password)
-    post :signin, :user => {:username => username, :password => password}
-    assert_response :redirect
-    assert_not_nil session[:user]
-    assert username, User.find(session[:user]).username
-    assert_equal 'login success', flash[:notice]
-  end
-  
+    
   def uploaded_file(path, content_type="application/octet-stream", filename=nil)
     filename ||= File.basename(path)
     t = Tempfile.new(filename)
@@ -44,6 +35,5 @@ class ActiveSupport::TestCase
     end
     return t
   end
-  
-  
+
 end

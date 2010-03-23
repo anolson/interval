@@ -1,55 +1,55 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'user_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class UserController; def rescue_action(e) raise e end; end
-
-class UserControllerTest < Test::Unit::TestCase
-  
+class UserControllerTest < ActionController::TestCase
   fixtures :users
   
-  def setup
-    @controller = UserController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
-
-  def test_signup_for_free_plan
+  test "signup" do
     @request.env['HTTPS'] = 'on'
-
-    post :signup, :user => {:username => 'zabriskie', :email => 'dznuts@gmail.com', :password => 'test', :password_confirmation => 'test', :terms_of_service => 1}, :plan => 'free'
+    post(:signup, :user => {:username => 'zabriskie', :email => 'dznuts@gmail.com', :password => 'test', :password_confirmation => 'test', :terms_of_service => 1})
     assert_response :redirect
-    assert_redirected_to( :action => 'signin' )
+    assert_redirected_to(:action => 'signin')
+    assert_equal 'Thanks for signing up, please signin now.', flash[:notice]
   end
 
-  def test_signin
+  test "signin" do
     signin 'andrew', 'test'
+    assert_response :redirect
+    assert_not_nil session[:user]
+    assert 'andrew', User.find(session[:user]).username
+    assert_equal 'login success', flash[:notice]
   end
   
-  def test_invalid_signin
-    post :signin, :user => {:username => 'andrew', :password => 'test12'}
+  test "invalid signin" do
+    signin 'andrew', 'test12'
     assert_response :success
     assert_equal 'Username or Password Invalid', flash[:notice]
   end
-  
-  def test_change_password
-    signin 'andrew', 'test'
-    post :change_password, :user => {:old_password => 'test', :password => 'blah', :password_confirmation => 'blah' }
+   
+  test "change password" do
+    @request.env['HTTPS'] = 'on'
+    session[:user] = users(:andrew).id
+    post(:change_password, :user => {:old_password => 'test', :password => 'blah', :password_confirmation => 'blah' })
     assert_response :redirect
     assert_nil session[:user]
     assert_equal 'Password changed, please signin.', flash[:notice]
   end
   
-  def test_invalid_change_password
-    signin 'andrew', 'test'
+  test "invalid change password" do
+    @request.env['HTTPS'] = 'on'
+    session[:user] = users(:andrew).id
     post :change_password, :user => {:old_password => 'asdf', :password => 'blah', :password_confirmation => 'blah' }
     assert_equal 'Old Password Incorrect', flash[:notice]
   end
+   
+  test "signout" do
+   session[:user] = users(:andrew).id
+   post :signout
+   assert_response :redirect
+  end
   
-  def test_signout
-    signin 'andrew', 'test'
-    post :signout
-    assert_response :redirect
+  def signin(username, password)
+    @request.env['HTTPS'] = 'on'
+    post :signin, :user => {:username => username, :password => password}
   end
 
 end

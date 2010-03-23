@@ -2,21 +2,26 @@
 andrew:
   id: 1
   username: 'andrew'
+  email: 'andrew@intervalapp.com'
   password_salt: <%= salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp %>
   password_hash: <%= Digest::SHA256.hexdigest("test" + salt) %>
-  preferences: {"display_name": "andrew olson", "email": "", "parse_srm_comment": false, "view_type": "index", "sort_order": "name"}
+  preferences: {"display_name": "andrew olson", "parse_srm_comment": false, "view_type": "index", :sort_order: "name"}
+  terms_of_service: true
 
 eddy:
   id: 2
   username: 'eddy'
+  email: 'eddy@intervalapp.com'
   password_salt: <%= salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp %>
   password_hash: <%= Digest::SHA256.hexdigest("whatever" + salt) %>
-  preferences: {"display_name": "eddy", "email": "", "parse_srm_comment": false, "view_type": "index", "sort_order": "name"}
-
+  preferences: {"display_name": "eddy", "parse_srm_comment": false, "view_type": "index", :sort_order: "name"}
+  terms_of_service: true 
+  
 damiano:
   username: 'damiano'
+  email: 'damiano@intervalapp.com'
   password_salt: <%= salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp %>
   password_hash: <%= Digest::SHA256.hexdigest("test" + salt) %>
-  preferences: {"display_name": "cunego", "email": "", "parse_srm_comment": false, "view_type": "index", "sort_order": "name"}
-
+  preferences: {"display_name": "cunego", "parse_srm_comment": false, "view_type": "index", :sort_order: "name"}
+  terms_of_service: true
 

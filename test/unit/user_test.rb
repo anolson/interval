@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < Test::Unit::TestCase
+class UserTest < ActiveSupport::TestCase
   fixtures :users
   
   def test_create
     user = User.create({:username => "bob", :password => "whatever", :password_confirmation => "whatever"})
     assert_kind_of User, user
     assert_equal "bob", user.username
-    assert_equal "bob", user.preferences["display_name"]
+    assert_equal "bob", user.preferences[:display_name]
   end
   
   def test_duplicate_username

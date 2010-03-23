@@ -1,22 +1,15 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class SummaryControllerTest < ActionController::TestCase
-  fixtures :workouts
+  fixtures :users
   
-  def setup
-    @controller = SummaryController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
-  
-  
-  def test_index_without_session
+  test "index without session" do
     get :index
     assert_redirected_to :controller => 'user', :action => 'signin'
   end
   
-  def test_index
-    @request.session[:user] = 1
+  test "index" do
+    session[:user] = users(:andrew).id
     get :index
     assert_response :success
     assert assigns['monthly']
