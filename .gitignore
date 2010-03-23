@@ -1,9 +1,8 @@
+.DS_Store
+doc/**/*
+db/development.sqlite3
+db/test.sqlite3
 log/*.log
 log/*.output
 log/*.pid
 tmp/**/*
-.DS_Store
-doc/api
-doc/app
-db/development.sqlite3
-db/test.sqlite3
