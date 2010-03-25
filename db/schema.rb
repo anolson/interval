@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 18) do
+ActiveRecord::Schema.define(:version => 22) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -76,6 +76,19 @@ ActiveRecord::Schema.define(:version => 18) do
     t.integer "workout_id", :default => 0
   end
 
+  create_table "plans", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "workout_limit"
+    t.string   "limit_by"
+    t.integer  "storage_limit", :limit => 8
+    t.float    "price"
+    t.boolean  "enabled"
+    t.boolean  "public"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "rights", :force => true do |t|
     t.string  "controller"
     t.string  "action"
@@ -93,6 +106,14 @@ ActiveRecord::Schema.define(:version => 18) do
   end
 
   add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
+
+  create_table "subscriptions", :force => true do |t|
+    t.string   "paypal_profile_id"
+    t.integer  "plan_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "training_files", :force => true do |t|
     t.datetime "created_at"

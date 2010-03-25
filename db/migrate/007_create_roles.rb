@@ -8,6 +8,9 @@ class CreateRoles < ActiveRecord::Migration
       t.column :description,    :text
     end
     
+    Role.create :name => "admin", :description => "Role given to all admins"
+    Role.create :name => "athlete", :description => "Role given to all athletes"
+    
     create_table :roles_users do |t|
       t.column :user_id,    :integer
       t.column :role_id,    :integer
