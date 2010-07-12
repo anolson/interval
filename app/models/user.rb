@@ -110,9 +110,9 @@ class User < ActiveRecord::Base
   end
   
   def auto_assign_options
-    { :auto_assign_name => user.preferences[:auto_assign_workout_name],
-      :auto_assign_name_by => user.preferences[:auto_assign_workout_name_by],
-      :append_srm_comment_to_notes => user.preferences[:append_srm_comment_to_notes] }
+    { :auto_assign_name => self.preferences[:auto_assign_workout_name],
+      :auto_assign_name_by => self.preferences[:auto_assign_workout_name_by],
+      :append_srm_comment_to_notes => self.preferences[:append_srm_comment_to_notes] }
   end
   
   protected

@@ -38,9 +38,9 @@ class TrainingFile < ActiveRecord::Base
     self.powermeter_properties.class.eql?(IbikeProperties) || self.powermeter_properties.class.eql?(SrmProperties)
   end
   
-  def auto_assign_options_for_file(file)
+  def auto_assign_options
     if(self.has_performed_on_date_time?)
-      { :performed_on => file.powermeter_properties.date_time }
+      { :performed_on => self.powermeter_properties.date_time }
     end
   end
   
