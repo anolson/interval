@@ -120,7 +120,7 @@ class Workout < ActiveRecord::Base
   end
   
   def self.process(id)
-    workout = Workout.find(options[:workout_id])
+    workout = Workout.find(id)
 
     training_file = workout.training_files.first
     training_file.parse_file_data
