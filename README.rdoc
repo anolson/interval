@@ -16,6 +16,23 @@ View, track and share your powermeter data.  Interval is a web application that 
 == Install
 
     git clone git://github.com/anolson/interval.git
+    
+== Get started
+
+    $ cp config/database.yml.example config/database.yml
+    $ cp config/initializers/session_store.rb.example config/initializers/session_store.rb
+    $ rake
+    $ script/server
+    
+== Update the session store secret
+
+If you plan to run this in production your should update the session store secret.
+
+    $ rake secret
+
+Paste the newly generate secret into session_store.rb
+
+    $ vi config/initializers/session_store.rb
 
 == License
 
