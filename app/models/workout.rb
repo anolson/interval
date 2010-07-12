@@ -140,8 +140,8 @@ class Workout < ActiveRecord::Base
     self.notes = generate_workout_comments() if options[:append_srm_comment_to_notes]
   end
   
-  def auto_assign_options(user, file)
-    auto_assign_options_for_user(user).merge(auto_assign_options_for_file(file))
+  def auto_assign_options(user, training_file)
+    user.auto_assign_options.merge(training_file.auto_assign_options)
   end
 
 end
