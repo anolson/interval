@@ -38,6 +38,13 @@ class TrainingFile < ActiveRecord::Base
     self.powermeter_properties.class.eql?(IbikeProperties) || self.powermeter_properties.class.eql?(SrmProperties)
   end
   
+  def auto_assign_options_for_file(file)
+    if(self.has_performed_on_date_time?)
+      { :performed_on => file.powermeter_properties.date_time }
+    end
+  end
+  
+  
   def parse_file_data()
     file_parser = get_file_parser()
     file_parser.parse_training_file

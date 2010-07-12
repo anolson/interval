@@ -119,11 +119,31 @@ class Workout < ActiveRecord::Base
     end
   end
   
+  def self.process(id)
+    workout = Workout.find(options[:workout_id])
+
+    training_file = workout.training_files.first
+    training_file.parse_file_data
+    training_file.save
+
+    workout.markers << training_file.markers
+    workout.peak_powers << training_file.peak_powers.collect {|p| PeakPower.new(p) }
+    workout.auto_assign workout.auto_assign_options(workout.user, training_file)
+    workout.auto_assign training_file.auto_assign_options
+    workout.save
+    workout.finish!
+  end
+  
   def auto_assign(options)
     self.performed_on = options[:performed_on] if options[:performed_on]
     self.name = generate_workout_name(options[:auto_assign_name_by]) if options[:auto_assign_name]
     self.notes = generate_workout_comments() if options[:append_srm_comment_to_notes]
   end
+  
+  def auto_assign_options(user, file)
+    auto_assign_options_for_user(user).merge(auto_assign_options_for_file(file))
+  end
+
 end
 
 module Enumerable

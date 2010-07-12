@@ -109,6 +109,12 @@ class User < ActiveRecord::Base
     random_pronounceable_string + (100 + rand(899)).to_s
   end
   
+  def auto_assign_options
+    { :auto_assign_name => user.preferences[:auto_assign_workout_name],
+      :auto_assign_name_by => user.preferences[:auto_assign_workout_name_by],
+      :append_srm_comment_to_notes => user.preferences[:append_srm_comment_to_notes] }
+  end
+  
   protected
     def password_required?
       password_hash.blank? || !password.blank?
