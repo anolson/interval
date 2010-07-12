@@ -1,4 +1,7 @@
 .DS_Store
+config/database.yml
+config/deploy.yml
+config/initializers/session_store.rb
 doc/**/*
 db/development.sqlite3
 db/test.sqlite3
