@@ -4,7 +4,6 @@ class UserControllerTest < ActionController::TestCase
   fixtures :users
   
   test "signup" do
-    @request.env['HTTPS'] = 'on'
     post(:signup, :user => {:username => 'zabriskie', :email => 'dznuts@gmail.com', :password => 'test', :password_confirmation => 'test', :terms_of_service => 1})
     assert_response :redirect
     assert_redirected_to(:action => 'signin')
@@ -26,7 +25,6 @@ class UserControllerTest < ActionController::TestCase
   end
    
   test "change password" do
-    @request.env['HTTPS'] = 'on'
     session[:user] = users(:andrew).id
     post(:change_password, :user => {:old_password => 'test', :password => 'blah', :password_confirmation => 'blah' })
     assert_response :redirect
@@ -35,7 +33,6 @@ class UserControllerTest < ActionController::TestCase
   end
   
   test "invalid change password" do
-    @request.env['HTTPS'] = 'on'
     session[:user] = users(:andrew).id
     post :change_password, :user => {:old_password => 'asdf', :password => 'blah', :password_confirmation => 'blah' }
     assert_equal 'Old Password Incorrect', flash[:notice]
@@ -48,7 +45,6 @@ class UserControllerTest < ActionController::TestCase
   end
   
   def signin(username, password)
-    @request.env['HTTPS'] = 'on'
     post :signin, :user => {:username => username, :password => password}
   end
 
