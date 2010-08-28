@@ -1,0 +1,49 @@
+<% @heading = content_tag :span, "Upload a workout.", :class => "larger" %>
+
+<% @links = [
+  { :text => 'Upload Workout', :path => new_upload_path }, 
+  { :text => 'Add Workout', :path => new_workout_path } ] %>
+
+<div id="main">
+  <%= render(:partial => 'common/secondary') %>
+  <% rounded_box nil, "half", "full" do %>
+    <% container "full" do %>
+
+      <% form_tag({:action => 'create'}, :multipart => true)  do %>
+        <label for="file">File:</label><br/>
+        <%= file_field("workout[training_files_attributes][0]", "payload") %><br/><br/>
+        
+        <label for="name">Name:</label><br/>
+        <%= text_field "workout", "name" %><br/><br/>
+        
+        <label for="performed_on">Performed on: </label><span class="smaller">(only required for PowerTap files)</span><br/>
+        <%= datetime_select "workout", "performed_on", :order => [:month, :day, :year], :twelve_hour => true %> <br/><br/>
+        
+        <label for="notes">Notes:</label><br/>
+        <%= text_area "workout", "notes", :rows => 3 %><br/><br/>
+
+        <%= submit_tag "Upload", :disable_with => "Uploading..."%>
+      <% end %>
+    <% end %>
+  <% end %>  
+  
+  <div style="float:left; margin-top: 10px" class="half">
+    <p class=larger>
+      Add a workout by uploading a file.  Browse and select a
+      <%= link_to "supported file", support_permalink_path("supported_devices") -%>.  
+      Then, enter a name and optionally some notes.
+    </p>
+    <br/>
+    <p>After you upload the workout, you will be able to:</p>
+    <ul>
+      <li>View workout data and graphs.</li>
+      <li>Share you workout with others.</li>
+      <li>Track the progress of your training.</li>
+    </ul>
+    <br/>
+    <p style="text-align: center; color: green"><%= flash[:error] %></p>
+    <%= error_messages_for 'workout'%>
+    <%= error_messages_for 'training_file'%>
+  </div>
+  <%= render :partial => 'common/back' %>
+</div>

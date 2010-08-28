@@ -3,9 +3,9 @@
 <% @date = nice_datetime(@workout.performed_on) %>
 
 <% @links = [
-  { :text => 'Summary', :options => {:controller => 'workouts', :action => 'show', :id => @workout.id } }, 
-  { :text => 'Graph', :options => {:controller => 'workouts', :action => 'graph', :id => @workout.id } }, 
-  { :text => 'Peak Power', :options => {:controller => 'peak', :action => 'show', :id => @workout.id } } ] %>
+  { :text => 'Summary', :path => workout_path(@workout) }, 
+  { :text => 'Graph', :path => workout_graph_path(@workout) }, 
+  { :text => 'Peak Power', :path => workout_peak_power_path(@workout) } ] %>
 
 <div id="main_wrapper">
   <div id="main">

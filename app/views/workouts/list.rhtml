@@ -8,7 +8,7 @@
       <% info_box do %>
         <span class="larger">
           You currently don't have any workouts.  
-          Get started by <%= link_to "adding", :controller => "workouts", :action => "new" %> a workout.
+          Get started by <%= link_to "adding", new_workout_path %> a workout.
         </span>
       <% end %>
     <% end %>
@@ -18,7 +18,7 @@
   <% rounded_box nil, "complete", "wide" do %>
     <ul class="larger">
       <li><%= link_to "Upload a workout", :controller => "training_files", :action => "new" %></li>
-      <li><%= link_to "Add a workout", :controller => "workouts", :action => "new" %></li>
+      <li><%= link_to "Add a workout", new_workout_path  %></li>
     </ul>
   <% end %>
   <%= render :partial => 'common/sort_by'%>

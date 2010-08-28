@@ -1,6 +1,6 @@
 <div id="secondary" class="full" <%= @editable && "onmouseover=\"$('edit').show();\" onmouseout=\"$('edit').hide();\"" || nil %> > 
   <ul class="small">
-    <%= @links && @links.collect{ |link| secondary_item link[:text], link[:options] }.join('<li>|</li>') %>
+    <%= @links && @links.collect{ |link| secondary_item link[:text], link[:path] }.join('<li>|</li>') %>
   </ul>
   <div>
     <%= @heading %>

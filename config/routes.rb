@@ -1,22 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
-  
-  # Sample of regular route:
-  # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # You can have the root of your site routed by hooking up '' 
-  # -- just remember to delete public/index.html.
-  # map.connect '', :controller => "welcome"
-
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
-  
   map.signin 'signin', 
     :controller => 'user',
     :action => 'signin'
@@ -25,21 +7,22 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'user',
     :action => 'signout'
   
-  map.upload 'upload', 
-      :controller => 'training_files',
-      :action => 'new'
-
   map.tour 'tour', 
       :controller => 'site', 
       :action => 'tour'
+      
+  map.admin '/admin', 
+    :controller => 'admin/session', 
+    :action => 'new'
+
+  map.support_permalink 'support/:permalink', 
+    :controller => "support", 
+    :action => "show"
     
   map.root :controller => 'site', :action => 'index'
 
+  
   map.connect 'shared/private', :controller => 'site', :action => 'index'
-  
-  
-
-
     
   map.connect 'shared/private/:hash/:action/:id.:format',
       :controller => 'shared'
@@ -53,7 +36,6 @@ ActionController::Routing::Routes.draw do |map|
             
   map.connect 'shared', :controller => 'site', :action => 'index'
 
-
     
   map.connect 'shared/:user/:action/:id.:format',
     :requirements => { :user => /\w[\w\.\-_@]+/ },
@@ -63,21 +45,22 @@ ActionController::Routing::Routes.draw do |map|
     :requirements => { :user => /\w[\w\.\-_@]+/ },
     :controller => 'shared'
 
-    map.connect 'shared/:user/:action.:format',
-      :requirements => { :user => /\w[\w\.\-_@]+/ },
-      :controller => 'shared'
-   
-  map.connect 'workouts/show/:begin/:end/:id.:format', 
-      :controller => 'workouts',
-      :action => 'show'
+  map.connect 'shared/:user/:action.:format',
+    :requirements => { :user => /\w[\w\.\-_@]+/ },
+    :controller => 'shared'
 
   map.namespace(:admin) do |admin|
     admin.resources :articles
   end 
 
-  map.admin '/admin', :controller => 'admin/session', :action => 'new'
+  map.resources :workouts do |workout|
+    workout.resource :peak_power
+    workout.resource :graph
+  end
   
-  map.support_permalink 'support/:permalink', :controller => "support", :action => "show"
+  map.resource :upload
+  map.resource :summary, :controller => "summary"
+
   
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   

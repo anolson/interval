@@ -2,7 +2,7 @@ require 'power_calculator.rb'
 
 class SummaryController < ApplicationController
   layout 'standard'
-  def index
+  def show
     weekly
     monthly
   end

@@ -1,14 +1,14 @@
 <% @heading = content_tag :span, "Add a new workout.", :class => "larger" %>
 
 <% @links = [
-  { :text => 'Upload Workout', :options => {:controller => 'training_files', :action => 'new' } }, 
-  { :text => 'Add Workout', :options => {:controller => 'workouts', :action => 'new' } } ] %>
+  { :text => 'Upload Workout', :path => new_upload_path }, 
+  { :text => 'Add Workout', :path => new_workout_path } ] %>
 
 <div id="main">
   <%= render(:partial => 'common/secondary') %>
   <% rounded_box "", "half", "full" do %>  
     <% container "full" do %>  
-      <% form_tag :action => 'create' do %>
+      <% form_for @workout do ||%>
         <label for="name">Name:</label><br/>
         <%= text_field :workout, :name %><br/><br/>
 

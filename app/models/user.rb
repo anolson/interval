@@ -78,9 +78,13 @@ class User < ActiveRecord::Base
   end
   
   def all_time_best_peak_powers
-    PeakPower::DURATIONS.collect { |duration| 
-      {:duration => duration, :value => peak_powers.maximum_peak_power(duration)}
-    }
+    if(!peak_powers.empty?)
+      PeakPower::DURATIONS.collect { |duration| 
+        {:duration => duration, :value => peak_powers.maximum_peak_power(duration)}
+      }
+    else
+      {}
+    end
   end
   
   def private_sharing_hash 
