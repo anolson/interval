@@ -61,6 +61,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :upload
   map.resource :summary, :controller => "summary"
   map.resource :preferences, :member => {:reset_sharing_links => :get, :reset_upload_address => :get}
+  map.resource :password_change, :controller => 'password_change'
 
   map.resources :downloads
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]

@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :if => :password_required?
   
   attr_accessible :username, :email, :password, :password_confirmation, :preferences, :plan, :terms_of_service
-  attr_accessor :password, :old_password
+  attr_accessor :password, :current_password
     
   before_create :create_password
   
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   
   def self.change_password(id, attributes = {}) 
     user=User.find(id)
-    if(!user.blank? && user.password_matches?(attributes[:old_password]))
+    if(!user.blank? && user.password_matches?(attributes[:current_password]))
       user.attributes=attributes
       user.create_password
       user.save!

@@ -5,7 +5,7 @@
 
         <label for="password">Password:</label><br/>
         <%= password_field_tag "password", "********", :size => 30, :disabled => true %>
-        <%= link_to("Change password", {:controller => "user", :action => "change_password"}, {:class => 'smaller'}) %><br/><br/>
+        <%= link_to("Change password", new_password_change_path, {:class => 'smaller'}) %><br/><br/>
 
         <label for="email">Email:</label><br/>
         <%= text_field "user", "email", :size => 30 %>

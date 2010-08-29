@@ -24,20 +24,6 @@ class UserControllerTest < ActionController::TestCase
     assert_equal 'Username or Password Invalid', flash[:notice]
   end
    
-  test "change password" do
-    session[:user] = users(:andrew).id
-    post(:change_password, :user => {:old_password => 'test', :password => 'blah', :password_confirmation => 'blah' })
-    assert_response :redirect
-    assert_nil session[:user]
-    assert_equal 'Password changed, please signin.', flash[:notice]
-  end
-  
-  test "invalid change password" do
-    session[:user] = users(:andrew).id
-    post :change_password, :user => {:old_password => 'asdf', :password => 'blah', :password_confirmation => 'blah' }
-    assert_equal 'Old Password Incorrect', flash[:notice]
-  end
-   
   test "signout" do
    session[:user] = users(:andrew).id
    post :signout

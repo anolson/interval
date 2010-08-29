@@ -5,10 +5,10 @@
     <% rounded_box @heading_text, "complete", "wide" do %>
       <% container "full" do %>
         
-        <% form_tag :action => 'change_password' do %>
+        <% form_for :password_change, :url => {:action => 'create'} do |f| %>
 
-          <label for="username">Current Password:</label><br/>
-          <%= password_field_tag "old_password", nil, :size => 30 %><br/><br/>
+          <label for="current_password">Current Password:</label><br/>
+          <%= password_field "user", "current_password", :size => 30 %><br/><br/>
 
           <label for="password">New Password:</label><br/>
           <%= password_field "user", "password" %><br/><br/>

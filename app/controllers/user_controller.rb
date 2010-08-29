@@ -1,17 +1,6 @@
 class UserController < ApplicationController
   skip_before_filter :check_authentication, :except => [:change_password, :delete]
   
-  def change_password
-    if request.post?
-      User.change_password(session[:user], params[:user])
-      flash[:notice] = 'Password changed, please signin.'
-      session[:user] = nil
-      redirect_to :action => 'signin'
-    end
-  rescue
-    flash[:notice] = $!.to_s 
-  end
-  
   def signin
     if request.post?
       user = User.authenticate(params[:user][:username], params[:user ][:password])
