@@ -64,6 +64,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :password_change, :controller => 'password_change'
 
   map.resources :downloads
+  map.resources :processors
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   
   # Install the default route as the lowest priority.

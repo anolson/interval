@@ -52,11 +52,6 @@ class WorkoutsController < ApplicationController
   def show
   end
   
-  def poll
-    @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
-  end
-  
-  
   private
     def find_workouts
       @sort_order = params[:sort_order] || @user.preferences[:sort_order]
