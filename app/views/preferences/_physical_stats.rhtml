@@ -1,8 +1,8 @@
         <fieldset>
           <legend>Physical Stats</legend>
           <label for="threshold_power">Threshold Power:</label><br/>
-          <%= text_field_tag "preferences[threshold_power]", @user.preferences[:threshold_power], :size => 3 %> Watts<br />
+          <%= text_field_tag "user[preferences][threshold_power]", @user.preferences[:threshold_power], :size => 3 %> Watts<br />
           <br/>
           <label for="threshold_power">Weight:</label><br/>
-           <%= text_field_tag "preferences[weight]", @user.preferences[:weight], :size => 3 %> Kilograms<br />
+           <%= text_field_tag "user[preferences][weight]", @user.preferences[:weight], :size => 3 %> Kilograms<br />
         </fieldset>

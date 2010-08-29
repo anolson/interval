@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  skip_before_filter :check_authentication, :except => [:change_password, :delete, :update]
+  skip_before_filter :check_authentication, :except => [:change_password, :delete]
   
   def change_password
     if request.post?
@@ -12,18 +12,6 @@ class UserController < ApplicationController
     flash[:notice] = $!.to_s 
   end
   
-  def reset_sharing_links
-    user = User.find session[:user]
-    user.update_attribute(:private_sharing_hash, user.generate_private_sharing_hash)
-    redirect_to :controller => 'preferences'
-  end
-  
-  def reset_upload_address
-    user = User.find session[:user]
-    user.update_attribute(:upload_email_secret, user.generate_upload_email_secret)
-    redirect_to :controller => 'preferences'
-  end
-  
   def signin
     if request.post?
       user = User.authenticate(params[:user][:username], params[:user ][:password])
@@ -34,7 +22,7 @@ class UserController < ApplicationController
         redirect_to session[:intended_params]
         session[:intended_params] = nil
       else
-        redirect_to :controller => "workouts", :action => user.preferences[:workout_view]
+        redirect_to workouts_path
       end
     end
   rescue

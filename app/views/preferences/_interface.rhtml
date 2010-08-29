@@ -1,20 +1,20 @@
       <fieldset>
         <legend>Interface</legend>
         <h4>Sort workouts by</h4>
-        <%= radio_button_tag 'preferences[sort_order]',
+        <%= radio_button_tag 'user[preferences][sort_order]',
                  'name', 
                   @user.preferences[:sort_order].eql?('name') && true || false %> Name <br/>
         <p></p>
-        <%= radio_button_tag 'preferences[sort_order]', 
+        <%= radio_button_tag 'user[preferences][sort_order]', 
                  'performed_on', 
                   @user.preferences[:sort_order].eql?('performed_on') && true || false %>  Date <br/>
                        
         <h4>Display units of measurement in</h4>
-        <%= radio_button_tag 'preferences[units_of_measurement]',
+        <%= radio_button_tag 'user[preferences][units_of_measurement]',
                  'english', 
                   @user.preferences[:units_of_measurement].eql?('english') && true || false %> English <br/>
         <p></p>
-        <%= radio_button_tag 'preferences[units_of_measurement]', 
+        <%= radio_button_tag 'user[preferences][units_of_measurement]', 
                  'metric', 
                   @user.preferences[:units_of_measurement].eql?('metric') && true || false %>  Metric <br/>
 

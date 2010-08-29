@@ -1,18 +1,22 @@
 class PreferencesController < ApplicationController
   layout 'standard'
-    
-  def index
-    save_preferences
+  
+  def show
+  end
+  
+  def update
+    @user.update_attributes(params[:user])
+    redirect_to preferences_path
+  end
+  
+  def reset_sharing_links
+    @user.update_attribute(:private_sharing_hash, @user.generate_private_sharing_hash)
+    redirect_to preferences_path
+  end
+  
+  def reset_upload_address
+    @user.update_attribute(:upload_email_secret, @user.generate_upload_email_secret)
+    redirect_to preferences_path
   end
     
-  private   
-    def save_preferences
-      if request.post?
-        @user.update_attributes(params[:user])
-        params[:preferences].symbolize_keys!
-        params[:preferences][:enable_sharing] = false if params[:preferences][:enable_sharing].nil? 
-        params[:preferences][:share_workouts_publicly] = false if params[:preferences][:share_workouts_publicly].nil? 
-        @user.update_attribute(:preferences, params[:preferences])
-      end
-    end
 end

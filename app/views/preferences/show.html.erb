@@ -4,7 +4,7 @@
   <%= render(:partial => 'common/secondary') %>
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
-      <% form_tag do %>
+      <% form_for :preferences, @user.preferences, :url => preferences_path, :html => {:method => :put} do |f| %>
         <%= render :partial => 'user_account' %>
 
         <%= render :partial => 'interface' %>

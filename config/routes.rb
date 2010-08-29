@@ -21,7 +21,6 @@ ActionController::Routing::Routes.draw do |map|
     
   map.root :controller => 'site', :action => 'index'
 
-  
   map.connect 'shared/private', :controller => 'site', :action => 'index'
     
   map.connect 'shared/private/:hash/:action/:id.:format',
@@ -60,16 +59,12 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :upload
   map.resource :summary, :controller => "summary"
+  map.resource :preferences, :member => {:reset_sharing_links => :get, :reset_upload_address => :get}
 
-  
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   
-
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
-  
- 
-
     
 end
