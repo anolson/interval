@@ -3,6 +3,8 @@ require 'csv_file_parser'
 require 'ibike_file_parser'
 
 class TrainingFile < ActiveRecord::Base
+  unloadable
+  
   serialize :powermeter_properties
   belongs_to :workout
   has_many :data_values, :order => 'id', :dependent => :destroy

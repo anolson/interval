@@ -2,7 +2,7 @@
     <% if @sharing %>
       <%= link_to file.filename, {:controller => "shared", :action => "download",:user => @user.username, :id => file.id}, :action => "download" %>
     <% else %>
-      <%= link_to file.filename, {:controller => "training_files", :action => "download",  :id => file.id}, :action => "download" %> 
+      <%= link_to file.filename, download_path(file) %> 
     <% end %>
     <%= image_tag('download.png')%>
     (<%= number_to_human_size(file.file_size) %>) 

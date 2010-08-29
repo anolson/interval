@@ -17,7 +17,7 @@
 <% sidebar_div_tag do %>
   <% rounded_box nil, "complete", "wide" do %>
     <ul class="larger">
-      <li><%= link_to "Upload a workout", :controller => "training_files", :action => "new" %></li>
+      <li><%= link_to "Upload a workout", new_upload_path %></li>
       <li><%= link_to "Add a workout", new_workout_path  %></li>
     </ul>
   <% end %>
