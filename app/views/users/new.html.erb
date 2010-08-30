@@ -4,7 +4,7 @@
     <% rounded_box @heading_text, "complete", "wide" do %>
       <% container "full" do %>
       
-        <% form_tag :action => 'signup' do %>
+        <% form_for @user do |f| %>
             <label for="username">Username:</label><br/>
             <%= text_field "user", "username" %><br/><br/>
 

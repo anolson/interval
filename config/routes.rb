@@ -8,8 +8,8 @@ ActionController::Routing::Routes.draw do |map|
     :action => 'destroy'
     
   map.signup 'signup', 
-    :controller => 'user',
-    :action => 'signup'
+    :controller => 'users',
+    :action => 'new'
   
   map.tour 'tour', 
       :controller => 'site', 
@@ -56,21 +56,23 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :articles
   end 
 
-  map.resources :workouts do |workout|
-    workout.resource :peak_power
-    workout.resource :graph
-    
-  end
-  
-  map.resource :upload
-  map.resource :summary, :controller => "summary"
-  map.resource :preferences, :member => {:reset_sharing_links => :get, :reset_upload_address => :get}
-  map.resource :password_change, :controller => 'password_change'
 
+  map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   map.resources :downloads
   map.resources :processors
   map.resources :sessions
-  map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
+  
+  
+  map.resources :workouts do |workout|
+    workout.resource :peak_power
+    workout.resource :graph    
+  end
+  
+  map.resource :password_change, :controller => 'password_change'
+  map.resource :preferences, :member => {:reset_sharing_links => :get, :reset_upload_address => :get}
+  map.resource :summary, :controller => "summary"
+  map.resource :upload
+  map.resource :users, :member => {:confirm_destroy => :get}
   
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'

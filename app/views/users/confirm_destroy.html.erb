@@ -5,13 +5,10 @@
     <% rounded_box @heading_text, "complete", "wide" do %>
       <% container "full" do %>
         
-        <% form_tag :action => 'delete' do %>
-          
+        <% form_tag(:users, :url => users_path, :method => :delete) do |f| %>
           <fieldset>
-            <h4>Change your plan at anytime.</h3>
             <p>  
-              You can <%= link_to "change", :controller => 'preferences', :action => 'plan' -%> your plan at anytime. There are no extra fees.  
-              The new charge will take effect on your next billing cycle.
+              If you delete your account all workouts that you have uploaded will not longer be available.
             </p>
             <br />
             <%= check_box_tag 'confirm_delete' -%><span> I want to delete my account.</span><br /><br />
