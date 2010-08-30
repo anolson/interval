@@ -1,10 +1,8 @@
-
-
 <div id="navigation">
   <ul>
-    <%= navigation_item_for_path 'Workouts',  workouts_path, {:include => ['workouts', 'peak']}%>
-    <%= navigation_item_for_path 'Training Summary', {:controller => 'summary'}, {:include => ['summary']}%>
-    <%= navigation_item_for_path 'Preferences',  {:controller => 'preferences'}, {:include => ['preferences']}%>
+    <%= navigation_item_for_path 'Workouts',  workouts_path, {:include => ['workouts', 'graphs' 'peak_powers']}%>
+    <%= navigation_item 'Training Summary', summary_path %>
+    <%= navigation_item 'Preferences', preferences_path %>
     <%= navigation_item 'Upload',  new_upload_path %>      
   </ul>        
 </div>
