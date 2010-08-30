@@ -5,7 +5,7 @@
   <div>
     <%= @heading %>
     <%= @date && content_tag(:div, nice_datetime(@workout.performed_on), :class => "date smaller light", :id => "workout_date") %>
-    <%= @editable && render(:partial => 'workouts/edit_delete', :locals => {:id => @workout.id}) || nil %>
+    <%= @editable && render(:partial => 'workouts/edit_delete', :locals => {:workout => @workout}) || nil %>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>

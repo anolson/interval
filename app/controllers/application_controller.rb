@@ -31,13 +31,15 @@ class ApplicationController < ActionController::Base
     end 
   end
   
-  def check_that_workout_belongs_to_user
+  def find_workout
     if(params[:id])
       @workout = Workout.find(params[:id]) 
     else
       @workout = Workout.find(params[:workout_id]) 
     end
-    
+  end
+  
+  def check_that_workout_belongs_to_user
     unless @workout.belongs_to_user?(@user.id)
       redirect_to :action => 'index'
     end

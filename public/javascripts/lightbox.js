@@ -123,7 +123,7 @@ lightbox.prototype = {
 	loadInfo: function() {
 		var myAjax = new Ajax.Request(
         this.content,
-        {method: 'post', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
+        {method: 'get', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
 		);
 		
 	},
@@ -154,7 +154,7 @@ lightbox.prototype = {
 	 
 	   var myAjax = new Ajax.Request(
 			  link.href,
-			  {method: 'post', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
+			  {method: 'get', parameters: "", onComplete: this.processInfo.bindAsEventListener(this)}
 	   );
 	 
 	},
