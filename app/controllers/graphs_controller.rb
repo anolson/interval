@@ -4,6 +4,7 @@ class GraphsController < ApplicationController
   before_filter :check_that_workout_belongs_to_user, :only => [:show]
   
   def show
+    @editable = true 
     respond_to do |format|
       format.html
       format.json {        

@@ -54,6 +54,7 @@ class WorkoutsController < ApplicationController
   end
     
   def show
+    @editable = true 
   end
   
   private

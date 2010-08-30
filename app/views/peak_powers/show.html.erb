@@ -2,7 +2,6 @@
 
 <% @secondary_heading = content_tag :span, "Peak Power for #{nice_date(@workout.performed_on)}", :class => "larger", :id => "workout_date_#{@workout.id}" %>
 
-<% @editable = true %>
 <% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
 <% @date = nice_datetime(@workout.performed_on) %>
 
