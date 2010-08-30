@@ -6,16 +6,18 @@ class WorkoutsController < ApplicationController
   before_filter :check_that_workout_belongs_to_user, :only => [:show, :edit, :update, :destroy]
  
   def index
-    @workout_count = @user.workouts.count(:conditions => "state != 'destroying'")
-    @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
-    @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]
-    render :action => "list" 
+    respond_to do |format|
+      format.html {
+        @workout_count = @user.workouts.count(:conditions => "state != 'destroying'")
+        @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
+        @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]        
+      }
+      format.js {
+        render(:partial => 'common/workouts/list', :layout => false)
+      }
+    end
   end
-  
-  def list
-    render(:partial => 'common/list', :layout => false)
-  end
-  
+
   def new       
     @workout = Workout.new
   end

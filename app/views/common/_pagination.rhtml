@@ -1,5 +1,5 @@
 <%= will_paginate @workouts, 
-  :params => {:action => 'list', :view_type => @view_type, :sort_order => @sort_order }, 
+  :params => {:action => 'index', :view_type => @view_type, :sort_order => @sort_order }, 
   :renderer => 'RemoteLinkRenderer',
   :prev_label => '<',
   :next_label => '>' %>
