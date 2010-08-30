@@ -1,5 +1,7 @@
 class PeakPowersController < ApplicationController
   layout 'standard'
+  
+  before_filter :find_workout, :only => [:show]
   before_filter :check_that_workout_belongs_to_user, :only => [:show]
   
   def show

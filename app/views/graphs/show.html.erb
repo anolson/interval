@@ -37,17 +37,10 @@
             <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
             
             <script type="text/javascript">
-                        
-              <% 
-                graph_options = @user.preferences[:graph].collect { |k,v| 
-                  v && k.to_s + '=true' || nil
-                }.join("&")
-              %>
-              var url = "<%= "/workouts/show/#{@workout.id}.json?#{graph_options}" %>";
+              var url = "<%= workout_graph_path(@workout, :format => :json, :params => @user.preferences[:graph]) %>";
               loadWorkoutPlot(url);
-
             </script>
-            
+                        
           <% else %>
             <div class="container full">
               <br/>

@@ -1,7 +1,7 @@
 class WorkoutsController < ApplicationController
   layout 'standard'
 
-  before_filter :find_workouts, :only => [:index, :list]
+  before_filter :find_workouts, :only => [:index]
   before_filter :find_workout, :only => [:show, :edit, :update, :destroy]
   before_filter :check_that_workout_belongs_to_user, :only => [:show, :edit, :update, :destroy]
  
