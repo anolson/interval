@@ -4,7 +4,7 @@
   <% rounded_box @heading_text, "complete", "wide" do %>
     <% container "full" do %>
       
-      <% form_tag :action => 'signin' do %>
+      <% form_for :sessions, :url => sessions_path do %>
         <label for="username">Username:</label><br/>
         <%= text_field "user", "username" %><br/><br/>
 

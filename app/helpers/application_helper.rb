@@ -76,4 +76,8 @@ module ApplicationHelper
     javascript_tag("$('#{id}').focus()")
   end
   
+  def should_display_performed_on_date?
+    @workout && @workout.performed_on
+  end
+  
 end

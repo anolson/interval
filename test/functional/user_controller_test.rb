@@ -10,28 +10,4 @@ class UserControllerTest < ActionController::TestCase
     assert_equal 'Thanks for signing up, please signin now.', flash[:notice]
   end
 
-  test "signin" do
-    signin 'andrew', 'test'
-    assert_response :redirect
-    assert_not_nil session[:user]
-    assert 'andrew', User.find(session[:user]).username
-    assert_equal 'login success', flash[:notice]
-  end
-  
-  test "invalid signin" do
-    signin 'andrew', 'test12'
-    assert_response :success
-    assert_equal 'Username or Password Invalid', flash[:notice]
-  end
-   
-  test "signout" do
-   session[:user] = users(:andrew).id
-   post :signout
-   assert_response :redirect
-  end
-  
-  def signin(username, password)
-    post :signin, :user => {:username => username, :password => password}
-  end
-
 end

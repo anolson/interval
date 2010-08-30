@@ -1,11 +1,15 @@
 ActionController::Routing::Routes.draw do |map|
   map.signin 'signin', 
-    :controller => 'user',
-    :action => 'signin'
+    :controller => 'sessions',
+    :action => 'new'
 
   map.signout 'signout', 
+    :controller => 'sessions',
+    :action => 'destroy'
+    
+  map.signup 'signup', 
     :controller => 'user',
-    :action => 'signout'
+    :action => 'signup'
   
   map.tour 'tour', 
       :controller => 'site', 
@@ -65,6 +69,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :downloads
   map.resources :processors
+  map.resources :sessions
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   
   # Install the default route as the lowest priority.
