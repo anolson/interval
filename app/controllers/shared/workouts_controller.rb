@@ -1,5 +1,4 @@
-class SharedController < ApplicationController
-  
+class Shared::WorkoutsController < ApplicationController  
   skip_before_filter :check_authentication
   
   before_filter :check_sharing
@@ -11,27 +10,16 @@ class SharedController < ApplicationController
   end
   
   def index
-    render :action => 'list'
-  end
-  
-  def download
-    file=TrainingFile.find(params[:id])
-    workout = Workout.find(file.workout)
-    if workout.belongs_to_user?(@user.id)
-      send_data(file.payload, :filename => file.filename, :type=>'application/octet-stream')
-    end
-  end
-  
-  def feed
-    @updated = @user.workouts.last ? @user.workouts.last.created_at : Time.now.utc
-    @workouts = @user.workouts.find(:all, :conditions => { :state => ["created", "uploaded"], :shared => true})
     respond_to do |format|
-      format.atom { render :layout => false }
+      format.html {
+        @workout_count = @user.workouts.count(:conditions => "state != 'destroying'")
+        @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
+        @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]        
+      }
+      format.js {
+        render(:partial => 'common/workouts/list', :layout => false)
+      }
     end
-  end
-  
-  def list
-    render(:partial => 'common/list', :layout => false)
   end
   
   def show
@@ -42,9 +30,6 @@ class SharedController < ApplicationController
         render :template => 'common/workouts/show.json.erb', :layout => false
       }
     end
-  end
-  
-  def graph
   end
   
   private

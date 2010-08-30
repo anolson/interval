@@ -2,7 +2,7 @@
             
             <% container "complete" do  %>
               <div class="larger" id="<%="workout_name_#{workout.id}"%>" style="font-size: 19px; float: left;">
-                <%= link_to(workout.name, workout_path(workout)) %>
+                <%= link_to(workout.name, {:action => 'show', :id => workout.id}) %>                
               </div>
 
               <div class="clear"></div>
