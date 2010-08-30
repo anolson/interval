@@ -117,4 +117,8 @@ module WorkoutsHelper
       :id => workout.id,
       :format => format    
   end
+  
+  def should_display_performed_on_date?
+    @workout && @workout.performed_on
+  end
 end

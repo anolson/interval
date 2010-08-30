@@ -1,6 +1,4 @@
-<% @editable = true %>
 <% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
-<% @date = nice_datetime(@workout.performed_on) %>
 
 <% @links = [
   { :text => 'Summary', :path => workout_path(@workout) }, 

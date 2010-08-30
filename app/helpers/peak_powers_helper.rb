@@ -1,4 +1,5 @@
 module PeakPowersHelper
+  include WorkoutsHelper
   def duration_in_words(duration)
     case duration
       when 1..59 then duration.to_s + " sec"
