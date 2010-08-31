@@ -114,4 +114,8 @@ module WorkoutsHelper
   def link_to_workout(workout, format = nil)
     link_to(workout.name, workout_path(workout, :format => format))
   end
+  
+  def link_to_workouts()
+    link_to("#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", workouts_path)
+  end
 end
