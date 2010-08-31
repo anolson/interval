@@ -41,19 +41,19 @@ class UserTest < ActiveSupport::TestCase
   end
   
   def test_change_password
-    User.change_password(1, {:old_password => 'test', :password => 'testing', :password_confirmation => 'testing'})
+    User.change_password(1, {:current_password => 'test', :password => 'testing', :password_confirmation => 'testing'})
     assert users(:andrew).password_matches?('testing')
   end
   
   def test_change_password_incorrect_old_password
     assert_raise(RuntimeError) {
-      User.change_password(1, {:old_password => 'testing', :password => 'testing', :password_confirmation => 'testing'})
+      User.change_password(1, {:current_password => 'testing', :password => 'testing', :password_confirmation => 'testing'})
     }
   end
   
   def test_change_password_non_matching_password_confirmation
     assert_raise(ActiveRecord::RecordInvalid) {
-      User.change_password(1, {:old_password => 'test', :password => 'testing', :password_confirmation => 'testing123'})
+      User.change_password(1, {:current_password => 'test', :password => 'testing', :password_confirmation => 'testing123'})
     }
   end
   
