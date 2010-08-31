@@ -112,9 +112,6 @@ module WorkoutsHelper
   end
   
   def link_to_workout(workout, format = nil)
-    link_to workout.name, 
-      :action => "show",  
-      :id => workout.id,
-      :format => format    
+    link_to(workout.name, workout_path(workout, :format => format))
   end
 end

@@ -24,48 +24,37 @@ ActionController::Routing::Routes.draw do |map|
     :action => "show"
     
   map.root :controller => 'site', :action => 'index'
-  
-  # map.connect 'shared/private', :controller => 'site', :action => 'index'
-  #   
-  # map.connect 'shared/private/:hash/:action/:id.:format',
-  #     :controller => 'shared'
-  # 
-  # map.connect 'shared/private/:hash/:action/:id',
-  #       :controller => 'shared'
-  # 
-  # map.connect 'shared/private/:hash/:action.:format',
-  #         :controller => 'shared'
-  # 
-  #           
-  # map.connect 'shared', :controller => 'site', :action => 'index'
-  # 
-  #   
-  # map.connect 'shared/:user/:action/:id.:format',
-  #   :requirements => { :user => /\w[\w\.\-_@]+/ },
-  #   :controller => 'shared'
-  # 
-  # map.connect 'shared/:user/:action/:id',
-  #   :requirements => { :user => /\w[\w\.\-_@]+/ },
-  #   :controller => 'shared'
-  # 
-  # map.connect 'shared/:user/:action.:format',
-  #   :requirements => { :user => /\w[\w\.\-_@]+/ },
-  #   :controller => 'shared'
 
   map.namespace(:admin) do |admin|
     admin.resources :articles
   end 
 
+  #/shared and /shared/private to the main site
+  map.connect 'shared', :controller => 'site', :action => 'index'
+  map.connect 'shared/private', :controller => 'site', :action => 'index'
+
   map.namespace(:shared) do |shared|
-    shared.resources :workouts, :path_prefix => 'shared/:user', :requirements => { :user => /\w[\w\.\-_@]+/ }
-    shared.resources :workouts, :path_prefix => 'shared/private/:hash'
+    #connect the old urls
+    shared.connect ':user', :controller => 'workouts'
+    shared.connect 'private/:hash', :controller => 'workouts'
+    
+    shared.resources :downloads, :path_prefix => 'shared/:user', :requirements => { :user => /\w[\w\.\-_@]+/ }
+
+    #private sharing
+    shared.resources :private_workouts, :path_prefix => 'shared/private/:hash', :as => "workouts", :controller => "workouts" do |workouts|
+      workouts.resource :graph
+    end
+    
+    #public sharing
+    shared.resources :workouts, :path_prefix => 'shared/:user', :requirements => { :user => /\w[\w\.\-_@]+/ } do |workouts|
+      workouts.resource :graph
+    end
   end
 
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   map.resources :downloads
   map.resources :processors
   map.resources :sessions
-  
   
   map.resources :workouts do |workout|
     workout.resource :peak_power

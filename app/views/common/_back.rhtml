@@ -1,11 +1,14 @@
 <div id="more" class="larger">
   <p>
     <% if @sharing %>
-      <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", :controller => 'shared') %>
+      <% if(@private) %>
+        <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", shared_private_workouts_path) %>
+      <% else %>
+        <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", shared_workouts_path) %>
+      <% end %>
+      
     <% else %>
-      <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", :controller => 'workouts') %>
+      <%= link_to( "#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", workouts_path) %>
     <% end %>
-    
-    
   </p>
 </div>

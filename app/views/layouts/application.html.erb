@@ -6,6 +6,8 @@
     <title>Interval</title>
     <%= stylesheet_link_tag 'style' %>
     <%= javascript_include_tag 'prototype' %>
+    <%= @sharing && auto_discovery_link_tag(:atom, :action => 'index', :format => 'atom') %>
+    
   </head>
   <body id="site">
     <span id="title">

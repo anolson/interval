@@ -1,6 +1,6 @@
 <% rounded_box "Edit workout", "complete", "wide" do %>  
   <% container "full" do %>  
-    <% form_remote_tag :html => {:id => 'update', :name => 'update'}, :url => {:action => 'update', :id => @workout.id} do -%>
+    <% form_remote_for @workout, :html => {:id => 'update', :name => 'update', :method => :put} do -%>
       <label for="name">Name:</label><br/>
       <%= text_field :workout, :name %><br/><br/>
 

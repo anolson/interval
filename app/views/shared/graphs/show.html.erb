@@ -29,12 +29,12 @@
             <br/>
             <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
             <script type="text/javascript">
-              <% 
-                graph_options = @user.preferences[:graph].collect { |k,v| 
-                  v && k.to_s + '=true' || nil
-                }.join("&")
-              %>
-              var url = "<%= "/shared/#{@user.username}/show/#{@workout.id}.json?#{graph_options}" %>";
+              <% if(@private) %>
+                var url = "<%= shared_private_workout_graph_path(:private_workout_id => @workout.id, :hash => @user.private_sharing_hash, :format => :json, :params => @user.preferences[:graph]) %>";
+              <% else %>
+                var url = "<%= shared_workout_graph_path(:workout_id => @workout.id, :user => @user.username, :format => :json, :params => @user.preferences[:graph]) %>";              
+              <% end %>
+
               loadWorkoutPlot(url);
             </script>
             
