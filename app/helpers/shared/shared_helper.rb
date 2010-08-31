@@ -1,7 +1,8 @@
 require "#{Rails.root}/app/helpers/workouts_helper.rb"
 
-module Shared::WorkoutsHelper
+module Shared::SharedHelper
   include WorkoutsHelper
+  
   def options_for_secondary_links()
     if @private 
       [ { :text => 'Summary', :path => shared_private_workout_path(:id => @workout.id, :hash => @user.private_sharing_hash) }, 
@@ -11,7 +12,7 @@ module Shared::WorkoutsHelper
         { :text => 'Graph', :path => shared_workout_graph_path(:workout_id => @workout.id, :user => @user.username) } ]
     end
   end
-  
+
   def link_to_workout(workout, format = nil)
     if(@private)
       link_to_private_workout(workout)
@@ -19,7 +20,7 @@ module Shared::WorkoutsHelper
       link_to_shared_workout(workout)
     end
   end
-    
+
   def link_to_private_workout(workout, format=nil)
     link_to workout.name, 
       :hash => @user.private_sharing_hash,
@@ -31,4 +32,5 @@ module Shared::WorkoutsHelper
   def link_to_shared_workout(workout, format=nil)
     link_to(workout.name, shared_workout_path(:id => workout.id, :user => @user.username))
   end
+
 end
