@@ -22,17 +22,29 @@ module Shared::SharedHelper
   end
 
   def link_to_private_workout(workout, format=nil)
-    link_to workout.name, 
-      :hash => @user.private_sharing_hash,
-      :action => "show",  
-      :id => workout.id,
-      :format => format
+    link_to workout.name, shared_private_workout_path(:id => workout.id, :hash => @user.private_sharing_hash)
   end
-
+  
   def link_to_shared_workout(workout, format=nil)
     link_to(workout.name, shared_workout_path(:id => workout.id, :user => @user.username))
   end
   
+  def link_to_workout_download(file)
+    if(@private)
+      link_to_private_shared_workout_download(file)
+    else
+      link_to_shared_workout_download(file)
+    end
+  end
+  
+  def link_to_private_shared_workout_download(file)
+    link_to(file.filename, shared_private_download_path(:id => file, :hash => @user.private_sharing_hash))
+  end
+  
+  def link_to_shared_workout_download(file)
+    link_to(file.filename, shared_download_path(:id => file, :user => @user.username))
+  end
+
   def link_to_workouts()
     if(@private)
       link_to_private_shared_workouts
@@ -48,5 +60,6 @@ module Shared::SharedHelper
   def link_to_shared_workouts
     link_to("#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", shared_workouts_path)
   end
+
 
 end

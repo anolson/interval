@@ -38,17 +38,18 @@ ActionController::Routing::Routes.draw do |map|
     shared.connect ':user', :controller => 'workouts'
     shared.connect 'private/:hash', :controller => 'workouts'
     
-    shared.resources :downloads, :path_prefix => 'shared/:user', :requirements => { :user => /\w[\w\.\-_@]+/ }
-
     #private sharing
     shared.resources :private_workouts, :path_prefix => 'shared/private/:hash', :as => "workouts", :controller => "workouts" do |workouts|
       workouts.resource :graph
     end
+    shared.resources :private_downloads, :path_prefix => 'shared/private/:hash', :as => 'downloads', :controller => 'downloads'
     
     #public sharing
     shared.resources :workouts, :path_prefix => 'shared/:user', :requirements => { :user => /\w[\w\.\-_@]+/ } do |workouts|
       workouts.resource :graph
     end
+    shared.resources :downloads, :path_prefix => 'shared/:user', :requirements => { :user => /\w[\w\.\-_@]+/ }
+    
   end
 
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]

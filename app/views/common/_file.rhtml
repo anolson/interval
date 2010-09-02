@@ -1,9 +1,5 @@
-  <li>
-    <% if @sharing %>
-      <%= link_to file.filename, shared_download_path(:id => file.id, :user => @user.username) %>
-    <% else %>
-      <%= link_to file.filename, download_path(file) %> 
-    <% end %>
+  <li>  
+    <%= link_to_workout_download(file) %>
     <%= image_tag('download.png')%>
     (<%= number_to_human_size(file.file_size) %>) 
     added <%= time_ago_in_words(file.created_at) %> ago.

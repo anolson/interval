@@ -115,6 +115,10 @@ module WorkoutsHelper
     link_to(workout.name, workout_path(workout, :format => format))
   end
   
+  def link_to_workout_download(file)  
+    link_to(file.filename, download_path(file))
+  end
+  
   def link_to_workouts()
     link_to("#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", workouts_path)
   end
