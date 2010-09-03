@@ -13,14 +13,14 @@ class Shared::SharedController < ApplicationController
   
   def check_public_sharing
     @user = User.find_by_username(params[:user]) or raise ActiveRecord::RecordNotFound
-    if(@user.preferences[:share_workouts_publicly].eql?(nil) || @user.preferences[:enable_sharing].eql?(nil))
+    if(@user.preferences[:share_workouts_publicly].nil? || @user.preferences[:enable_sharing].nil?)
       render :template => 'shared/sharing_not_enabled', :layout => 'application'
     end
   end
   
   def check_private_sharing
     @user = User.find_by_private_sharing_hash(params[:hash]) or raise ActiveRecord::RecordNotFound
-    if @user.preferences[:enable_sharing].eql?(nil)
+    if @user.preferences[:enable_sharing].nil?
       render :template => 'shared/sharing_not_enabled', :layout => 'application' 
     end
   end
