@@ -1,6 +1,7 @@
 <% navigation = nil if local_assigns[:navigation].nil? %>
+<% editable = nil if local_assigns[:editable].nil? %>
 
-<div id="secondary" class="full" <%= @editable && "onmouseover=\"$('edit').show();\" onmouseout=\"$('edit').hide();\"" || nil %> > 
+<div id="secondary" class="full" <%= editable && "onmouseover=\"$('edit').show();\" onmouseout=\"$('edit').hide();\"" || nil %> > 
   <% if(navigation) %>
     <ul class="small">
       <%= navigation.collect{ |link| secondary_item link[:text], link[:path] }.join('<li>|</li>') %>
@@ -12,7 +13,7 @@
     <% if(should_display_performed_on_date?) %>
       <%= content_tag(:div, nice_datetime(@workout.performed_on), :class => "date smaller light", :id => "workout_date") %>
     <% end %>
-    <%= @editable && render(:partial => 'workouts/edit_delete', :locals => {:workout => @workout}) || nil %>
+    <%= editable && render(:partial => 'workouts/edit_delete', :locals => {:workout => @workout}) || nil %>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>

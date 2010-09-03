@@ -1,6 +1,6 @@
 <div id="main_wrapper">
   <div id="main">
-    <%= render(:partial => 'common/secondary', :locals => { :header => workout_header(@workout), :navigation => options_for_workout_navigation(@workout) }) %>
+    <%= render(:partial => 'common/secondary', :locals => { :header => workout_header(@workout), :navigation => options_for_workout_navigation(@workout), :editable => true}) %>
     <div id="workout" class="list">
         <div class="container full">
           <fieldset>
