@@ -1,7 +1,12 @@
+<% navigation = nil if local_assigns[:navigation].nil? %>
+
 <div id="secondary" class="full" <%= @editable && "onmouseover=\"$('edit').show();\" onmouseout=\"$('edit').hide();\"" || nil %> > 
-  <ul class="small">
-    <%= @links && @links.collect{ |link| secondary_item link[:text], link[:path] }.join('<li>|</li>') %>
-  </ul>
+  <% if(navigation) %>
+    <ul class="small">
+      <%= navigation.collect{ |link| secondary_item link[:text], link[:path] }.join('<li>|</li>') %>
+    </ul>
+  <% end %>
+
   <div>
     <%= header %>
     <% if(should_display_performed_on_date?) %>

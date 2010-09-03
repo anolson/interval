@@ -133,6 +133,17 @@ module WorkoutsHelper
 
   def workouts_header(count)
     content_tag(:span, "All workouts (#{count})", :class => "larger")
-    
   end
+  
+  def options_for_workout_navigation(workout)
+    [ { :text => 'Summary', :path => workout_path(workout) }, 
+      { :text => 'Graph', :path => workout_graph_path(workout) }, 
+      { :text => 'Peak Power', :path => workout_peak_power_path(workout) } ]
+  end
+  
+  def options_for_new_workout_navigation()
+    [ { :text => 'Upload Workout', :path => new_upload_path }, 
+      { :text => 'Add Workout', :path => new_workout_path } ]
+  end
+  
 end

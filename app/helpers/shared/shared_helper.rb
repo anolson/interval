@@ -3,13 +3,13 @@ require "#{Rails.root}/app/helpers/workouts_helper.rb"
 module Shared::SharedHelper
   include WorkoutsHelper
   
-  def options_for_secondary_links()
+  def options_for_shared_workout_navigation(workout, user)
     if @private 
-      [ { :text => 'Summary', :path => shared_private_workout_path(:id => @workout.id, :hash => @user.private_sharing_hash) }, 
-        { :text => 'Graph', :path => shared_private_workout_graph_path(:private_workout_id => @workout.id, :hash => @user.private_sharing_hash)  } ]
+      [ { :text => 'Summary', :path => shared_private_workout_path(:id => workout.id, :hash => user.private_sharing_hash) }, 
+        { :text => 'Graph', :path => shared_private_workout_graph_path(:private_workout_id => workout.id, :hash => user.private_sharing_hash)  } ]
     else
-      [ { :text => 'Summary', :path => shared_workout_path(:id => @workout.id, :user => @user.username) }, 
-        { :text => 'Graph', :path => shared_workout_graph_path(:workout_id => @workout.id, :user => @user.username) } ]
+      [ { :text => 'Summary', :path => shared_workout_path(:id => workout.id, :user => user.username) }, 
+        { :text => 'Graph', :path => shared_workout_graph_path(:workout_id => workout.id, :user => user.username) } ]
     end
   end
 

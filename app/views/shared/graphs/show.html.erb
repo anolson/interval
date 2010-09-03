@@ -1,61 +1,59 @@
-<% @links = options_for_secondary_links %>
+<div id="main">
+  <%= render(:partial => 'common/secondary', :locals => { :header => shared_workout_header(@workout), :navigation => options_for_shared_workout_navigation(@workout, @user) } ) %>  
+  <% rounded_box nil, "complete", "full" do %> 
 
-  <div id="main">
-    <%= render(:partial => 'common/secondary', :locals => {:header => shared_workout_header(@workout)} ) %>  
-    <% rounded_box nil, "complete", "full" do %> 
+    <% if @user.preferences[:graph]  %>
+      <% content_tag :div,   :id => "plot_wrapper" do %>
+        <% if @workout.has_training_files? %>
+          <div class="zoom">   
+            <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
+          </div>
+          <div class="container complete">
+            <div id="plot" class="plot" style="height:400px; width:700px">
+              <div id="loader" style="padding-top: 150px; text-align:center">
+              <%= image_tag("loader.gif") %><br/>
+              Loading graph.</div>
+            </div>
+          </div>
+          <div id="graph_summary" >      
+            <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
+              <tr>
+                <td align="center">Time : <span id="selected_time">00:00:00</span></td>
+              </tr>
+            </table>
+          </div>
+          <br/>
+          <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
+          <script type="text/javascript">
+            <% if(@private) %>
+              var url = "<%= shared_private_workout_graph_path(:private_workout_id => @workout.id, :hash => @user.private_sharing_hash, :format => :json, :params => @user.preferences[:graph]) %>";
+            <% else %>
+              var url = "<%= shared_workout_graph_path(:workout_id => @workout.id, :user => @user.username, :format => :json, :params => @user.preferences[:graph]) %>";              
+            <% end %>
 
-      <% if @user.preferences[:graph]  %>
-        <% content_tag :div,   :id => "plot_wrapper" do %>
-          <% if @workout.has_training_files? %>
-            <div class="zoom">   
-              <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
-            </div>
-            <div class="container complete">
-              <div id="plot" class="plot" style="height:400px; width:700px">
-                <div id="loader" style="padding-top: 150px; text-align:center">
-                <%= image_tag("loader.gif") %><br/>
-                Loading graph.</div>
-              </div>
-            </div>
-            <div id="graph_summary" >      
-              <table border="0" cellspacing="0" cellpadding="3" id="graph_labels">
-                <tr>
-                  <td align="center">Time : <span id="selected_time">00:00:00</span></td>
-                </tr>
-              </table>
-            </div>
-            <br/>
-            <%= javascript_include_tag('flotr/flotr-0.1.0alpha', 'graph') %>
-            <script type="text/javascript">
-              <% if(@private) %>
-                var url = "<%= shared_private_workout_graph_path(:private_workout_id => @workout.id, :hash => @user.private_sharing_hash, :format => :json, :params => @user.preferences[:graph]) %>";
-              <% else %>
-                var url = "<%= shared_workout_graph_path(:workout_id => @workout.id, :user => @user.username, :format => :json, :params => @user.preferences[:graph]) %>";              
-              <% end %>
-
-              loadWorkoutPlot(url);
-            </script>
-            
-          <% else %>
-            <div class="left container full">
-             <div class="highlight_box full">
-               <br />
-              <div class="large center">No graph data available for this workout.</div>
-              <br />
-             </div>
-            </div>
-          <% end %>
+            loadWorkoutPlot(url);
+          </script>
+          
+        <% else %>
+          <div class="left container full">
+           <div class="highlight_box full">
+             <br />
+            <div class="large center">No graph data available for this workout.</div>
+            <br />
+           </div>
+          </div>
         <% end %>
-        <div class="container full"><p class="smaller right">Note: Click and drag to see more detail.</p></div>  
-      <% else %>
-        <div class="center container half">
-         <div class="highlight_box full">
-          <br />
-          <span class="large">This person has not selected anything to graph.</span>
-          <br />
-         </div>
-        </div>
       <% end %>
+      <div class="container full"><p class="smaller right">Note: Click and drag to see more detail.</p></div>  
+    <% else %>
+      <div class="center container half">
+       <div class="highlight_box full">
+        <br />
+        <span class="large">This person has not selected anything to graph.</span>
+        <br />
+       </div>
+      </div>
     <% end %>
-    <%= render :partial => 'common/back' %>
-  </div>
+  <% end %>
+  <%= render :partial => 'common/back' %>
+</div>

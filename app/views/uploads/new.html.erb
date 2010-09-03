@@ -1,9 +1,5 @@
-<% @links = [
-  { :text => 'Upload Workout', :path => new_upload_path }, 
-  { :text => 'Add Workout', :path => new_workout_path } ] %>
-
 <div id="main">
-  <%= render(:partial => 'common/secondary', :locals => { :header => new_upload_header }) %>
+  <%= render(:partial => 'common/secondary', :locals => { :header => new_upload_header, :navigation => options_for_new_workout_navigation }) %>
   <% rounded_box nil, "half", "full" do %>
     <% container "full" do %>
 

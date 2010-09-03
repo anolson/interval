@@ -1,8 +1,6 @@
-<% @links = options_for_secondary_links %>
-
 <div id="main_wrapper">
   <div id="main">
-    <%= render(:partial => 'common/secondary', :locals => {:header => shared_workout_header(@workout) }) %>  
+    <%= render(:partial => 'common/secondary', :locals => {:header => shared_workout_header(@workout), :navigation => options_for_shared_workout_navigation(@workout, @user) }) %>  
     <div id ="workout" class="summary">
     
       <div class="container full">

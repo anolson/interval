@@ -1,9 +1,5 @@
-<% @links = [
-  { :text => 'Preview.', :path => {:controller => 'admin/articles', :action => 'show' } } ] %>
-
-
 <div id="main">
-  <%= render(:partial => 'common/secondary', :locals => {:header => edit_article_header} ) %>
+  <%= render(:partial => 'common/secondary', :locals => { :header => edit_article_header, :navigation => options_for_edit_admin_article_navigation(@article) } ) %>
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
       <% form_for([:admin, @article]) do |f| %>

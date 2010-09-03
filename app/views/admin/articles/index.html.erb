@@ -1,9 +1,5 @@
-<% @links = [
-  { :text => 'Add an article.', :path => {:controller => 'admin/articles', :action => 'new' } } ] %>
-
-
 <div id="main">
-  <%= render(:partial => 'common/secondary', :locals => { :header => articles_header(@articles) } ) %>  
+  <%= render(:partial => 'common/secondary', :locals => { :header => articles_header(@articles), :navigation => options_for_new_article_navigation } ) %>  
   <div class="list">   
     <% rounded_box nil, "complete", "full" do %> 
     <div class="container full"> 

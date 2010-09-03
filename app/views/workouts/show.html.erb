@@ -1,11 +1,6 @@
-<% @links = [
-  { :text => 'Summary', :path => workout_path(@workout) }, 
-  { :text => 'Graph', :path => workout_graph_path(@workout) }, 
-  { :text => 'Peak Power', :path => workout_peak_power_path(@workout) } ] %>
-
 <div id="main_wrapper">
   <div id="main">
-    <%= render(:partial => 'common/secondary', :locals => { :header => workout_header(@workout) }) %>
+    <%= render(:partial => 'common/secondary', :locals => { :header => workout_header(@workout), :navigation => options_for_workout_navigation(@workout) }) %>
     <div id="workout" class="list">
         <div class="container full">
           <fieldset>
