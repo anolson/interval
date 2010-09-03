@@ -1,7 +1,5 @@
-<% @heading_text ='Administrivia'%>
-
 <div class="container half">
-  <% rounded_box @heading_text, "complete", "wide" do %>
+  <% rounded_box 'Administrivia', "complete", "wide" do %>
     <% container "full" do %>
     
       <% form_for(:user, @user, :url => {:action => 'create'}) do |f| %>

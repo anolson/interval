@@ -1,10 +1,8 @@
-<% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
-<% @date = nice_datetime(@workout.performed_on) %>
 <% @links = options_for_secondary_links %>
 
 <div id="main_wrapper">
   <div id="main">
-    <%= render(:partial => 'common/secondary') %>  
+    <%= render(:partial => 'common/secondary', :locals => {:header => shared_workout_header(@workout) }) %>  
     <div id ="workout" class="summary">
     
       <div class="container full">

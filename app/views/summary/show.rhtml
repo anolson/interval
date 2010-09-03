@@ -1,7 +1,5 @@
-<% @heading = content_tag :span, "Training summary.", :class => "larger" %>
-
 <div id="main">
-  <%= render(:partial => 'common/secondary') %>
+  <%= render(:partial => 'common/secondary', :locals => { :header => summary_header }) %>
   <div class="summary">
     <% rounded_box "Weekly", "half", "full" do %>
       <% container "full" do %>

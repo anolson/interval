@@ -3,7 +3,7 @@
     <%= @links && @links.collect{ |link| secondary_item link[:text], link[:path] }.join('<li>|</li>') %>
   </ul>
   <div>
-    <%= @heading %>
+    <%= header %>
     <% if(should_display_performed_on_date?) %>
       <%= content_tag(:div, nice_datetime(@workout.performed_on), :class => "date smaller light", :id => "workout_date") %>
     <% end %>

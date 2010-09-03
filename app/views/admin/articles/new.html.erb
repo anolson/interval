@@ -1,7 +1,5 @@
-<% @heading = content_tag :span, "Add a new article.", :class => "larger" %>
-
 <div id="main">
-  <%= render(:partial => 'common/secondary') %>
+  <%= render(:partial => 'common/secondary', :locals => { :header => new_article_header }) %>
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
       <% form_for([:admin, @article]) do |f| %>

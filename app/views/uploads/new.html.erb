@@ -1,11 +1,9 @@
-<% @heading = content_tag :span, "Upload a workout.", :class => "larger" %>
-
 <% @links = [
   { :text => 'Upload Workout', :path => new_upload_path }, 
   { :text => 'Add Workout', :path => new_workout_path } ] %>
 
 <div id="main">
-  <%= render(:partial => 'common/secondary') %>
+  <%= render(:partial => 'common/secondary', :locals => { :header => new_upload_header }) %>
   <% rounded_box nil, "half", "full" do %>
     <% container "full" do %>
 

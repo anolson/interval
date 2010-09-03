@@ -1,7 +1,5 @@
-<% @heading = content_tag :span, "Listing all users (#{@users.length})", :class => "larger" %>
-
 <div id="main"> 
-  <%= render(:partial => 'common/secondary') %>  
+  <%= render(:partial => 'common/secondary', :locals => { :header => users_header }) %>  
   <div class="list"> 
     <% rounded_box nil, "complete", "full" do %> 
     <div class="container full"> 

@@ -60,6 +60,14 @@ module Shared::SharedHelper
   def link_to_shared_workouts
     link_to("#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", shared_workouts_path)
   end
+  
+  def shared_workout_header(workout)
+    content_tag(:span, workout.name, :class => "larger", :id => "workout_name")
+  end
+  
+  def shared_workouts_header(user)
+    content_tag(:span, "#{user.preferences[:display_name]}'s shared workouts.", :class => "larger")
+  end
 
 
 end

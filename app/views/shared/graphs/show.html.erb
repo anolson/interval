@@ -1,9 +1,7 @@
-<% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
-<% @date = nice_datetime(@workout.performed_on) %>
 <% @links = options_for_secondary_links %>
 
   <div id="main">
-    <%= render(:partial => 'common/secondary') %>  
+    <%= render(:partial => 'common/secondary', :locals => {:header => shared_workout_header(@workout)} ) %>  
     <% rounded_box nil, "complete", "full" do %> 
 
       <% if @user.preferences[:graph]  %>

@@ -1,5 +1,3 @@
-<% @heading = content_tag :span, @workout.name, :class => "larger", :id => "workout_name" %>
-
 <% @links = [
   { :text => 'Summary', :path => workout_path(@workout) }, 
   { :text => 'Graph', :path => workout_graph_path(@workout) }, 
@@ -7,7 +5,7 @@
 
 <div id="main_wrapper">
   <div id="main">
-    <%= render(:partial => 'common/secondary') %>
+    <%= render(:partial => 'common/secondary', :locals => { :header => workout_header(@workout) }) %>
     <% rounded_box nil, "complete", "full" do %> 
       <div class="container full">
         <% unless @workout.peak_powers.empty? %>

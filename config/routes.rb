@@ -27,6 +27,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:admin) do |admin|
     admin.resources :articles
+    admin.resources :users
+    
+    admin.resource :sessions
   end 
 
   #/shared and /shared/private to the main site
@@ -55,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]
   map.resources :downloads
   map.resources :processors
-  map.resources :sessions
+
   
   map.resources :workouts do |workout|
     workout.resource :peak_power
@@ -64,6 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :password_change, :controller => 'password_change'
   map.resource :preferences, :member => {:reset_sharing_links => :get, :reset_upload_address => :get}
+  map.resource :sessions  
   map.resource :summary, :controller => "summary"
   map.resource :upload
   map.resource :users, :member => {:confirm_destroy => :get}

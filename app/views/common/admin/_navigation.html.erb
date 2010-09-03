@@ -1,15 +1,15 @@
 <% if admin_logged_in? %>
   <div id="toolbar" class="smaller">
     Signed in as <%= @user.preferences[:display_name] %>.
-    <%= link_to('Sign-out.', :controller => 'session', :action => 'destroy') %>
+    <%= link_to('Sign-out.', admin_sessions_path, :method => :delete) %>
   </div>
 <% end %>
 
 <div id="navigation">
   <% if admin_logged_in? %>
     <ul>
-      <%= navigation_item_for_controller 'Users',  {:controller => 'users', :include => ['users']}%>
-      <%= navigation_item_for_controller 'Articles',  {:controller => 'articles', :include => ['articles']}%>
+      <%= navigation_item_for_path 'Users',  admin_users_path, {:include => ['users']} %>
+      <%= navigation_item_for_path 'Articles',  admin_articles_path, {:include => ['articles']} %>
     </ul>        
   <% end %>
 </div>

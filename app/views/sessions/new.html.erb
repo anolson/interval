@@ -1,7 +1,5 @@
-<% @heading_text ='Sign In'%>
-
 <div class="container half">
-  <% rounded_box @heading_text, "complete", "wide" do %>
+  <% rounded_box 'Sign In', "complete", "wide" do %>
     <% container "full" do %>
       
       <% form_for :sessions, :url => sessions_path do %>

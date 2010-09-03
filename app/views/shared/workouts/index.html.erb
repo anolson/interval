@@ -1,7 +1,6 @@
-<% @heading = content_tag :span, "#{@user.preferences[:display_name]}'s shared workouts.", :class => "larger" %>
 <div id="main_wrapper">
   <div id="main"> 
-    <%= render(:partial => 'common/secondary') %>  
+    <%= render(:partial => 'common/secondary', :locals => {:header => shared_workouts_header(@user) } ) %>  
     <% if @workouts.size > 0 then %>
       <%= render :partial => 'common/workouts' %>
     <% else %>

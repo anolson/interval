@@ -1,7 +1,6 @@
-<% @heading = content_tag :span, "All workouts (#{@workout_count})", :class => "larger" %>
 <div id="main_wrapper">
   <div id="main">
-    <%= render(:partial => 'common/secondary') %>
+    <%= render(:partial => 'common/secondary', :locals => {:header => workouts_header(@workout_count) }) %>
     <% if @workouts.size > 0 then %>
       <%= render :partial => 'common/workouts' %>
     <% else %>

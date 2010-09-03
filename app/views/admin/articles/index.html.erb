@@ -1,10 +1,9 @@
-<% @heading = content_tag :span, "Listing all articles (#{@articles.length})", :class => "larger" %>
 <% @links = [
-  { :text => 'Add an article.', :options => {:controller => 'admin/articles', :action => 'new' } } ] %>
+  { :text => 'Add an article.', :path => {:controller => 'admin/articles', :action => 'new' } } ] %>
 
 
 <div id="main">
-  <%= render(:partial => 'common/secondary') %>  
+  <%= render(:partial => 'common/secondary', :locals => { :header => articles_header(@articles) } ) %>  
   <div class="list">   
     <% rounded_box nil, "complete", "full" do %> 
     <div class="container full"> 

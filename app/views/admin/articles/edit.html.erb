@@ -1,11 +1,9 @@
-<% @heading = content_tag :span, "Edit article.", :class => "larger" %>
-
 <% @links = [
-  { :text => 'Preview.', :options => {:controller => 'admin/articles', :action => 'show' } } ] %>
+  { :text => 'Preview.', :path => {:controller => 'admin/articles', :action => 'show' } } ] %>
 
 
 <div id="main">
-  <%= render(:partial => 'common/secondary') %>
+  <%= render(:partial => 'common/secondary', :locals => {:header => edit_article_header} ) %>
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
       <% form_for([:admin, @article]) do |f| %>

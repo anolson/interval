@@ -122,4 +122,17 @@ module WorkoutsHelper
   def link_to_workouts()
     link_to("#{content_tag(:span, '&laquo;', :class=>'huge')} Back to workouts", workouts_path)
   end
+  
+  def new_workout_header()
+    content_tag(:span, "Add a new workout.", :class => "larger")
+  end
+  
+  def workout_header(workout)
+    content_tag(:span, workout.name, :class => "larger", :id => "workout_name")
+  end
+
+  def workouts_header(count)
+    content_tag(:span, "All workouts (#{count})", :class => "larger")
+    
+  end
 end

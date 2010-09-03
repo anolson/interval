@@ -1,7 +1,5 @@
-<% @heading = content_tag :span, "Edit user.", :class => "larger" %>
-
 <div id="main">
-  <%= render(:partial => 'common/secondary') %>  
+  <%= render(:partial => 'common/secondary', :locals => { :header => edit_user_header }) %>  
   <% rounded_box nil, "complete", "half" do %>
     <% container "full" do %>
       <% form_for(:user, @user, :url => {:action => 'update', :id => @user.id}) do |f| %>
