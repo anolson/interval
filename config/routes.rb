@@ -37,10 +37,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'shared/private', :controller => 'site', :action => 'index'
 
   map.namespace(:shared) do |shared|
-    #connect the old urls
-    shared.connect ':user', :controller => 'workouts'
-    shared.connect 'private/:hash', :controller => 'workouts'
-    
     #private sharing
     shared.resources :private_workouts, :path_prefix => 'shared/private/:hash', :as => "workouts", :controller => "workouts" do |workouts|
       workouts.resource :graph
@@ -52,7 +48,10 @@ ActionController::Routing::Routes.draw do |map|
       workouts.resource :graph
     end
     shared.resources :downloads, :path_prefix => 'shared/:user', :requirements => { :user => /\w[\w\.\-_@]+/ }
-    
+
+    #connect the old urls    
+    shared.connect ':user', :controller => 'workouts'
+    shared.connect 'private/:hash', :controller => 'workouts'    
   end
 
   map.resources :articles, :as => "support",  :controller => "support", :only => [:index, :show]

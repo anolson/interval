@@ -13,7 +13,7 @@
             <fieldset>
               <legend class="larger">Files</legend>
                 <ul>
-                  <%= render :partial => 'common/file', :collection => @workout.training_files %>
+                  <%= render :partial => 'common/workouts/file', :collection => @workout.training_files %>
                 </ul>
             </fieldset>
             <% if (@workout.markers.count > 1) then %>
@@ -29,7 +29,7 @@
                     <th>Cadence</th>
                     <th>Heartrate</th>
                   </tr>
-                  <%= render :partial => 'common/interval', :collection => @workout.markers[1..-1] %>
+                  <%= render :partial => 'common/workouts/interval', :collection => @workout.markers[1..-1] %>
                 </table>
               </fieldset>
             <% end %>
@@ -38,7 +38,7 @@
       
     </div>
     <p style="text-align: center; color: green"><%= flash[:notice] %></p>
-    <%= render :partial => 'common/back' %>
+    <%= render :partial => 'common/workouts/back' %>
 
   </div>
 </div>
@@ -47,18 +47,17 @@
   <% rounded_box nil, "complete", "wide" do %>
     <div class="top">Workout Details</div>
     <% container "full" do %>
-      <%= render :partial => 'common/totals' %>
+      <%= render :partial => 'common/workouts/totals' %>
       <br />
-      <%= render :partial => 'common/averages' %>
+      <%= render :partial => 'common/workouts/averages' %>
       <br />
-      
-      <%= render :partial => 'common/maximums' %>
+      <%= render :partial => 'common/workouts/maximums' %>
       <br />
     <% end %>
   <% end %>
   
   <% if @workout.has_training_files? %>
-    <%= render :partial => 'common/device_properties' %>
+    <%= render :partial => 'common/workouts/device_properties' %>
   <% end %>
   
   <%= render :partial => 'common/workouts/peaksware_trademark' %>

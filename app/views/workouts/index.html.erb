@@ -2,7 +2,7 @@
   <div id="main">
     <%= render(:partial => 'common/secondary', :locals => {:header => workouts_header(@workout_count) }) %>
     <% if @workouts.size > 0 then %>
-      <%= render :partial => 'common/workouts' %>
+      <%= render :partial => 'common/workouts/workouts' %>
     <% else %>
       <% info_box do %>
         <span class="larger">
@@ -20,9 +20,9 @@
       <li><%= link_to "Add a workout", new_workout_path  %></li>
     </ul>
   <% end %>
-  <%= render :partial => 'common/sort_by'%>
+  <%= render :partial => 'common/workouts/sort_by'%>
   
-  <%= render :partial => 'common/recent'%>
+  <%= render :partial => 'common/workouts/recent'%>
   
   
   <p style="text-align: center; color: green"><%= flash[:notice] %></p>

@@ -17,7 +17,7 @@ class Shared::WorkoutsController < Shared::SharedController
         render(:layout => false)
       }
       format.html
-      format.js { render(:partial => 'common/workouts/list', :layout => false) }
+      format.js { render(:partial => 'common/workouts/index', :layout => false) }
     end
   end
   

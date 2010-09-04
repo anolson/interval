@@ -2,7 +2,7 @@
       <div class="top">
         Sort by
       </div>
-      <% form_tag({}, {:id => 'sort_form'}) do %>
+      <% form_tag({:action => 'index'}, {:id => 'sort_form', :method => :get}) do %>
 
         <%= radio_button_tag 'sort_order', 'name', 
           @sort_order.eql?('name') && true || false, 
@@ -15,7 +15,7 @@
         <%= hidden_field_tag 'page', @workouts.current_page %>
         <%= hidden_field_tag 'view_type', @view_type %>
       <% end %>
-      <%= observe_form('sort_form', :url => {:action => 'list'} ) %>
+      <%= observe_form('sort_form', :url => {:action => 'index'}, :method => :get ) %>
     <% end %>
 
   

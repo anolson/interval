@@ -4,9 +4,9 @@
       Recent Workouts
     </div>
     <ul id="recent">
-      <%= render :partial => "common/recent_workout", :collection => @recent_workouts  %>
+      <%= render :partial => "common/workouts/recent_workout", :collection => @recent_workouts  %>
     </ul>
-    <%= render :partial => "common/processing", :locals => { :processing => @processors }  %>
+    <%= render :partial => "processors/processors", :collection => @processors %>
   <% end %>
 <% end %>
 

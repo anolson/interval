@@ -2,7 +2,7 @@
   <div id="main"> 
     <%= render(:partial => 'common/secondary', :locals => {:header => shared_workouts_header(@user) } ) %>  
     <% if @workouts.size > 0 then %>
-      <%= render :partial => 'common/workouts' %>
+      <%= render :partial => 'common/workouts/workouts' %>
     <% else %>
     <% info_box do %>
       <span class="larger">
@@ -13,6 +13,6 @@
   </div>
 </div>
 <% sidebar_div_tag do %>
-  <%= render :partial => 'common/sort_by'%>
+  <%= render :partial => 'common/workouts/sort_by'%>
   <p style="text-align: center; color: green"><%= flash[:notice] %></p>
 <% end %>

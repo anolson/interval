@@ -17,7 +17,6 @@ module ApplicationHelper
   end
 
   def current_controller?(options={})
-    puts controller.controller_name
     options[:include].detect{|c| c.eql?(controller.controller_name)}
   end
   

@@ -1,4 +1,4 @@
-<% unless processing.empty? %>
+<% unless processors.empty? %>
   <div class="container wide">
     <div id="processing">
       <%= javascript_tag 'var poll_workouts = true' %>
@@ -8,8 +8,8 @@
         :frequency => '10',
         :condition => 'poll_workouts == true') %>
         
-      <span class="light">Processing <%= pluralize processing.size, "workout" %>.</span>
-      <%= render :partial => "common/processing_workout", :collection => processing %>    
+      <span class="light">Processing <%= pluralize processors.size, "workout" %>.</span>
+      <%= render :partial => "processor", :collection => processing %>    
     </div>
   </div>
 <% end %>

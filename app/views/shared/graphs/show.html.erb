@@ -3,7 +3,7 @@
   <% rounded_box nil, "complete", "full" do %> 
 
     <% if @user.preferences[:graph]  %>
-      <% content_tag :div,   :id => "plot_wrapper" do %>
+      <% content_tag :div, :id => "plot_wrapper" do %>
         <% if @workout.has_training_files? %>
           <div class="zoom">   
             <a href="#" id='zoom_reset' class='small' onClick="return false;">Zoom Out</a>&nbsp;
@@ -55,5 +55,5 @@
       </div>
     <% end %>
   <% end %>
-  <%= render :partial => 'common/back' %>
+  <%= render :partial => 'common/workouts/back' %>
 </div>

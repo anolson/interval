@@ -13,7 +13,7 @@ class WorkoutsController < ApplicationController
         @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]        
       }
       format.js {
-        render(:partial => 'common/workouts/list', :layout => false)
+        render(:partial => 'common/workouts/index', :layout => false)
       }
     end
   end

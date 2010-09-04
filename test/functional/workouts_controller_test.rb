@@ -5,7 +5,7 @@ class WorkoutsControllerTest < ActionController::TestCase
   
   test "index without session" do
     get :index
-    assert_redirected_to :controller => 'user', :action => 'signin'
+    assert_redirected_to signin_path
   end
   
   test "index" do
