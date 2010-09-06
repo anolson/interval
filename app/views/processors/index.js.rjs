@@ -1,5 +1,4 @@
-if(@processing.empty?)
+if(@processors.empty?)
   page << "poll_workouts = false;"
+  page[:processing].hide
 end
-
-page.replace("processing", :partial => "processors", :object => @processing)

@@ -3,7 +3,7 @@ class ProcessorsController < ApplicationController
   before_filter :check_that_workout_belongs_to_user, :only => [:show]
   
   def index
-    @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
+    @processors = @user.workouts.find(:all, :conditions => { :state => "processing"})
   end
   
   def show

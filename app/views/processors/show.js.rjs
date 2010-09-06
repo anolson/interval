@@ -3,5 +3,5 @@ unless @workout.processing?
   page.insert_html :top, "recent", :partial => "common/workouts/recent_workout", :object => @workout 
   page.select("#recent_#{@workout.id}").each do |element|
     element.visual_effect(:highlight)
-  end
+  end 
 end
