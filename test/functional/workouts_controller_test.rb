@@ -31,6 +31,20 @@ class WorkoutsControllerTest < ActionController::TestCase
     session[:user] = users(:andrew).id
     post :show, {:id => 1}
     assert_response :success
+    
   end
   
+  test "edit" do
+    session[:user] = users(:andrew).id
+    get :edit, {:id => 1}
+    assert_response :success
+    assert assigns(:workout)
+  end
+  
+  test "update" do
+    put(:update, {:id => 1, :workout => { :name => "Easy RR ride." }, :marker => {:hour => "1", :minute => "0", :second => "0"}}, :user => users(:andrew).id)
+    assert_response :success
+    assert_select_rjs :replace_html, "workout_name"
+  end
+
 end
