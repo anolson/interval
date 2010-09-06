@@ -24,7 +24,7 @@
           
             <%= submit_tag "Sign Up"%>
             <br /> <br />
-            <%= error_messages_for 'user', 'credit_card', :header_tag => "h4" %>
+            <%= error_messages_for 'user', :header_tag => "h4" %>
             
         <% end %>
         <%= set_focus_for('user_username') %>

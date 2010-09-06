@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionController::TestCase
   fixtures :users
   
   test "create" do
@@ -12,8 +12,8 @@ class UserControllerTest < ActionController::TestCase
   
   test "create with errors" do
     post(:create, :user => {:username => 'andrew', :email => 'andrew@intervalapp.com', :password => 'test', :password_confirmation => 'test', :terms_of_service => 1})
-    assert_response :redirect
-    assert_redirected_to(signup_path)
+    assert_response :success
+    assert assigns(:user).errors
   end
 
 end
