@@ -2,4 +2,4 @@ if(@processing.empty?)
   page << "poll_workouts = false;"
 end
 
-page.replace("processing", :partial => "common/wokouts/processing", :object => @processing)
+page.replace("processing", :partial => "processors", :object => @processing)

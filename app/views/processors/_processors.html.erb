@@ -9,7 +9,7 @@
         :condition => 'poll_workouts == true') %>
         
       <span class="light">Processing <%= pluralize processors.size, "workout" %>.</span>
-      <%= render :partial => "processor", :collection => processing %>    
+      <%= render :partial => "processors/processor", :collection => processors %>    
     </div>
   </div>
 <% end %>

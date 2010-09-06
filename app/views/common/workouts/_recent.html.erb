@@ -1,4 +1,4 @@
-<% unless @recent_workouts.empty? && @processing.empty? %>
+<% unless @recent_workouts.empty? && @processors.empty? %>
   <% rounded_box nil, "complete", "wide" do %>
     <div class="top">
       Recent Workouts
@@ -6,7 +6,7 @@
     <ul id="recent">
       <%= render :partial => "common/workouts/recent_workout", :collection => @recent_workouts  %>
     </ul>
-    <%= render :partial => "processors/processors", :collection => @processors %>
+    <%= render :partial => "processors/processors", :locals => { :processors => @processors } %>
   <% end %>
 <% end %>
 

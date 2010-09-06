@@ -9,7 +9,7 @@ class WorkoutsController < ApplicationController
     respond_to do |format|
       format.html {
         @workout_count = @user.workouts.count(:conditions => "state != 'destroying'")
-        @processing = @user.workouts.find(:all, :conditions => { :state => "processing"})
+        @processors = @user.workouts.find(:all, :conditions => { :state => "processing"})
         @recent_workouts = @user.workouts.find(:all, :order => "created_at DESC", :conditions => { :state => ["created", "uploaded"] })[0,2]        
       }
       format.js {

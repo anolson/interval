@@ -46,5 +46,14 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
     assert_select_rjs :replace_html, "workout_name"
   end
+  
+  test "processing workouts" do
+  
+    session[:user] = users(:andrew).id  
+    get :index
+    assert_response :success
+    assert assigns(:processors)
+    
+  end
 
 end

@@ -6,7 +6,8 @@ recovery:
   notes: "RR on the bike path."
   user_id: 1
   permalink: "rr"
-  
+  state: "created"
+    
 pr:
   id: 2
   name: "Paris Roubaix"
@@ -14,6 +15,7 @@ pr:
   notes: "RR on the bike path."
   user_id: 2
   permalink: "paris_roubaix"
+  state: "created"
   
 one_week_ago_endurance:
   id: 3
@@ -22,6 +24,7 @@ one_week_ago_endurance:
   notes: "Big Miles."
   user_id: 2
   permalink: "endurance_miles"
+  state: "created"
 
 one_week_ago_recovery:
   id: 4
@@ -30,6 +33,7 @@ one_week_ago_recovery:
   notes: "Easy Ride."
   user_id: 2
   permalink: "recovery_ride"
+  state: "created"
   
 one_week_ago_raceride:
   id: 5
@@ -38,3 +42,12 @@ one_week_ago_raceride:
   notes: "Hard Ride."
   user_id: 1
   permalink: "race_ride"
+  state: "created"
+  
+processing_workout:
+  id: 6
+  name: "Fast ride"
+  performed_on: "9/6/10 10:00"
+  notes: "Weeee!!"
+  user_id: 1
+  state: "processing"
