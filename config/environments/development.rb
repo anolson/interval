@@ -20,3 +20,5 @@ config.action_mailer.raise_delivery_errors = false
 config.after_initialize do
   Workling::Remote.dispatcher = Workling::Remote::Runners::StarlingRunner.new
 end
+
+config.gem "sqlite3-ruby", :lib => "sqlite3"

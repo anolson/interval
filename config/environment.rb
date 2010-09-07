@@ -35,9 +35,7 @@ Rails::Initializer.run do |config|
   # config tmail, but don't vendor the gem since it builds native extensions
   config.gem 'tmail'
   config.gem 'fastercsv'
-  config.gem 'RedCloth'
-  config.gem "sqlite3-ruby", :lib => "sqlite3", :environment => [:development, :test] 
-  
+  config.gem 'RedCloth'  
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
