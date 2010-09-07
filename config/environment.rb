@@ -36,7 +36,7 @@ Rails::Initializer.run do |config|
   config.gem 'tmail'
   config.gem 'fastercsv'
   config.gem 'RedCloth'
-  config.gem "sqlite3-ruby", :lib => "sqlite3"
+  config.gem "sqlite3-ruby", :lib => "sqlite3", :environment => [:development, :test] 
   
 
   # Use the database for sessions instead of the cookie-based default,
