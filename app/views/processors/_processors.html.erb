@@ -8,7 +8,9 @@
         :frequency => '10',
         :condition => 'poll_workouts == true') %>
         
-      <span class="light">Processing <%= pluralize processors.size, "workout" %>.</span>
+      <span class="light">
+        Processing <%= render :partial => 'processors/processing_size', :locals => {:size => processors.size} %>
+      </span>
       <%= render :partial => "processors/processor", :collection => processors %>    
     </div>
   </div>

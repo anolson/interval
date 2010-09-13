@@ -1,4 +1,6 @@
+page[:processing_size].replace :partial => "processors/processing_size", :locals => {:size => @processors.size}
+
 if(@processors.empty?)
   page << "poll_workouts = false;"
-  page[:processing].hide
+  page[:processing].hide  
 end
