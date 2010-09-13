@@ -9,11 +9,8 @@ class UploadsController < ApplicationController
     @workout.user = @user
   
     if @workout.save
-      @workout.process!
-      # WorkoutsWorker.async_process_workout(:workout_id => @workout.id)
-      
-      Delayed::Job.enqueue(ProcessWorkoutJob.new(@workout.id))
-      
+      @workout.process!    
+      Delayed::Job.enqueue(ProcessWorkoutJob.new(@workout.id))      
       redirect_to(:controller => 'workouts', :action => 'index')
     else
       render(:action => 'new')

@@ -36,9 +36,7 @@ class WorkoutsController < ApplicationController
 
   def destroy
     @workout.process_destroy!
-    #puts "-- #{@workout.state}"
-    WorkoutsWorker.async_destroy_workout(:workout_id => params[:id])
-    #Workout.destroy(params[:id])
+    Delayed::Job.enqueue(DestroyWorkoutJob.new(@workout.id))
     redirect_to(:action => 'index')
   end
   
