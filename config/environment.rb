@@ -35,8 +35,9 @@ Rails::Initializer.run do |config|
   # config tmail, but don't vendor the gem since it builds native extensions
   config.gem 'tmail'
   config.gem 'fastercsv'
-  config.gem 'RedCloth'  
-
+  config.gem 'RedCloth'
+  config.gem 'delayed_job'
+  
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with 'rake db:sessions:create')
