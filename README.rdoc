@@ -24,6 +24,12 @@ View, track and share your powermeter data.  Interval is a web application that 
     $ rake
     $ script/server
     
+== Processing workouts in the background
+
+Workouts are processed in the background with delayed_job.  Be sure to startup the background processor.
+
+    $ rake jobs:work
+    
 == Update the session store secret
 
 If you plan to run this in production your should update the session store secret.
