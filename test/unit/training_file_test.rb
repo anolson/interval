@@ -9,6 +9,7 @@ class TrainingFileTest < ActiveSupport::TestCase
 
    assert_equal ".srm", training_file.file_type
    assert training_file.has_performed_on_date_time?
+   assert training_file.markers.size > 0
  end
     
 end

@@ -37,6 +37,7 @@ Rails::Initializer.run do |config|
   config.gem 'fastercsv'
   config.gem 'RedCloth'
   config.gem 'delayed_job'
+  config.gem 'joule'
   
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information

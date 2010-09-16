@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 23) do
+ActiveRecord::Schema.define(:version => 24) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(:version => 23) do
     t.integer "time",             :default => 0
     t.integer "time_with_pauses", :default => 0
     t.integer "time_of_day",      :default => 0
+    t.float   "altitude",         :default => 0.0
+    t.float   "longitude",        :default => 0.0
+    t.float   "latitude",         :default => 0.0
   end
 
   add_index "data_values", ["training_file_id"], :name => "index_data_values_on_training_file_id"

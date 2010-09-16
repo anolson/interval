@@ -1,6 +1,8 @@
-require 'srm_file_parser'
-require 'csv_file_parser'
-require 'ibike_file_parser'
+# require 'srm_file_parser'
+# require 'csv_file_parser'
+# require 'ibike_file_parser'
+
+require 'joule'
 
 class TrainingFile < ActiveRecord::Base
   unloadable
@@ -37,7 +39,7 @@ class TrainingFile < ActiveRecord::Base
   end
   
   def has_performed_on_date_time?
-    self.powermeter_properties.class.eql?(IbikeProperties) || self.powermeter_properties.class.eql?(SrmProperties)
+    self.powermeter_properties.class.eql?(Joule::IBike::Properties) || self.powermeter_properties.class.eql?(Joule::SRM::Properties)
   end
   
   def auto_assign_options
@@ -48,12 +50,16 @@ class TrainingFile < ActiveRecord::Base
   
   
   def parse_file_data()
-    file_parser = get_file_parser()
-    file_parser.parse_training_file
-    self.data_values.push(file_parser.data_values)
-    self.powermeter_properties=file_parser.properties
-    @markers = file_parser.markers
-    @peak_powers = file_parser.peak_powers
+    parser = Joule::parser("srm", self.payload)
+    workout = parser.parse(
+      :calculate_marker_values => true,
+      :calculate_peak_power_values => true,
+      :durations => PeakPower::DURATIONS)
+      
+    self.data_values << workout.data_points.collect { |v| DataValue.new(v.to_hash) }
+    self.powermeter_properties = workout.properties
+    @markers = workout.markers
+    @peak_powers = workout.peak_powers
   end
   
   private
@@ -63,16 +69,9 @@ class TrainingFile < ActiveRecord::Base
     #end 
 
     def validate_on_create 
-      regex = %r{\.(srm|csv)$}i
+      regex = %r{\.(srm|csv|tcx)$}i
       errors.add("filename", "is an unsupported format") unless self.filename.match(regex)
     end
     
-    def get_file_parser()
-      if self.is_srm_file_type?()
-        SrmParser.new(self.payload)
-      else
-        CsvFileParser.new(self.payload).get_parser
-      end
-    end
       
 end

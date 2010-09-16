@@ -1,4 +1,4 @@
-require 'power_calculator.rb'
+require 'joule'
 
 class SummaryController < ApplicationController
   layout 'standard'
@@ -46,9 +46,9 @@ class SummaryController < ApplicationController
       
       { :period => period,
         :type => type,
-        :duration => Time.at(PowerCalculator::total(workouts.collect {|workout| workout.markers.first.duration.to_i unless workout.processing?}) || 0).utc,
-        :distance => PowerCalculator::total(workouts.collect {|workout| workout.markers.first.distance unless workout.processing?}) || 0.0,
-        :energy => PowerCalculator::total(workouts.collect {|workout| workout.markers.first.energy unless workout.processing?}) || 0 }
+        :duration => Time.at(Joule::Calculator::PowerCalculator::total(workouts.collect {|workout| workout.markers.first.duration.to_i unless workout.processing?}) || 0).utc,
+        :distance => Joule::Calculator::PowerCalculator::total(workouts.collect {|workout| workout.markers.first.distance unless workout.processing?}) || 0.0,
+        :energy => Joule::Calculator::PowerCalculator::total(workouts.collect {|workout| workout.markers.first.energy unless workout.processing?}) || 0 }
     end
   
 end
