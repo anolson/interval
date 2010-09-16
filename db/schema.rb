@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 24) do
+ActiveRecord::Schema.define(:version => 25) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -65,19 +65,19 @@ ActiveRecord::Schema.define(:version => 24) do
 
   create_table "markers", :force => true do |t|
     t.boolean "active",                  :default => true
-    t.integer "avg_cadence",             :default => 0
-    t.integer "avg_heartrate",           :default => 0
-    t.integer "avg_power",               :default => 0
-    t.float   "avg_speed",               :default => 0.0
+    t.integer "average_cadence",         :default => 0
+    t.integer "average_heartrate",       :default => 0
+    t.integer "average_power",           :default => 0
+    t.float   "average_speed",           :default => 0.0
     t.string  "comment"
     t.integer "duration_seconds",        :default => 0
     t.float   "distance",                :default => 0.0
     t.integer "end"
     t.integer "energy",                  :default => 0
-    t.integer "max_cadence",             :default => 0
-    t.integer "max_heartrate",           :default => 0
-    t.integer "max_power",               :default => 0
-    t.float   "max_speed",               :default => 0.0
+    t.integer "maximum_cadence",         :default => 0
+    t.integer "maximum_heartrate",       :default => 0
+    t.integer "maximum_power",           :default => 0
+    t.float   "maximum_speed",           :default => 0.0
     t.integer "start"
     t.integer "workout_id"
     t.integer "normalized_power",        :default => 0
