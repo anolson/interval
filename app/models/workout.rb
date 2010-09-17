@@ -126,7 +126,7 @@ class Workout < ActiveRecord::Base
     training_file.parse_file_data
     training_file.save
 
-    workout.markers << training_file.markers.markers.collect {|v| Marker.new(v.to_hash)}
+    workout.markers << training_file.markers.collect {|v| Marker.new(v.to_hash)}
     workout.peak_powers << training_file.peak_powers.collect {|v| PeakPower.new(v.to_hash) }
     workout.auto_assign workout.auto_assign_options(workout.user, training_file)
     workout.auto_assign training_file.auto_assign_options

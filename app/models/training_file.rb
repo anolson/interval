@@ -31,11 +31,7 @@ class TrainingFile < ActiveRecord::Base
   end
   
   def is_srm_file_type?()
-    return self.file_type.eql?(SrmParser::SRM)
-  end
- 
-  def is_ibike_file_type?()
-     return self.file_type.eql?(IbikeFileParser::IBIKE)
+    return self.file_type.eql?(".srm")
   end
   
   def has_performed_on_date_time?
