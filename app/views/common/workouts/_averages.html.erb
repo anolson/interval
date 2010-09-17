@@ -3,7 +3,7 @@
           <tr><th colspan='2'>Averages</th></tr>
           <tr>
             <td align="right">Power :</td>
-            <td><%= @workout.markers.first.avg_power %> W</td>
+            <td><%= @workout.markers.first.average_power %> W</td>
           </tr>
           <tr class="odd">
             <td align="right">Power / Weight :</td>
@@ -11,15 +11,15 @@
           </tr>
           <tr >
             <td align="right"> Speed :</td>
-            <td><%= format_speed(@workout.markers.first.avg_speed, :include_units => true) %></td>
+            <td><%= format_speed(@workout.markers.first.average_speed, :include_units => true) %></td>
           </tr>
           <tr class="odd">
             <td align="right"> Cadence :</td>
-            <td><%= @workout.markers.first.avg_cadence %> rpm</td>
+            <td><%= @workout.markers.first.average_cadence %> rpm</td>
           </tr>
           <tr >
             <td align="right"> Heartrate :</td>
-            <td><%= @workout.markers.first.avg_heartrate %> bpm</td>
+            <td><%= @workout.markers.first.average_heartrate %> bpm</td>
           </tr>
         </table>
       </div>

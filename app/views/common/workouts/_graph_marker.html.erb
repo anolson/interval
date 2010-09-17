@@ -29,8 +29,8 @@
                         </tr>
                         <tr>
                           <td>Power</td>
-                          <td><%= graph_marker.avg_power %> W</td>
-                          <td><%= graph_marker.max_power %> W</td>
+                          <td><%= graph_marker.average_power %> W</td>
+                          <td><%= graph_marker.maximum_power %> W</td>
                         </tr>                        
 
                         <tr class="odd">
@@ -41,20 +41,20 @@
                         
                         <tr>
                           <td>Speed</td>
-                          <td><%= format_speed(graph_marker.avg_speed, :include_units => true) %></td>
-                          <td><%= format_speed(graph_marker.max_speed, :include_units => true) %></td>
+                          <td><%= format_speed(graph_marker.average_speed, :include_units => true) %></td>
+                          <td><%= format_speed(graph_marker.maximum_speed, :include_units => true) %></td>
                         </tr>
                         
                         <tr class="odd">
                           <td>Cadence</td>
-                          <td><%= graph_marker.avg_cadence %> rpm</td>
-                          <td><%= graph_marker.max_cadence %> rpm</td>
+                          <td><%= graph_marker.average_cadence %> rpm</td>
+                          <td><%= graph_marker.maximum_cadence %> rpm</td>
                         </tr>
                         
                         <tr>
                           <td>Heartrate</td>
-                          <td><%= graph_marker.avg_heartrate %> bpm</td>
-                          <td><%= graph_marker.max_heartrate %> bpm</td>
+                          <td><%= graph_marker.average_heartrate %> bpm</td>
+                          <td><%= graph_marker.maximum_heartrate %> bpm</td>
                         </tr>
                                                                                                 
                       </table>
