@@ -1,4 +1,4 @@
-    <% if @workout.training_files.first.powermeter_properties.class.eql? SrmProperties %>
+    <% if(Joule::SRM::is_srm_file(@workout.training_files.first.file_type)) %>
       <% rounded_box nil, "complete", "wide" do %>
         <div class="top">Device Properties</div>
         <% container "full" do %>
