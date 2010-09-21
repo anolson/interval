@@ -1,9 +1,3 @@
-# require 'srm_file_parser'
-# require 'csv_file_parser'
-# require 'ibike_file_parser'
-
-require 'joule'
-
 class TrainingFile < ActiveRecord::Base
   unloadable
   
