@@ -46,7 +46,7 @@ class TrainingFile < ActiveRecord::Base
   
   
   def parse_file_data()
-    parser = Joule::parser("srm", self.payload)
+    parser = Joule::parser(file_type(), self.payload)
     workout = parser.parse(
       :calculate_marker_values => true,
       :calculate_peak_power_values => true,
