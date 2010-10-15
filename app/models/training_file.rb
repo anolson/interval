@@ -1,9 +1,3 @@
-# require 'srm_file_parser'
-# require 'csv_file_parser'
-# require 'ibike_file_parser'
-
-require 'joule'
-
 class TrainingFile < ActiveRecord::Base
   unloadable
   
@@ -46,7 +40,7 @@ class TrainingFile < ActiveRecord::Base
   
   
   def parse_file_data()
-    parser = Joule::parser("srm", self.payload)
+    parser = Joule::parser(file_type(), self.payload)
     workout = parser.parse(
       :calculate_marker_values => true,
       :calculate_peak_power_values => true,

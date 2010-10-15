@@ -1,7 +1,7 @@
       <div class="twoColumn">
         <table border="0" cellspacing="0" cellpadding="3">
           <tr><th colspan='2'>Totals</th></tr>
-          <% if @workout.has_training_files? && @workout.training_files.first.is_srm_file_type? %>
+          <% if @workout.has_training_files? && Joule::SRM::is_srm_file(@workout.training_files.first.file_type) %>
           <tr>
             <td align="right">Total Time :</td>
             <td><%= nice_duration(Time.at(@workout.training_files.first.data_values.last.time_with_pauses).utc) %></td>
