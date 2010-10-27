@@ -37,6 +37,7 @@ Rails::Initializer.run do |config|
   config.gem 'RedCloth'
   config.gem 'delayed_job'
   config.gem 'joule'
+  config.gem 'will_paginate'
   
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
@@ -54,6 +55,3 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 end
-
-require 'will_paginate'
-require 'joule'
