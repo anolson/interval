@@ -1,0 +1,6 @@
+gem "rails", "2.3.8"
+gem "tmail"
+gem "RedCloth"
+gem "delayed_job"
+gem "joule"
+gem "will_paginate"

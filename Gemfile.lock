@@ -1,0 +1,43 @@
+GEM
+  specs:
+    RedCloth (4.2.3)
+    actionmailer (2.3.8)
+      actionpack (= 2.3.8)
+    actionpack (2.3.8)
+      activesupport (= 2.3.8)
+      rack (~> 1.1.0)
+    activerecord (2.3.8)
+      activesupport (= 2.3.8)
+    activeresource (2.3.8)
+      activesupport (= 2.3.8)
+    activesupport (2.3.8)
+    daemons (1.0.10)
+    delayed_job (2.0.3)
+      daemons
+    fastercsv (1.4.0)
+    joule (1.0.3)
+      fastercsv (>= 1.4.0)
+      nokogiri (>= 1.4.1)
+    nokogiri (1.4.1)
+    rack (1.1.0)
+    rails (2.3.8)
+      actionmailer (= 2.3.8)
+      actionpack (= 2.3.8)
+      activerecord (= 2.3.8)
+      activeresource (= 2.3.8)
+      activesupport (= 2.3.8)
+      rake (>= 0.8.3)
+    rake (0.8.7)
+    tmail (1.2.3.1)
+    will_paginate (2.3.15)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  RedCloth
+  delayed_job
+  joule
+  rails (= 2.3.8)
+  tmail
+  will_paginate
