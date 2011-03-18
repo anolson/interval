@@ -19,6 +19,7 @@ View, track and share your powermeter data.  Interval is a web application that 
     
 == Get started
 
+    $ rm public/index.html
     $ cp config/database.yml.example config/database.yml
     $ cp config/initializers/session_store.rb.example config/initializers/session_store.rb
     $ rake
@@ -29,22 +30,12 @@ View, track and share your powermeter data.  Interval is a web application that 
 Workouts are processed in the background with delayed_job.  Be sure to startup the background processor.
 
     $ rake jobs:work
-    
-== Update the session store secret
-
-If you plan to run this in production your should update the session store secret.
-
-    $ rake secret
-
-Paste the newly generate secret into session_store.rb
-
-    $ vi config/initializers/session_store.rb
 
 == License
 
 (The MIT License)
 
-Copyright (c) 2008 - 2010 Digital Terrific, LLC.
+Copyright (c) 2008 - 2011 Andrew Olson.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
